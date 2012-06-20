@@ -9,7 +9,7 @@ class Systems extends ImpulseController {
 	}
 
 	public function index() {
-		header("Location: /systems/view/{$this->impulselib->get_view_username()}");
+		header("Location: /systems/view/".$this->user->getActiveUser());
 	}
 
 	public function view($username=null)
@@ -42,11 +42,13 @@ class Systems extends ImpulseController {
 		}
 		catch (ObjectNotFoundException $onfe) {
 			$content = $this->load->view('exceptions/objectnotfound',null,true);
+			$links = null;
 		}
 		catch (Exception $e) {
 			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+			$links = null;
 		}
-		$this->_render($content,$links=null);
+		$this->_render($content,$links);
 	}
 }
 

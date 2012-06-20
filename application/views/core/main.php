@@ -32,7 +32,7 @@
 		<link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
 	</head>
 
-	<body>
+	<body onload="bodyLoad()">
 		<?=$navbar;?>
 		<div class="container-fluid">
 			<?=$breadcrumb;?>
@@ -56,6 +56,7 @@
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="/js/jquery-1.7.2.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/impulse.js"></script>
 
 	</body>
 </html>

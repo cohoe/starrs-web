@@ -40,7 +40,7 @@ class ImpulseLoader {
 		#require_once(APPPATH . "libraries/objects/NetworkSwitchport.php");
 		#require_once(APPPATH . "libraries/objects/NetworkSystem.php");
 
-		require_once(APPPATH . "libraries/objects/CurrentUser.php");
+		require_once(APPPATH . "libraries/objects/User.php");
 		
 		# Exceptions
 		#require_once(APPPATH . "libraries/exceptions/ControllerException.php");

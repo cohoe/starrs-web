@@ -11,7 +11,7 @@
 		<ul class="nav">
              <li><a href="#"><?=$displayName." (".$userLevel.")"?></a></li>
 		<li><form class="navbar-form">
-			<select class="btn dropdown-toggle" name="user">
+			<select class="btn dropdown-toggle" name="user" id="viewuser" onchange="setViewUser()">
 		<?php foreach($users as $user) {
 			if($user == $userName) {
 			echo "<option value=\"$user\" selected>$user</option>";

@@ -4,7 +4,7 @@
  */
 class ImpulseController extends CI_Controller {
 
-	protected static $current_user;
+	protected static $user;
 	protected static $trail;
 
 	public function __construct() {
@@ -22,10 +22,11 @@ class ImpulseController extends CI_Controller {
 		}
 		
 		// Instantiate the user
-		$this->current_user = new CurrentUser(
+		$this->user = new User(
 			$this->impulselib->get_username(),
 			$this->impulselib->get_name(),
-			$this->api->get->current_user_level()
+			$this->api->get->current_user_level(),
+			$this->input->cookie('impulse_viewUser',TRUE)
 		);
 	}
 
@@ -35,13 +36,14 @@ class ImpulseController extends CI_Controller {
 		$title = "IMPULSE: ".ucfirst($this->uri->segment(1))."/".ucfirst($this->uri->segment(2));
 	
 		// Basic information about the user should be displayed
-		$userData['userName'] = $this->current_user->get_user_name();
-		$userData['displayName'] = $this->current_user->get_display_name();
-		$userData['userLevel'] = $this->current_user->get_user_level();
-		$userData['viewUser'] = $this->impulselib->get_view_username();
+		$userData['userName'] = $this->user->get_user_name();
+		$userData['displayName'] = $this->user->get_display_name();
+		$userData['userLevel'] = $this->user->get_user_level();
+		$userData['userLevel'] = $this->user->get_user_level();
+		$userData['viewUser'] = $this->user->getActiveUser();
 
 		// If the user is an admin then they have the ability to easily switch "viewing" users
-		if($this->current_user->isadmin()) {
+		if($this->user->isadmin()) {
 			$userData['users'] = $this->api->get->users();
 		}
 
