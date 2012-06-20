@@ -5,6 +5,7 @@
 class ImpulseController extends CI_Controller {
 
 	protected static $current_user;
+	protected static $trail;
 
 	public function __construct() {
 		parent::__construct();
@@ -28,7 +29,7 @@ class ImpulseController extends CI_Controller {
 		);
 	}
 
-	protected function _render($sidebar,$content) {
+	protected function _render($content,$sidebarItems=null) {
 		
 		// Page title
 		$title = "IMPULSE: ".ucfirst($this->uri->segment(1))."/".ucfirst($this->uri->segment(2));
@@ -37,6 +38,7 @@ class ImpulseController extends CI_Controller {
 		$userData['userName'] = $this->current_user->get_user_name();
 		$userData['displayName'] = $this->current_user->get_display_name();
 		$userData['userLevel'] = $this->current_user->get_user_level();
+		$userData['viewUser'] = $this->impulselib->get_view_username();
 
 		// If the user is an admin then they have the ability to easily switch "viewing" users
 		if($this->current_user->isadmin()) {
@@ -47,7 +49,13 @@ class ImpulseController extends CI_Controller {
 		$navbar = $this->load->view('core/navbar',$userData,true);
 
 		// Load breadcrumb trail view
-		$breadcrumb = $this->load->view('core/breadcrumb',array('segments'=>$this->uri->rsegment_array()),true);
+		$breadcrumb = $this->load->view('core/breadcrumb',array('segments'=>self::$trail),true);
+
+		// Sidebar
+		$sidebar = "";
+		if($sidebarItems) {
+			$sidebar = $this->load->view('core/sidebar',array('items'=>$sidebarItems),true);
+		}
 
 		// Send the data to the browser
 		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content));

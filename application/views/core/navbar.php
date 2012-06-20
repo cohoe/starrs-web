@@ -25,7 +25,7 @@
           </div>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/systems">Systems</a></li>
+              <li class="active"><a href="/systems/view/<?=$viewUser;?>">Systems</a></li>
               <li><a href="#contact">DNS</a></li>
               <li><a href="#contact">DHCP</a></li>
               <li><a href="#contact">IP</a></li>

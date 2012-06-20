@@ -47,7 +47,7 @@ class ImpulseLoader {
 		#require_once(APPPATH . "libraries/exceptions/ObjectException.php");
 		#require_once(APPPATH . "libraries/exceptions/AmbiguousTargetException.php");
 		#require_once(APPPATH . "libraries/exceptions/DBException.php");
-		#require_once(APPPATH . "libraries/exceptions/ObjectNotFoundException.php");
+		require_once(APPPATH . "libraries/exceptions/ObjectNotFoundException.php");
 		#require_once(APPPATH . "libraries/exceptions/APIException.php");
 		
 		# UI Stuff

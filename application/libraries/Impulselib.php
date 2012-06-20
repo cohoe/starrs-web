@@ -136,6 +136,14 @@ class Impulselib {
 		return $this->uname;
 	}
 
+	/**
+	* Get the username that you are viewing as.
+	* @todo: Make this do soemthing with the navbar field
+	*/
+	public function get_view_username() {
+		return $this->uname;
+	}
+
     /**
      * Get your real name
      * @return string

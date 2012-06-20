@@ -5,8 +5,9 @@ class Welcome extends ImpulseController {
 	public function index()
 	{
 		$content = $this->load->view('welcome_message',null,true);
-		$sidebar = "";
-		$this->_render($sidebar,$content);
+		#$sidebar = $this->load->view('core/sidebar',null,true);
+		$this->sidebar = "";
+		$this->_render($content);
 	}
 }
 
