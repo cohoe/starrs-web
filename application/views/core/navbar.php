@@ -9,9 +9,10 @@
           <a class="brand" href="/">IMPULSE</a>
           <div class="nav-collapse pull-right">
 		<ul class="nav">
-             <li><a href="#"><?=$displayName." (".$userLevel.")"?></a></li>
+             <li><a href="#" onclick="setViewUser('<?=$userName;?>')"><?=$displayName." (".$userLevel.")"?></a></li>
 		<li><form class="navbar-form">
 			<select class="btn dropdown-toggle" name="user" id="viewuser" onchange="setViewUser()">
+			<option value="all">All</option>"
 		<?php foreach($users as $user) {
 			if($user == $userName) {
 			echo "<option value=\"$user\" selected>$user</option>";

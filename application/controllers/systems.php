@@ -3,17 +3,18 @@ require_once(APPPATH . "libraries/core/ImpulseController.php");
 
 class Systems extends ImpulseController {
 
-	public function __construct() {
-		parent::__construct();
-		self::$trail["Systems"] = "/systems";
-	}
-
 	public function index() {
+		// Redirect to a useful default function
 		header("Location: /systems/view/".$this->user->getActiveUser());
 	}
 
 	public function view($username=null)
 	{
+		// Breadcrumb trail
+		self::$trail["Systems"] = "/systems";
+		self::$trail[$this->user->getActiveUser()] = "/systems/view/{$this->user->getActiveUser()}";
+
+		// Generate content
 		try {
 			$systems = $this->api->systems->get->systemsByOwner($username);
 			$links = array();
@@ -48,6 +49,10 @@ class Systems extends ImpulseController {
 			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
 			$links = null;
 		}
+
+		$content = $this->load->view('system/information',null,true);
+
+		// Render page
 		$this->_render($content,$links);
 	}
 }

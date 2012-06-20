@@ -9,6 +9,7 @@
 
 		<!-- Le styles -->
 		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/impulse.css" rel="stylesheet">
 		<style type="text/css">
 			body {
 				padding-top: 60px;
@@ -38,7 +39,7 @@
 			<?=$breadcrumb;?>
 			<div class="row-fluid">
 				<?=$sidebar;?>
-				<div class="span9">
+				<div class="span10">
 					<?=$content;?>
 				</div><!--/span-->
 			</div><!--/row-->

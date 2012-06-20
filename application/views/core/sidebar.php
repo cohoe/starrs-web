@@ -1,4 +1,4 @@
-<div class="span3">        
+<div class="span2">        
 	<div class="well sidebar-nav">
 		<ul class="nav nav-list">
 			<?php
