@@ -40,6 +40,8 @@
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
+// System is a reserved word
+$route['system/(.*?)'] = 'computersystem/$1';
 
 
 /* End of file routes.php */

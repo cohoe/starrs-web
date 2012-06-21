@@ -39,7 +39,7 @@
 			<?=$breadcrumb;?>
 			<div class="row-fluid">
 				<?=$sidebar;?>
-				<div class="span10">
+				<div class="span9">
 					<?=$content;?>
 				</div><!--/span-->
 			</div><!--/row-->

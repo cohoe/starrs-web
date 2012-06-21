@@ -8,6 +8,8 @@ class Impulselib {
 	private $uname;
 	private $CI;
 
+	const createbtnclass = "success";
+
     /**
      * Constructor. This will load in your identification information for use in privilege leveling
      */

@@ -37,6 +37,87 @@ class Api_systems_get extends ImpulseModel {
 		// Return results
 		return $resultSet;
 	}
+
+	public function systemByName($name=null) {
+		//SQL Query
+		$sql = "SELECT * FROM api.get_systems(null) AS sysdata JOIN api.get_system_types() as typedata ON sysdata.type = typedata.type WHERE system_name = {$this->db->escape($name)};";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$sys = new System(
+			$query->row()->system_name,
+			$query->row()->owner,
+			$query->row()->comment,
+			$query->row()->type,
+			$query->row()->family,
+			$query->row()->os_name,
+			$query->row()->renew_date,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+
+		return $sys;
+	}
+
+	public function interfacesBySystem($systemName=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_system_interfaces({$this->db->escape($systemName)})";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$resultSet = array();
+		foreach($query->result_array() as $interface) {
+			$int = new NetworkInterface(
+				$interface['mac'],
+				$interface['comment'],
+				$interface['system_name'],
+				$interface['name'],
+				$interface['date_created'],
+				$interface['date_modified'],
+				$interface['last_modifier']
+			);
+			$resultSet[] = $int;
+		}
+
+		// Return Results
+		return $resultSet;
+	}
+
+	public function interfaceaddressesBySystem($systemName=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_system_interface_addresses(null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY family(address),address;";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$resultSet = array();
+		foreach($query->result_array() as $interfaceAddress) {
+			$intAddr = new InterfaceAddress(
+				$interfaceAddress['address'],
+				$interfaceAddress['class'],
+				$interfaceAddress['config'],
+				$interfaceAddress['mac'],
+				$interfaceAddress['isprimary'],
+				$interfaceAddress['comment'],
+				$interfaceAddress['date_created'],
+				$interfaceAddress['date_modified'],
+				$interfaceAddress['last_modifier']
+			);
+			$resultSet[] = $intAddr;
+		}
+
+		// Return results
+		return $resultSet;
+	}
 }
 /* End of file api_systems_get.php */
 /* Location: ./application/models/API/Systems/api_systems_get.php */

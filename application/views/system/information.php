@@ -6,6 +6,3 @@
 		<p>To view an existing system, select it on the left. Otherwise click the create button.</p>
 	</div>
 </div><!--/span-->
-<div class="span2 well">
-	<button class="btn btn-success imp-actionbtn"><a href="#"> Create</a></button>
-</div>

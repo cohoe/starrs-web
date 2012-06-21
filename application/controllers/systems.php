@@ -11,17 +11,20 @@ class Systems extends ImpulseController {
 	public function view($username=null)
 	{
 		// Breadcrumb trail
-		self::$trail["Systems"] = "/systems";
-		self::$trail[$this->user->getActiveUser()] = "/systems/view/{$this->user->getActiveUser()}";
+		$this->_addTrail('Systems',"/systems");
+		$this->_addTrail($this->user->getActiveUser(),"/systems/view/{$this->user->getActiveUser()}");
+		
+		// Actions
+		$this->_addAction('Create',"/system/create");
 
 		// Generate content
 		try {
 			$systems = $this->api->systems->get->systemsByOwner($username);
 			$links = array();
-			$content = "<div class=\"row-fluid\">";
+			$content = "";
 			$rowCounter = 0;
 			foreach($systems as $system) {
-				$links[$system->get_system_name()]['link'] = "/system/view/{$system->get_system_name()}";
+				$links[$system->get_system_name()]['link'] = "/system/view/".rawurlencode($system->get_system_name());
 				$links[$system->get_system_name()]['text'] = $system->get_system_name();
 				if(($rowCounter % 3) == 0) {
 					$content .= "</div>\n<div class=\"row-fluid\">";
@@ -39,7 +42,6 @@ class Systems extends ImpulseController {
 				),true);
 				$rowCounter++;
 			}
-			$content .= "</div>";
 		}
 		catch (ObjectNotFoundException $onfe) {
 			$content = $this->load->view('exceptions/objectnotfound',null,true);
@@ -51,9 +53,12 @@ class Systems extends ImpulseController {
 		}
 
 		$content = $this->load->view('system/information',null,true);
+		foreach($links as $item) {
+			$this->_addSidebarItem("<li><a href=\"{$item['link']}\">{$item['text']}</a></li>");
+		}
 
 		// Render page
-		$this->_render($content,$links);
+		$this->_render($content);
 	}
 }
 

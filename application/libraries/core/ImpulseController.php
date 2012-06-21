@@ -5,7 +5,10 @@
 class ImpulseController extends CI_Controller {
 
 	protected static $user;
-	protected static $trail;
+	private $trail;
+	private $sidebarItems;
+
+	private $actions;
 
 	public function __construct() {
 		parent::__construct();
@@ -30,7 +33,7 @@ class ImpulseController extends CI_Controller {
 		);
 	}
 
-	protected function _render($content,$sidebarItems=null) {
+	protected function _render($content) {
 		
 		// Page title
 		$title = "IMPULSE: ".ucfirst($this->uri->segment(1))."/".ucfirst($this->uri->segment(2));
@@ -51,16 +54,58 @@ class ImpulseController extends CI_Controller {
 		$navbar = $this->load->view('core/navbar',$userData,true);
 
 		// Load breadcrumb trail view
-		$breadcrumb = $this->load->view('core/breadcrumb',array('segments'=>self::$trail),true);
+		$breadcrumb = $this->load->view('core/breadcrumb',array('segments'=>$this->trail),true);
 
 		// Sidebar
-		$sidebar = "";
-		if($sidebarItems) {
-			$sidebar = $this->load->view('core/sidebar',array('items'=>$sidebarItems),true);
-		}
+		$sidebar = $this->load->view('core/sidebarblank',array('sideContent'=>$this->sidebarItems),true);
+
+		// Content
+
+		$finalContent = "<div class=\"row-fluid\">";
+		$finalContent .= $content;
+		$finalContent .= $this->_renderActions();
+		$finalContent .= "</div>";
 
 		// Send the data to the browser
-		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content));
+		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$finalContent));
+	}
+
+	protected function _addAction($action,$link) {
+		switch($action) {
+			case "Create":
+				$class="success";
+				break;
+			case "Modify":
+				$class="warning";
+				break;
+			case "Remove":
+				$class="danger";
+				break;
+			default:
+				$class="info";
+				break;
+		}
+
+		$this->actions[] = $this->load->view('core/actionbutton',array("action"=>$action,"link"=>$link,"class"=>$class),true);
+	}
+
+	protected function _addTrail($name,$link) {
+		$this->trail[$name] = $link;
+	}
+
+	protected function _renderActions() {
+		if($this->actions) {
+			$actionCode = "<div class=\"span2 well pull-right\">";
+			foreach($this->actions as $action) {
+				$actionCode .= $action;
+			}
+			$actionCode .= "</div>";
+			return $actionCode;
+		}
+	}
+
+	protected function _addSidebarItem($item) {
+		$this->sidebarItems .= $item;
 	}
 }
 /* End of file ImpulseController.php */
