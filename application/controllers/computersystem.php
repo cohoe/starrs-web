@@ -58,14 +58,16 @@ class ComputerSystem extends ImpulseController {
 		}
 
 		$this->_addSidebarItem("<li class=\"nav-header\">DNS Records</li>");
-		$this->_addSidebarItem("<li><a href=\"#\">enterprise.csh.rit.edu</a></li>");
-		$this->_addSidebarItem("<li><a href=\"#\">ent.csh.rit.edu</a></li>");
-		$this->_addSidebarItem("<li><a href=\"#\">enterprise-ipmi.csh.rit.edu</a></li>");
-		$this->_addSidebarItem("<li><a href=\"#\">enterprise-49.csh.rit.edu</a></li>");
-		$this->_addSidebarItem("<li><a href=\"#\">enterprise-50.csh.rit.edu</a></li>");
-		$this->_addSidebarItem("<li><a href=\"#\">_jabber._tcp.csh.rit.edu</a></li>");
-		$this->_addSidebarItem("<li><a href=\"#\">_jabber._udp.csh.rit.edu</a></li>");
-
+		try {
+			$aRecs = $this->api->dns->get->addressesBySystem($systemName);
+			foreach($aRecs as $aRec) {
+				$this->_addSidebarItem("<li><a href=\"#\">{$aRec->get_hostname()}.{$aRec->get_zone()}</a></li>");
+			}
+		}
+		catch (ObjectNotFoundException $e) {}
+		catch (Exception $e) {
+			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+		}
 
 		// Render page
 		$this->_render($content);
