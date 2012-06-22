@@ -1,4 +1,4 @@
-<div class="span10">
+<div class="span7">
 	<div class="well">
 		<h1>Systems</h1>
 		<hr />

@@ -1,4 +1,4 @@
-<div class="span10 well">
+<div class="span7 well">
 	<h2><?=$sys->get_system_name();?></h2>
 	<dl class="dl-horizontal">
 		<dt>Type</dt>

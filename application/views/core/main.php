@@ -39,9 +39,7 @@
 			<?=$breadcrumb;?>
 			<div class="row-fluid">
 				<?=$sidebar;?>
-				<div class="span9">
-					<?=$content;?>
-				</div><!--/span-->
+				<?=$content;?>
 			</div><!--/row-->
 
 			<hr>

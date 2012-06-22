@@ -118,6 +118,42 @@ class Api_systems_get extends ImpulseModel {
 		// Return results
 		return $resultSet;
 	}
+
+	public function types() {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_system_types()";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		$resultSet = array();
+		foreach($query->result_array() as $systemType) {
+			$resultSet[] = new SystemType(
+				$systemType['type'],
+				$systemType['family']
+			);
+		}
+
+		// Return Results
+		return $resultSet;
+	}
+
+	public function operatingSystems() {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_operating_systems()";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Return
+		$resultSet = array();
+		foreach($query->result_array() as $os) {
+			$resultSet[] = $os['get_operating_systems'];
+		}
+		return $resultSet;
+	}
 }
 /* End of file api_systems_get.php */
 /* Location: ./application/models/API/Systems/api_systems_get.php */

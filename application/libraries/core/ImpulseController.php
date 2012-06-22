@@ -60,14 +60,10 @@ class ImpulseController extends CI_Controller {
 		$sidebar = $this->load->view('core/sidebarblank',array('sideContent'=>$this->sidebarItems),true);
 
 		// Content
-
-		$finalContent = "<div class=\"row-fluid\">";
-		$finalContent .= $content;
-		$finalContent .= $this->_renderActions();
-		$finalContent .= "</div>";
+		$content.= $this->_renderActions();
 
 		// Send the data to the browser
-		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$finalContent));
+		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content));
 	}
 
 	protected function _addAction($action,$link) {

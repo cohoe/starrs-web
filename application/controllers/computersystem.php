@@ -59,9 +59,32 @@ class ComputerSystem extends ImpulseController {
 
 		$this->_addSidebarItem("<li class=\"nav-header\">DNS Records</li>");
 		try {
-			$aRecs = $this->api->dns->get->addressesBySystem($systemName);
-			foreach($aRecs as $aRec) {
-				$this->_addSidebarItem("<li><a href=\"#\">{$aRec->get_hostname()}.{$aRec->get_zone()}</a></li>");
+			#$aRecs = $this->api->dns->get->addressesBySystem($systemName);
+			#foreach($aRecs as $aRec) {
+			#	$this->_addSidebarItem("<li><a href=\"#\">{$aRec->get_hostname()}.{$aRec->get_zone()}</a></li>");
+			#}
+			$recs = $this->api->dns->get->recordsBySystem($systemName);
+			foreach($recs as $rec) {
+				switch(get_class($rec)) {
+					case 'AddressRecord':
+						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_hostname()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
+						break;
+					case 'CnameRecord':
+						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_alias()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
+						break;
+					case 'MxRecord':
+						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_hostname()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
+						break;
+					case 'SrvRecord':
+						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_alias()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
+						break;
+					case 'TextRecord':
+						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_hostname()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
+						break;
+					default:
+						throw new Exception("WTF?");
+						break;
+				}
 			}
 		}
 		catch (ObjectNotFoundException $e) {}
@@ -70,6 +93,17 @@ class ComputerSystem extends ImpulseController {
 		}
 
 		// Render page
+		$this->_render($content);
+	}
+
+	public function create() {
+		// Breadcrumb trail
+		$this->_addTrail("Systems","/systems/");
+
+		// View data
+		$viewData['sysTypes'] = $this->api->systems->get->types();
+		$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
+		$content=$this->load->view('system/create',$viewData,true);
 		$this->_render($content);
 	}
 }
