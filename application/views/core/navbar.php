@@ -11,7 +11,7 @@
 		<ul class="nav">
              <li><a href="#" onclick="setViewUser('<?=$userName;?>')"><?=$displayName." (".$userLevel.")"?></a></li>
 		<li><form class="navbar-form">
-			<select class="btn dropdown-toggle" name="user" id="viewuser" onchange="setViewUser()">
+			<select class="btn dropdown-toggle" style="width: auto" name="user" id="viewuser" onchange="setViewUser()">
 			<option value="all">All</option>"
 		<?php foreach($users as $user) {
 			if($user == $userName) {
@@ -26,13 +26,12 @@
           </div>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/systems/view/<?=$viewUser;?>">Systems</a></li>
-              <li><a href="#contact">DNS</a></li>
-              <li><a href="#contact">DHCP</a></li>
-              <li><a href="#contact">IP</a></li>
-              <li><a href="#contact">Management</a></li>
-              <li><a href="#contact">Network</a></li>
-              <li><a href="#contact">Statistics</a></li>
+		    <li <?=($header=='Systems')?'class="active"':null;?>><a href="/systems/view/<?=$viewUser;?>">Systems</a></li>
+		    <li <?=($header=='DNS')?'class="active"':null;?>><a href="#">DNS</a></li>
+		    <li <?=($header=='DHCP')?'class="active"':null;?>><a href="#">DHCP</a></li>
+		    <li <?=($header=='IP')?'class="active"':null;?>><a href="#">IP</a></li>
+		    <li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>
+		    <li <?=($header=='Network')?'class="active"':null;?>><a href="#">Network</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

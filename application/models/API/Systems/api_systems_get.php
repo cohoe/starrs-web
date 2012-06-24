@@ -6,6 +6,10 @@
 class Api_systems_get extends ImpulseModel {
 	
 	public function systemsByOwner($owner=null) {
+		// Check if should be null
+		if($owner == "all") {
+			$owner = null;
+		}
 		// SQL Query
 		$sql = "SELECT * FROM api.get_systems({$this->db->escape($owner)}) AS sysdata JOIN api.get_system_types() AS typedata ON sysdata.type = typedata.type ORDER BY system_name;";
 		$query = $this->db->query($sql);

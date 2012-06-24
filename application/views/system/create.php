@@ -1,13 +1,23 @@
-	<form method="POST" class="form-horizontal well span9">
+	<div class="modal hide" id="myModal">
+		<div class="modal-header">
+		</div>
+		<div id="modal-error" class="modal-body alert alert-error">
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+		</div>
+	</div>
+	
+	<form method="POST" class="form-horizontal well span9" id="createForm">
 		<fieldset>
 			<legend>Create System</legend>
-			<div class="control-group">
+			<div class="control-group error">
 				<label class="control-label">System Name: </label>
 				<div class="controls">
-					<input type="text" name="systemName"/>
+					<input type="text" name="systemName" />
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group error">
 				<label class="control-label">Type: </label>
 				<div class="controls">
 					<select name="type">
@@ -20,7 +30,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="control-group">	
+			<div class="control-group error">	
 				<label class="control-label">Operating System: </label>
 				<div class="controls">
 					<select name="osName">
@@ -33,7 +43,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="control-group">	
+			<div class="control-group warning">	
 				<label class="control-label">Comment: </label>
 				<div class="controls">
 					<input type="text" name="comment" />
@@ -42,20 +52,14 @@
 			<div class="control-group">	
 				<label class="control-label">Owner: </label>
 				<div class="controls">
-					<input type="text" name="owner" />
+					<input type="text" name="owner" <?=($isAdmin)?"":"disabled";?> value="<?=$owner;?>" />
 				</div>
 			</div>
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create System" class="btn btn-primary" />
-					<button class="btn">Cancel</button>
+					<a href="/systems/view"><button class="btn">Cancel</button></a>
 				</div>
 			</div>
 		</fieldset>
 	</form>
-
-	<div class="span3 well">
-			<p><span class="label label-important">Red</span> highlighted fields are required.</p>
-			<p><span class="label label-warning">Yellow</span> highlighted fields are optional.</p>
-			<p><span class="label label-success">Green</span> highlighted fields contain a value.</p>
-	</div>

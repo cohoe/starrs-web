@@ -9,6 +9,7 @@ class ImpulseController extends CI_Controller {
 	private $sidebarItems;
 
 	private $actions;
+	private $navheader;
 
 	public function __construct() {
 		parent::__construct();
@@ -44,6 +45,7 @@ class ImpulseController extends CI_Controller {
 		$userData['userLevel'] = $this->user->get_user_level();
 		$userData['userLevel'] = $this->user->get_user_level();
 		$userData['viewUser'] = $this->user->getActiveUser();
+		$userData['header'] = $this->navheader;
 
 		// If the user is an admin then they have the ability to easily switch "viewing" users
 		if($this->user->isadmin()) {
@@ -103,6 +105,15 @@ class ImpulseController extends CI_Controller {
 	protected function _addSidebarItem($item) {
 		$this->sidebarItems .= $item;
 	}
+
+	protected function _setNavHeader($header) {
+		$this->navheader = $header;
+	}
+
+	protected function _sendClient($url) {
+		print "<script>window.location.href = '$url';</script>";
+	}
+
 }
 /* End of file ImpulseController.php */
 /* Location: ./application/libraries/core/ImpulseController.php */

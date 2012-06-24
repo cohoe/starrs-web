@@ -3,6 +3,11 @@ require_once(APPPATH . "libraries/core/ImpulseController.php");
 
 class ComputerSystem extends ImpulseController {
 
+	public function __construct() {
+		parent::__construct();
+		$this->_setNavHeader("Systems");
+	}
+
 	public function index() {
 		// Redirect to a useful default function
 		header("Location: /systems/view/".$this->user->getActiveUser());
@@ -97,14 +102,50 @@ class ComputerSystem extends ImpulseController {
 	}
 
 	public function create() {
+		if($this->input->post()) {
+			$this->_create();
+		}
+		else {
 		// Breadcrumb trail
 		$this->_addTrail("Systems","/systems/");
 
 		// View data
 		$viewData['sysTypes'] = $this->api->systems->get->types();
 		$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
+		$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
+		$viewData['isAdmin'] = $this->user->isAdmin();
 		$content=$this->load->view('system/create',$viewData,true);
+		$content .= $this->load->view('core/forminfo',null,true);
 		$this->_render($content);
+		}
+	}
+
+	public function remove($systemName) {
+		$systemName = rawurldecode($systemName);
+		try {
+			$this->api->systems->remove->system($systemName);
+			header("Location: /systems/view/".$this->user->getActiveUser());
+		}
+		catch (Exception $e) {
+			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+		}
+	}
+
+	private function _create() {
+		try {
+			$sys = $this->api->systems->create->system(
+				$this->input->post('systemName'),
+				$this->input->post('owner'),
+				$this->input->post('type'),
+				$this->input->post('osName'),
+				$this->input->post('comment')
+			);
+
+			$this->_sendClient("/system/view/{$sys->get_system_name()}");
+		}
+		catch(Exception $e) {
+			$this->load->view('exceptions/modalerror',array('exception'=>$e));
+		}
 	}
 }
 

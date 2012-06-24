@@ -17,5 +17,12 @@ $hook['pre_controller'][] = array(
 	'filepath' => 'hooks'
 );
 
+$hook['pre_system'][] = array(
+	'class' => 'ImpulseLoader',
+	'function' => 'hookExceptions',
+	'filename' => 'impulseloader.php',
+	'filepath' => 'hooks'
+);
+
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

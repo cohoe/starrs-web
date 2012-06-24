@@ -8,8 +8,6 @@
 		<meta name="author" content="">
 
 		<!-- Le styles -->
-		<link href="/css/bootstrap.css" rel="stylesheet">
-		<link href="/css/impulse.css" rel="stylesheet">
 		<style type="text/css">
 			body {
 				padding-top: 60px;
@@ -19,6 +17,8 @@
 				padding: 9px 0;
 			}
 		</style>
+		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/impulse.css" rel="stylesheet">
 		
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
@@ -33,7 +33,7 @@
 		<link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
 	</head>
 
-	<body onload="bodyLoad()">
+	<body>
 		<?=$navbar;?>
 		<div class="container-fluid">
 			<?=$breadcrumb;?>
