@@ -168,6 +168,27 @@ class Api_systems_get extends ImpulseModel {
 		return $resultSet;
 	}
 
+	public function interfaceaddressByAddress($address=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_system_interface_address({$this->db->escape($address)})";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		return new InterfaceAddress(
+			$query->row()->address,
+			$query->row()->class,
+			$query->row()->config,
+			$query->row()->mac,
+			$query->row()->isprimary,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
 	public function types() {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_system_types()";

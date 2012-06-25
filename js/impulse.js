@@ -64,14 +64,14 @@ $(document).ready(function() {
 	setViewUserSelect();
 });
 
-$('#createForm').submit(function() {
-	$.post(undefined,$('#createForm').serialize(),function(data) { 
+$('#create-form').submit(function() {
+	$.post(undefined,$('#create-form').serialize(),function(data) { 
 		if(!data.match(/^\<script\>/g)) {
 			$('#modal-error-body').html(data);
 			$('#modal-error').modal('show');
 		}
 		else {
-			$(this).html($('#createForm').html() + data);
+			$(this).html($('#create-form').html() + data);
 		}
 	});
 	return false;

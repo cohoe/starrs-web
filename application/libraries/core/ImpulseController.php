@@ -10,6 +10,7 @@ class ImpulseController extends CI_Controller {
 
 	private $actions;
 	private $navheader;
+	private $contentList;
 
 	public function __construct() {
 		parent::__construct();
@@ -124,8 +125,13 @@ class ImpulseController extends CI_Controller {
 		}
 	}
 
-	protected function _addSidebarHeader($text) {
-		$this->sidebarItems .= "<li class=\"nav-header\">$text</li>";
+	protected function _addSidebarHeader($text,$link=null) {
+		if($link) {
+			$this->sidebarItems .= "<li class=\"nav-header\"><a href=\"$link\">$text</a></li>";
+		}	
+		else {
+			$this->sidebarItems .= "<li class=\"nav-header\">$text</li>";
+		}
 	}
 
 	protected function _setNavHeader($header) {
@@ -168,6 +174,28 @@ class ImpulseController extends CI_Controller {
 	protected function _exit($e) {
 		$content = $this->load->view('exceptions/exception',array("exception"=>$e),true);
 		$this->_render($content);
+	}
+
+	protected function _addContentToList($content, $cols) {
+		$this->contentList[$cols][] = $content;
+	}
+
+	protected function _renderContentList($cols) {
+		$content = "<div class=\"container span7\">";
+		$rowCounter = 0;
+		foreach($this->contentList[$cols] as $view) {
+			if($rowCounter == 0) {
+				$content .= "<div class=\"row-fluid\">";
+			}
+			elseif($rowCounter % $cols == 0) {
+				$content .= "</div><div class=\"row-fluid\">";
+			}
+			$content .= $view;
+			$rowCounter++;
+		}
+
+		$content .= "</div></div>";
+		return $content;
 	}
 }
 /* End of file ImpulseController.php */

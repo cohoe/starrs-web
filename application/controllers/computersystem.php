@@ -43,7 +43,7 @@ class ComputerSystem extends ImpulseController {
 		$intAddrs = array();
 		$recs = array();
 
-		$this->_addSidebarHeader("INTERFACES");
+		$this->_addSidebarHeader("INTERFACES","/interfaces/view/".rawurlencode($sys->get_system_name()));
 		try {
 			$ints = $this->api->systems->get->interfacesBySystem($systemName);
 			foreach($ints as $int) {
@@ -67,7 +67,7 @@ class ComputerSystem extends ImpulseController {
 		}
 		$this->_addSidebarHeader("ADDRESSES");
 		foreach($intAddrs as $intAddr) {
-			$this->_addSidebarItem($intAddr->get_address(),"#","globe");
+			$this->_addSidebarItem($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()),"globe");
 			try {
 				$recs = array_merge($recs, $this->api->dns->get->recordsByAddress($intAddr->get_address()));
 			}

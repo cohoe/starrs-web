@@ -37,6 +37,30 @@ class Api_systems_create extends ImpulseModel {
 		);
 	}
 
+	public function _interface($systemName=null, $mac=null, $interfaceName=null, $comment=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.create_interface(
+			{$this->db->escape($systemName)},
+			{$this->db->escape($mac)},
+			{$this->db->escape($interfaceName)},
+			{$this->db->escape($comment)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new NetworkInterface(
+			$query->row()->mac,
+			$query->row()->comment,
+			$query->row()->system_name,
+			$query->row()->name,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
 }
 /* End of file api_systems_create.php */
 /* Location: ./application/models/API/Systems/api_systems_create.php */

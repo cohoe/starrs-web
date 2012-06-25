@@ -1,4 +1,4 @@
-	<form method="POST" class="form-horizontal well span9" id="createForm">
+	<form method="POST" class="form-horizontal well span9" id="create-form">
 		<fieldset>
 			<legend>Create System</legend>
 			<div class="control-group error">
