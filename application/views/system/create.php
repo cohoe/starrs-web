@@ -1,13 +1,3 @@
-	<div class="modal hide" id="myModal">
-		<div class="modal-header">
-		</div>
-		<div id="modal-error" class="modal-body alert alert-error">
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-		</div>
-	</div>
-	
 	<form method="POST" class="form-horizontal well span9" id="createForm">
 		<fieldset>
 			<legend>Create System</legend>

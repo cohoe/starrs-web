@@ -39,7 +39,7 @@ class Systems extends ImpulseController {
 
 			$content = $this->load->view('system/information',null,true);
 			foreach($links as $item) {
-				$this->_addSidebarItem("<li><a href=\"{$item['link']}\">{$item['text']}</a></li>");
+				$this->_addSidebarItem($item['text'],$item['link'],"hdd");
 			}
 		}
 		catch (ObjectNotFoundException $onfe) {

@@ -1,3 +1,6 @@
-<div class="span10 alert alert-error">
-	<h1>Fatal error:</h1> <?=$exception->getMessage();?>
+<div class="span4 alert alert-error">
+	<h1>Error:</h1>
+	<br />
+	<p>Message: <?=$exception->getMessage();?></p>
+	<p>Type: <?=get_class($exception);?></p>
 </div>

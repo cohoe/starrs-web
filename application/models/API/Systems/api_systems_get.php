@@ -21,7 +21,7 @@ class Api_systems_get extends ImpulseModel {
 		$resultSet = array();
 		foreach($query->result_array() as $system) {
 			// Instantiate a new system object
-			$sys = new System(
+			$resultSet[] = new System(
 				$system['system_name'],
 				$system['owner'],
 				$system['comment'],
@@ -33,9 +33,6 @@ class Api_systems_get extends ImpulseModel {
 				$system['date_modified'],
 				$system['last_modifier']
 			);
-
-			// Add the object to the results array
-			$resultSet[] = $sys;
 		}
 
 		// Return results
@@ -67,6 +64,28 @@ class Api_systems_get extends ImpulseModel {
 		return $sys;
 	}
 
+	public function interfaceByMac($mac=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_system_interfaces(null) WHERE mac={$this->db->escape($mac)}";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$int = new NetworkInterface(
+			$query->row()->mac,
+			$query->row()->comment,
+			$query->row()->system_name,
+			$query->row()->name,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+
+		return $int;
+	}
+
 	public function interfacesBySystem($systemName=null) {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_system_interfaces({$this->db->escape($systemName)})";
@@ -78,7 +97,7 @@ class Api_systems_get extends ImpulseModel {
 		// Generate results
 		$resultSet = array();
 		foreach($query->result_array() as $interface) {
-			$int = new NetworkInterface(
+			$resultSet[] = new NetworkInterface(
 				$interface['mac'],
 				$interface['comment'],
 				$interface['system_name'],
@@ -87,7 +106,6 @@ class Api_systems_get extends ImpulseModel {
 				$interface['date_modified'],
 				$interface['last_modifier']
 			);
-			$resultSet[] = $int;
 		}
 
 		// Return Results
@@ -105,7 +123,7 @@ class Api_systems_get extends ImpulseModel {
 		// Generate results
 		$resultSet = array();
 		foreach($query->result_array() as $interfaceAddress) {
-			$intAddr = new InterfaceAddress(
+			$resultSet[] = new InterfaceAddress(
 				$interfaceAddress['address'],
 				$interfaceAddress['class'],
 				$interfaceAddress['config'],
@@ -116,7 +134,34 @@ class Api_systems_get extends ImpulseModel {
 				$interfaceAddress['date_modified'],
 				$interfaceAddress['last_modifier']
 			);
-			$resultSet[] = $intAddr;
+		}
+
+		// Return results
+		return $resultSet;
+	}
+
+	public function interfaceaddressesByMac($mac=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_system_interface_addresses(null) WHERE mac = {$this->db->escape($mac)} ORDER BY family(address),address;";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$resultSet = array();
+		foreach($query->result_array() as $interfaceAddress) {
+			$resultSet[] = new InterfaceAddress(
+				$interfaceAddress['address'],
+				$interfaceAddress['class'],
+				$interfaceAddress['config'],
+				$interfaceAddress['mac'],
+				$interfaceAddress['isprimary'],
+				$interfaceAddress['comment'],
+				$interfaceAddress['date_created'],
+				$interfaceAddress['date_modified'],
+				$interfaceAddress['last_modifier']
+			);
 		}
 
 		// Return results

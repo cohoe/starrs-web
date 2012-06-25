@@ -1,0 +1,23 @@
+			foreach($recs as $rec) {
+				switch(get_class($rec)) {
+					case 'AddressRecord':
+						$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","font");
+						
+						break;
+					case 'CnameRecord':
+						$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"#","hand-right");
+						break;
+					case 'MxRecord':
+						$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","envelope");
+						break;
+					case 'SrvRecord':
+						$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"#","wrench");
+						break;
+					case 'TextRecord':
+						$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","list-alt");
+						break;
+					default:
+						throw new Exception("WTF?");
+						break;
+				}
+			}

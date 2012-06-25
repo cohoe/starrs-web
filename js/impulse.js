@@ -66,14 +66,57 @@ $(document).ready(function() {
 
 $('#createForm').submit(function() {
 	$.post(undefined,$('#createForm').serialize(),function(data) { 
-	console.debug(data.match(/^\<script\>/g));
 		if(!data.match(/^\<script\>/g)) {
-			$('#modal-error').html(data);
-			$('#myModal').modal('show');
+			$('#modal-error-body').html(data);
+			$('#modal-error').modal('show');
 		}
 		else {
-			$('#createForm').html($('#createForm').html() + data);
+			$(this).html($('#createForm').html() + data);
 		}
+	});
+	return false;
+});
+
+$('#modify-form').submit(function() {
+	$.post(undefined,$('#modify-form').serialize(),function(data) { 
+		if(!data.match(/^\<script\>/g)) {
+			$('#modal-error-body').html(data);
+			$('#modal-error').modal('show');
+		}
+		else {
+			$(this).html($('#modify-form').html() + data);
+		}
+	});
+	return false;
+});
+
+$('#remove').click(function() {
+	$('#modal-confirm-btn').attr('href',$('#remove').attr('href'));
+	$('#modal-confirm').modal('show');
+	return false;
+});
+
+$('#modal-confirm-btn').click(function() {
+	$.post($('#remove').attr('href'),{ confirm:"confirm" },function(data) {
+		if(!data.match(/^\<script\>/g)) {
+			$('#modal-error-body').html(data);
+			$('#modal-error').modal('show');
+		}
+		else {
+			$(this).html($('#remove').html() + data);
+		}
+	});
+	return false;
+});
+
+$('#renew').click(function() {
+	$.get($(this).attr('href'),function(data) {
+		$('#modal-info .modal-header').html("<h1>"+$('#renew').text()+"</h1>");
+		$('#modal-info-body').html(data);
+		$('#modal-info').modal('show');
+		$('#modal-info .modal-footer .btn').click(function() {
+			document.location.reload(true);
+		});
 	});
 	return false;
 });

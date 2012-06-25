@@ -18,84 +18,68 @@ class ComputerSystem extends ImpulseController {
 		// Decode
 		$systemName = rawurldecode($systemName);
 
+		// Instantiate
+		try {
+			$sys = $this->api->systems->get->systemByName($systemName);
+		}
+		catch(Exception $e) {
+			$this->_exit($e);
+			return;
+		}
+
 		// Breadcrumb trail
 		$this->_addTrail('Systems',"/systems");
 		$this->_addTrail("$systemName","/system/view/".rawurlencode($systemName));
 
 		// Actions
+		$this->_addAction('Add Interface',"/interface/create/".rawurlencode($systemName),"success");
 		$this->_addAction('Modify',"/system/modify/".rawurlencode($systemName));
 		$this->_addAction('Remove',"/system/remove/".rawurlencode($systemName));
 		$this->_addAction('Renew',"/system/renew/".rawurlencode($systemName));
 
 		// Generate content
-		try {
-			$sys = $this->api->systems->get->systemByName($systemName);
-			$content = $this->load->view('system/detail',array("sys"=>$sys),true);
-		}
-		catch (ObjectNotFoundException $onfe) {
-			$content = $this->load->view('exceptions/objectnotfound',null,true);
-		}
-		catch (Exception $e) {
-			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
-		}
+		$content = $this->load->view('system/detail',array("sys"=>$sys),true);
 
-		$this->_addSidebarItem("<li class=\"nav-header\">INTERFACES</li>");
+		$intAddrs = array();
+		$recs = array();
+
+		$this->_addSidebarHeader("INTERFACES");
 		try {
 			$ints = $this->api->systems->get->interfacesBySystem($systemName);
 			foreach($ints as $int) {
-				$this->_addSidebarItem("<li><a href=\"#\">{$int->get_mac()} ({$int->get_name()})</a></li>");
-			}
-		}
-		catch (ObjectNotFoundException $e) {}
-		catch (Exception $e) {
-			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
-		}
-		$this->_addSidebarItem("<li class=\"nav-header\">ADDRESSES</li>");
-		try {
-			$intAddrs = $this->api->systems->get->interfaceaddressesBySystem($systemName);
-			foreach($intAddrs as $intAddr) {
-				$this->_addSidebarItem("<li><a href=\"#\">{$intAddr->get_address()}</a></li>");
-			}
-		}
-		catch (ObjectNotFoundException $e) {}
-		catch (Exception $e) {
-			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
-		}
-
-		$this->_addSidebarItem("<li class=\"nav-header\">DNS Records</li>");
-		try {
-			#$aRecs = $this->api->dns->get->addressesBySystem($systemName);
-			#foreach($aRecs as $aRec) {
-			#	$this->_addSidebarItem("<li><a href=\"#\">{$aRec->get_hostname()}.{$aRec->get_zone()}</a></li>");
-			#}
-			$recs = $this->api->dns->get->recordsBySystem($systemName);
-			foreach($recs as $rec) {
-				switch(get_class($rec)) {
-					case 'AddressRecord':
-						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_hostname()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
-						break;
-					case 'CnameRecord':
-						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_alias()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
-						break;
-					case 'MxRecord':
-						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_hostname()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
-						break;
-					case 'SrvRecord':
-						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_alias()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
-						break;
-					case 'TextRecord':
-						$this->_addSidebarItem("<li><a href=\"#\">{$rec->get_hostname()}.{$rec->get_zone()} ({$rec->get_type()})</a></li>");
-						break;
-					default:
-						throw new Exception("WTF?");
-						break;
+				$this->_addSidebarItem($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()),"road");
+				try {
+					$intAddrs = array_merge($intAddrs, $this->api->systems->get->interfaceaddressesByMac($int->get_mac()));
+				}
+				catch (ObjectNotFoundException $e) {}
+				catch (Exception $e) {
+					$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+					$this->_render($content);
+					return;
 				}
 			}
 		}
 		catch (ObjectNotFoundException $e) {}
 		catch (Exception $e) {
 			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+			$this->_render($content);
+			return;
 		}
+		$this->_addSidebarHeader("ADDRESSES");
+		foreach($intAddrs as $intAddr) {
+			$this->_addSidebarItem($intAddr->get_address(),"#","globe");
+			try {
+				$recs = array_merge($recs, $this->api->dns->get->recordsByAddress($intAddr->get_address()));
+			}
+			catch (Exception $e) {
+				$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+				$this->_render($content);
+				return;
+			}
+		}
+
+		$this->_addSidebarHeader("DNS RECORDS");
+		$this->_addSidebarDnsRecords($recs);
 
 		// Render page
 		$this->_render($content);
@@ -103,49 +87,119 @@ class ComputerSystem extends ImpulseController {
 
 	public function create() {
 		if($this->input->post()) {
-			$this->_create();
+			try {
+				$sys = $this->api->systems->create->system(
+					$this->input->post('systemName'),
+					$this->input->post('owner'),
+					$this->input->post('type'),
+					$this->input->post('osName'),
+					$this->input->post('comment')
+				);
+				$this->_sendClient("/system/view/{$sys->get_system_name()}");
+			}
+			catch(Exception $e) {
+				$this->_error($e);
+			}
 		}
 		else {
-		// Breadcrumb trail
-		$this->_addTrail("Systems","/systems/");
+			// Breadcrumb trail
+			$this->_addTrail("Systems","/systems/");
 
-		// View data
-		$viewData['sysTypes'] = $this->api->systems->get->types();
-		$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
-		$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
-		$viewData['isAdmin'] = $this->user->isAdmin();
-		$content=$this->load->view('system/create',$viewData,true);
-		$content .= $this->load->view('core/forminfo',null,true);
-		$this->_render($content);
+			// View data
+			$viewData['sysTypes'] = $this->api->systems->get->types();
+			$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
+			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
+			$viewData['isAdmin'] = $this->user->isAdmin();
+			$content=$this->load->view('system/create',$viewData,true);
+			$content .= $this->load->view('core/forminfo',null,true);
+			$this->_render($content);
+		}
+	}
+
+	public function modify($systemName) {
+		$systemName = rawurldecode($systemName);
+		try {
+			$sys = $this->api->systems->get->systemByName($systemName);
+		}
+		catch(Exception $e) { $this->_error($e); }
+
+		if($this->input->post()) {
+	          $err = array();
+	
+	          // Check for which field was modified
+	          if($sys->get_system_name() != $this->input->post('systemName')) {
+	               try { $sys->set_system_name($this->input->post('systemName')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($sys->get_type() != $this->input->post('type')) {
+	               try { $sys->set_type($this->input->post('type')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($sys->get_os_name() != $this->input->post('osName')) {
+	               try { $sys->set_os_name($this->input->post('osName')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($sys->get_comment() != $this->input->post('comment')) {
+	               try { $sys->set_comment($this->input->post('comment')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($sys->get_owner() != $this->input->post('owner')) {
+	               try { $sys->set_owner($this->input->post('owner')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	
+	          if($err) {
+	               $this->_error($err);
+	          }
+			else {
+				$this->_sendClient("/system/view/{$sys->get_system_name()}");
+			}
+		}
+		else {
+			// Breadcrumb
+			$this->_addTrail('Systems',"/systems");
+			$this->_addTrail("$systemName","/system/view/".rawurlencode($systemName));
+
+			// View data
+			$viewData['sysTypes'] = $this->api->systems->get->types();
+			$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
+			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
+			$viewData['isAdmin'] = $this->user->isAdmin();
+			$viewData['sys'] = $sys;
+
+			// Content
+			$content = $this->load->view('system/modify',$viewData,true);
+			$content .= $this->load->view('core/forminfo',null,true);
+
+			// Done
+			$this->_render($content);
 		}
 	}
 
 	public function remove($systemName) {
 		$systemName = rawurldecode($systemName);
-		try {
-			$this->api->systems->remove->system($systemName);
-			header("Location: /systems/view/".$this->user->getActiveUser());
+		if($this->input->post('confirm')) {
+			try {
+				$this->api->systems->remove->system($systemName);
+				$this->_sendClient("/systems/view/{$this->user->getACtiveUser()}");
+			}
+			catch (Exception $e) {
+				$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+			}
 		}
-		catch (Exception $e) {
-			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+		else {
+			$this->_error(new Exception("No confirmation"));
 		}
 	}
 
-	private function _create() {
+	public function renew($systemName) {
+		$systemName = rawurldecode($systemName);
 		try {
-			$sys = $this->api->systems->create->system(
-				$this->input->post('systemName'),
-				$this->input->post('owner'),
-				$this->input->post('type'),
-				$this->input->post('osName'),
-				$this->input->post('comment')
-			);
+			$this->api->systems->renew($systemName);
+			print "Successfully renewed {$systemName}.";
 
-			$this->_sendClient("/system/view/{$sys->get_system_name()}");
 		}
-		catch(Exception $e) {
-			$this->load->view('exceptions/modalerror',array('exception'=>$e));
-		}
+		catch(Exception $e) { $this->_error($e); }
 	}
 }
 

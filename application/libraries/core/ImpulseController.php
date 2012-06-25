@@ -64,27 +64,40 @@ class ImpulseController extends CI_Controller {
 		// Content
 		$content.= $this->_renderActions();
 
+		// Error Handling
+		$content .= $this->load->view('core/modalerror',null,true);
+
+		// Confirmation
+		$content .= $this->load->view('core/modalconfirm',null,true);
+
+		// Info
+		$content .= $this->load->view('core/modalinfo',null,true);
+
 		// Send the data to the browser
 		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content));
 	}
 
-	protected function _addAction($action,$link) {
-		switch($action) {
-			case "Create":
-				$class="success";
-				break;
-			case "Modify":
-				$class="warning";
-				break;
-			case "Remove":
-				$class="danger";
-				break;
-			default:
-				$class="info";
-				break;
+	protected function _addAction($action,$link,$class=null) {
+		if(!$class) {
+			switch($action) {
+				case "Create":
+					$class="success";
+					break;
+				case "Modify":
+					$class="warning";
+					break;
+				case "Remove":
+					$class="danger";
+					break;
+				default:
+					$class="info";
+					break;
+			}
 		}
 
-		$this->actions[] = $this->load->view('core/actionbutton',array("action"=>$action,"link"=>$link,"class"=>$class),true);
+		$id = strtolower(str_replace(" ",null,$action));
+
+		$this->actions[] = $this->load->view('core/actionbutton',array("action"=>$action,"link"=>$link,"class"=>$class,"id"=>$id),true);
 	}
 
 	protected function _addTrail($name,$link) {
@@ -102,8 +115,17 @@ class ImpulseController extends CI_Controller {
 		}
 	}
 
-	protected function _addSidebarItem($item) {
-		$this->sidebarItems .= $item;
+	protected function _addSidebarItem($text, $link, $icon=null) {
+		if($icon) {
+			$this->sidebarItems .= "<li><a href=\"$link\"><i class=\"icon-$icon icon-black\"></i> $text</a></li>";
+		}
+		else {
+			$this->sidebarItems .= "<li><a href=\"$link\">$text</a></li>";
+		}
+	}
+
+	protected function _addSidebarHeader($text) {
+		$this->sidebarItems .= "<li class=\"nav-header\">$text</li>";
 	}
 
 	protected function _setNavHeader($header) {
@@ -114,6 +136,39 @@ class ImpulseController extends CI_Controller {
 		print "<script>window.location.href = '$url';</script>";
 	}
 
+	protected function _error($e) {
+		$this->load->view('exceptions/modalerror',array('exception'=>$e));
+	}
+
+	protected function _addSidebarDnsRecords($recs) {
+		foreach($recs as $rec) {
+			switch(get_class($rec)) {
+				case 'AddressRecord':
+					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","font");
+					break;
+				case 'CnameRecord':
+					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"#","hand-right");
+					break;
+				case 'MxRecord':
+					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","envelope");
+					break;
+				case 'SrvRecord':
+					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"#","wrench");
+					break;
+				case 'TextRecord':
+					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","list-alt");
+					break;
+				default:
+					throw new Exception("WTF?");
+					break;
+			}
+		}
+	}
+
+	protected function _exit($e) {
+		$content = $this->load->view('exceptions/exception',array("exception"=>$e),true);
+		$this->_render($content);
+	}
 }
 /* End of file ImpulseController.php */
 /* Location: ./application/libraries/core/ImpulseController.php */

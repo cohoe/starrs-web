@@ -42,6 +42,7 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 // System is a reserved word
 $route['system/(.*?)'] = 'computersystem/$1';
+$route['interface/(.*?)'] = 'interfacecontroller/$1';
 
 
 /* End of file routes.php */
