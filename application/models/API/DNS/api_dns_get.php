@@ -37,6 +37,7 @@ class Api_dns_get extends ImpulseModel {
 		$aSQL = "SELECT * FROM api.get_dns_a(null,null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY address";
 		$cnameSQL = "SELECT * FROM api.get_dns_cname(null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY address";
 		$mxSQL = "SELECT * FROM api.get_dns_mx(null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY address";
+		$nsSQL = "SELECT * FROM api.get_dns_ns(null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY address";
 		$srvSQL = "SELECT * FROM api.get_dns_srv(null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY address";
 		$txtSQL = "SELECT * FROM api.get_dns_txt(null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY address";
 
@@ -50,6 +51,10 @@ class Api_dns_get extends ImpulseModel {
 
 		$mxQuery = $this->db->query($mxSQL);
 		try { $this->_check_error($mxQuery); }
+		catch (ObjectNotFoundException $e) {}
+
+		$nsQuery = $this->db->query($nsSQL);
+		try { $this->_check_error($nsQuery); }
 		catch (ObjectNotFoundException $e) {}
 
 		$srvQuery = $this->db->query($srvSQL);
@@ -106,6 +111,20 @@ class Api_dns_get extends ImpulseModel {
 				$mxRecord['last_modifier']
 			);
 		}
+
+		foreach($nsQuery->result_array() as $nsRecord) {
+			$resultSet[] = new NsRecord(
+				$nsRecord['nameserver'],
+				$nsRecord['zone'],
+				$nsRecord['address'],
+				$nsRecord['type'],
+				$nsRecord['ttl'],
+				$nsRecord['date_created'],
+				$nsRecord['date_modified'],
+				$nsRecord['last_modifier']
+			);
+		}
+
 
 		foreach($srvQuery->result_array() as $srvRecord) {
 			$resultSet[] = new SrvRecord(
@@ -150,6 +169,7 @@ class Api_dns_get extends ImpulseModel {
 		$aSQL = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},null)";
 		$cnameSQL = "SELECT * FROM api.get_dns_cname({$this->db->escape($address)})";
 		$mxSQL = "SELECT * FROM api.get_dns_mx({$this->db->escape($address)})";
+		$nsSQL = "SELECT * FROM api.get_dns_ns(null) WHERE address = {$this->db->escape($address)}";
 		$srvSQL = "SELECT * FROM api.get_dns_srv({$this->db->escape($address)})";
 		$txtSQL = "SELECT * FROM api.get_dns_txt({$this->db->escape($address)})";
 
@@ -163,6 +183,10 @@ class Api_dns_get extends ImpulseModel {
 
 		$mxQuery = $this->db->query($mxSQL);
 		try { $this->_check_error($mxQuery); }
+		catch (ObjectNotFoundException $e) {}
+
+		$nsQuery = $this->db->query($nsSQL);
+		try { $this->_check_error($nsQuery); }
 		catch (ObjectNotFoundException $e) {}
 
 		$srvQuery = $this->db->query($srvSQL);
@@ -219,6 +243,20 @@ class Api_dns_get extends ImpulseModel {
 				$mxRecord['last_modifier']
 			);
 		}
+
+		foreach($nsQuery->result_array() as $nsRecord) {
+			$resultSet[] = new NsRecord(
+				$nsRecord['nameserver'],
+				$nsRecord['zone'],
+				$nsRecord['address'],
+				$nsRecord['type'],
+				$nsRecord['ttl'],
+				$nsRecord['date_created'],
+				$nsRecord['date_modified'],
+				$nsRecord['last_modifier']
+			);
+		}
+		  
 
 		foreach($srvQuery->result_array() as $srvRecord) {
 			$resultSet[] = new SrvRecord(

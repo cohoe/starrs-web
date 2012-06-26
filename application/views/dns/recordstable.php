@@ -19,10 +19,8 @@
 				<td>3600</td>
 				<td>A</td>
 				<td>
-				<div class="btn-group pull-right">
-					<button class="btn btn-warning">Modify</button>
-					<button class="btn btn-danger">Remove</button>
-				</div>
+					<button class="btn btn-warning btn-mini">Modify</button>
+					<button class="btn btn-danger btn-mini">Remove</button>
 			</td></tr>
 			<tr>
 				<td>foobar</td>
@@ -30,10 +28,8 @@
 				<td>3600</td>
 				<td>A</td>
 				<td>
-				<div class="btn-group pull-right">
-					<button class="btn btn-warning">Modify</button>
-					<button class="btn btn-danger">Remove</button>
-				</div>
+					<button class="btn btn-warning btn-mini">Modify</button>
+					<button class="btn btn-danger btn-mini">Remove</button>
 			</td></tr>
 			<tr>
 				<td>foobar</td>
@@ -41,10 +37,8 @@
 				<td>3600</td>
 				<td>A</td>
 				<td>
-				<div class="btn-group pull-right">
-					<button class="btn btn-warning">Modify</button>
-					<button class="btn btn-danger">Remove</button>
-				</div>
+					<button class="btn btn-warning btn-mini">Modify</button>
+					<button class="btn btn-danger btn-mini">Remove</button>
 			</td></tr>
 			<tr>
 				<td>foobar</td>
@@ -52,10 +46,8 @@
 				<td>3600</td>
 				<td>A</td>
 				<td>
-				<div class="btn-group pull-right">
-					<button class="btn btn-warning">Modify</button>
-					<button class="btn btn-danger">Remove</button>
-				</div>
+					<button class="btn btn-warning btn-mini">Modify</button>
+					<button class="btn btn-danger btn-mini">Remove</button>
 			</td></tr>
 		</tbody>
 	</table>

@@ -41,7 +41,7 @@ class Address extends ImpulseController {
 		catch(ObjectNotFoundException $e) {}
 		catch(Exception $e) { $this->_exit($e); return; }
 
-		$this->_addSidebarHeader("DNS RECORDS","/dns/view/".rawurlencode($intAddr->get_address()));
+		$this->_addSidebarHeader("DNS RECORDS","/dns/records/view/".rawurlencode($intAddr->get_address()));
 		$this->_addSidebarDnsRecords($recs);
 
 		// Render

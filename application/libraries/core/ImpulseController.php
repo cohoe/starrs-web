@@ -168,6 +168,9 @@ class ImpulseController extends CI_Controller {
 				case 'TextRecord':
 					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","list-alt");
 					break;
+				case 'NsRecord':
+					$this->_addSidebarItem($rec->get_nameserver(),"#","file");
+					break;
 				default:
 					throw new Exception("WTF?");
 					break;
