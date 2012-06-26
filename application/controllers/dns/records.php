@@ -8,38 +8,35 @@ class Records extends ImpulseController {
 		$this->_setNavHeader("DNS");
 	}
 
-	public function view($username) {
-		// Sidebar
-		$this->_addSidebarHeader("ZONES");
+	public function view($address) {
+		// Decode
+		$address = rawurldecode($address);
+
+		// Instantiate
 		try {
-			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
-			foreach($zones as $zone) {
-				$this->_addSidebarItem($zone->get_zone(),"#","list");
-			}
+			$intAddr = $this->api->systems->get->interfaceaddressByAddress($address);
 		}
-		catch (ObjectNotFoundException $e) {}
-		catch (Exception $e) { $this->_exit($e); return; }
-		$this->_addSidebarHeader("KEYS");
-		try {
-			$keys = $this->api->dns->get->keysByOwner($this->user->getActiveUser());
-			foreach($keys as $key) {
-				$this->_addSidebarItem($key->get_keyname(),"#","move");
-			}
-		}
-		catch (ObjectNotFoundException $e) {}
-		catch (Exception $e) { $this->_exit($e); return; }
-		$this->_addSidebarHeader("SYSTEMS");
-		try {
-			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
-			foreach($systems as $sys) {
-				$this->_addSidebarItem($sys->get_system_name(),"#","hdd");
-			}
-		}
-		catch (ObjectNotFoundException $e) {}
 		catch (Exception $e) { $this->_exit($e); return; }
 
+		// Trail
+		// Actions
+		$this->_addAction("Create","#");
 		// Content
-		$content = $this->load->view('dns/information',null,true);
+		try {
+			$recs = $this->api->dns->get->recordsByAddress($intAddr->get_address());
+
+			foreach($recs as $rec) {
+			}
+		}
+		catch (ObjectNotFoundException $e) { $content = "None"; }
+		catch (Exception $e) { $this->_exit($e); return; }
+
+		$content = $this->load->view('dns/recordstable',null,true);
+
+		// Sidebar
+		$this->_addSidebarHeader("SYSTEM");
+
+		// Render
 		$this->_render($content);
 	}
 }
