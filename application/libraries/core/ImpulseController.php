@@ -39,7 +39,7 @@ class ImpulseController extends CI_Controller {
 		header("Location: /systems/view/".$this->user->getActiveUser());
 	}
 
-	protected function _render($content) {
+	protected function _render($content=null) {
 		
 		// Page title
 		$title = "IMPULSE: ".ucfirst($this->uri->segment(1))."/".ucfirst($this->uri->segment(2));

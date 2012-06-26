@@ -25,8 +25,8 @@ class ImpulseLoader {
 		require_once(APPPATH . "libraries/objects/ConfigClass.php");
 		require_once(APPPATH . "libraries/objects/IpRange.php");
 		#require_once(APPPATH . "libraries/objects/Subnet.php");
-		#require_once(APPPATH . "libraries/objects/DnsZone.php");
-		#require_once(APPPATH . "libraries/objects/DnsKey.php");
+		require_once(APPPATH . "libraries/objects/DnsZone.php");
+		require_once(APPPATH . "libraries/objects/DnsKey.php");
 		#require_once(APPPATH . "libraries/objects/IpAddress.php");
 		#require_once(APPPATH . "libraries/objects/DhcpOption.php");
 		#require_once(APPPATH . "libraries/objects/GlobalOption.php");

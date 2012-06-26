@@ -27,7 +27,7 @@
           <div class="nav-collapse">
             <ul class="nav">
 		    <li <?=($header=='Systems')?'class="active"':null;?>><a href="/systems/view/<?=$viewUser;?>">Systems</a></li>
-		    <li <?=($header=='DNS')?'class="active"':null;?>><a href="#">DNS</a></li>
+		    <li <?=($header=='DNS')?'class="active"':null;?>><a href="/dns/records/view/<?=$viewUser;?>">DNS</a></li>
 		    <li <?=($header=='DHCP')?'class="active"':null;?>><a href="#">DHCP</a></li>
 		    <li <?=($header=='IP')?'class="active"':null;?>><a href="#">IP</a></li>
 		    <li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>

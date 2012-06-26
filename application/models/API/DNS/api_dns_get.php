@@ -256,6 +256,60 @@ class Api_dns_get extends ImpulseModel {
 		// Return Results
 		return $resultSet;
 	}
+
+	public function zonesByUser($username) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_zones({$this->db->escape($username)})";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Results
+		$resultSet = array();
+		foreach($query->result_array() as $zone) {
+			$resultSet[] = new DnsZone(
+				$zone['zone'],
+				$zone['keyname'],
+				$zone['forward'],
+				$zone['shared'],
+				$zone['owner'],
+				$zone['comment'],
+				$zone['date_created'],
+				$zone['date_modified'],
+				$zone['last_modifier']
+			);
+		}
+
+		// Return
+		return $resultSet;
+	}
+
+	public function keysByOwner($username) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_keys({$this->db->escape($username)})";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Results
+		$resultSet = array();
+		foreach($query->result_array() as $key) {
+			$resultSet[] = new DnsKey(
+				$key['keyname'],
+				$key['key'],
+				$key['owner'],
+				$key['comment'],
+				$key['date_created'],
+				$key['date_modified'],
+				$key['last_modifier']
+			);
+		}
+
+		// Return
+		return $resultSet;
+	}
 }
 /* End of file api_dns_get.php */
 /* Location: ./application/models/API/DNS/api_dns_get.php */
