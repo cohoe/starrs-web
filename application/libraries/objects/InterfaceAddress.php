@@ -123,6 +123,8 @@ class InterfaceAddress extends ImpulseObject {
 //			$this->dynamic = TRUE;
 //			$this->dnsFqdn = $this->CI->impulselib->hostname($this->CI->api->systems->get->interface_address_system($this->address)) . "." . $this->CI->api->get->site_configuration('DNS_DEFAULT_ZONE');
 //		}
+
+		$this->range = $this->CI->api->ip->get->address_range($this->address);
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -175,7 +177,10 @@ class InterfaceAddress extends ImpulseObject {
 		$this->comment = $new; 
 	}
 
-    
+	public function set_mac($new) {
+		$this->CI->api->systems->modify->interface_address($this->address, 'mac', $new);
+		$this->mac = $new;
+	}
 	
 	public function set_fw_default($action) {
 		$this->CI->api->firewall->modify->_default($this->address, $action);

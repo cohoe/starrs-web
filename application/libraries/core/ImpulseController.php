@@ -35,6 +35,10 @@ class ImpulseController extends CI_Controller {
 		);
 	}
 
+	public function index() {
+		header("Location: /systems/view/".$this->user->getActiveUser());
+	}
+
 	protected function _render($content) {
 		
 		// Page title

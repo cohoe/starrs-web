@@ -1,5 +1,5 @@
-<div class="span7 well">
-	<h2><?=$intAddr->get_address();?></h2>
+<div class="span6 well">
+	<h2><a href="/address/view/<?=rawurlencode($intAddr->get_address());?>"><?=$intAddr->get_address();?></a></h2>
 	<dl class="dl-horizontal">
 		<dt>Primary</dt>
 		<dd><?=($intAddr->get_isprimary()=='t')?"Yes":"No";?></dd>

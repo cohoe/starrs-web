@@ -8,11 +8,6 @@ class InterfaceController extends ImpulseController {
 		$this->_setNavHeader("Systems");
 	}
 
-	public function index() {
-		// Redirect to a useful default function
-		header("Location: /systems/view/".$this->user->getActiveUser());
-	}
-
 	public function view($mac) {
 		// Decode
 		$mac = rawurldecode($mac);
@@ -47,9 +42,9 @@ class InterfaceController extends ImpulseController {
 		try {
 			$intAddrs = $this->api->systems->get->interfaceaddressesByMac($int->get_mac());
 			foreach($intAddrs as $intAddr) {
-				$this->_addSidebarItem($intAddr->get_address(),"#","globe");
+				$this->_addSidebarItem($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()),"globe");
 				try {
-	$recs = array_merge($recs,$this->api->dns->get->recordsByAddress($intAddr->get_address()));
+					$recs = array_merge($recs,$this->api->dns->get->recordsByAddress($intAddr->get_address()));
 				}
 				catch (Exception $e) {}
 			}
@@ -76,10 +71,10 @@ class InterfaceController extends ImpulseController {
 		if($this->input->post()) {
 			try {
 				$int = $this->api->systems->create->_interface(
-	$this->input->post('systemName'),
-	$this->input->post('mac'),
-	$this->input->post('name'),
-	$this->input->post('comment')
+					$this->input->post('systemName'),
+					$this->input->post('mac'),
+					$this->input->post('name'),
+					$this->input->post('comment')
 				);
 				$this->_sendClient("/interface/view/".rawurlencode($int->get_mac()));
 			}

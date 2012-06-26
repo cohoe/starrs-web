@@ -8,11 +8,6 @@ class Interfaces extends ImpulseController {
 		$this->_setNavHeader("Systems");
 	}
 
-	public function index() {
-		// Redirect to a useful default function
-		header("Location: /systems/view/".$this->user->getActiveUser());
-	}
-
 	public function view($systemName) {
 		// Decode
 		$systemName = rawurldecode($systemName);

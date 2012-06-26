@@ -61,6 +61,33 @@ class Api_systems_create extends ImpulseModel {
 		);
 	}
 
+	public function interfaceaddress($mac, $address, $config, $class, $isprimary, $comment) {
+		// SQL Query
+		$sql = "SELECT * FROM api.create_interface_address(
+			{$this->db->escape($mac)},
+			{$this->db->escape($address)},
+			{$this->db->escape($config)},
+			{$this->db->escape($class)},
+			{$this->db->escape($isprimary)},
+			{$this->db->escape($comment)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return new InterfaceAddress(
+			$query->row()->address,
+			$query->row()->class,
+			$query->row()->config,
+			$query->row()->mac,
+			$query->row()->isprimary,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
 }
 /* End of file api_systems_create.php */
 /* Location: ./application/models/API/Systems/api_systems_create.php */

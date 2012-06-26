@@ -1,4 +1,4 @@
-<div class="span4 alert alert-error">
+<div class="span<?=(isset($span))?$span:4;?> alert alert-error">
 	<h1>Error:</h1>
 	<br />
 	<p>Message: <?=$exception->getMessage();?></p>

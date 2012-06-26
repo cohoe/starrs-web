@@ -5,6 +5,16 @@ require_once(APPPATH . "libraries/core/ImpulseModel.php");
  *	IP
  */
 class Api_ip_get extends ImpulseModel {
+
+	public function addressfamily($address) {
+		$sql = "SELECT family({$this->db->escape($address)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return $query->row()->family;
+	}
 	
 	public function address_from_range($range) {
         // SQL query
@@ -25,6 +35,8 @@ class Api_ip_get extends ImpulseModel {
 	public function address_range($address) {
         // SQL Query
 		$sql = "SELECT api.get_address_range({$this->db->escape($address)})";
+
+
 		$query = $this->db->query($sql);
 
         // Check errors
