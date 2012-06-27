@@ -22,7 +22,7 @@ class Addresses extends ImpulseController {
 		$this->_addTrail('Systems',"/systems");
 		$this->_addTrail($int->get_system_name(),"/system/view/{$int->get_system_name()}");
 		$this->_addTrail("Interfaces","/interfaces/view/{$int->get_system_name()}");
-		$this->_addTrail($int->get_mac(),"/addresses/view/".rawurlencode($int->get_mac()));
+		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 
 		// Actions
 		$this->_addAction('Add Address',"/address/create/".rawurlencode($int->get_mac()),"success");

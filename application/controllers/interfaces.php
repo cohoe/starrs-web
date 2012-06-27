@@ -36,7 +36,7 @@ class Interfaces extends ImpulseController {
 
 			$content = $this->_renderContentList(2);
 		}
-		catch (ObjectNotFoundException $e) { $content = $this->load->view('exception/objectnotfound',null,true); }
+		catch (ObjectNotFoundException $e) { $content = $this->load->view('exceptions/objectnotfound',null,true); }
 		catch (Exception $e) { $this->_exit($e); return; }
 
 		// Sidebar
