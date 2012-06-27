@@ -27,7 +27,14 @@
           <div class="nav-collapse">
             <ul class="nav">
 		    <li <?=($header=='Systems')?'class="active"':null;?>><a href="/systems/view/<?=$viewUser;?>">Systems</a></li>
-		    <li <?=($header=='DNS')?'class="active"':null;?>><a href="/dns/">DNS</a></li>
+		    <li class="dropdown <?=($header=='DNS')?'active':null;?>">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">DNS <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="/dns/records">Records</a></li>
+					<li><a href="#">Zones</a></li>
+					<li><a href="#">Keys</a></li>
+				</ul>
+		    </li>
 		    <li <?=($header=='DHCP')?'class="active"':null;?>><a href="#">DHCP</a></li>
 		    <li <?=($header=='IP')?'class="active"':null;?>><a href="#">IP</a></li>
 		    <li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>

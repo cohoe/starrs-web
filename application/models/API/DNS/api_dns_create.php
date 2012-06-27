@@ -82,10 +82,6 @@ class Api_dns_create extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 		
-		if($query->num_rows() > 1) {
-			throw new APIException("The database returned more than one new record. Contact your system administrator");
-		}
-
 		// Return object
 		return new AddressRecord(
 			$query->row()->hostname,

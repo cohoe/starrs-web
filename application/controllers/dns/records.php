@@ -6,6 +6,12 @@ class Records extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("DNS");
+		$this->_addScript('/js/dns.js');
+	}
+
+	public function index() {
+		$content = $this->load->view('dns/recordinfo',null,true);
+		$this->_render($content);
 	}
 
 	public function view($address) {
@@ -29,7 +35,7 @@ class Records extends ImpulseController {
 		$this->_addTrail("DNS Records","/dns/records/view/".rawurlencode($intAddr->get_address()));
 		
 		// Actions
-		$this->_addAction("Create","#");
+		$this->_addAction("Create","/dns/record/create/");
 		// Content
 		try {
 			$content = "<div class=\"span7\">";
@@ -45,6 +51,9 @@ class Records extends ImpulseController {
 		}
 		catch (ObjectNotFoundException $e) { $content = $this->load->view('exceptions/objectnotfound',array('span'=>7),true); }
 		catch (Exception $e) { $this->_exit($e); return; }
+
+		$content .= $this->load->view('dns/modalcreate',null,true);
+		$content .= $this->load->view('dns/modalmodify',null,true);
 
 		// Sidebar
 		$this->_addSidebarHeader("DNS RECORDS");
