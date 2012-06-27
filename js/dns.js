@@ -1,6 +1,6 @@
 // Create button on the main page to start the process of creating a record
 $('#create').click(function() {
-	$.get("/dns/record/create/",function(data) {
+	$.get("/dns/records/create/",function(data) {
 		$('#modal-select-body').html(data);
 		$('#modal-select').modal('show');
 	});
@@ -29,12 +29,9 @@ $('#createrec').click(function() {
 	var dataStr = $('#create-form').serialize();
 	dataStr = dataStr+"&address="+getIpFromUrl();
 	var url = $('#createrec').attr('href');
-	console.debug(url);
 	$.post(url,dataStr,function(data) {
 		handlePost(data);	
 	});
-	$('#continue').removeClass('hide');
-	$('#createrec').addClass('hide');
 	return false;
 });
 

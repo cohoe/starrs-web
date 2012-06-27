@@ -10,6 +10,22 @@ class Records extends ImpulseController {
 	}
 
 	public function index() {
+		$this->_addSidebarHeader("ADDRESSES");
+		try {
+			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+			foreach($systems as $sys) {
+				try {
+					$intAddrs = $this->api->systems->get->interfaceaddressesBySystem($sys->get_system_name());
+					foreach($intAddrs as $intAddr) {
+						$this->_addSidebarItem($intAddr->get_address()." ({$sys->get_system_name()})","/dns/records/view/".rawurlencode($intAddr->get_address()),"globe");
+					}
+				}
+				catch (ObjectNotFoundException $e) {}
+				catch (Exception $e) { $this->_error($e); return; }
+			}
+		}
+		catch (ObjectNotFoundException $e) {}
+		catch (Exception $e) { $this->_error($e); return; }
 		$content = $this->load->view('dns/recordinfo',null,true);
 		$this->_render($content);
 	}
@@ -28,7 +44,7 @@ class Records extends ImpulseController {
 		// Trail
 		$this->_addTrail("Systems","/systems/view");
 		$this->_addTrail($int->get_system_name(),"/system/view/".rawurlencode($int->get_system_name()));
-		$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_mac()));
+		$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_system_name()));
 		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 		$this->_addTrail("Addresses","/addresses/view/".rawurlencode($int->get_mac()));
 		$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
@@ -66,6 +82,11 @@ class Records extends ImpulseController {
 
 		// Render
 		$this->_render($content);
+	}
+
+	public function create() {
+		$recTypes = $this->api->dns->get->recordtypes();
+		$this->load->view('dns/recordselect',array('types'=>$recTypes));
 	}
 }
 /* End of file records.php */

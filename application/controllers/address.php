@@ -6,6 +6,7 @@ class Address extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("Systems");
+		$this->_addScript("/js/systems.js");
 	}
 
 	public function view($address) {
@@ -28,6 +29,7 @@ class Address extends ImpulseController {
 		$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
 
 		// Actions
+		$this->_addAction('DNS Records',"/dns/records/view/".rawurlencode($intAddr->get_address()),"info");
 		$this->_addAction('Modify',"/address/modify/".rawurlencode($intAddr->get_address()));
 		$this->_addAction('Remove',"/address/remove/".rawurlencode($intAddr->get_address()));
 
