@@ -9,8 +9,7 @@ $('#create').click(function() {
 
 // Click after selecting a record type from the dropdown in the popup
 $('#continue').click(function() {
-	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create";
-	console.debug(createUrl);
+	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create/"+getIpFromUrl();
 	$.get(createUrl,function(data) {
 		$('#createrec').attr('href',createUrl);
 		$('#modal-select-body').html(data);

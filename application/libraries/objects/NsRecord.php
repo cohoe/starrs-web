@@ -40,13 +40,23 @@ class NsRecord extends DnsRecord {
 	////////////////////////////////////////////////////////////////////////
     // SETTERS
 	public function set_zone($new) {
-		$this->CI->api->dns->modify->nameserver($this->hostname, $this->zone, 'zone', $new);
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'zone', $new);
 		$this->zone = $new;
 	}
 
 	public function set_ttl($new) {
-		$this->CI->api->dns->modify->nameserver($this->hostname, $this->zone, 'ttl', $new);
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'ttl', $new);
 		$this->ttl = $new;
+	}
+
+	public function set_nameserver($new) {
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'nameserver', $new);
+		$this->nameserver = $new;
+	}
+
+	public function set_address($new) {
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'address', $new);
+		$this->address = $new;
 	}
 
 

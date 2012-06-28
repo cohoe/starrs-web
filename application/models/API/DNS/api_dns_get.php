@@ -32,6 +32,33 @@ class Api_dns_get extends ImpulseModel {
 		return $resultSet;
 	}
 
+    public function addressesByAddress($address=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},null)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Generate & return result
+        $resultSet = array();
+        foreach ($query->result_array() as $aRecord) {
+            $resultSet[] = new AddressRecord(
+                $aRecord['hostname'],
+                $aRecord['zone'],
+                $aRecord['address'],
+                $aRecord['type'],
+                $aRecord['ttl'],
+                $aRecord['owner'],
+                $aRecord['date_created'],
+                $aRecord['date_modified'],
+                $aRecord['last_modifier']
+            );
+        }
+
+		return $resultSet;
+	}
+
 	public function recordsByAddress($address=null) {
 		//SQL Queries
 		$aSQL = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},null)";
@@ -299,6 +326,95 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->priority,
 			$query->row()->weight,
 			$query->row()->port,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function mx($zone=null, $preference=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_mx(null) WHERE zone = {$this->db->escape($zone)} AND preference = {$this->db->escape($preference)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new MxRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->preference,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function txt($zone=null, $hostname=null, $text=null) {
+		// SQL query
+		$sql = "SELECT * FROM api.get_dns_txt(null) WHERE zone = {$this->db->escape($zone)} AND hostname = {$this->db->escape($hostname)} AND text = {$this->db->escape($text)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new TextRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->text,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function txtByMd5($zone=null, $hostname=null, $hash=null) {
+		// SQL query
+		$sql = "SELECT * FROM api.get_dns_txt(null) WHERE zone = {$this->db->escape($zone)} AND hostname = {$this->db->escape($hostname)} AND md5(text) = {$this->db->escape($hash)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new TextRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->text,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function ns($zone=null,$nameserver=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_ns({$this->db->escape($zone)}) WHERE nameserver = {$this->db->escape($nameserver)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return new NsRecord(
+			$query->row()->nameserver,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

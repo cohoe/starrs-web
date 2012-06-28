@@ -33,18 +33,18 @@ class Api_dns_remove extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function mailserver($hostname, $zone) {
+	public function mx($zone, $preference) {
 		// SQL Query
-		$sql = "SELECT api.remove_dns_mailserver({$this->db->escape($hostname)},{$this->db->escape($zone)})";
+		$sql = "SELECT api.remove_dns_mailserver({$this->db->escape($zone)},{$this->db->escape($preference)})";
 		$query = $this->db->query($sql);
 
 		// Check error
 		$this->_check_error($query);
 	}
 
-	public function nameserver($hostname, $zone) {
+	public function ns($zone, $nameserver) {
 		// SQL Query
-		$sql = "SELECT api.remove_dns_nameserver({$this->db->escape($hostname)},{$this->db->escape($zone)})";
+		$sql = "SELECT api.remove_dns_ns({$this->db->escape($zone)},{$this->db->escape($nameserver)})";
 		$query = $this->db->query($sql);
 
 		// Check error
@@ -69,9 +69,9 @@ class Api_dns_remove extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function text($hostname, $zone, $type) {
+	public function txt($zone, $hostname, $text) {
 		// SQL Query
-		$sql = "SELECT api.remove_dns_text({$this->db->escape($hostname)},{$this->db->escape($zone)},{$this->db->escape($type)})";
+		$sql = "SELECT api.remove_dns_txt({$this->db->escape($hostname)},{$this->db->escape($zone)},{$this->db->escape($text)})";
 		$query = $this->db->query($sql);
 
 		// Check error
