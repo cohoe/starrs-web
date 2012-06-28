@@ -176,7 +176,11 @@ class ImpulseController extends CI_Controller {
 					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address())."#CNAME","hand-right");
 					break;
 				case 'MxRecord':
+<<<<<<< HEAD
 					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address())."#MX","envelope");
+=======
+					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address()),"#MX","envelope");
+>>>>>>> 5af9368eba758b1ac7334f42a636863c9989ff99
 					break;
 				case 'SrvRecord':
 					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address())."#SRV","wrench");
@@ -234,10 +238,14 @@ class ImpulseController extends CI_Controller {
 					$viewLink = "/dns/a/view/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
 					$modifyLink = "/dns/a/modify/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
 					$removeLink = "/dns/a/remove/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
+<<<<<<< HEAD
 					$actions = "<a href=\"$removeLink\"><button class=\"btn btn-mini btn-danger pull-right\">Remove</button></a><span class=\"pull-right\">&nbsp</span>";
 					$actions .= "<a href=\"$modifyLink\"><button class=\"btn btn-mini btn-warning pull-right\">Modify</button></a><span class=\"pull-right\">&nbsp</span>";
 					$actions .= "<a href=\"$viewLink\"><button class=\"btn btn-info btn-mini pull-right\">Details</button></a>";
 					$table .= "<tr><td>{$aRec->get_hostname()}</td><td>{$aRec->get_zone()}</td><td>{$aRec->get_ttl()}</td><td>{$aRec->get_type()}</td><td>{$aRec->get_owner()}</td><td>$actions</td></tr>";
+=======
+					$table .= "<tr><td>{$aRec->get_hostname()}</td><td>{$aRec->get_zone()}</td><td>{$aRec->get_ttl()}</td><td>{$aRec->get_type()}</td><td><a href=\"$viewLink\"><button class=\"btn btn-info btn-mini\">Details</button></a> <a href=\"$modifyLink\"><button class=\"btn btn-mini btn-warning\">Modify</button></a> <a href=\"$removeLink\"><button class=\"btn btn-mini btn-danger\">Remove</button></a></td></tr>";
+>>>>>>> 5af9368eba758b1ac7334f42a636863c9989ff99
 					$counter++;
 				}
 				break;

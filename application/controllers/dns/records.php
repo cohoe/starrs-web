@@ -10,8 +10,11 @@ class Records extends ImpulseController {
 	}
 
 	public function index() {
+<<<<<<< HEAD
 		$this->_addTrail("DNS","/dns/");
 		$this->_addTrail("Records","/dns/records/");
+=======
+>>>>>>> 5af9368eba758b1ac7334f42a636863c9989ff99
 		$this->_addSidebarHeader("ADDRESSES");
 		try {
 			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());

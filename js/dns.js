@@ -9,7 +9,11 @@ $('#create').click(function() {
 
 // Click after selecting a record type from the dropdown in the popup
 $('#continue').click(function() {
+<<<<<<< HEAD
 	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create/"+getIpFromUrl();
+=======
+	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create";
+>>>>>>> 5af9368eba758b1ac7334f42a636863c9989ff99
 	$.get(createUrl,function(data) {
 		$('#createrec').attr('href',createUrl);
 		$('#modal-select-body').html(data);
@@ -79,7 +83,10 @@ $('#modal-confirm-btn').click(function() {
 	$.post($(this).attr('href'),{confirm:"confirm"},function(data) {
 		handlePost(data);
 	});
+<<<<<<< HEAD
 	$('#modal-confirm').modal('hide');
+=======
+>>>>>>> 5af9368eba758b1ac7334f42a636863c9989ff99
 	return false;
 });
 
