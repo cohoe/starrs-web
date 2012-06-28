@@ -6,6 +6,30 @@ class Records extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("DNS");
+		$this->_addScript('/js/dns.js');
+	}
+
+	public function index() {
+		$this->_addTrail("DNS","/dns/");
+		$this->_addTrail("Records","/dns/records/");
+		$this->_addSidebarHeader("ADDRESSES");
+		try {
+			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+			foreach($systems as $sys) {
+				try {
+					$intAddrs = $this->api->systems->get->interfaceaddressesBySystem($sys->get_system_name());
+					foreach($intAddrs as $intAddr) {
+						$this->_addSidebarItem($intAddr->get_address()." ({$sys->get_system_name()})","/dns/records/view/".rawurlencode($intAddr->get_address()),"globe");
+					}
+				}
+				catch (ObjectNotFoundException $e) {}
+				catch (Exception $e) { $this->_error($e); return; }
+			}
+		}
+		catch (ObjectNotFoundException $e) {}
+		catch (Exception $e) { $this->_error($e); return; }
+		$content = $this->load->view('dns/recordinfo',null,true);
+		$this->_render($content);
 	}
 
 	public function view($address) {
@@ -22,14 +46,14 @@ class Records extends ImpulseController {
 		// Trail
 		$this->_addTrail("Systems","/systems/view");
 		$this->_addTrail($int->get_system_name(),"/system/view/".rawurlencode($int->get_system_name()));
-		$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_mac()));
+		$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_system_name()));
 		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 		$this->_addTrail("Addresses","/addresses/view/".rawurlencode($int->get_mac()));
 		$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
 		$this->_addTrail("DNS Records","/dns/records/view/".rawurlencode($intAddr->get_address()));
 		
 		// Actions
-		$this->_addAction("Create","#");
+		$this->_addAction("Create","/dns/record/create/");
 		// Content
 		try {
 			$content = "<div class=\"span7\">";
@@ -46,6 +70,9 @@ class Records extends ImpulseController {
 		catch (ObjectNotFoundException $e) { $content = $this->load->view('exceptions/objectnotfound',array('span'=>7),true); }
 		catch (Exception $e) { $this->_exit($e); return; }
 
+		$content .= $this->load->view('dns/modalcreate',null,true);
+		$content .= $this->load->view('dns/modalmodify',null,true);
+
 		// Sidebar
 		$this->_addSidebarHeader("DNS RECORDS");
 		$this->_addSidebarItem("A/AAAA","#A/AAAA","font");
@@ -57,6 +84,11 @@ class Records extends ImpulseController {
 
 		// Render
 		$this->_render($content);
+	}
+
+	public function create() {
+		$recTypes = $this->api->dns->get->recordtypes();
+		$this->load->view('dns/recordselect',array('types'=>$recTypes));
 	}
 }
 /* End of file records.php */

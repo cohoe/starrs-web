@@ -51,18 +51,18 @@ class Api_dns_remove extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function srv($alias, $hostname, $zone) {
+	public function srv($alias, $zone, $priority, $weight, $port) {
 		// SQL Query
-		$sql = "SELECT api.remove_dns_srv({$this->db->escape($alias)},{$this->db->escape($hostname)},{$this->db->escape($zone)})";
+		$sql = "SELECT api.remove_dns_srv({$this->db->escape($alias)},{$this->db->escape($zone)},{$this->db->escape($priority)},{$this->db->escape($weight)},{$this->db->escape($port)})";
 		$query = $this->db->query($sql);
 
 		// Check error
 		$this->_check_error($query);
 	}
 
-	public function cname($alias, $hostname, $zone) {
+	public function cname($alias, $zone) {
 		// SQL Query
-		$sql = "SELECT api.remove_dns_cname({$this->db->escape($alias)},{$this->db->escape($hostname)},{$this->db->escape($zone)})";
+		$sql = "SELECT api.remove_dns_cname({$this->db->escape($alias)},{$this->db->escape($zone)})";
 		$query = $this->db->query($sql);
 
 		// Check error

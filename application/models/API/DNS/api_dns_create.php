@@ -82,10 +82,6 @@ class Api_dns_create extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 		
-		if($query->num_rows() > 1) {
-			throw new APIException("The database returned more than one new record. Contact your system administrator");
-		}
-
 		// Return object
 		return new AddressRecord(
 			$query->row()->hostname,
@@ -189,15 +185,17 @@ class Api_dns_create extends ImpulseModel {
 		}
 
 		// Return object
-		return new PointerRecord(
+		return new SrvRecord(
+            $query->row()->alias,
             $query->row()->hostname,
             $query->row()->zone,
             $query->row()->address,
             $query->row()->type,
             $query->row()->ttl,
             $query->row()->owner,
-            $query->row()->alias,
-            $query->row()->extra,
+            $query->row()->priority,
+            $query->row()->weight,
+            $query->row()->port,
             $query->row()->date_created,
             $query->row()->date_modified,
             $query->row()->last_modifier
@@ -223,15 +221,14 @@ class Api_dns_create extends ImpulseModel {
 		}
 
 		// Return object
-		return new PointerRecord(
+		return new CnameRecord(
+            $query->row()->alias,
             $query->row()->hostname,
             $query->row()->zone,
             $query->row()->address,
             $query->row()->type,
             $query->row()->ttl,
             $query->row()->owner,
-            $query->row()->alias,
-            $query->row()->extra,
             $query->row()->date_created,
             $query->row()->date_modified,
             $query->row()->last_modifier

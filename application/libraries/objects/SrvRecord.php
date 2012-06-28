@@ -70,32 +70,32 @@ class SrvRecord extends DnsRecord {
 	}
 	
 	public function set_ttl($new) {
-		$this->CI->api->dns->modify->srv($this->alias, $this->zone, 'ttl', $new);	
+		$this->CI->api->dns->modify->srv($this->alias, $this->zone, $this->priority, $this->weight, $this->port, 'ttl', $new);	
 		$this->ttl = $new; 
 	}
 	
 	public function set_owner($new) {
-		$this->CI->api->dns->modify->srv($this->alias, $this->zone, 'owner', $new);	
+		$this->CI->api->dns->modify->srv($this->alias, $this->zone, $this->priority, $this->weight, $this->port, 'owner', $new);	
 		$this->owner = $new; 
 	}
 	
 	public function set_alias($new) {
-		$this->CI->api->dns->modify->srv($this->alias, $this->zone, 'alias', $new);	
+		$this->CI->api->dns->modify->srv($this->alias, $this->zone, $this->priority, $this->weight, $this->port, 'alias', $new);	
 		$this->alias = $new; 
 	}
 	
 	public function set_priority($new) {
-		$this->CI->api->dns->modify->srv($this->alias, $this->zone, 'priority', $new);	
+		$this->CI->api->dns->modify->srv($this->alias, $this->zone, $this->priority, $this->weight, $this->port, 'priority', $new);	
 		$this->priority = $new; 
 	}
 	
 	public function set_weight($new) {
-		$this->CI->api->dns->modify->srv($this->alias, $this->zone, 'weight', $new);	
+		$this->CI->api->dns->modify->srv($this->alias, $this->zone, $this->priority, $this->weight, $this->port, 'weight', $new);	
 		$this->priority = $new; 
 	}
 	
 	public function set_port($new) {
-		$this->CI->api->dns->modify->srv($this->alias, $this->zone, 'port', $new);	
+		$this->CI->api->dns->modify->srv($this->alias, $this->zone, $this->priority, $this->weight, $this->port, 'port', $new);	
 		$this->priority = $new; 
 	}
 

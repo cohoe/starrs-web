@@ -52,6 +52,11 @@ class AddressRecord extends DnsRecord {
 		$this->owner = $new;
 	}
 
+	public function set_address($new) {
+		$this->CI->api->dns->modify->address($this->address, $this->zone, 'address', $new);
+		$this->address = $new;
+	}
+
     ////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS
 

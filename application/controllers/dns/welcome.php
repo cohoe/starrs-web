@@ -28,11 +28,18 @@ class Welcome extends ImpulseController {
 		}
 		catch (ObjectNotFoundException $e) {}
 		catch (Exception $e) { $this->_exit($e); return; }
-		$this->_addSidebarHeader("SYSTEMS");
+		$this->_addSidebarHeader("ADDRESSES");
 		try {
 			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
 			foreach($systems as $sys) {
-				$this->_addSidebarItem($sys->get_system_name(),"#","hdd");
+				try {
+					$intAddrs = $this->api->systems->get->interfaceaddressesBySystem($sys->get_system_name());
+					foreach($intAddrs as $intAddr) {
+						$this->_addSidebarItem($intAddr->get_address()." ({$sys->get_system_name()})","/dns/records/view/".rawurlencode($intAddr->get_address()),"globe");
+					}
+				}
+				catch (ObjectNotFoundException $e) {}
+				catch (Exception $e) { $this->_exit($e); return; }
 			}
 		}
 		catch (ObjectNotFoundException $e) {}

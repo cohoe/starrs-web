@@ -12,6 +12,8 @@ class ImpulseController extends CI_Controller {
 	private $navheader;
 	private $contentList;
 
+	private $js = array();
+
 	public function __construct() {
 		parent::__construct();
 		
@@ -33,6 +35,9 @@ class ImpulseController extends CI_Controller {
 			$this->api->get->current_user_level(),
 			$this->input->cookie('impulse_viewUser',TRUE)
 		);
+
+		// Base JS
+		$this->_addScript('/js/impulse.js');
 	}
 
 	public function index() {
@@ -78,8 +83,14 @@ class ImpulseController extends CI_Controller {
 		// Info
 		$content .= $this->load->view('core/modalinfo',null,true);
 
+		// JS
+		$scripts = "";
+		foreach($this->js as $js) {
+			$scripts .= "<script src=\"$js\"></script>";
+		}
+
 		// Send the data to the browser
-		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content));
+		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content,'scripts'=>$scripts));
 	}
 
 	protected function _addAction($action,$link,$class=null) {
@@ -142,8 +153,13 @@ class ImpulseController extends CI_Controller {
 		$this->navheader = $header;
 	}
 
-	protected function _sendClient($url) {
-		print "<script>window.location.href = '$url';</script>";
+	protected function _sendClient($url,$return=null) {
+		if(!$return) {
+			print "<script>window.location.href = '$url';</script>";
+		}
+		else {
+			return "<script>window.location.href = '$url';</script>";
+		}
 	}
 
 	protected function _error($e) {
@@ -154,22 +170,22 @@ class ImpulseController extends CI_Controller {
 		foreach($recs as $rec) {
 			switch(get_class($rec)) {
 				case 'AddressRecord':
-					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","font");
+					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address())."#A/AAAA","font");
 					break;
 				case 'CnameRecord':
-					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"#","hand-right");
+					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address())."#CNAME","hand-right");
 					break;
 				case 'MxRecord':
-					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","envelope");
+					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address()),"#MX","envelope");
 					break;
 				case 'SrvRecord':
-					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"#","wrench");
+					$this->_addSidebarItem($rec->get_alias().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address())."#SRV","wrench");
 					break;
 				case 'TextRecord':
-					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"#","list-alt");
+					$this->_addSidebarItem($rec->get_hostname().".".$rec->get_zone(),"/dns/records/view/".rawurlencode($rec->get_address())."#TXT","list-alt");
 					break;
 				case 'NsRecord':
-					$this->_addSidebarItem($rec->get_nameserver(),"#","file");
+					$this->_addSidebarItem($rec->get_nameserver(),"/dns/records/view/".rawurlencode($rec->get_address())."#NS","file");
 					break;
 				default:
 					throw new Exception("WTF?");
@@ -215,9 +231,9 @@ class ImpulseController extends CI_Controller {
 				$table .= "<tr><th>Hostname</th><th>Zone</th><th>TTL</th><th>Type</th><th>Actions</th></tr>";
 				foreach($recs as $aRec) {
 					if(get_class($aRec) != "AddressRecord") { continue; }
-					$viewLink = "/dns/address/view/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
-					$modifyLink = "/dns/address/modify/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
-					$removeLink = "/dns/address/remove/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
+					$viewLink = "/dns/a/view/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
+					$modifyLink = "/dns/a/modify/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
+					$removeLink = "/dns/a/remove/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
 					$table .= "<tr><td>{$aRec->get_hostname()}</td><td>{$aRec->get_zone()}</td><td>{$aRec->get_ttl()}</td><td>{$aRec->get_type()}</td><td><a href=\"$viewLink\"><button class=\"btn btn-info btn-mini\">Details</button></a> <a href=\"$modifyLink\"><button class=\"btn btn-mini btn-warning\">Modify</button></a> <a href=\"$removeLink\"><button class=\"btn btn-mini btn-danger\">Remove</button></a></td></tr>";
 					$counter++;
 				}
@@ -294,6 +310,32 @@ class ImpulseController extends CI_Controller {
 			return $this->load->view('core/table',array("table"=>$table),true);
 		}
 	}
+
+	protected function _addScript($path) {
+		$this->js[] = $path;
+	}
+
+	protected function _renderSimple($content) {
+		// JS
+		foreach($this->js as $js) {
+			$content .= "<script src=\"$js\"></script>";
+		}
+
+		$this->output->set_output($content);
+	}
+
+	protected function _postToNull($var) {
+		if(!$this->input->post($var)) {
+			return null;
+		}
+		elseif($this->input->post($var) == "") {
+			return null;
+		}
+		else {
+			return $this->input->post($var);
+		}
+	}
+
 }
 /* End of file ImpulseController.php */
 /* Location: ./application/libraries/core/ImpulseController.php */
