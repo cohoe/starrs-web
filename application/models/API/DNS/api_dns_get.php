@@ -32,7 +32,6 @@ class Api_dns_get extends ImpulseModel {
 		return $resultSet;
 	}
 
-<<<<<<< HEAD
     public function addressesByAddress($address=null) {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},null)";
@@ -60,8 +59,6 @@ class Api_dns_get extends ImpulseModel {
 		return $resultSet;
 	}
 
-=======
->>>>>>> 5af9368eba758b1ac7334f42a636863c9989ff99
 	public function recordsByAddress($address=null) {
 		//SQL Queries
 		$aSQL = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},null)";
@@ -285,7 +282,6 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
-<<<<<<< HEAD
 
 	public function cname($zone=null, $alias=null) {
 		// SQL Query
@@ -424,8 +420,6 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
-=======
->>>>>>> 5af9368eba758b1ac7334f42a636863c9989ff99
 }
 /* End of file api_dns_get.php */
 /* Location: ./application/models/API/DNS/api_dns_get.php */
