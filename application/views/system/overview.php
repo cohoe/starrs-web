@@ -1,21 +1,21 @@
 <div class="span4 well">
-	<h2><?=$systemName;?></h2>
+	<h2><?=htmlentities($systemName;?></h2>
 	<dl class="dl-horizontal">
 		<dt>Type</dt>
-		<dd><?=$type;?></dd>
+		<dd><?=htmlentities($type;?></dd>
 		<dt>Operating System</dt>
-		<dd><?=$os;?></dd>
+		<dd><?=htmlentities($os;?></dd>
 		<dt>Owner</dt>
-		<dd><?=$owner;?></dd>
+		<dd><?=htmlentities($owner;?></dd>
 		<dt>Date Created</dt>
-		<dd><?=$dateCreated;?></dd>
+		<dd><?=htmlentities($dateCreated;?></dd>
 		<dt>Date Modified</dt>
-		<dd><?=$dateModified;?></dd>
+		<dd><?=htmlentities($dateModified;?></dd>
 		<dt>Last Modifier</dt>
-		<dd><?=$lastModifier;?></dd>
+		<dd><?=htmlentities($lastModifier;?></dd>
 		<dt>Comment</dt>
-		<dd><?=$comment;?>&nbsp;</dd>
+		<dd><?=htmlentities($comment;?>&nbsp;</dd>
 		<dt>Renew Date</dt>
-		<dd><?=$renewDate;?></dd>
+		<dd><?=htmlentities($renewDate;?></dd>
 	</dl>
 </div>

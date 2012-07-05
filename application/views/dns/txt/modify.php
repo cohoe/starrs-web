@@ -7,10 +7,10 @@
 					<?php
 					foreach($aRecs as $aRec) {
 						if($aRec->get_hostname() == $tRec->get_hostname()) {
-							print "<option value=\"{$aRec->get_hostname()}\" selected>{$aRec->get_hostname()}</option>";
+							print "<option value=\"".htmlentities($aRec->get_hostname())."\" selected>".htmlentities($aRec->get_hostname())."</option>";
 						}
 						else {
-							print "<option value=\"{$aRec->get_hostname()}\">{$aRec->get_hostname()}</option>";
+							print "<option value=\"".htmlentities($aRec->get_hostname())."\">".htmlentities($aRec->get_hostname())."</option>";
 						}
 					}
 					?>
@@ -23,7 +23,7 @@
 				<select name="zone">
 					<?php
 					foreach($zones as $zone) {
-						print "<option value=\"{$zone->get_zone()}\">{$zone->get_zone()}</option>";
+						print "<option value=\"".htmlentities($zone->get_zone())."\">".htmlentities($zone->get_zone())."</option>";
 					}
 					?>
 				</select>
@@ -36,10 +36,10 @@
 					<?php
 					foreach($intAddrs as $intAddr) {
 						if($intAddr->get_address() == $tRec->get_address()) {
-							print "<option value=\"{$intAddr->get_address()}\" selected>{$intAddr->get_address()}</option>";
+							print "<option value=\"".htmlentities($intAddr->get_address())."\" selected>".htmlentities($intAddr->get_address())."</option>";
 						}
 						else {
-							print "<option value=\"{$intAddr->get_address()}\">{$intAddr->get_address()}</option>";
+							print "<option value=\"".htmlentities($intAddr->get_address())."\">".htmlentities($intAddr->get_address())."</option>";
 						}
 					}
 					?>
@@ -49,19 +49,19 @@
 		<div class="control-group">
 			<label class="control-label">Text: </label>
 			<div class="controls">
-				<input type="text" name="text" value="<?=$tRec->get_text()?>"></input>
+				<input type="text" name="text" value="<?=htmlentities($tRec->get_text())?>"></input>
 			</div>
 		</div>
 		<div class="control-group warning">
 			<label class="control-label">TTL: </label>
 			<div class="controls">
-				<input type="text" name="ttl" value="<?=$tRec->get_ttl()?>"></input>
+				<input type="text" name="ttl" value="<?=htmlentities($tRec->get_ttl())?>"></input>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">Owner: </label>
 			<div class="controls">
-				<input type="text" name="owner" value="<?=$tRec->get_owner();?>" <?=($user->isAdmin())?"":"disabled"?>></input>
+				<input type="text" name="owner" value="<?=htmlentities($tRec->get_owner());?>" <?=($user->isAdmin())?"":"disabled"?>></input>
 			</div>
 		</div>
 	</fieldset>

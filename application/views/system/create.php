@@ -14,7 +14,7 @@
 						<option selected></option>
 						<?php
 						foreach($sysTypes as $sysType) {
-							print "<option value=\"{$sysType->get_type()}\">{$sysType->get_type()}</option>";	
+							print "<option value=\"".htmlentities($sysType->get_type())."\">".htmlentities($sysType->get_type())."</option>";	
 						}
 						?>
 					</select>
@@ -27,7 +27,7 @@
 						<option selected></option>
 						<?php
 						foreach($operatingSystems as $os) {
-							print "<option value=\"{$os}\">{$os}</option>";	
+							print "<option value=\"".htmlentities($os)."\">".htmlentities($os)."</option>";	
 						}
 						?>
 					</select>
@@ -42,7 +42,7 @@
 			<div class="control-group">	
 				<label class="control-label">Owner: </label>
 				<div class="controls">
-					<input type="text" name="owner" <?=($isAdmin)?"":"disabled";?> value="<?=$owner;?>" />
+					<input type="text" name="owner" <?=($isAdmin)?"":"disabled";?> value="<?=htmlentities($owner);?>" />
 				</div>
 			</div>
 			<div class="control-group">	

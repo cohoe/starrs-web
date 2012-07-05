@@ -41,21 +41,14 @@
 				<?=$sidebar;?>
 				<?=$content;?>
 			</div><!--/row-->
-
 			<hr>
-
 			<div class="footer">
 				<p>IMPULSE &copy; 2012 <a href="http://www.grantcohoe.com">Grant Cohoe</a> - <a href="/credits">Credits</a></p>
 			</div>
-
 		</div><!--/.fluid-container-->
 
-		<!-- Le javascript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="/js/jquery-1.7.2.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
 		<?=$scripts;?>
-
 	</body>
 </html>

@@ -13,7 +13,7 @@
 						<option selected></option>
 						<?php
 						foreach($ranges as $range) {
-							print "<option value=\"{$range->get_name()}\">{$range->get_name()}</option>";
+							print "<option value=\"".htmlentities($range->get_name())."\">".htmlentities($range->get_name())."</option>";
 						}
 						?>
 					</select>
@@ -33,10 +33,10 @@
 						<?php
 						foreach($ints as $int) {
 							if($int->get_mac() == $mac) {
-								print "<option value=\"{$int->get_mac()}\" selected>{$int->get_mac()} ({$int->get_system_name()})</option>";
+								print "<option value=\"".htmlentities($int->get_mac())."\" selected>".htmlentities($int->get_mac())." (".htmlentities($int->get_system_name()).")</option>";
 							}
 							else {
-								print "<option value=\"{$int->get_mac()}\">{$int->get_mac()} ({$int->get_system_name()})</option>";
+								print "<option value=\"".htmlentities($int->get_mac())."\">".htmlentities($int->get_mac())." (".htmlentities($int->get_system_name()).")</option>";
 							}
 						}
 						?>
@@ -58,7 +58,7 @@
 					<select name="config">
 						<?php
 						foreach($configs as $conf) {
-							print "<option value={$conf->get_config()}>{$conf->get_config()}</option>";
+							print "<option value=".htmlentities($conf->get_config()).">".htmlentities($conf->get_config())."</option>";
 						}
 						?>
 					</select>
@@ -70,7 +70,7 @@
 					<select name="class">
 						<?php
 						foreach($classes as $class) {
-							print "<option value={$class->get_class()}>{$class->get_class()}</option>";
+							print "<option value=".htmlentities($class->get_class()).">".htmlentities($class->get_class())."</option>";
 						}
 						?>
 					</select>
@@ -85,7 +85,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Address" class="btn btn-primary" />
-					<a href="/addresses/view/<?=$mac;?>"><button class="btn">Cancel</button></a>
+					<a href="/addresses/view/<?=rawurlencode($mac);?>"><button class="btn">Cancel</button></a>
 				</div>
 			</div>
 		</fieldset>

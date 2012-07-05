@@ -3,7 +3,7 @@
 		<div class="control-group">
 			<label class="control-label">Alias: </label>
 			<div class="controls">
-				<input type="text" name="alias" value="<?=$cRec->get_alias()?>" />
+				<input type="text" name="alias" value="<?=htmlentities($cRec->get_alias())?>" />
 			</div>
 		</div>
 		<div class="control-group">
@@ -12,7 +12,7 @@
 				<select name="zone">
 					<?php
 					foreach($zones as $zone) {
-						print "<option value=\"{$zone->get_zone()}\">{$zone->get_zone()}</option>";
+						print "<option value=\"".htmlentities($zone->get_zone())."\">".htmlentities($zone->get_zone())."</option>";
 					}
 					?>
 				</select>
@@ -25,10 +25,10 @@
 					<?php
 					foreach($aRecs as $aRec) {
 						if($aRec->get_hostname() == $cRec->get_hostname()) {
-							print "<option value=\"{$aRec->get_hostname()}\" selected>{$aRec->get_hostname()}</option>";
+							print "<option value=\"".htmlentities($aRec->get_hostname())."\" selected>".htmlentities($aRec->get_hostname())."</option>";
 						}
 						else {
-							print "<option value=\"{$aRec->get_hostname()}\">{$aRec->get_hostname()}</option>";
+							print "<option value=\"".htmlentities($aRec->get_hostname())."\">".htmlentities($aRec->get_hostname())."</option>";
 						}
 					}
 					?>
@@ -38,13 +38,13 @@
 		<div class="control-group warning">
 			<label class="control-label">TTL: </label>
 			<div class="controls">
-				<input type="text" name="ttl" value="<?=$cRec->get_ttl()?>"></input>
+				<input type="text" name="ttl" value="<?=htmlentities($cRec->get_ttl())?>"></input>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">Owner: </label>
 			<div class="controls">
-				<input type="text" name="owner" value="<?=$cRec->get_owner();?>" <?=($user->isAdmin())?"":"disabled"?>></input>
+				<input type="text" name="owner" value="<?=htmlentities($cRec->get_owner());?>" <?=($user->isAdmin())?"":"disabled"?>></input>
 			</div>
 		</div>
 	</fieldset>

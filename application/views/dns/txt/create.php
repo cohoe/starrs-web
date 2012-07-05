@@ -6,7 +6,7 @@
 				<select name="hostname">
 					<?php
 					foreach($aRecs as $aRec) {
-						print "<option value=\"{$aRec->get_hostname()}\">{$aRec->get_hostname()}</option>";
+						print "<option value=\"".htmlentities($aRec->get_hostname())."\">".htmlentities($aRec->get_hostname())."</option>";
 					}
 					?>
 				</select>
@@ -18,7 +18,7 @@
 				<select name="zone">
 					<?php
 					foreach($zones as $zone) {
-						print "<option value=\"{$zone->get_zone()}\">{$zone->get_zone()}</option>";
+						print "<option value=\"".htmlentities($zone->get_zone())."\">".htmlentities($zone->get_zone())."</option>";
 					}
 					?>
 				</select>
@@ -39,7 +39,7 @@
 		<div class="control-group">
 			<label class="control-label">Owner: </label>
 			<div class="controls">
-				<input type="text" name="owner" value="<?=$user->getActiveUser();?>" <?=($user->isAdmin())?"":"disabled"?>></input>
+				<input type="text" name="owner" value="<?=htmlentities($user->getActiveUser());?>" <?=($user->isAdmin())?"":"disabled"?>></input>
 			</div>
 		</div>
 	</fieldset>

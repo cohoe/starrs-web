@@ -8,10 +8,10 @@
 						<?php
 						foreach($systems as $sys) {
 							if($sys->get_system_name() == $systemName) {
-								print "<option value=\"{$sys->get_system_name()}\" selected>{$sys->get_system_name()}</option>";
+								print "<option value=\"".htmlentities($sys->get_system_name())."\" selected>".htmlentities($sys->get_system_name())."</option>";
 							}
 							else {
-								print "<option value=\"{$sys->get_system_name()}\">{$sys->get_system_name()}</option>";
+								print "<option value=\"".htmlentities($sys->get_system_name())."\">".htmlentities($sys->get_system_name())."</option>";
 							}
 						}
 						?>
@@ -39,7 +39,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Interface" class="btn btn-primary" />
-					<a href="/interfaces/view/<?=$systemName;?>"><button class="btn">Cancel</button></a>
+					<a href="/interfaces/view/<?=rawurlencode($systemName);?>"><button class="btn">Cancel</button></a>
 				</div>
 			</div>
 		</fieldset>

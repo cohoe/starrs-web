@@ -8,10 +8,10 @@
 						<?php
 						foreach($ranges as $range) {
 							if($range->get_name() == $intAddr->get_range()) {
-								print "<option value=\"{$range->get_name()}\" selected>{$range->get_name()}</option>";
+								print "<option value=\"".htmlentities($range->get_name())."\" selected>".htmlentities($range->get_name())."</option>";
 							}
 							else {
-								print "<option value=\"{$range->get_name()}\">{$range->get_name()}</option>";
+								print "<option value=\"".htmlentities($range->get_name())."\">".htmlentities($range->get_name())."</option>";
 							}
 						}
 						?>
@@ -21,7 +21,7 @@
 			<div class="control-group ">
 				<label class="control-label">Address: </label>
 				<div class="controls">
-					<input type="text" name="address" value="<?=$intAddr->get_address();?>" />
+					<input type="text" name="address" value="<?=htmlentities($intAddr->get_address());?>" />
 				</div>
 			</div>
 			<hr />
@@ -32,10 +32,10 @@
 						<?php
 						foreach($ints as $int) {
 							if($int->get_mac() == $intAddr->get_mac()) {
-								print "<option value=\"{$int->get_mac()}\" selected>{$int->get_mac()} ({$int->get_system_name()})</option>";
+								print "<option value=\"".htmlentities($int->get_mac())."\" selected>".htmlentities($int->get_mac())." (".htmlentities($int->get_system_name()).")</option>";
 							}
 							else {
-								print "<option value=\"{$int->get_mac()}\">{$int->get_mac()} ({$int->get_system_name()})</option>";
+								print "<option value=\"".htmlentities($int->get_mac())."\">".htmlentities($int->get_mac())." (".htmlentities($int->get_system_name()).")</option>";
 							}
 						}
 						?>
@@ -59,10 +59,10 @@
 						<?php
 						foreach($configs as $conf) {
 							if($intAddr->get_config() == $conf->get_config()) {
-								print "<option value={$conf->get_config()} selected>{$conf->get_config()}</option>";
+								print "<option value=".htmlentities($conf->get_config())." selected>".htmlentities($conf->get_config())."</option>";
 							}
 							else {
-								print "<option value={$conf->get_config()}>{$conf->get_config()}</option>";
+								print "<option value=".htmlentities($conf->get_config()).">".htmlentities($conf->get_config())."</option>";
 							}
 						}
 						?>
@@ -76,10 +76,10 @@
 						<?php
 						foreach($classes as $class) {
 							if($class->get_class() == $intAddr->get_class()) {
-								print "<option value={$class->get_class()} selected>{$class->get_class()}</option>";
+								print "<option value=".htmlentities($class->get_class())." selected>".htmlentities($class->get_class())."</option>";
 							}
 							else {							
-								print "<option value={$class->get_class()}>{$class->get_class()}</option>";
+								print "<option value=".htmlentities($class->get_class()).">".htmlentities($class->get_class())."</option>";
 							}
 						}
 						?>
@@ -89,13 +89,13 @@
 			<div class="control-group warning">	
 				<label class="control-label">Comment: </label>
 				<div class="controls">
-					<input type="text" name="comment" value="<?=$intAddr->get_comment();?>" />
+					<input type="text" name="comment" value="<?=htmlentities($intAddr->get_comment());?>" />
 				</div>
 			</div>
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Modify Address" class="btn btn-primary" />
-					<a href="/address/view/<?=$intAddr->get_address();?>"><button class="btn">Cancel</button></a>
+					<a href="/address/view/<?=rawurlencode($intAddr->get_address());?>"><button class="btn">Cancel</button></a>
 				</div>
 			</div>
 		</fieldset>

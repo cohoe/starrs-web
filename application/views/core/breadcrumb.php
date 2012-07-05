@@ -4,7 +4,7 @@
 	<?php
 	if($segments) {
 		foreach(array_keys($segments) as $segment) {
-			echo "<li><a href=\"$segments[$segment]\">$segment</a></li>";
+			echo "<li><a href=\"$segments[$segment]\">".htmlentities($segment)."</a></li>";
 			echo "<span class=\"divider\">/</span></li>";
 		}
 	}

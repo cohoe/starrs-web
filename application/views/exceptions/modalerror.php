@@ -3,11 +3,11 @@
 	<?php
 	if(is_array($exception)) {
 		foreach($exception as $e) {
-			print $e->getMessage();
+			print htmlentities($e->getMessage());
 		}
 	}
 	else {
-		print $exception->getMessage();
+		print htmlentities($exception->getMessage());
 	}
 	?>
 </div>

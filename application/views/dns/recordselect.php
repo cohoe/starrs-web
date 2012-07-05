@@ -6,7 +6,7 @@
 				<select name="rectype">
 					<?php
 					foreach($types as $type) {
-						print "<option value=\"$type\">{$type}</option>";
+						print "<option value=\"".htmlentities($type)."\">".htmlentities($type)."</option>";
 					}
 					?>
 				</select>
