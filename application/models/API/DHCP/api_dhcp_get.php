@@ -6,9 +6,9 @@ require_once(APPPATH . "libraries/core/ImpulseModel.php");
  */
 class Api_dhcp_get extends ImpulseModel {
 
-	public function config_types($family=NULL) {
+	public function configtypes($family=NULL) {
 		// SQL Query
-		$sql = "SELECT * FROM api.get_dhcp_config_types({$this->db->escape($family)})";
+		$sql = "SELECT * FROM api.get_dhcp_config_types({$this->db->escape($family)}) ORDER BY CASE WHEN config='dhcp' THEN 1 ELSE 2 END";
 		$query = $this->db->query($sql);
 		
 		// Check error

@@ -23,7 +23,7 @@ class Api_systems_remove extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function interface_address($address) {
+	public function interfaceaddress($address) {
 		// SQL Query
 		$sql = "SELECT api.remove_interface_address({$this->db->escape($address)})";
 		$query = $this->db->query($sql);

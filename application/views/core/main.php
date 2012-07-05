@@ -1,50 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title><?=$title;?></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-<head>
-	<title>IMPULSE: <?echo $title;?></title>
-	<link href="/css/sphere/full/main.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sphere/full/impulse.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sphere/full/form.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sphere/full/navbar.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sphere/full/interfaces.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sphere/full/addresses.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sphere/full/systems.css" rel="stylesheet" type="text/css" />
-    <link href="/css/sphere/full/tabledata.css" rel="stylesheet" type="text/css" />
-	<link href="/css/sphere/full/sidebar.css" rel="stylesheet"  type="text/css" />
-	
-	<script type="text/javascript" src='/js/jquery-1.6.2.js'></script>
-	<script type="text/javascript" src='/js/help.js'></script>
-	<script src="/js/jquery.cookie.js" type="text/javascript"></script>
-	<script src="/js/jquery.treeview.js" type="text/javascript"></script>
-	<script type="text/javascript">
-	$(function() {
-		$("#tree").treeview({
-			collapsed: true,
-			//animated: "fast",
-			control:"#sidetreecontrol",
-			prerendered: true,
-			//persist: "location"
-			persist: "cookie"
-		});
-	})	
-	</script>
-</head>
+		<!-- Le styles -->
+		<style type="text/css">
+			body {
+				padding-top: 60px;
+				padding-bottom: 40px;
+			}
+			.sidebar-nav {
+				padding: 9px 0;
+			}
+		</style>
+		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/impulse.css" rel="stylesheet">
+		
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 
-<body>
-	<div class="content">
-		<?echo $header;?>
-		<?echo $sidebar;?>
-		<div class="information">
-			<?echo $navbar;?>
-			<?if(isset($help)) { echo '<div id="helpDiv">'.$help.'</div>'; }?>
-			<div id="dataDiv">
-			<?echo $data;?>
+		<!-- Le fav and touch icons -->
+		<link rel="shortcut icon" href="/ico/favicon.ico">
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
+	</head>
+
+	<body>
+		<?=$navbar;?>
+		<div class="container-fluid">
+			<?=$breadcrumb;?>
+			<div class="row-fluid">
+				<?=$sidebar;?>
+				<?=$content;?>
+			</div><!--/row-->
+
+			<hr>
+
+			<div class="footer">
+				<p>IMPULSE &copy; 2012 <a href="http://www.grantcohoe.com">Grant Cohoe</a> - <a href="/credits">Credits</a></p>
 			</div>
-		</div>
-		<!--<div class="footer">Created 2011 by Grant Cohoe &amp; the IMPULSE Development Team</div>-->
-	</div>
-	
-</body>
 
+		</div><!--/.fluid-container-->
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="/js/jquery-1.7.2.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<?=$scripts;?>
+
+	</body>
 </html>

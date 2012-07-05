@@ -7,8 +7,7 @@ class NsRecord extends DnsRecord {
 	////////////////////////////////////////////////////////////////////////
 	// MEMBER VARIABLES
 	
-	// bool		Is this the primary nameserver for the zone?
-	private $isPrimary;
+	private $nameserver;
 
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
@@ -25,46 +24,41 @@ class NsRecord extends DnsRecord {
 	 * @param	long	$dateModified	Unix timestamp when the record was modifed
 	 * @param	string	$lastModifier	The last user to modify the record
 	 */
-	public function __construct($hostname, $zone, $address, $type, $ttl, $owner, $isPrimary, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($nameserver, $zone, $address, $type, $ttl, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
-		parent::__construct($hostname, $zone, $address, $type, $ttl, $owner, $dateCreated, $dateModified, $lastModifier);
+		parent::__construct($nameserver, $zone, $address, $type, $ttl, null, $dateCreated, $dateModified, $lastModifier);
 		
 		// NsRecord-specific stuff
-		$this->isPrimary = $isPrimary;
+		$this->nameserver = $nameserver;
 	}
 
 	////////////////////////////////////////////////////////////////////////
 	// GETTERS
+	//
+	public function get_nameserver() { return $this->nameserver; }
 	
-	public function get_isprimary() { return $this->isPrimary; }
-
 	////////////////////////////////////////////////////////////////////////
     // SETTERS
-
-    public function set_hostname($new) {
-		$this->CI->api->dns->modify->nameserver($this->hostname, $this->zone, 'hostname', $new);
-		$this->hostname = $new;
-	}
-
 	public function set_zone($new) {
-		$this->CI->api->dns->modify->nameserver($this->hostname, $this->zone, 'zone', $new);
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'zone', $new);
 		$this->zone = $new;
 	}
 
 	public function set_ttl($new) {
-		$this->CI->api->dns->modify->nameserver($this->hostname, $this->zone, 'ttl', $new);
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'ttl', $new);
 		$this->ttl = $new;
 	}
 
-	public function set_owner($new) {
-		$this->CI->api->dns->modify->nameserver($this->hostname, $this->zone, 'owner', $new);
-		$this->owner = $new;
+	public function set_nameserver($new) {
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'nameserver', $new);
+		$this->nameserver = $new;
 	}
 
-	public function set_isprimary($new) {
-		$this->CI->api->dns->modify->nameserver($this->hostname, $this->zone, 'isprimary', $new);
-		$this->owner = $new;
+	public function set_address($new) {
+		$this->CI->api->dns->modify->ns($this->zone, $this->nameserver, 'address', $new);
+		$this->address = $new;
 	}
+
 
     ////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS

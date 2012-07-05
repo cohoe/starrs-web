@@ -52,6 +52,22 @@ class Api_management_get extends ImpulseModel {
 		// Return result
 		return $query;
 	}
+
+	public function users() {
+		// SQL Query
+		$sql = "SELECT DISTINCT(owner) FROM api.get_systems(null) ORDER BY owner";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return result
+		$resultSet = array();
+		foreach($query->result_array() as $user) {
+			$resultSet[] = $user['owner'];
+		}
+		return $resultSet;
+	}
 }
 /* End of file api_management_get.php */
 /* Location: ./application/models/API/DNS/api_management_get.php */

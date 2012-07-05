@@ -6,6 +6,10 @@
 class Api_systems_modify extends ImpulseModel {
 	
 	public function system($systemName, $field, $newValue) {
+		// Deal with value
+		if($newValue == "") {
+			$newValue = null;
+		}
 		// SQL Query
 		$sql = "SELECT api.modify_system({$this->db->escape($systemName)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
 		$query = $this->db->query($sql);

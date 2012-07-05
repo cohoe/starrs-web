@@ -50,18 +50,18 @@ class Api_dns_modify extends ImpulseModel {
 		$this->_check_error($query);
 	}
 
-	public function nameserver($hostname, $zone, $field, $newValue) {
+	public function ns($zone, $nameserver, $field, $newValue) {
 		// SQL Query
-		$sql = "SELECT api.modify_dns_nameserver({$this->db->escape($hostname)}, {$this->db->escape($zone)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
+		$sql = "SELECT api.modify_dns_ns({$this->db->escape($zone)}, {$this->db->escape($nameserver)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
 		$query = $this->db->query($sql);
 
 		// Check error
 		$this->_check_error($query);
 	}
 
-	public function srv($alias, $zone, $field, $newValue) {
+	public function srv($alias, $zone, $priority, $weight, $port, $field, $newValue) {
 		// SQL Query
-		$sql = "SELECT api.modify_dns_srv({$this->db->escape($alias)}, {$this->db->escape($zone)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
+		$sql = "SELECT api.modify_dns_srv({$this->db->escape($alias)}, {$this->db->escape($zone)}, {$this->db->escape($priority)}, {$this->db->escape($weight)}, {$this->db->escape($port)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
 		$query = $this->db->query($sql);
 
 		// Check error
@@ -77,9 +77,9 @@ class Api_dns_modify extends ImpulseModel {
 		$this->_check_error($query);
 	}
 
-	public function text($hostname, $zone, $type, $field, $newValue) {
+	public function txt($hostname, $zone, $text, $field, $newValue) {
 		// SQL Query
-		$sql = "SELECT api.modify_dns_text({$this->db->escape($hostname)}, {$this->db->escape($zone)}, {$this->db->escape($type)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
+		$sql = "SELECT api.modify_dns_txt({$this->db->escape($hostname)}, {$this->db->escape($zone)}, {$this->db->escape($text)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
 		$query = $this->db->query($sql);
 
 		// Check error

@@ -1,33 +1,47 @@
-<div class="navbar" id='navBar'>
-	<div>
-		<div class="nav_title"><?echo htmlentities($navbar->get_title());?></div>
-		<div class="nav_user"><?echo htmlentities($navbar->get_user())." (".strtolower(htmlentities($navbar->get_priv())).")";?></div>
-	</div>
-	<br>
-	<? foreach ($navbar->get_navOptions() as $menuOption) {
-
-		if(strcasecmp($menuOption['title'],$navbar->get_active_page()) == 0) {?>
-			<a href="<?echo htmlentities($menuOption['link']);?>"><div class="nav_item_left nav_item_left_active"><span><?echo htmlentities($menuOption['title']);?></span></div></a>
-		<?} else {?>
-			<a href="<?echo htmlentities($menuOption['link']);?>"><div class="nav_item_left"><span><?echo htmlentities($menuOption['title']);?></span></div></a>
-		<?}
-	}
-	
-	//echo "<a href=\"".$navbar->get_help_link()."\"><div class=\"nav_item_right\"><span>Help</span></div></a>";
-	// The link will be followed if a helpDiv does not exist, otherwise it'll be toggled
-	echo "<a href='{$navbar->get_help_link()}' onClick='return toggleHelp();'><div class='nav_item_right'><span>Help</span></div></a>";
-	//echo "<a onClick='toggleHelp()'><div class='nav_item_right'><span>Help</span></div></a>";
-	
-	if($navbar->get_cancel() == true) {
-		echo "<a href=\"".$navbar->get_cancel_link()."\"><div class=\"nav_item_right\"><span>Cancel</span></div></a>";
-	}
-	if($navbar->get_delete() == true) {
-		echo "<a href=\"".$navbar->get_delete_link()."\"><div class=\"nav_item_right\"><span>Delete</span></div></a>";
-	}
-	if($navbar->get_edit() == true) {
-		echo "<a href=\"".$navbar->get_edit_link()."\"><div class=\"nav_item_right\"><span>Edit</span></div></a>";
-	}
-	if($navbar->get_create() == true) {
-		echo "<a href=\"".$navbar->get_create_link()."\"><div class=\"nav_item_right\"><span>Create</span></div></a>";
-	} ?>
-</div>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">IMPULSE</a>
+          <div class="nav-collapse pull-right">
+		<ul class="nav">
+             <li><a href="#" onclick="setViewUser('<?=$userName;?>')"><?=$displayName." (".$userLevel.")"?></a></li>
+		<li><form class="navbar-form">
+			<select class="btn dropdown-toggle" style="width: auto" name="user" id="viewuser" onchange="setViewUser()">
+			<option value="all">All</option>"
+		<?php foreach($users as $user) {
+			if($user == $userName) {
+			echo "<option value=\"$user\" selected>$user</option>";
+			} else {
+			echo "<option value=\"$user\">$user</option>";
+			}
+		}?>
+</select>
+		</form></li>
+		</ul>
+          </div>
+          <div class="nav-collapse">
+            <ul class="nav">
+		    <li <?=($header=='Systems')?'class="active"':null;?>><a href="/systems/view/<?=$viewUser;?>">Systems</a></li>
+		    <li class="dropdown <?=($header=='DNS')?'active':null;?>">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">DNS <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="/dns/records">Records</a></li>
+					<li><a href="#">Zones</a></li>
+					<li><a href="#">Keys</a></li>
+				</ul>
+		    </li>
+		    <li <?=($header=='DHCP')?'class="active"':null;?>><a href="#">DHCP</a></li>
+		    <li <?=($header=='IP')?'class="active"':null;?>><a href="#">IP</a></li>
+		    <li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>
+		    <li <?=($header=='Network')?'class="active"':null;?>><a href="#">Network</a></li>
+		    <li <?=($header=='Statistics')?'class="active"':null;?>><a href="#">Statistics</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>

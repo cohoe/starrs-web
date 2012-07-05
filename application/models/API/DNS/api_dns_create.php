@@ -82,10 +82,6 @@ class Api_dns_create extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 		
-		if($query->num_rows() > 1) {
-			throw new APIException("The database returned more than one new record. Contact your system administrator");
-		}
-
 		// Return object
 		return new AddressRecord(
 			$query->row()->hostname,
@@ -100,7 +96,7 @@ class Api_dns_create extends ImpulseModel {
 		);
 	}
 	
-	public function mailserver($hostname, $zone, $preference, $ttl, $owner) {
+	public function mx($hostname, $zone, $preference, $ttl, $owner) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_dns_mailserver(
 			{$this->db->escape($hostname)},
@@ -133,14 +129,13 @@ class Api_dns_create extends ImpulseModel {
         );
 	}
 
-    public function nameserver($hostname, $zone, $isprimary, $ttl, $owner) {
+    public function ns($zone, $nameserver, $address, $ttl) {
 		// SQL Query
-		$sql = "SELECT * FROM api.create_dns_nameserver(
-			{$this->db->escape($hostname)},
+		$sql = "SELECT * FROM api.create_dns_ns(
 			{$this->db->escape($zone)},
-			{$this->db->escape($isprimary)},
-			{$this->db->escape($ttl)},
-			{$this->db->escape($owner)}
+			{$this->db->escape($nameserver)},
+			{$this->db->escape($address)},
+			{$this->db->escape($ttl)}
 		)";
 		$query = $this->db->query($sql);
 
@@ -153,13 +148,11 @@ class Api_dns_create extends ImpulseModel {
 
 		// Return object
 		return new NsRecord(
-            $query->row()->hostname,
+            $query->row()->nameserver,
             $query->row()->zone,
             $query->row()->address,
             $query->row()->type,
             $query->row()->ttl,
-            $query->row()->owner,
-            $query->row()->isprimary,
             $query->row()->date_created,
             $query->row()->date_modified,
             $query->row()->last_modifier
@@ -189,15 +182,17 @@ class Api_dns_create extends ImpulseModel {
 		}
 
 		// Return object
-		return new PointerRecord(
+		return new SrvRecord(
+            $query->row()->alias,
             $query->row()->hostname,
             $query->row()->zone,
             $query->row()->address,
             $query->row()->type,
             $query->row()->ttl,
             $query->row()->owner,
-            $query->row()->alias,
-            $query->row()->extra,
+            $query->row()->priority,
+            $query->row()->weight,
+            $query->row()->port,
             $query->row()->date_created,
             $query->row()->date_modified,
             $query->row()->last_modifier
@@ -223,28 +218,26 @@ class Api_dns_create extends ImpulseModel {
 		}
 
 		// Return object
-		return new PointerRecord(
+		return new CnameRecord(
+            $query->row()->alias,
             $query->row()->hostname,
             $query->row()->zone,
             $query->row()->address,
             $query->row()->type,
             $query->row()->ttl,
             $query->row()->owner,
-            $query->row()->alias,
-            $query->row()->extra,
             $query->row()->date_created,
             $query->row()->date_modified,
             $query->row()->last_modifier
         );
 	}
 
-	public function text($hostname, $zone, $text, $type, $ttl, $owner) {
+	public function txt($hostname, $zone, $text, $ttl, $owner) {
 		// SQL Query
-		$sql = "SELECT * FROM api.create_dns_text(
+		$sql = "SELECT * FROM api.create_dns_txt(
 			{$this->db->escape($hostname)},
 			{$this->db->escape($zone)},
 			{$this->db->escape($text)},
-			{$this->db->escape($type)},
 			{$this->db->escape($ttl)},
 			{$this->db->escape($owner)}
 		)";

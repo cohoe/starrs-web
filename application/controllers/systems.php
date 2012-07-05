@@ -2,84 +2,54 @@
 require_once(APPPATH . "libraries/core/ImpulseController.php");
 
 class Systems extends ImpulseController {
-	
-    /**
-	 * If no additional URL paramters were specified, load this default view
-     * @return void
-     */
-	public function index() {
-		$this->_error("What would you like to do today dirtbag?");
-	}
-	
-	public function view($mode=NULL) {
-		switch($mode) {
-			case "all":
-				$this->_all();
-				break;
-			default:
-				$this->_owned();
-				break;
-		}
+
+	public function __construct() {
+		parent::__construct();
+		$this->_setNavHeader("Systems");
+		$this->_addScript("/js/systems.js");
 	}
 
-    /**
-	 * View all of the systems registered in the IMPULSE database
-     * @return void
-     */
-    private function _all() {
-		// List of systems
+	public function view($username=null)
+	{
+		$username = rawurldecode($username);
+		// Username cannot be null in this case
+		if(!$username) {
+			$username = $this->user->getActiveUser();
+		}
+
+		// Breadcrumb trail
+		$this->_addTrail('Systems',"/systems");
+		$this->_addTrail($this->user->getActiveUser(),"/systems/view/{$this->user->getActiveUser()}");
+		
+		// Actions
+		$this->_addAction('Create',"/system/create");
+
+		// Generate content
 		try {
-			$systemList = $this->api->systems->get->systems(NULL);
-			$viewData = $this->load->view('systems/systemlist',array('systems'=>$systemList),TRUE);
-		}
-		catch (ObjectNotFoundException $onfE) {
-			$viewData = $this->_warning("No systems found!");
-		}
-		
-		// Navbar
-		$navModes['CREATE'] = "/system/create";
-		$navbar = new Navbar("Systems - All", $navModes, null);
+			$systems = $this->api->systems->get->systemsByOwner($username);
+			$links = array();
+			foreach($systems as $system) {
+				$links[$system->get_system_name()]['link'] = "/system/view/".rawurlencode($system->get_system_name());
+				$links[$system->get_system_name()]['text'] = $system->get_system_name();
+			}
 
-		// Load the view data
-		$info['header'] = $this->load->view('core/header',"",TRUE);
-		$info['sidebar'] = $this->load->view('core/sidebar',array("sidebar"=>self::$sidebar),TRUE);
-		$info['navbar'] = $this->load->view('core/navbar',array("navbar"=>$navbar),TRUE);
-		$info['data'] = $viewData;
-		$info['title'] = "Systems - All";
-
-		// Load the main view
-		$this->load->view('core/main',$info);
-	}
-
-    /**
-	 * View all of the systems that you are the owner for in the IMPULSE database
-     * @return void
-     */
-    private function _owned() {
-		// List of systems
-		try {
-			$systemList = $this->api->systems->get->systems($this->impulselib->get_username());
-			$viewData = $this->load->view('systems/systemlist',array('systems'=>$systemList),TRUE);
+			$content = $this->load->view('system/information',null,true);
+			foreach($links as $item) {
+				$this->_addSidebarItem($item['text'],$item['link'],"hdd");
+			}
 		}
-		catch (ObjectNotFoundException $onfE) {
-			$viewData = $this->_warning("No systems found!");
+		catch (ObjectNotFoundException $onfe) {
+			$content = $this->load->view('exceptions/objectnotfound',null,true);
+			$content .= $this->load->view('system/information',null,true);
 		}
-		
-		// Navbar
-		$navModes['CREATE'] = "/system/create";
-		$navbar = new Navbar("Systems - Owned", $navModes, null);
+		catch (Exception $e) {
+			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+		}
 
-		// Load the view data
-		$info['header'] = $this->load->view('core/header',"",TRUE);
-		$info['sidebar'] = $this->load->view('core/sidebar',array("sidebar"=>self::$sidebar),TRUE);
-		$info['navbar'] = $this->load->view('core/navbar',array("navbar"=>$navbar),TRUE);
-		$info['data'] = $viewData;
-		$info['title'] = "Systems - Owned";
-		$info['help'] = $this->load->view("help/systems/owned",null,TRUE);
-		
-		// Load the main view
-		$this->load->view('core/main',$info);
+		// Render page
+		$this->_render($content);
 	}
 }
+
 /* End of file systems.php */
 /* Location: ./application/controllers/systems.php */

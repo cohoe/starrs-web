@@ -40,15 +40,11 @@
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
-$route['resources'] = "welcome";
-#$route['admin/(.*?)'] = 'admin/(.*?)';
-$route['admin/(.*?)'] = 'administration/$1';
-$route['resources'] = 'resources';
-$route['resources/(.*?)'] = 'resource_controllers/$1';
-$route['dhcp/(.*?)'] = 'dhcp_controllers/$1';
-$route['dhcp/reload'] = 'dhcp/reload';
-$route['interface/(.*?)'] = 'network_interface/$1';
-$route['system/(.*?)'] = 'computer_system/$1';
+// System is a reserved word
+$route['system/(.*?)'] = 'computersystem/$1';
+$route['interface/(.*?)'] = 'interfacecontroller/$1';
+$route['dns/default_controller'] = 'dns/welcome';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

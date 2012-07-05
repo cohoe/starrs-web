@@ -8,6 +8,8 @@ class Impulselib {
 	private $uname;
 	private $CI;
 
+	const createbtnclass = "success";
+
     /**
      * Constructor. This will load in your identification information for use in privilege leveling
      */
@@ -20,8 +22,7 @@ class Impulselib {
        	$this->uname = $this->CI->input->server('WEBAUTH_USER');
 		#$this->fname = $this->CI->input->server('WEBAUTH_LDAP_GIVENNAME');
 		#$this->lname = $this->CI->input->server('WEBAUTH_LDAP_SN');
-		#$this->fullName = $this->CI->input->server('WEBAUTH_LDAP_CN');
-		$this->fullName = $this->uname;
+		$this->fullName = $this->CI->input->server('WEBAUTH_LDAP_CN');
 	}
 
 	public function test() {
@@ -136,6 +137,11 @@ class Impulselib {
 	public function get_username() {
 		return $this->uname;
 	}
+
+	/**
+	* Get the username that you are viewing as.
+	* @todo: Make this do soemthing with the navbar field
+	*/
 
     /**
      * Get your real name

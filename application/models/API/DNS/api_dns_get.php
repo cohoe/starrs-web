@@ -5,147 +5,9 @@
  */
 class Api_dns_get extends ImpulseModel {
 
-	public function mx_records($address) {
+    public function addressesBySystem($systemName=null) {
 		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_mx({$this->db->escape($address)})";
-		$query = $this->db->query($sql);
-
-        // Check error
-		$this->_check_error($query);
-
-		// Generate and return results
-        $resultSet = array();
-        foreach ($query->result_array() as $mxRecord) {
-            $resultSet[] = new MxRecord(
-                $mxRecord['hostname'],
-                $mxRecord['zone'],
-                $mxRecord['address'],
-                $mxRecord['type'],
-                $mxRecord['ttl'],
-                $mxRecord['owner'],
-                $mxRecord['preference'],
-                $mxRecord['date_created'],
-                $mxRecord['date_modified'],
-                $mxRecord['last_modifier']
-            );
-        }
-		
-        // Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-		else {
-			throw new ObjectNotFoundException("No MX records found for address $address");
-		}
-	}
-	
-	public function ns_records($address) {
-		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_ns({$this->db->escape($address)})";
-		$query = $this->db->query($sql);
-
-		// Check error
-		$this->_check_error($query);
-
-		// Generate results
-        $resultSet = array();
-        foreach ($query->result_array() as $nsRecord) {
-            $resultSet[] = new NsRecord(
-                $nsRecord['hostname'],
-                $nsRecord['zone'],
-                $nsRecord['address'],
-                $nsRecord['type'],
-                $nsRecord['ttl'],
-                $nsRecord['owner'],
-                $nsRecord['isprimary'],
-                $nsRecord['date_created'],
-                $nsRecord['date_modified'],
-                $nsRecord['last_modifier']
-            );
-        }
-
-        // Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-		else {
-			throw new ObjectNotFoundException("No NS records found for address $address");
-		}
-	}
-	
-	public function text_records($address) {
-		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_text({$this->db->escape($address)})";
-		$query = $this->db->query($sql);
-
-		// Check error
-		$this->_check_error($query);
-
-        // Generate results
-        $resultSet = array();
-        foreach ($query->result_array() as $textRecord) {
-            $resultSet[] = new TextRecord(
-                $textRecord['hostname'],
-                $textRecord['zone'],
-                $textRecord['address'],
-                $textRecord['type'],
-                $textRecord['ttl'],
-                $textRecord['owner'],
-                $textRecord['text'],
-                $textRecord['date_created'],
-                $textRecord['date_modified'],
-                $textRecord['last_modifier']
-            );
-        }
-
-        // Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-        else {
-            throw new ObjectNotFoundException("No text records found for address $address");
-        }
-	}
-	
-	public function pointer_records($address) {
-		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_pointers({$this->db->escape($address)})";
-		$query = $this->db->query($sql);
-
-		// Check error
-		$this->_check_error($query);
-
-
-        // Generate results
-        $resultSet = array();
-        foreach ($query->result_array() as $pointerRecord) {
-            $resultSet[] = new PointerRecord(
-                $pointerRecord['hostname'],
-                $pointerRecord['zone'],
-                $pointerRecord['address'],
-                $pointerRecord['type'],
-                $pointerRecord['ttl'],
-                $pointerRecord['owner'],
-                $pointerRecord['alias'],
-                $pointerRecord['extra'],
-                $pointerRecord['date_created'],
-                $pointerRecord['date_modified'],
-                $pointerRecord['last_modifier']
-            );
-        }
-
-        // Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-		else {
-			throw new ObjectNotFoundException("No pointer records found for address $address");
-		}
-	}
-    
-    public function address_records($address) {
-		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_a({$this->db->escape($address)})";
+		$sql = "SELECT * FROM api.get_dns_a(null,null) WHERE api.get_interface_address_system(address) = {$this->db->escape($systemName)} ORDER BY address";
 		$query = $this->db->query($sql);
 
 		// Check error
@@ -167,48 +29,177 @@ class Api_dns_get extends ImpulseModel {
             );
         }
 
-		// Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-		else {
-			throw new ObjectNotFoundException("No address records found for address $address");
-		}
+		return $resultSet;
 	}
 
-    public function record_types() {
+    public function addressesByAddress($address=null) {
 		// SQL Query
-		$sql = "SELECT api.get_record_types()";
+		$sql = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},null)";
 		$query = $this->db->query($sql);
 
 		// Check error
 		$this->_check_error($query);
 
-		// Generate results
+		// Generate & return result
         $resultSet = array();
-		foreach($query->result_array() as $recordType) {
-			$resultSet[] = $recordType['get_record_types'];
-		}
+        foreach ($query->result_array() as $aRecord) {
+            $resultSet[] = new AddressRecord(
+                $aRecord['hostname'],
+                $aRecord['zone'],
+                $aRecord['address'],
+                $aRecord['type'],
+                $aRecord['ttl'],
+                $aRecord['owner'],
+                $aRecord['date_created'],
+                $aRecord['date_modified'],
+                $aRecord['last_modifier']
+            );
+        }
 
-		// Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-		else {
-			throw new ObjectNotFoundException("No DNS record types found. This is a big problem. Talk to your administrator.");
-		}
+		return $resultSet;
 	}
 
-	public function zones($username=NULL) {
+	public function recordsByAddress($address=null) {
+		//SQL Queries
+		$aSQL = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},null)";
+		$cnameSQL = "SELECT * FROM api.get_dns_cname({$this->db->escape($address)})";
+		$mxSQL = "SELECT * FROM api.get_dns_mx({$this->db->escape($address)})";
+		$nsSQL = "SELECT * FROM api.get_dns_ns(null) WHERE address = {$this->db->escape($address)}";
+		$srvSQL = "SELECT * FROM api.get_dns_srv({$this->db->escape($address)})";
+		$txtSQL = "SELECT * FROM api.get_dns_txt({$this->db->escape($address)})";
+
+		$aQuery = $this->db->query($aSQL);
+		try { $this->_check_error($aQuery); }
+		catch (ObjectNotFoundException $e) {}
+		
+		$cnameQuery = $this->db->query($cnameSQL);
+		try { $this->_check_error($cnameQuery); }
+		catch (ObjectNotFoundException $e) {}
+
+		$mxQuery = $this->db->query($mxSQL);
+		try { $this->_check_error($mxQuery); }
+		catch (ObjectNotFoundException $e) {}
+
+		$nsQuery = $this->db->query($nsSQL);
+		try { $this->_check_error($nsQuery); }
+		catch (ObjectNotFoundException $e) {}
+
+		$srvQuery = $this->db->query($srvSQL);
+		try { $this->_check_error($srvQuery); }
+		catch (ObjectNotFoundException $e) {}
+
+		$txtQuery = $this->db->query($txtSQL);
+		try { $this->_check_error($txtQuery); }
+		catch (ObjectNotFoundException $e) {}
+
+		// Generate Results
+		$resultSet = array();
+
+		foreach($aQuery->result_array() as $aRecord) {
+			$resultSet[] = new AddressRecord(
+				$aRecord['hostname'],
+				$aRecord['zone'],
+				$aRecord['address'],
+				$aRecord['type'],
+				$aRecord['ttl'],
+				$aRecord['owner'],
+				$aRecord['date_created'],
+				$aRecord['date_modified'],
+				$aRecord['last_modifier']
+			);
+		}
+
+		foreach($cnameQuery->result_array() as $cnameRecord) {
+			$resultSet[] = new CnameRecord(
+				$cnameRecord['alias'],
+				$cnameRecord['hostname'],
+				$cnameRecord['zone'],
+				$cnameRecord['address'],
+				$cnameRecord['type'],
+				$cnameRecord['ttl'],
+				$cnameRecord['owner'],
+				$cnameRecord['date_created'],
+				$cnameRecord['date_modified'],
+				$cnameRecord['last_modifier']
+			);
+		}
+
+		foreach($mxQuery->result_array() as $mxRecord) {
+			$resultSet[] = new MxRecord(
+				$mxRecord['hostname'],
+				$mxRecord['zone'],
+				$mxRecord['address'],
+				$mxRecord['type'],
+				$mxRecord['ttl'],
+				$mxRecord['owner'],
+				$mxRecord['preference'],
+				$mxRecord['date_created'],
+				$mxRecord['date_modified'],
+				$mxRecord['last_modifier']
+			);
+		}
+
+		foreach($nsQuery->result_array() as $nsRecord) {
+			$resultSet[] = new NsRecord(
+				$nsRecord['nameserver'],
+				$nsRecord['zone'],
+				$nsRecord['address'],
+				$nsRecord['type'],
+				$nsRecord['ttl'],
+				$nsRecord['date_created'],
+				$nsRecord['date_modified'],
+				$nsRecord['last_modifier']
+			);
+		}
+		  
+
+		foreach($srvQuery->result_array() as $srvRecord) {
+			$resultSet[] = new SrvRecord(
+				$srvRecord['alias'],
+				$srvRecord['hostname'],
+				$srvRecord['zone'],
+				$srvRecord['address'],
+				$srvRecord['type'],
+				$srvRecord['ttl'],
+				$srvRecord['owner'],
+				$srvRecord['priority'],
+				$srvRecord['weight'],
+				$srvRecord['port'],
+				$srvRecord['date_created'],
+				$srvRecord['date_modified'],
+				$srvRecord['last_modifier']
+			);
+		}
+
+		foreach($txtQuery->result_array() as $txtRecord) {
+			$resultSet[] = new TextRecord(
+				$txtRecord['hostname'],
+				$txtRecord['zone'],
+				$txtRecord['address'],
+				$txtRecord['type'],
+				$txtRecord['ttl'],
+				$txtRecord['owner'],
+				$txtRecord['text'],
+				$txtRecord['date_created'],
+				$txtRecord['date_modified'],
+				$txtRecord['last_modifier']
+			);
+		}
+
+		// Return Results
+		return $resultSet;
+	}
+
+	public function zonesByUser($username) {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_dns_zones({$this->db->escape($username)})";
 		$query = $this->db->query($sql);
 
-		// Check error
+		// Check Error
 		$this->_check_error($query);
 
-		// Generate results
-        $resultSet = array();
+		// Results
+		$resultSet = array();
 		foreach($query->result_array() as $zone) {
 			$resultSet[] = new DnsZone(
 				$zone['zone'],
@@ -223,53 +214,19 @@ class Api_dns_get extends ImpulseModel {
 			);
 		}
 
-		// Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-		else {
-			throw new ObjectNotFoundException("You do not have access to any DNS zones. This could be a problem. Talk to your administrator.");
-		}
+		// Return
+		return $resultSet;
 	}
 
-	public function zone($zone) {
-		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_zone({$this->db->escape($zone)})";
-		$query = $this->db->query($sql);
-
-		// Check error
-		$this->_check_error($query);
-
-		if($query->num_rows() > 1) {
-			throw new AmbiguousTargetException("Multiple zones found? This is a database error. Contact your system administrator");
-		}
-
-		// Generate results
-		$dnsZone = new DnsZone(
-			$query->row()->zone,
-			$query->row()->keyname,
-			$query->row()->forward,
-			$query->row()->shared,
-			$query->row()->owner,
-			$query->row()->comment,
-			$query->row()->date_created,
-			$query->row()->date_modified,
-			$query->row()->last_modifier
-		);
-
-		// Return results
-		return $dnsZone;
-	}
-
-    public function keys($username=NULL) {
+	public function keysByOwner($username) {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_dns_keys({$this->db->escape($username)})";
 		$query = $this->db->query($sql);
 
-		// Check error
+		// Check Error
 		$this->_check_error($query);
 
-		// Generate results
+		// Results
 		$resultSet = array();
 		foreach($query->result_array() as $key) {
 			$resultSet[] = new DnsKey(
@@ -283,56 +240,37 @@ class Api_dns_get extends ImpulseModel {
 			);
 		}
 
-		// Return results
-		if(count($resultSet) > 0) {
-			return $resultSet;
-		}
-		else {
-			throw new ObjectNotFoundException("You do not have access to any DNS keys. This could be a problem. Talk to your administrator.");
-		}
+		// Return
+		return $resultSet;
 	}
 
-	public function key($keyname) {
+	public function recordtypes() {
 		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_key({$this->db->escape($keyname)})";
+		$sql = "SELECT * FROM api.get_record_types()";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Return
+		$resultSet = array();
+		foreach($query->result_array() as $type) {
+			$resultSet[] = $type['get_record_types'];
+		}
+
+		return $resultSet;
+	}
+
+	public function address($zone=null, $address=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_a({$this->db->escape($address)},{$this->db->escape($zone)})";
 		$query = $this->db->query($sql);
 
 		// Check error
 		$this->_check_error($query);
 
-		if($query->num_rows() > 1) {
-			throw new AmbiguousTargetException("Multiple keys found? This is a database error. Contact your system administrator");
-		}
-
-		// Generate results
-		$dnsKey = new DnsKey(
-			$query->row()->keyname,
-			$query->row()->key,
-			$query->row()->owner,
-			$query->row()->comment,
-			$query->row()->date_created,
-			$query->row()->date_modified,
-			$query->row()->last_modifier
-		);
-
-		// Return results
-		return $dnsKey;
-	}
-	
-	public function address_record($address, $zone=NULL) {
-		// SQL Query
-		$sql = "SELECT * FROM api.get_dns_a({$this->db->escape($address)}, {$this->db->escape($zone)})";
-		$query = $this->db->query($sql);
-		
-		// Check error
-		$this->_check_error($query);
-
-		if($query->num_rows() > 1) {
-			throw new AmbiguousTargetException("Multiple A records found for this zone? This is a database error. Contact your system administrator");
-		}
-
-		// Generate results
-		$addressRecord = new AddressRecord(
+		// Return
+		return new AddressRecord(
 			$query->row()->hostname,
 			$query->row()->zone,
 			$query->row()->address,
@@ -343,9 +281,144 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->date_modified,
 			$query->row()->last_modifier
 		);
+	}
 
-		// Return result
-		return $addressRecord;
+	public function cname($zone=null, $alias=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_cname(null) WHERE alias = {$this->db->escape($alias)} AND zone = {$this->db->escape($zone)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new CnameRecord(
+			$query->row()->alias,
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function srv($zone=null, $alias=null, $priority=null, $weight=null, $port=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_srv(null) WHERE alias = {$this->db->escape($alias)} AND zone = {$this->db->escape($zone)} AND priority = {$this->db->escape($priority)} AND weight = {$this->db->escape($weight)} AND port = {$this->db->escape($port)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new SrvRecord(
+			$query->row()->alias,
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->priority,
+			$query->row()->weight,
+			$query->row()->port,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function mx($zone=null, $preference=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_dns_mx(null) WHERE zone = {$this->db->escape($zone)} AND preference = {$this->db->escape($preference)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new MxRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->preference,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function txt($zone=null, $hostname=null, $text=null) {
+		// SQL query
+		$sql = "SELECT * FROM api.get_dns_txt(null) WHERE zone = {$this->db->escape($zone)} AND hostname = {$this->db->escape($hostname)} AND text = {$this->db->escape($text)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new TextRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->text,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function txtByMd5($zone=null, $hostname=null, $hash=null) {
+		// SQL query
+		$sql = "SELECT * FROM api.get_dns_txt(null) WHERE zone = {$this->db->escape($zone)} AND hostname = {$this->db->escape($hostname)} AND md5(text) = {$this->db->escape($hash)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new TextRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->owner,
+			$query->row()->text,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function ns($zone=null,$nameserver=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_ns({$this->db->escape($zone)}) WHERE nameserver = {$this->db->escape($nameserver)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return new NsRecord(
+			$query->row()->nameserver,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
 	}
 }
 /* End of file api_dns_get.php */
