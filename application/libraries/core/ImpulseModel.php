@@ -4,24 +4,25 @@
  */
 abstract class ImpulseModel extends CI_Model {
 
-	 public $create;
-	 public $modify;
-	 public $remove;
-	 public $get;
+    public $create;
+    public $modify;
+    public $remove;
+    public $get;
+	public $list;
 
 	/**
-	* Constructor
-	*/
+     * Constructor
+     */
 	function __construct() {
 		parent::__construct();
 	}
 	
 	protected function _check_error($query) {
 		if($this->db->_error_number() > 0) {
-			throw new APIException($this->db->_error_message());
+			throw new DBException($this->db->_error_message());
 		}
 		if($this->db->_error_message() != "") {
-			throw new APIException($this->db->_error_message());
+			throw new DBException($this->db->_error_message());
 		}
 		if($query->num_rows() == 0) {
 			throw new ObjectNotFoundException("Object not found!");

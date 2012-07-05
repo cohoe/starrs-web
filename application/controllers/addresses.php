@@ -1,60 +1,41 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) 'No direct script access allowed';
 require_once(APPPATH . "libraries/core/ImpulseController.php");
 
+/**
+ * Interface addresses. Create/Edit/Delete/View all information and objects that are based on the InterfaceAddresses
+ */
 class Addresses extends ImpulseController {
 
-	public function __construct() {
-		parent::__construct();
-		$this->_setNavHeader("Systems");
-		$this->_addScript("/js/systems.js");
-	}
+	/**
+     * See the various addresses on the interface. 
+     * @param null $mac The MAC address of the interface to view
+     * @return
+     */
+	public function view($mac=NULL) {
 
-	public function view($mac) {
-		// Decode
+        // If the user did something silly.
+		if($mac ==  NULL) {
+			$this->_error("No interface was given!");
+		}
+		
 		$mac = rawurldecode($mac);
+		self::$int = $this->_load_interface($mac);
 
-		// Instantiate
-		try {
-			$int = $this->api->systems->get->interfaceByMac($mac);
-		}
-		catch(Exception $e) { $this->_exit($e); return; }
+		// Navbar
+		$navModes['CREATE'] = "/address/create/".rawurlencode($mac);
+		$navOptions['Interfaces'] = "/interfaces/view/".rawurlencode(self::$int->get_system_name());
+		$navbar = new Navbar("Addresses on {$mac}", $navModes, $navOptions);
 
-		// Breadcrumb Trail
-		$this->_addTrail('Systems',"/systems");
-		$this->_addTrail($int->get_system_name(),"/system/view/{$int->get_system_name()}");
-		$this->_addTrail("Interfaces","/interfaces/view/{$int->get_system_name()}");
-		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
-
-		// Actions
-		$this->_addAction('Add Address',"/address/create/".rawurlencode($int->get_mac()),"success");
-
-		// Content
-		try {
-			$intAddrs = $this->api->systems->get->interfaceaddressesByMac($int->get_mac());
-			foreach($intAddrs as $intAddr) {
-				$this->_addContentToList($this->load->view('interfaceaddress/overview',array("intAddr"=>$intAddr),true),2);
-			}
-
-			$content = $this->_renderContentList(2);
-		}
-		catch (ObjectNotFoundException $e) { $content = $this->load->view('exceptions/objectnotfound',array('span'=>7),true); }
-		catch (Exception $e) { $this->_exit($e); return; }
-
-		// Sidebar
-		$this->_addSidebarHeader("INTERFACES");
-		try {
-			$ints = $this->api->systems->get->interfacesBySystem($int->get_system_name());
-			foreach($ints as $int) {
-				$this->_addSidebarItem($int->get_mac(),"/addresses/view/".rawurlencode($int->get_mac()),"road");
-			}
-		}
-		catch (ObjectNotFoundException $e) {}
-		catch (Exception $e) { $this->_exit($e); return; }
-
-		// Render
-		$this->_render($content);
+		// Load the view data
+		$info['header'] = $this->load->view('core/header',"",TRUE);
+		$info['sidebar'] = $this->load->view('core/sidebar',array("sidebar"=>self::$sidebar),TRUE);
+		$info['navbar'] = $this->load->view('core/navbar',array("navbar"=>$navbar),TRUE);
+		$info['data'] = $this->_load_addresses(self::$int);
+		$info['title'] = "Addresses - $mac";
+		
+		// Load the main view
+		$this->load->view('core/main',$info);
 	}
 }
-
 /* End of file addresses.php */
 /* Location: ./application/controllers/addresses.php */

@@ -10,16 +10,16 @@
 |
 */
 
-$hook['pre_controller'][] = array(
-	'class' => 'ImpulseLoader',
-	'function' => 'initialize',
-	'filename' => 'impulseloader.php',
-	'filepath' => 'hooks'
+$hook['post_controller_constructor'][] = array(
+	'class'    => 'CSS',
+	'function' => 'load_css',
+	'filename' => 'css.php',
+	'filepath' => 'hooks',
 );
 
-$hook['pre_system'][] = array(
-	'class' => 'ImpulseLoader',
-	'function' => 'hookExceptions',
+$hook['pre_controller'][] = array(
+	'class'    => 'ImpulseLoader',
+	'function' => 'initialize',
 	'filename' => 'impulseloader.php',
 	'filepath' => 'hooks'
 );

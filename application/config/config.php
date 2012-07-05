@@ -106,7 +106,7 @@ $config['enable_hooks'] = TRUE;
 | http://codeigniter.com/user_guide/general/creating_libraries.html
 |
 */
-$config['subclass_prefix'] = 'MY_';
+$config['subclass_prefix'] = 'IMPULSE_';
 
 
 /*
@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'ntqnq66r8xr8xqeumk4ga1c7ke23pwop';
+$config['encryption_key'] = 'h4i32h439h98yfdY*&fdH FdhS*(F(*';
 
 /*
 |--------------------------------------------------------------------------

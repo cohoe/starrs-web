@@ -19,7 +19,7 @@ class NetworkInterface extends ImpulseObject {
 	private $systemName;
 	
 	// string		The interface logical name
-	private $name;
+	private $interfaceName;
 	
 	// array<InterfaceAddress>	All of the addresses on this interface
 	private $addresses;
@@ -31,12 +31,12 @@ class NetworkInterface extends ImpulseObject {
 	 * @param	string	$mac			The mac address for the interface	
 	 * @param	string	$comment		A descriptive comment about the interface
 	 * @param	string	$systemName		The name of the system associated with the interface being constructed
-	 * @param	string	$name	The name of the interface
+	 * @param	string	$interfaceName	The name of the interface
 	 * @param	long	$dateCreated 	The date the interface was created, Unix TS
 	 * @param	long	$dateModified 	The date the interface was created, Unix TX
 	 * @param	string	$lastModifier 	The last user to modify the system
 	 */
-	public function __construct($mac, $comment, $systemName, $name, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($mac, $comment, $systemName, $interfaceName, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 
@@ -44,7 +44,7 @@ class NetworkInterface extends ImpulseObject {
 		$this->mac = $mac;
 		$this->comment = $comment;
 		$this->system = $systemName;
-		$this->name = $name;
+		$this->interfaceName = $interfaceName;
 		$this->systemName = $systemName;
 		
 		// Initialize variables
@@ -54,7 +54,7 @@ class NetworkInterface extends ImpulseObject {
 	////////////////////////////////////////////////////////////////////////
 	// GETTERS
 	
-	public function get_name()        { return $this->name; }
+	public function get_interface_name()        { return $this->interfaceName; }
 	public function get_mac()                   { return $this->mac; }
 	public function get_comment()               { return $this->comment; }
 	public function get_system_name()           { return $this->systemName; }
@@ -73,9 +73,9 @@ class NetworkInterface extends ImpulseObject {
 		$this->mac = $new; 
 	}
 	
-	public function set_name($new) {
+	public function set_interface_name($new) {
 		$this->CI->api->systems->modify->_interface($this->mac, 'name', $new);	
-		$this->name = $new; 
+		$this->interfaceName = $new; 
 	}
 	
 	public function set_comment($new) { 

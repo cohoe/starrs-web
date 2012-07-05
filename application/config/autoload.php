@@ -37,7 +37,7 @@
 |
 */
 
-$autoload['packages'] = array();
+$autoload['packages'] = array(APPPATH.'third_party');
 
 
 /*
@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','impulselib','table');
+$autoload['libraries'] = array('database','session','impulselib','table');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database','impulselib','table');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('cookie');
+$autoload['helper'] = array('url','html');
 
 
 /*

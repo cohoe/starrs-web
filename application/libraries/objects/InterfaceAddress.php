@@ -1,4 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+require_once(APPPATH . "controllers/interfaces.php");
+require_once(APPPATH . "controllers/dns.php");
 
 /**
  * This class contains the definition of an InterfaceAddress object. These
@@ -28,6 +30,9 @@ class InterfaceAddress extends ImpulseObject {
 	
 	// string   The mac address that this address is bound to. Can be used to lookup the matching InterfaceObject.
 	private $mac;
+	
+	// long     The unix timestamp that the interface will be renewed.
+	private $renewDate;
 	
 	// bool     Is this address the primary for the interface
 	private $isPrimary;
@@ -68,6 +73,9 @@ class InterfaceAddress extends ImpulseObject {
 	// bool					Firewall default action (t for deny, f for all)
 	private $fwDefault;
 	
+	// array<FirewallRule>	All firewall rules that relate to this address
+	private $fwRules;
+	
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	
@@ -76,13 +84,14 @@ class InterfaceAddress extends ImpulseObject {
 	 * @param 	string 	$class			The class of the address
 	 * @param 	string	$config			How the address is configured
 	 * @param 	string 	$mac			The mac address the interface address is bound to
+	 * @param 	long	$renewDate		Unix timestamp when the address renews
 	 * @param	bool	$isPrimary		Is this address the primary for the interface?
 	 * @param 	string	$comment		A comment about the address
 	 * @param	long	$dateCreated	Unix timestamp when the address was created
 	 * @param	long	$dateModified	Unix timestamp when the address was modified
 	 * @param	string	$lastModifier	The last user to modify the address
 	 */
-	public function __construct($address, $class, $config, $mac, $isPrimary, $comment, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($address, $class, $config, $mac, $renewDate, $isPrimary, $comment, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -91,6 +100,7 @@ class InterfaceAddress extends ImpulseObject {
 		$this->class     = $class;
 		$this->config    = $config;
 		$this->mac       = $mac;
+		$this->renewDate = $renewDate;
 		$this->comment   = $comment; 
 		$this->isPrimary = $isPrimary;
 		
@@ -107,24 +117,25 @@ class InterfaceAddress extends ImpulseObject {
         $this->dynamic = FALSE;
 
         // Try to get the address record that resolves to this address
-//		try {
-//			#$this->dnsAddressRecord = $this->CI->api->dns->get->address_record($this->address);
-//			#$this->dnsFqdn = $this->dnsAddressRecord->get_hostname().".".$this->dnsAddressRecord->get_zone();
-//		}
-//		catch (ObjectNotFoundException $onfE) {
-//			$this->dnsAddressRecord = null;
-//			$this->dnsFqdn = null;
-//		}
+		try {
+			#$this->dnsAddressRecord = $this->CI->api->dns->get->address_record($this->address);
+			#$this->dnsFqdn = $this->dnsAddressRecord->get_hostname().".".$this->dnsAddressRecord->get_zone();
+		}
+		catch (ObjectNotFoundException $onfE) {
+			$this->dnsAddressRecord = null;
+			$this->dnsFqdn = null;
+		}
 
         // Fill in some more basic information this address
+		$this->fwDefault = $this->CI->api->firewall->get->_default($this->address);
+		$this->systemName = $this->CI->api->systems->get->interface_address_system($this->address);
+		$this->range = $this->CI->api->ip->get->address_range($this->address);
 
         // If this is in the site configured dynamic subnet range, then fill in some more information
-//		if($this->CI->api->ip->ip_in_subnet($this->get_address(), $this->CI->api->get->site_configuration('DYNAMIC_SUBNET')) == 't') {
-//			$this->dynamic = TRUE;
-//			$this->dnsFqdn = $this->CI->impulselib->hostname($this->CI->api->systems->get->interface_address_system($this->address)) . "." . $this->CI->api->get->site_configuration('DNS_DEFAULT_ZONE');
-//		}
-
-		$this->range = $this->CI->api->ip->get->address_range($this->address);
+		if($this->CI->api->ip->ip_in_subnet($this->get_address(), $this->CI->api->get->site_configuration('DYNAMIC_SUBNET')) == 't') {
+			$this->dynamic = TRUE;
+			$this->dnsFqdn = $this->CI->impulselib->hostname($this->CI->api->systems->get->interface_address_system($this->address)) . "." . $this->CI->api->get->site_configuration('DNS_DEFAULT_ZONE');
+		}
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -134,6 +145,7 @@ class InterfaceAddress extends ImpulseObject {
 	public function get_class()           { return $this->class; }
 	public function get_config()          { return $this->config; }
 	public function get_mac()             { return $this->mac; }
+	public function get_renew_date()      { return $this->renewDate; }
 	public function get_comment()         { return $this->comment; }
 	public function get_family()          { return $this->family; }
 	public function get_isprimary()       { return $this->isPrimary; }
@@ -177,10 +189,7 @@ class InterfaceAddress extends ImpulseObject {
 		$this->comment = $new; 
 	}
 
-	public function set_mac($new) {
-		$this->CI->api->systems->modify->interface_address($this->address, 'mac', $new);
-		$this->mac = $new;
-	}
+    
 	
 	public function set_fw_default($action) {
 		$this->CI->api->firewall->modify->_default($this->address, $action);

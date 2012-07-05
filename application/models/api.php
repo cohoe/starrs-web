@@ -12,10 +12,13 @@ class Api extends ImpulseModel {
 
 	public $dhcp;
 	public $dns;
+	public $documentation;
+	public $firewall;
 	public $ip;
 	public $management;
 	public $network;
 	public $systems;
+	public $statistics;
 
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
@@ -29,10 +32,13 @@ class Api extends ImpulseModel {
 		$this->_load();
 		$this->dhcp = new API_DHCP();
 		$this->dns = new API_DNS();
+		$this->documentation = new API_Documentation();
+		$this->firewall = new API_Firewall();
 		$this->ip = new API_IP();
 		$this->management = new API_Management();
 		$this->network = new API_Network();
 		$this->systems = new API_Systems();
+		$this->statistics = new API_Statistics();
 		
 		$this->create = new Api_management_create();
 		$this->modify = new Api_management_modify();
@@ -43,13 +49,27 @@ class Api extends ImpulseModel {
 	////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS
 
+    /**
+     * Return a boolean as to if the current user is an admin or not.
+     * @return bool
+     */
+	public function isadmin() {
+		
+		if($this->api->get->current_user_level() == "ADMIN") {
+			return true;
+		}
+		else {
+			return null;
+		}
+	}
+	
 	public function initialize($user) {
 		// SQL Query
 		$sql = "SELECT api.initialize({$this->db->escape($user)})";
 		$query = $this->db->query($sql);
 
-		// Check error
-		$this->_check_error($query);
+        // Check error
+        $this->_check_error($query);
 	}
 	
 	public function deinitialize() {
@@ -58,7 +78,7 @@ class Api extends ImpulseModel {
 		$query = $this->db->query($sql);
 		
 		// Check error
-		$this->_check_error($query);
+        $this->_check_error($query);
 	}
 	
 	public function search($searchArray) {
@@ -96,7 +116,7 @@ class Api extends ImpulseModel {
 		$query = $this->db->query($sql);
 		
 		// Check error
-		$this->_check_error($query);
+        $this->_check_error($query);
 		
 		return $query;
 	}
@@ -104,17 +124,22 @@ class Api extends ImpulseModel {
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS
 
-	/**
-	 * Load all of the sub models that contain the actual API functions
-	 * @return void
-	 */
+    /**
+     * Load all of the sub models that contain the actual API functions
+     * @return void
+     */
 	private function _load() {
 		$this->load->model('API/api_dhcp');
 		$this->load->model('API/api_dns');
+		$this->load->model('API/api_documentation');
+		$this->load->model('API/api_firewall');
 		$this->load->model('API/api_ip');
 		$this->load->model('API/api_management');
 		$this->load->model('API/api_network');
 		$this->load->model('API/api_systems');
+		$this->load->model('API/api_statistics');
+
+		$this->load->library('impulselib');
 	}
 }
 /* End of file api.php */
