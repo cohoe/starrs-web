@@ -12,7 +12,7 @@
 					 <li><a href="#" onclick="setViewUser('<?=htmlentities($userName);?>')"><?=htmlentities($displayName)." (".htmlentities($userLevel).")"?></a></li>
 					<li><form class="navbar-form">
 						<select class="btn dropdown-toggle" style="width: auto" name="user" id="viewuser" onchange="setViewUser()">
-							<option value="all">All</option>"
+							<option value="all">All</option>
 							<?php foreach($users as $user) {
 								if($user == $userName) {
 									echo "<option value=\"".htmlentities($user)."\" selected>".htmlentities($user)."</option>";

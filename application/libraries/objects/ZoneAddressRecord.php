@@ -21,7 +21,9 @@ class ZoneAddressRecord extends DnsRecord {
 	 * @param	long	$dateModified	Unix timestamp when the record was modified
 	 * @param	string	$lastModifier	The last user to modify the record
 	 */
-	public function __construct($hostname, $zone, $address, $type, $ttl, $owner, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($hostname, $zone, $address, $type, $ttl, $dateCreated, $dateModified, $lastModifier) {
+		//@todo: Fix this
+		$owner = null;
 		// Chain into the parent
 		parent::__construct($hostname, $zone, $address, $type, $ttl, $owner, $dateCreated, $dateModified, $lastModifier);
 	}

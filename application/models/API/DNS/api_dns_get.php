@@ -420,6 +420,107 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function zoneByName($zone=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_zone({$this->db->escape($zone)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new DnsZone(
+			$query->row()->zone,
+			$query->row()->keyname,
+			$query->row()->forward,
+			$query->row()->shared,
+			$query->row()->owner,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function zoneAddressesByZone($zone=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_zone_a({$this->db->escape($zone)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		$resultSet = array();
+		foreach($query->result_array() as $rec) {
+			$resultSet[] = new ZoneAddressRecord(
+				$rec['hostname'],
+				$rec['zone'],
+				$rec['address'],
+				$rec['type'],
+				$rec['ttl'],
+				$rec['date_created'],
+				$rec['date_modified'],
+				$rec['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function zoneTextsByZone($zone=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_zone_txt({$this->db->escape($zone)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Results
+		$resultSet = array();
+		foreach($query->result_array() as $tRec) {
+			$resultSet[] = new ZoneTextRecord(
+				$tRec['hostname'],
+				$tRec['zone'],
+				$tRec['address'],
+				$tRec['type'],
+				$tRec['ttl'],
+				$tRec['text'],
+				$tRec['date_created'],
+				$tRec['date_modified'],
+				$tRec['last_modifier']
+			);
+		}
+
+		// Return
+		return $resultSet;
+	}
+
+	public function soa($zone=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_soa({$this->db->escape($zone)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Result
+		return new SoaRecord(
+			$query->row()->zone,
+			$query->row()->nameserver,
+			$query->row()->ttl,
+			$query->row()->contact,
+			$query->row()->serial,
+			$query->row()->refresh,
+			$query->row()->retry,
+			$query->row()->expire,
+			$query->row()->minimum,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_dns_get.php */
 /* Location: ./application/models/API/DNS/api_dns_get.php */
