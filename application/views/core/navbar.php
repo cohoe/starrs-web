@@ -26,7 +26,7 @@
 			</div>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li <?=($header=='Systems')?'class="active"':null;?>><a href="/systems/view/<?=rawurlencode($viewUser);?>">Systems</a></li>
+					<li <?=($header=='Systems')?'class="active"':null;?>><a href="/systems/view/">Systems</a></li>
 					<li class="dropdown <?=($header=='DNS')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DNS <b class="caret"></b></a>
 						<ul class="dropdown-menu">

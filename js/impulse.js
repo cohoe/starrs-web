@@ -8,7 +8,8 @@ function setViewUser(inputUser) {
 	}
 
 	setViewUserCookie(user);
-	window.location.href = '/systems/view/' + user;
+	//window.location.href = '/systems/view/' + user;
+	location.reload(true);
 }
 
 function setViewUserCookie(value) {
