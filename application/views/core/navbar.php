@@ -17,7 +17,7 @@
 								if($user == $userName) {
 									echo "<option value=\"".htmlentities($user)."\" selected>".htmlentities($user)."</option>";
 								} else {
-									echo "<option value=\"".htmlentities($user)."\>".htmlentities($user)."</option>";
+									echo "<option value=\"".htmlentities($user)."\">".htmlentities($user)."</option>";
 								}
 							}?>
 						</select>
