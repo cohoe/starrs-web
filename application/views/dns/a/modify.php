@@ -44,7 +44,7 @@
 		<div class="control-group">
 			<label class="control-label">Owner: </label>
 			<div class="controls">
-				<input type="text" name="owner" value="<?=htmlentities($aRec->get_owner());?>" <?=($user->isAdmin())?"":"disabled"?>></input>
+				<input type="text" name="owner" value="<?=htmlentities($aRec->get_owner());?>" <?=($user->isAdmin())?"":"readonly"?>></input>
 			</div>
 		</div>
 	</fieldset>

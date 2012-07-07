@@ -9,7 +9,8 @@
 			<a class="brand" href="/">IMPULSE</a>
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
-					 <li><a href="#" onclick="setViewUser('<?=htmlentities($userName);?>')"><?=htmlentities($displayName)." (".htmlentities($userLevel).")"?></a></li>
+					<li><a href="#" onclick="setViewUser('<?=htmlentities($userName);?>')"><?=htmlentities($displayName)." (".htmlentities($userLevel).")"?></a></li>
+					<?php if(isset($users)) {?>
 					<li><form class="navbar-form">
 						<select class="btn dropdown-toggle" style="width: auto" name="user" id="viewuser" onchange="setViewUser()">
 							<option value="all">All</option>
@@ -22,6 +23,7 @@
 							}?>
 						</select>
 					</form></li>
+					<?}?>
 				</ul>
 			</div>
 			<div class="nav-collapse">

@@ -42,7 +42,7 @@
 			<div class="control-group">	
 				<label class="control-label">Owner: </label>
 				<div class="controls">
-					<input type="text" name="owner" <?=($isAdmin)?"":"disabled";?> value="<?=htmlentities($owner);?>" />
+					<input type="text" name="owner" <?=($isAdmin)?"":"readonly";?> value="<?=htmlentities($owner);?>" />
 				</div>
 			</div>
 			<div class="control-group">	
