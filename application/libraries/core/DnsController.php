@@ -9,6 +9,9 @@ class DnsController extends ImpulseController {
 		
 		// Base JS
 		$this->_addScript('/js/dns.js');
+
+		// Nav
+		$this->_setNavHeader("DNS");
 	}
 
 	private function _renderDnsTableButtons($viewLink, $modifyLink, $removeLink) {

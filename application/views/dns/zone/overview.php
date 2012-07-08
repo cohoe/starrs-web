@@ -9,9 +9,15 @@
 		<?=$soaInfo;?>
 	</div>
 	<div class="row-fluid">
+		<a name="ns"></a>
+		<?=$nRecInfo;?>
+	</div>
+	<div class="row-fluid">
+		<a name="a"></a>
 		<?=$aRecInfo;?>
 	</div>
 	<div class="row-fluid">
+		<a name="txt"></a>
 		<?=$tRecInfo;?>
 	</div>
 </div>

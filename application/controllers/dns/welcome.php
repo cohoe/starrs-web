@@ -3,11 +3,6 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Welcome extends DnsController {
 
-	public function __construct() {
-		parent::__construct();
-		$this->_setNavHeader("DNS");
-	}
-
 	public function index() {
 		// Sidebar
 		$this->_addSidebarHeader("ZONES");

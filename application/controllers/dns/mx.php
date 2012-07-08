@@ -3,11 +3,6 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Mx extends DnsController {
 
-	public function __construct() {
-		parent::__construct();
-		$this->_setNavHeader("DNS");
-	}
-
 	public function view($zone,$preference) {
 		// Decode
 		$zone = rawurldecode($zone);

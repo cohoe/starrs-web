@@ -497,6 +497,32 @@ class Api_dns_get extends ImpulseModel {
 		return $resultSet;
 	}
 
+	public function nsByZone($zone=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_ns({$this->db->escape($zone)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Results
+		$resultSet = array();
+		foreach($query->result_array() as $nRec) {
+			$resultSet[] = new NsRecord(
+				$nRec['nameserver'],
+				$nRec['zone'],
+				$nRec['address'],
+				$nRec['type'],
+				$nRec['ttl'],
+				$nRec['date_created'],
+				$nRec['date_modified'],
+				$nRec['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
 	public function soa($zone=null) {
 		// SQL
 		$sql = "SELECT * FROM api.get_dns_soa({$this->db->escape($zone)})";

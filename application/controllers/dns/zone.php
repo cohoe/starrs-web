@@ -3,11 +3,6 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Zone extends DnsController {
 
-	public function __construct() {
-		parent::__construct();
-		$this->_setNavHeader("DNS");
-	}
-
 	public function index() {
 		$this->_sendClient("/dns/zones");
 	}
@@ -37,6 +32,13 @@ class Zone extends DnsController {
 			catch(ObjectNotFoundException $e) { $aRecInfo = $this->_error($e); }
 			catch(Exception $e) { $this->_exit($e); return; }
 
+			// NS Records
+			try {
+				$nRecs = $this->api->dns->get->nsByZone($z->get_zone());
+				$nRecInfo = $this->_renderDnsTable($nRecs, "NS");
+			}
+			catch(ObjectNotFoundException $e) { $nRecInfo = $this->_error($e); }
+
 			// TXT Records
 			try {
 				$tRecs = $this->api->dns->get->zoneTextsByZone($z->get_zone());
@@ -51,20 +53,24 @@ class Zone extends DnsController {
 			$viewData['soaInfo'] = $soaInfo;
 			$viewData['aRecInfo'] = $aRecInfo;
 			$viewData['tRecInfo'] = $tRecInfo;
+			$viewData['nRecInfo'] = $nRecInfo;
 
 			// Breadcrumb
 			$this->_addTrail("DNS","/dns");
 			$this->_addTrail("Zones","/dns/zones");
 			$this->_addTrail($z->get_zone(),"/dns/zone/view/".rawurlencode($z->get_zone()));
 
-
 			// Sidebar
-			$this->_addSidebarItem("Zone","#zone");
-			$this->_addSidebarItem("SOA","#soa");
-			$this->_addSidebarItem("A/AAAA Records","#a");
-			$this->_addSidebarItem("TXT Records","#txt");
+			$this->_addSidebarItem("Zone","#zone","list");
+			$this->_addSidebarItem("SOA","#soa","cog");
+			$this->_addSidebarItem("NS Records","#ns","file");
+			$this->_addSidebarItem("A/AAAA Records","#a","font");
+			$this->_addSidebarItem("TXT Records","#txt","list-alt");
 
 			// Actions
+			$this->_addAction("Create NS","#","success");
+			$this->_addAction("Create A/AAAA","#","success");
+			$this->_addAction("Create TXT","#","success");
 			$this->_addAction("Modify","#");
 			$this->_addAction("Remove","#");
 

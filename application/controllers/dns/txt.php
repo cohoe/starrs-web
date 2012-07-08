@@ -3,15 +3,6 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Txt extends DnsController {
 
-	public function __construct() {
-		parent::__construct();
-		$this->_setNavHeader("DNS");
-	}
-
-	public function test() {
-		print "foo";
-	} 
-
 	public function view($zone,$hostname,$hash) {
 		// Decode
 		$zone = rawurldecode($zone);
