@@ -7,9 +7,6 @@ class DnsController extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		
-		// Base JS
-		$this->_addScript('/js/dns.js');
-
 		// Nav
 		$this->_setNavHeader("DNS");
 	}
@@ -101,6 +98,18 @@ class DnsController extends ImpulseController {
 					$removeLink = "/dns/txt/remove/".rawurlencode($tRec->get_zone())."/".rawurlencode($tRec->get_hostname())."/".md5($tRec->get_text());
 					$actions = $this->_renderDnsTableButtons($viewLink, $modifyLink, $removeLink);
 					$table .= "<tr><td>{$tRec->get_hostname()}</td><td>{$tRec->get_zone()}</td><td>{$tRec->get_text()}</td><td>$actions</td></tr>";
+					$counter++;
+				}
+				break;
+			case "Zone NS":
+				$table .= "<tr><th>Nameserver</th><th>Address</th>$ttlHead<th style=\"width: 162px\">Actions</th></tr>";
+				foreach($recs as $nRec) {
+					if(get_class($nRec) != "NsRecord") { continue; }
+					$viewLink = "/dns/ns/view/".rawurlencode($nRec->get_zone())."/".rawurlencode($nRec->get_nameserver());
+					$modifyLink = "/dns/ns/modify/".rawurlencode($nRec->get_zone())."/".rawurlencode($nRec->get_nameserver());
+					$removeLink = "/dns/ns/remove/".rawurlencode($nRec->get_zone())."/".rawurlencode($nRec->get_nameserver());
+					$actions = $this->_renderDnsTableButtons($viewLink, $modifyLink, $removeLink);
+					$table .= "<tr><td>{$nRec->get_nameserver()}</td><td>{$nRec->get_address()}</td><td>{$nRec->get_ttl()}</td><td>$actions</td></tr>";
 					$counter++;
 				}
 				break;

@@ -3,11 +3,6 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Ns extends DnsController {
 
-	public function __construct() {
-		parent::__construct();
-		$this->_setNavHeader("DNS");
-	}
-
 	public function view($zone,$nameserver) {
 		// Decode
 		$zone = rawurldecode($zone);
@@ -22,7 +17,13 @@ class Ns extends DnsController {
 		$this->load->view('dns/ns/detail',array('rec'=>$nRec));
 	}
 
-	public function create() {
+	public function create($address=null) {
+		// Decode
+		if(isset($address)) {
+			$address = rawurldecode($address);
+		}
+
+
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {
@@ -40,7 +41,7 @@ class Ns extends DnsController {
 				$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			}
 			catch (Exception $e) { $this->_error($e); return; }
-			$content = $this->load->view('dns/ns/create',array('zones'=>$zones,'user'=>$this->user),true);
+			$content = $this->load->view('dns/ns/create',array('zones'=>$zones,'user'=>$this->user,'address'=>$address),true);
 
 			$this->_renderSimple($content);
 		}
@@ -86,23 +87,23 @@ class Ns extends DnsController {
 		}
 		else {
 
-		// Instantiate
-		try {
-			$nRec = $this->api->dns->get->ns($zone, $nameserver);
-			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
-		}
-		catch (Exception $e) { $this->_error($e); return; }
+			// Instantiate
+			try {
+				$nRec = $this->api->dns->get->ns($zone, $nameserver);
+				$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+			}
+			catch (Exception $e) { $this->_error($e); return; }
 
-		// View Data
-		$viewData['nRec'] = $nRec;
-		$viewData['zones'] = $zones;
-		$viewData['user'] = $this->user;
+			// View Data
+			$viewData['nRec'] = $nRec;
+			$viewData['zones'] = $zones;
+			$viewData['user'] = $this->user;
 
-		// Content
-		$content = $this->load->view('dns/ns/modify',$viewData,true);
+			// Content
+			$content = $this->load->view('dns/ns/modify',$viewData,true);
 
-		// Render
-		$this->_renderSimple($content);
+			// Render
+			$this->_renderSimple($content);
 		}
 	}
 

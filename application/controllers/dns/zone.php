@@ -3,6 +3,11 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Zone extends DnsController {
 
+	public function __construct() {
+		parent::__construct();
+		$this->_addScript("/js/dns.js");
+	}
+
 	public function index() {
 		$this->_sendClient("/dns/zones");
 	}
@@ -35,7 +40,7 @@ class Zone extends DnsController {
 			// NS Records
 			try {
 				$nRecs = $this->api->dns->get->nsByZone($z->get_zone());
-				$nRecInfo = $this->_renderDnsTable($nRecs, "NS");
+				$nRecInfo = $this->_renderDnsTable($nRecs, "Zone NS");
 			}
 			catch(ObjectNotFoundException $e) { $nRecInfo = $this->_error($e); }
 
@@ -68,7 +73,7 @@ class Zone extends DnsController {
 			$this->_addSidebarItem("TXT Records","#txt","list-alt");
 
 			// Actions
-			$this->_addAction("Create NS","#","success");
+			$this->_addAction("Create NS","/dns/ns/create/","success");
 			$this->_addAction("Create A/AAAA","#","success");
 			$this->_addAction("Create TXT","#","success");
 			$this->_addAction("Modify","#");
@@ -76,6 +81,9 @@ class Zone extends DnsController {
 
 			// Content
 			$content = $this->load->view('dns/zone/overview',$viewData,true);
+			$content .= $this->load->view('dns/modalcreate',null,true);
+			$content .= $this->load->view('dns/modalmodify',null,true);
+			$content .= $this->load->view('core/modalconfirm',null,true);
 		}	
 		catch(Exception $e) { $this->_exit($e); return; }
 

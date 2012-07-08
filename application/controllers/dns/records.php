@@ -3,6 +3,12 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Records extends DnsController {
 
+	public function __construct() {
+		parent::__construct();
+
+		$this->_addScript("/js/dns.js");
+	}
+
 	public function index() {
 		$this->_addTrail("DNS","/dns/");
 		$this->_addTrail("Records","/dns/records/");

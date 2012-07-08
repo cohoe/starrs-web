@@ -85,6 +85,11 @@ function handlePost(data) {
 		$('#modal-error').modal('show');
 	}
 	else {
-		$('head').html($('head').html() + data);
+		refresh();
+		//$('head').html($('head').html() + data);
 	}
+}
+
+function refresh() {
+	location.reload(true);
 }

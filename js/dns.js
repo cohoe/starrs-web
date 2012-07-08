@@ -7,6 +7,18 @@ $('#create').click(function() {
 	return false;
 });
 
+// NS
+$('#createns').click(function() {
+	$.get($(this).attr('href'),function(data) {
+		$('#modal-select-body').html(data);
+		$('#continue').addClass('hide');
+		$('#createrec').removeClass('hide');
+		$('#createrec').attr('href',$('#createns').attr('href'));
+		$('#modal-select').modal('show');
+	});
+	return false;
+});
+
 // Click after selecting a record type from the dropdown in the popup
 $('#continue').click(function() {
 	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create/"+getIpFromUrl();
@@ -27,7 +39,7 @@ $('#cancel').click(function() {
 // Click the button to create a record
 $('#createrec').click(function() {
 	var dataStr = $('#create-form').serialize();
-	dataStr = dataStr+"&address="+getIpFromUrl();
+	//dataStr = dataStr+"&address="+getIpFromUrl();
 	var url = $('#createrec').attr('href');
 	$.post(url,dataStr,function(data) {
 		handlePost(data);	

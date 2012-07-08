@@ -18,6 +18,17 @@
 				</select>
 			</div>
 		</div>
+		<?php
+		if(isset($address)) {?>
+			<input type="hidden" name="address" value="<?=$address;?>" readonly />
+		<?} else {?>
+		<div class="control-group error">
+			<label class="control-label">Address: </label>
+			<div class="controls">
+				<input type="text" name="address"></input>
+			</div>
+		</div>
+		<?}?>
 		<div class="control-group warning">
 			<label class="control-label">TTL: </label>
 			<div class="controls">
