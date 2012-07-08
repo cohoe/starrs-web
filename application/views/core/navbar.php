@@ -33,7 +33,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DNS <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/dns/records">Records</a></li>
-							<li><a href="#">Zones</a></li>
+							<li><a href="/dns/zones/">Zones</a></li>
 							<li><a href="#">Keys</a></li>
 						</ul>
 					</li>

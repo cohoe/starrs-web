@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . "libraries/core/ImpulseController.php");
+require_once(APPPATH . "libraries/core/DnsController.php");
 
-class Welcome extends ImpulseController {
+class Welcome extends DnsController {
 
 	public function __construct() {
 		parent::__construct();
@@ -14,7 +14,7 @@ class Welcome extends ImpulseController {
 		try {
 			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			foreach($zones as $zone) {
-				$this->_addSidebarItem($zone->get_zone(),"#","list");
+				$this->_addSidebarItem($zone->get_zone(),"/dns/zone/view/".rawurlencode($zone->get_zone()),"list");
 			}
 		}
 		catch (ObjectNotFoundException $e) {}
@@ -48,6 +48,9 @@ class Welcome extends ImpulseController {
 		// Actions
 		$this->_addAction("Create Key","/dns/key/create","success");
 		$this->_addAction("Create Zone","/dns/zone/create","success");
+
+		// Breadcrumb
+		$this->_addTrail("DNS","/dns");
 
 		// Content
 		$content = $this->load->view('dns/information',null,true);

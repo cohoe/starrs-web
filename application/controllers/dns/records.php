@@ -1,12 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . "libraries/core/ImpulseController.php");
+require_once(APPPATH . "libraries/core/DnsController.php");
 
-class Records extends ImpulseController {
+class Records extends DnsController {
 
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("DNS");
-		$this->_addScript('/js/dns.js');
 	}
 
 	public function index() {

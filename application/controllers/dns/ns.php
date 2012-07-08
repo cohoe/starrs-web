@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . "libraries/core/ImpulseController.php");
+require_once(APPPATH . "libraries/core/DnsController.php");
 
-class Ns extends ImpulseController {
+class Ns extends DnsController {
 
 	public function __construct() {
 		parent::__construct();
