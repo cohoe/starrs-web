@@ -61,7 +61,49 @@ class SoaRecord extends ImpulseObject {
 	public function get_expire() { return $this->expire; }
 	public function get_minimum() { return $this->minimum; }
 	public function get_ttl()      { return $this->ttl; }
+
+	////////////////////////////////////////////////////////////////////////
+	// GETTERS
+
+	public function set_nameserver($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'nameserver', $new);
+		$this->nameserver = $new;
+	}
 	
+	public function set_ttl($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'ttl', $new);
+		$this->ttl = $new;
+	}
+
+	public function set_contact($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'contact', $new);
+		$this->contact = $new;
+	}
+
+	public function set_serial($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'serial', $new);
+		$this->serial = $new;
+	}
+
+	public function set_refresh($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'refresh', $new);
+		$this->refresh = $new;
+	}
+
+	public function set_retry($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'retry', $new);
+		$this->retry = $new;
+	}
+
+	public function set_expire($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'expire', $new);
+		$this->expire = $new;
+	}
+
+	public function set_minimum($new) {
+		$this->CI->api->dns->modify->soa($this->zone, 'minimum', $new);
+		$this->minimum = $new;
+	}
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS
 	

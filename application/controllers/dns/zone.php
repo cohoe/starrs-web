@@ -77,7 +77,7 @@ class Zone extends DnsController {
 			$this->_addAction("Create NS","/dns/ns/create/","success");
 			$this->_addAction("Create Address","/dns/zonea/create/".rawurlencode($z->get_zone()),"success");
 			$this->_addAction("Create TXT","/dns/zonetxt/create/".rawurlencode($z->get_zone()),"success");
-			$this->_addAction("Modify","#");
+			$this->_addAction("Modify Zone","/dns/zone/modify/".rawurlencode($z->get_zone()),"warning");
 			$this->_addAction("Remove","/dns/zone/remove/".rawurlencode($z->get_zone()));
 
 			// Content
@@ -100,8 +100,8 @@ class Zone extends DnsController {
 					$this->input->post('key'),
 					$this->input->post('forward'),
 					$this->input->post('shared'),
-					$this->input->post('comment'),
 					$this->input->post('owner'),
+					$this->input->post('comment'),
 					$this->input->post('nameserver'),
 					$this->input->post('ttl'),
 					$this->input->post('contact'),
@@ -140,6 +140,101 @@ class Zone extends DnsController {
 		else {
 			$this->_error(new Exception("No confirmation"));
 		}
+	}
+
+	public function modify($zone) {
+		// Decode
+		$zone = rawurldecode($zone);
+
+		// Instantiate
+		try {
+			$z = $this->api->dns->get->zoneByName($zone);
+			$soa = $this->api->dns->get->soa($zone);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		if($this->input->post()) {
+			$err = array();
+			// Zone stuff
+			if($z->get_zone() != $this->input->post('zone')) {
+				try { $z->set_zone($this->input->post('zone')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($z->get_keyname() != $this->input->post('keyname')) {
+				try { $z->set_key($this->input->post('keyname')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($z->get_forward() != $this->input->post('forward')) {
+				try { $z->set_forward($this->input->post('forward')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($z->get_shared() != $this->input->post('shared')) {
+				try { $z->set_shared($this->input->post('shared')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($z->get_comment() != $this->input->post('comment')) {
+				try { $z->set_comment($this->input->post('comment')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($z->get_owner() != $this->input->post('owner')) {
+				try { $z->set_owner($this->input->post('owner')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+
+			// SOA
+			// Reinstantiate since the zone might have changed
+			$soa = $this->api->dns->get->soa($z->get_zone());
+			if($soa->get_nameserver() != $this->input->post('nameserver')) {
+				try { $soa->set_nameserver($this->input->post('nameserver')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($soa->get_ttl() != $this->input->post('ttl')) {
+				try { $soa->set_ttl($this->input->post('ttl')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($soa->get_contact() != $this->input->post('contact')) {
+				try { $soa->set_contact($this->input->post('contact')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($soa->get_serial() != $this->input->post('serial')) {
+				try { $soa->set_serial($this->input->post('serial')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($soa->get_refresh() != $this->input->post('refresh')) {
+				try { $soa->set_refresh($this->input->post('refresh')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($soa->get_retry() != $this->input->post('retry')) {
+				try { $soa->set_retry($this->input->post('retry')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($soa->get_expire() != $this->input->post('expire')) {
+				try { $soa->set_expire($this->input->post('expire')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($soa->get_minimum() != $this->input->post('minimum')) {
+				try { $soa->set_minimum($this->input->post('minimum')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+
+			if($err) {
+				$this->_error($err); return;
+			}
+			$this->_sendClient("/dns/zone/view/".rawurlencode($z->get_zone()));
+		}
+
+		try {
+			$viewData['keys'] = $this->api->dns->get->keysByUser($this->user->getActiveUser());
+		}
+		catch(ObjectNotFoundException $e) {}
+		catch(Exception $e) { $this->_error($e); return; }
+		$viewData['isAdmin'] = $this->user->isAdmin();
+		$viewData['z'] = $z;
+		$viewData['soa'] = $soa;
+		$content = $this->load->view('dns/zone/modify',$viewData,true);
+		$content .= $this->load->view('core/forminfo',null,true);
+
+		$this->_render($content);
 	}
 }
 /* End of file zone.php */

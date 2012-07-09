@@ -108,6 +108,9 @@ $('.btn-warning').click(function() {
 	return false;
 });
 
+// Hax for zone
+$('#modifyzone .btn-warning').unbind('click');
+
 // Confirm to remove the record
 $('#modal-confirm-btn').click(function() {
 	$.post($(this).attr('href'),{confirm:"confirm"},function(data) {
