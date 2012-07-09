@@ -23,21 +23,22 @@ class Keys extends DnsController {
 		// Actions
 		$this->_addAction('Create',"/dns/key/create");
 
+		// Sidebar
+		$this->_addSidebarHeader("KEYS");
+
 		// Generate content
 		try {
 			$keys = $this->api->dns->get->keysByUser($this->user->getActiveUser());
 			foreach($keys as $k) {
 				$this->_addSidebarItem($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()),"check");
 			}
-			$content = $this->load->view('dns/key/information',null,true);
 		}
-		catch (ObjectNotFoundException $onfe) {
-			$content = $this->load->view('exceptions/objectnotfound',null,true);
-			$content .= $this->load->view('dns/key/information',null,true);
-		}
+		catch (ObjectNotFoundException $onfe) {}
 		catch (Exception $e) {
 			$this->_exit($e); return;
 		}
+
+		$content = $this->load->view('dns/key/information',null,true);
 
 		// Render page
 		$this->_render($content);

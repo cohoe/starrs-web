@@ -6,6 +6,7 @@ class Zone extends DnsController {
 	public function __construct() {
 		parent::__construct();
 		$this->_addScript("/js/dns.js");
+		$this->_addTrail("Zones","/dns/zones/");
 	}
 
 	public function index() {
@@ -62,8 +63,6 @@ class Zone extends DnsController {
 			$viewData['nRecInfo'] = $nRecInfo;
 
 			// Breadcrumb
-			$this->_addTrail("DNS","/dns");
-			$this->_addTrail("Zones","/dns/zones");
 			$this->_addTrail($z->get_zone(),"/dns/zone/view/".rawurlencode($z->get_zone()));
 
 			// Sidebar
@@ -122,8 +121,12 @@ class Zone extends DnsController {
 		}
 		catch(ObjectNotFoundException $e) {}
 		catch(Exception $e) { $this->_error($e); return; }
+		
+		// View Data
 		$viewData['owner'] = $this->user->getActiveUser();
 		$viewData['isAdmin'] = $this->user->isAdmin();
+
+		// Content
 		$content = $this->load->view('dns/zone/create',$viewData,true);
 		$this->_render($content);
 	}
@@ -228,9 +231,16 @@ class Zone extends DnsController {
 		}
 		catch(ObjectNotFoundException $e) {}
 		catch(Exception $e) { $this->_error($e); return; }
+
+		// View Data
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['z'] = $z;
 		$viewData['soa'] = $soa;
+		
+		// Trail
+		$this->_addTrail($z->get_zone(),"/dns/zone/view/".rawurlencode($z->get_zone()));
+
+		// Content
 		$content = $this->load->view('dns/zone/modify',$viewData,true);
 		$content .= $this->load->view('core/forminfo',null,true);
 
