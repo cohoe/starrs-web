@@ -164,7 +164,7 @@ class Zone extends DnsController {
 				catch (Exception $e) { $err[] = $e; }
 			}
 			if($z->get_keyname() != $this->input->post('keyname')) {
-				try { $z->set_key($this->input->post('keyname')); }
+				try { $z->set_keyname($this->input->post('keyname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 			if($z->get_forward() != $this->input->post('forward')) {
