@@ -591,6 +591,26 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function zoneaByZoneAddress($zone=null,$address=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_zone_a({$this->db->escape($zone)}) WHERE address = {$this->db->escape($address)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return new ZoneAddressRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_dns_get.php */
 /* Location: ./application/models/API/DNS/api_dns_get.php */

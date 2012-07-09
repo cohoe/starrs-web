@@ -98,31 +98,10 @@ class InterfaceAddress extends ImpulseObject {
 		$this->family  = (strpos($address, ':') === false) ? 4 : 6;
 		
 		// Initialize variables
-		$this->dnsAddressRecords = array();
-		$this->dnsPointerRecords = array();
-		$this->dnsNsRecords = array();
-		$this->dnsMxRecords = array();
-		$this->dnsTextRecords = array();
-		$this->fwRules = array();
         $this->dynamic = FALSE;
 
         // Try to get the address record that resolves to this address
-//		try {
-//			#$this->dnsAddressRecord = $this->CI->api->dns->get->address_record($this->address);
-//			#$this->dnsFqdn = $this->dnsAddressRecord->get_hostname().".".$this->dnsAddressRecord->get_zone();
-//		}
-//		catch (ObjectNotFoundException $onfE) {
-//			$this->dnsAddressRecord = null;
-//			$this->dnsFqdn = null;
-//		}
-
-        // Fill in some more basic information this address
-
-        // If this is in the site configured dynamic subnet range, then fill in some more information
-//		if($this->CI->api->ip->ip_in_subnet($this->get_address(), $this->CI->api->get->site_configuration('DYNAMIC_SUBNET')) == 't') {
-//			$this->dynamic = TRUE;
-//			$this->dnsFqdn = $this->CI->impulselib->hostname($this->CI->api->systems->get->interface_address_system($this->address)) . "." . $this->CI->api->get->site_configuration('DNS_DEFAULT_ZONE');
-//		}
+	   $this->systemName = $this->CI->api->systems->get->systemByAddress($this->address)->get_system_name();
 
 		$this->range = $this->CI->api->ip->get->address_range($this->address);
 	}

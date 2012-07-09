@@ -34,18 +34,18 @@ class ZoneAddressRecord extends DnsRecord {
     ////////////////////////////////////////////////////////////////////////
 	// SETTERS
 
-    public function set_hostname($new) {
-		$this->CI->api->dns->modify->zone_address($this->address, $this->zone, 'hostname', $new);
+    public function set_address($new) {
+		$this->CI->api->dns->modify->zone_address($this->zone, $this->address, 'address', $new);
 		$this->hostname = $new;
 	}
 
 	public function set_zone($new) {
-		$this->CI->api->dns->modify->zone_address($this->address, $this->zone, 'zone', $new);
+		$this->CI->api->dns->modify->zone_address($this->zone, $this->address, 'zone', $new);
 		$this->zone = $new;
 	}
 
 	public function set_ttl($new) {
-		$this->CI->api->dns->modify->zone_address($this->address, $this->zone, 'ttl', $new);
+		$this->CI->api->dns->modify->zone_address($this->zone, $this->address, 'ttl', $new);
 		$this->ttl = $new;
 	}
 

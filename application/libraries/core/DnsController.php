@@ -30,14 +30,14 @@ class DnsController extends ImpulseController {
 		$table .= "<div class=\"imp-dnsheader\"><h3>$header</h3></div>";
 		switch($header) {
 			case "Zone A/AAAA":
-				$table .= "<tr><th>Zone</th><th style=\"width: 9%\">TTL</th><th>Address</th><th style=\"width: 162px;\">Actions</th></tr>";
+				$table .= "<tr><th>Zone</th><th style=\"width: 9%\">TTL</th><th>Type</th><th>Address</th><th style=\"width: 162px;\">Actions</th></tr>";
 				foreach($recs as $aRec) {
 					if(get_class($aRec) != "ZoneAddressRecord") { continue; }
 					$viewLink = "/dns/zonea/view/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
 					$modifyLink = "/dns/zonea/modify/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
 					$removeLink = "/dns/zonea/remove/".rawurlencode($aRec->get_zone())."/".rawurlencode($aRec->get_address());
 					$actions = $this->_renderDnsTableButtons($viewLink, $modifyLink, $removeLink);
-					$table .= "<tr><td>{$aRec->get_zone()}</td><td>{$aRec->get_ttl()}</td><td>{$aRec->get_address()}</td><td>$actions</td></tr>";
+					$table .= "<tr><td>{$aRec->get_zone()}</td><td>{$aRec->get_ttl()}</td><td>{$aRec->get_type()}</td><td>{$aRec->get_address()}</td><td>$actions</td></tr>";
 					$counter++;
 				}
 				break;

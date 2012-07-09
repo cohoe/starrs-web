@@ -77,6 +77,18 @@ class Api_dns_remove extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 	}
+
+
+	public function zonea($zone, $address) {
+		// SQL Query
+		$sql = "SELECT api.remove_dns_zone_a({$this->db->escape($zone)},{$this->db->escape($address)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+	}
+
+
 }
 /* End of file api_dns_remove.php */
 /* Location: ./application/models/API/DNS/api_dns_remove.php */

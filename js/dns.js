@@ -7,6 +7,17 @@ $('#create').click(function() {
 	return false;
 });
 
+$('#createaddress').click(function() {
+	$.get("/dns/zonea/create/"+getObjectFromUrl(),function(data) {
+		$('#modal-select-body').html(data);
+		$('#continue').addClass('hide');
+		$('#createrec').removeClass('hide');
+		$('#createrec').attr('href',$('#createaddress').attr('href'));
+		$('#modal-select').modal('show');
+	});
+	return false;
+});
+
 // NS
 $('#createns').click(function() {
 	$.get($(this).attr('href'),function(data) {
@@ -95,5 +106,8 @@ $('#modal-confirm-btn').click(function() {
 });
 
 function getIpFromUrl() {
+	return window.location.pathname.split('/').pop();
+}
+function getObjectFromUrl() {
 	return window.location.pathname.split('/').pop();
 }

@@ -224,6 +224,29 @@ class Api_systems_get extends ImpulseModel {
 		}
 		return $resultSet;
 	}
+
+	public function systemByAddress($address=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_systems(null) AS sysdata JOIN api.get_system_types() as typedata ON sysdata.type = typedata.type WHERE system_name = api.get_interface_address_system({$this->db->escape($address)});";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+		
+		// Result
+		return new System(
+			$query->row()->system_name,
+			$query->row()->owner,
+			$query->row()->comment,
+			$query->row()->type,
+			$query->row()->family,
+			$query->row()->os_name,
+			$query->row()->renew_date,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_systems_get.php */
 /* Location: ./application/models/API/Systems/api_systems_get.php */

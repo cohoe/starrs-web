@@ -85,6 +85,15 @@ class Api_dns_modify extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 	}
+
+	public function zone_address($zone, $address, $field, $newValue) {
+		// SQL Query
+		$sql = "SELECT api.modify_dns_zone_a({$this->db->escape($zone)}, {$this->db->escape($address)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+	}
 }
 /* End of file api_dns_modify.php */
 /* Location: ./application/models/API/DNS/api_dns_modify.php */
