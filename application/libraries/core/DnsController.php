@@ -9,6 +9,7 @@ class DnsController extends ImpulseController {
 		
 		// Nav
 		$this->_setNavHeader("DNS");
+		$this->_addTrail("DNS","/dns");
 	}
 
 	private function _renderDnsTableButtons($viewLink, $modifyLink, $removeLink) {
@@ -18,13 +19,12 @@ class DnsController extends ImpulseController {
 		return $actions;
 	}
 
-	protected function _renderDnsTable($recs, $header) {
+	protected function _renderDnsTable($recs, $header, $counter=0) {
 		$ttlHead = "<th style=\"width: 3em\">TTL</th>";
 		$portHead= "<th style=\"width: 3em\">Port</th>";
 		$weightHead= "<th style=\"width: 3.6em\">Weight</th>";
 		$priorityHead= "<th style=\"width: 3.6em\">Priority</th>";
 		$typeHead= "<th style=\"width: 3.6em\">Type</th>";
-		$counter = 0;
 		$table = "<a name=\"$header\"></a>";
 		$table .= "<table class=\"table table-striped table-bordered imp-dnstable\">";
 		$table .= "<div class=\"imp-dnsheader\"><h3>$header</h3></div>";

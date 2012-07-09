@@ -89,7 +89,7 @@ $('.btn-warning').click(function() {
 // Confirm to remove the record
 $('#modal-confirm-btn').click(function() {
 	$.post($(this).attr('href'),{confirm:"confirm"},function(data) {
-		handlePost(data);
+		handlePostRedirect(data);
 	});
 	return false;
 });

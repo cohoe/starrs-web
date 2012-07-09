@@ -67,14 +67,14 @@ $(document).ready(function() {
 
 $('#create-form').submit(function() {
 	$.post(undefined,$('#create-form').serialize(),function(data) { 
-		handlePost(data);
+		handlePostRedirect(data);
 	});
 	return false;
 });
 
 $('#modify-form').submit(function() {
 	$.post(undefined,$('#modify-form').serialize(),function(data) { 
-		handlePost(data);
+		handlePostRedirect(data);
 	});
 	return false;
 });
@@ -87,6 +87,16 @@ function handlePost(data) {
 	else {
 		refresh();
 		//$('head').html($('head').html() + data);
+	}
+}
+
+function handlePostRedirect(data) {
+	if(!data.match(/^\<script\>/g)) {
+		$('#modal-error-body').html(data);
+		$('#modal-error').modal('show');
+	}
+	else {
+		$('head').html($('head').html() + data);
 	}
 }
 

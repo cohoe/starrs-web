@@ -547,6 +547,50 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function keysByUser($user=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_keys({$this->db->escape($user)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Result
+		$resultSet = array();
+		foreach($query->result_array() as $key) {
+			$resultSet[] = new DnsKey(
+				$key['keyname'],
+				$key['key'],
+				$key['owner'],
+				$key['comment'],
+				$key['date_created'],
+				$key['date_modified'],
+				$key['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function keyByUserName($user=nulll,$key=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dns_keys({$this->db->escape($user)}) WHERE keyname = {$this->db->escape($key)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return new DnsKey(
+			$query->row()->keyname,
+			$query->row()->key,
+			$query->row()->owner,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_dns_get.php */
 /* Location: ./application/models/API/DNS/api_dns_get.php */

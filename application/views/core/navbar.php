@@ -34,7 +34,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="/dns/records">Records</a></li>
 							<li><a href="/dns/zones/">Zones</a></li>
-							<li><a href="#">Keys</a></li>
+							<li><a href="/dns/keys/">Keys</a></li>
 						</ul>
 					</li>
 					<li <?=($header=='DHCP')?'class="active"':null;?>><a href="#">DHCP</a></li>
