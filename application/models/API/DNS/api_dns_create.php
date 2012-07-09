@@ -285,6 +285,28 @@ class Api_dns_create extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function zonetxt($hostname=null,$zone=null,$text=null,$ttl=null) {
+		// SQL
+		$sql = "SELECT * FROM api.create_dns_zone_txt({$this->db->escape($hostname)},{$this->db->escape($zone)},{$this->db->escape($text)},{$this->db->escape($ttl)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new ZoneTextRecord(
+			$query->row()->hostname,
+			$query->row()->zone,
+			$query->row()->address,
+			$query->row()->type,
+			$query->row()->ttl,
+			$query->row()->text,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_dns_create.php */
 /* Location: ./application/models/API/DNS/api_dns_create.php */

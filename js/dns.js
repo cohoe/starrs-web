@@ -18,6 +18,17 @@ $('#createaddress').click(function() {
 	return false;
 });
 
+$('#createtxt').click(function() {
+	$.get("/dns/zonetxt/create/"+getObjectFromUrl(),function(data) {
+		$('#modal-select-body').html(data);
+		$('#continue').addClass('hide');
+		$('#createrec').removeClass('hide');
+		$('#createrec').attr('href',$('#createtxt').attr('href'));
+		$('#modal-select').modal('show');
+	});
+	return false;
+});
+
 // NS
 $('#createns').click(function() {
 	$.get($(this).attr('href'),function(data) {

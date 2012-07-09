@@ -76,7 +76,7 @@ class Zone extends DnsController {
 			// Actions
 			$this->_addAction("Create NS","/dns/ns/create/","success");
 			$this->_addAction("Create Address","/dns/zonea/create/".rawurlencode($z->get_zone()),"success");
-			$this->_addAction("Create TXT","#","success");
+			$this->_addAction("Create TXT","/dns/zonetxt/create/".rawurlencode($z->get_zone()),"success");
 			$this->_addAction("Modify","#");
 			$this->_addAction("Remove","/dns/zone/remove/".rawurlencode($z->get_zone()));
 
