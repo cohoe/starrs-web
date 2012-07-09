@@ -95,14 +95,23 @@ class Zone extends DnsController {
 	public function create() {
 		if($this->input->post()) {
 			try {
-				$z = $this->api->dns->create->zone(
+				$res = $this->api->dns->create->zone(
 					$this->input->post('zone'),
 					$this->input->post('key'),
 					$this->input->post('forward'),
 					$this->input->post('shared'),
 					$this->input->post('comment'),
-					$this->input->post('owner')
+					$this->input->post('owner'),
+					$this->input->post('nameserver'),
+					$this->input->post('ttl'),
+					$this->input->post('contact'),
+					$this->input->post('serial'),
+					$this->input->post('refresh'),
+					$this->input->post('retry'),
+					$this->input->post('expire'),
+					$this->input->post('minimum')
 				);
+				$z = $res['zone'];
 				$this->_sendClient("/dns/zone/view/".rawurlencode($z->get_zone()));
 			}
 			catch(Exception $e) { $this->_error($e); return; }

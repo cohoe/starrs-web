@@ -50,6 +50,55 @@
 					<input type="text" name="owner" <?=($isAdmin)?"":"readonly";?> value="<?=htmlentities($owner);?>" />
 				</div>
 			</div>
+			<legend>Start of Authority (SOA)</legend>
+			<div class="control-group error">	
+				<label class="control-label">Nameserver: </label>
+				<div class="controls">
+					<input type="text" name="nameserver" />
+				</div>
+			</div>
+			<div class="control-group error">	
+				<label class="control-label">TTL: </label>
+				<div class="controls">
+					<input type="text" name="ttl" />
+				</div>
+			</div>
+			<div class="control-group error">	
+				<label class="control-label">Responsible Person: </label>
+				<div class="controls">
+					<input type="text" name="contact" />
+				</div>
+			</div>
+			<div class="control-group error">	
+				<label class="control-label">Serial: </label>
+				<div class="controls">
+					<input type="text" name="serial" />
+				</div>
+			</div>
+			<div class="control-group error">	
+				<label class="control-label">Refresh: </label>
+				<div class="controls">
+					<input type="text" name="refresh" />
+				</div>
+			</div>
+			<div class="control-group error">	
+				<label class="control-label">Retry: </label>
+				<div class="controls">
+					<input type="text" name="retry" />
+				</div>
+			</div>
+			<div class="control-group error">	
+				<label class="control-label">Expire: </label>
+				<div class="controls">
+					<input type="text" name="expire" />
+				</div>
+			</div>
+			<div class="control-group error">	
+				<label class="control-label">Minimum: </label>
+				<div class="controls">
+					<input type="text" name="minimum" />
+				</div>
+			</div>
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Zone" class="btn btn-primary" />

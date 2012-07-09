@@ -35,9 +35,9 @@ class Api_dns_create extends ImpulseModel {
 		);
 	}
 	
-	public function zone($zone, $keyname, $forward, $shared, $owner, $comment) {
+	public function zone($zone, $keyname, $forward, $shared, $owner, $comment, $nameserver, $ttl, $contact, $serial, $refresh, $retry, $expire, $minimum) {
 		// SQL Query
-		$sql = "SELECT * FROM api.create_dns_zone(
+		$zonesql = "SELECT * FROM api.create_dns_zone(
 			{$this->db->escape($zone)},
 			{$this->db->escape($keyname)},
 			{$this->db->escape($forward)},
@@ -45,27 +45,61 @@ class Api_dns_create extends ImpulseModel {
 			{$this->db->escape($owner)},
 			{$this->db->escape($comment)}
 		)";
-		$query = $this->db->query($sql);
-		
-		// Check error
-		$this->_check_error($query);
-		
-		if($query->num_rows() > 1) {
-			throw new APIException("The database returned more than one new zone. Contact your system administrator");
+		$soasql = "SELECT * FROM api.create_dns_soa(
+			{$this->db->escape($zone)},
+			{$this->db->escape($ttl)},
+			{$this->db->escape($nameserver)},
+			{$this->db->escape($contact)},
+			{$this->db->escape($serial)},
+			{$this->db->escape($refresh)},
+			{$this->db->escape($retry)},
+			{$this->db->escape($expire)},
+			{$this->db->escape($minimum)}
+		)";
+		$this->db->trans_off();
+		$this->db->trans_start();
+		$zonequery = $this->db->query($zonesql);
+		$soaquery = $this->db->query($soasql);
+		$this->db->trans_complete();
+
+		if($this->db->trans_status() === FALSE) {
+			throw new APIException("Zone create failed: ".$this->db->_error_message());
 		}
 		
+		// Check error
+		$this->_check_error($zonequery);
+		$this->_check_error($soaquery);
+		
 		// Return object
-		return new DnsZone(
-			$query->row()->zone,
-			$query->row()->keyname,
-			$query->row()->forward,
-			$query->row()->shared,
-			$query->row()->owner,
-			$query->row()->comment,
-			$query->row()->date_created,
-			$query->row()->date_modified,
-			$query->row()->last_modifier
+		$objects = array();
+		$objects['zone'] = new DnsZone(
+			$zonequery->row()->zone,
+			$zonequery->row()->keyname,
+			$zonequery->row()->forward,
+			$zonequery->row()->shared,
+			$zonequery->row()->owner,
+			$zonequery->row()->comment,
+			$zonequery->row()->date_created,
+			$zonequery->row()->date_modified,
+			$zonequery->row()->last_modifier
 		);
+
+		$objects['soa'] = new SoaRecord(
+			$soaquery->row()->zone,
+			$soaquery->row()->nameserver,
+			$soaquery->row()->ttl,
+			$soaquery->row()->contact,
+			$soaquery->row()->serial,
+			$soaquery->row()->refresh,
+			$soaquery->row()->retry,
+			$soaquery->row()->expire,
+			$soaquery->row()->minimum,
+			$soaquery->row()->date_created,
+			$soaquery->row()->date_modified,
+			$soaquery->row()->last_modifier
+		);
+
+		return $objects;
 	}
 
      public function address($address, $hostname, $zone, $ttl, $owner) {
