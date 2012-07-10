@@ -5,14 +5,17 @@
  */
 class Api_systems_create extends ImpulseModel {
 	
-	public function system($systemName,$owner=NULL,$type,$osName,$comment) {
+	public function system($systemName,$owner=NULL,$type,$osName,$comment,$group=null,$platform=null,$asset=null) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_system(
 			{$this->db->escape($systemName)},
 			{$this->db->escape($owner)},
 			{$this->db->escape($type)},
 			{$this->db->escape($osName)},
-			{$this->db->escape($comment)})";
+			{$this->db->escape($comment)},
+			{$this->db->escape($group)},
+			{$this->db->escape($platform)},
+			{$this->db->escape($asset)})";
 		$query = $this->db->query($sql);
 
 		// Check errors

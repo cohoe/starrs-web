@@ -26,6 +26,12 @@ class System extends ImpulseObject {
 	// long		The date the system was renewed, stored as a Unix timestamp
 	private $renewDate;
 	
+	private $platform;
+	
+	private $asset;
+	
+	private $group;
+	
 	// string	The name of the system
 	private $systemName;
 	
@@ -50,7 +56,7 @@ class System extends ImpulseObject {
 	 * @param	long	$dateModified	Unix timestamp when the record was modifed
 	 * @param	string	$lastModifier	The last user to modify the record
 	 */
-	public function __construct($systemName, $owner, $comment, $type, $family, $osName, $renewDate, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($systemName, $owner, $comment, $type, $family, $osName, $renewDate, $platform, $asset, $group, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -62,6 +68,9 @@ class System extends ImpulseObject {
         $this->family		= $family;
 		$this->osName		= $osName;
 		$this->renewDate	= $renewDate; 
+		$this->platform = $platform;
+		$this->asset = $asset;
+		$this->group = $group;
 		
 		// Initialize other vars
 		$this->hasInterfaces = false;
@@ -78,7 +87,9 @@ class System extends ImpulseObject {
 	public function get_type()          { return $this->type; }
     public function get_family()        { return $this->family; }
 	public function get_os_name()       { return $this->osName; }
-	public function get_interfaces()    { return $this->interfaces; }
+	public function get_platform()         { return $this->platform; }
+	public function get_asset()         { return $this->asset; }
+	public function get_group()         { return $this->group; }
     
 	////////////////////////////////////////////////////////////////////////
 	// SETTERS
@@ -106,6 +117,21 @@ class System extends ImpulseObject {
 	public function set_os_name($new) { 
 		$this->CI->api->systems->modify->system($this->systemName, 'os_name', $new);
 		$this->osName = $new; 
+	}
+	
+	public function set_platform($new) {
+		$this->CI->api->systems->modify->system($this->systemName, 'platform_name', $new);
+		$this->platform = $new; 
+	}
+	
+	public function set_asset($new) {
+		$this->CI->api->systems->modify->system($this->systemName, 'asset', $new);
+		$this->asset = $new; 
+	}
+	
+	public function set_group($new) {
+		$this->CI->api->systems->modify->system($this->systemName, 'group', $new);
+		$this->group = $new; 
 	}
 
 	////////////////////////////////////////////////////////////////////////

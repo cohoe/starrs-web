@@ -29,9 +29,12 @@ class Api_systems_get extends ImpulseModel {
 				$system['family'],
 				$system['os_name'],
 				$system['renew_date'],
+				$system['platform'],
+				$system['asset'],
+				$system['group'],
 				$system['date_created'],
 				$system['date_modified'],
-				$system['last_modifier']
+				$system['last_modifier']				
 			);
 		}
 
@@ -56,6 +59,9 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->family,
 			$query->row()->os_name,
 			$query->row()->renew_date,
+			$query->row()->platform,
+			$query->row()->asset,
+			$query->row()->group,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier
@@ -242,6 +248,9 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->family,
 			$query->row()->os_name,
 			$query->row()->renew_date,
+			$query->row()->platform,
+			$query->row()->asset,
+			$query->row()->group,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

@@ -7,6 +7,12 @@
 		<dd><?=htmlentities($sys->get_os_name());?></dd>
 		<dt>Owner</dt>
 		<dd><?=htmlentities($sys->get_owner());?></dd>
+		<dt>Group</dt>
+		<dd><?=htmlentities($sys->get_group());?>&nbsp</dd>
+		<dt>Asset</dt>
+		<dd><?=htmlentities($sys->get_asset());?>&nbsp</dd>
+		<dt>Platform</dt>
+		<dd><?=htmlentities($sys->get_platform());?></dd>
 		<dt>Date Created</dt>
 		<dd><?=htmlentities($sys->get_date_created());?></dd>
 		<dt>Date Modified</dt>
