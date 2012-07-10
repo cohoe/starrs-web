@@ -49,7 +49,11 @@
 				<label class="control-label">Platform: </label>
 				<div class="controls">
 					<select name="platform">
-						<option>Custom</option>
+						<?
+						foreach($platforms as $p) {
+							print "<option>".htmlentities($p->get_platform_name())."</option>";
+						}
+						?>
 					</select>
 				</div>
 			</div>

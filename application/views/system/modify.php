@@ -47,10 +47,40 @@
 					<input type="text" name="comment" value="<?=htmlentities($sys->get_comment());?>" />
 				</div>
 			</div>
+			<div class="control-group warning">	
+				<label class="control-label">Asset: </label>
+				<div class="controls">
+					<input type="text" name="asset" value="<?=htmlentities($sys->get_asset());?>" />
+				</div>
+			</div>
+			<div class="control-group">	
+				<label class="control-label">Platform: </label>
+				<div class="controls">
+					<select name="platform">
+						<?
+						foreach($platforms as $p) {
+							if($p->get_platform_name() == $sys->get_platform()) {
+								print "<option selected>".htmlentities($p->get_platform_name())."</option>";
+							}
+							else {
+								print "<option>".htmlentities($p->get_platform_name())."</option>";
+							}
+						}
+						?>
+					</select>
+				</div>
+			</div>
+
 			<div class="control-group">	
 				<label class="control-label">Owner: </label>
 				<div class="controls">
 					<input type="text" name="owner" <?=($isAdmin)?"":"readonly";?> value="<?=htmlentities($sys->get_owner());?>" />
+				</div>
+			</div>
+			<div class="control-group warning">	
+				<label class="control-label">Group: </label>
+				<div class="controls">
+					<input type="text" name="group" value="<?=htmlentities($sys->get_group());?>" />
 				</div>
 			</div>
 			<div class="control-group">	

@@ -17,6 +17,7 @@ class ComputerSystem extends ImpulseController {
 		// Instantiate
 		try {
 			$sys = $this->api->systems->get->systemByName($systemName);
+			$p = $this->api->systems->get->platformByName($sys->get_platform());
 		}
 		catch(Exception $e) {
 			$this->_exit($e);
@@ -34,7 +35,7 @@ class ComputerSystem extends ImpulseController {
 		$this->_addAction('Renew',"/system/renew/".rawurlencode($systemName));
 
 		// Generate content
-		$content = $this->load->view('system/detail',array("sys"=>$sys),true);
+		$content = $this->load->view('system/detail',array("sys"=>$sys,"p"=>$p),true);
 
 		$intAddrs = array();
 		$recs = array();
@@ -109,6 +110,7 @@ class ComputerSystem extends ImpulseController {
 			$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
 			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
 			$viewData['isAdmin'] = $this->user->isAdmin();
+			$viewData['platforms'] = $this->api->systems->get->platforms();
 			$content=$this->load->view('system/create',$viewData,true);
 			$content .= $this->load->view('core/forminfo',null,true);
 			$this->_render($content);
@@ -146,6 +148,18 @@ class ComputerSystem extends ImpulseController {
 	               try { $sys->set_owner($this->input->post('owner')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
+	          if($sys->get_group() != $this->input->post('group')) {
+	               try { $sys->set_group($this->input->post('group')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($sys->get_platform() != $this->input->post('platform')) {
+	               try { $sys->set_platform($this->input->post('platform')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($sys->get_asset() != $this->input->post('asset')) {
+	               try { $sys->set_asset($this->input->post('asset')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
 	
 	          if($err) {
 	               $this->_error($err);
@@ -164,6 +178,7 @@ class ComputerSystem extends ImpulseController {
 			$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
 			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
 			$viewData['isAdmin'] = $this->user->isAdmin();
+			$viewData['platforms'] = $this->api->systems->get->platforms();
 			$viewData['sys'] = $sys;
 
 			// Content

@@ -256,6 +256,53 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function platforms() {
+		// SQL
+		$sql = "SELECT * FROM api.get_platforms()";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Result
+		$resultSet = array();
+		foreach($query->result_array() as $platform) {
+			$resultSet[] = new Platform(
+				$platform['platform_name'],
+				$platform['architecture'],
+				$platform['disk'],
+				$platform['cpu'],
+				$platform['memory'],
+				$platform['date_created'],
+				$platform['date_modified'],
+				$platform['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function platformByName($name=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_platforms() WHERE platform_name = {$this->db->escape($name)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Result
+		return new Platform(
+			$query->row()->platform_name,
+			$query->row()->architecture,
+			$query->row()->disk,
+			$query->row()->cpu,
+			$query->row()->memory,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_systems_get.php */
 /* Location: ./application/models/API/Systems/api_systems_get.php */
