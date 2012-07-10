@@ -89,7 +89,10 @@ class ComputerSystem extends ImpulseController {
 					$this->input->post('owner'),
 					$this->input->post('type'),
 					$this->input->post('osName'),
-					$this->input->post('comment')
+					$this->input->post('comment'),
+					$this->input->post('group'),
+					$this->input->post('platform'),
+					$this->input->post('asset')
 				);
 				$this->_sendClient("/system/view/{$sys->get_system_name()}");
 			}

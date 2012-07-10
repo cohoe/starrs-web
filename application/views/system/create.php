@@ -39,10 +39,30 @@
 					<input type="text" name="comment" />
 				</div>
 			</div>
+			<div class="control-group warning">
+				<label class="control-label">Asset: </label>
+				<div class="controls">
+					<input type="text" name="asset" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Platform: </label>
+				<div class="controls">
+					<select name="platform">
+						<option>Custom</option>
+					</select>
+				</div>
+			</div>
 			<div class="control-group">	
 				<label class="control-label">Owner: </label>
 				<div class="controls">
 					<input type="text" name="owner" <?=($isAdmin)?"":"readonly";?> value="<?=htmlentities($owner);?>" />
+				</div>
+			</div>
+			<div class="control-group">	
+				<label class="control-label">Group: </label>
+				<div class="controls">
+					<input type="text" name="group" <?=($isAdmin)?"":"readonly";?> value="" />
 				</div>
 			</div>
 			<div class="control-group">	

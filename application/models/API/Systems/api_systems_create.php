@@ -30,10 +30,12 @@ class Api_systems_create extends ImpulseModel {
 			$query->row()->owner,
 			$query->row()->comment,
 			$query->row()->type,
-			#$query->row()->family,
 			null,
 			$query->row()->os_name,
 			$query->row()->renew_date,
+			$query->row()->platform_name,
+			$query->row()->asset,
+			$query->row()->group,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier
