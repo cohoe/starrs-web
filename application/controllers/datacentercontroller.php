@@ -36,10 +36,12 @@ class Datacentercontroller extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Sidebar
-		$this->_addSidebarHeader("AVAILABILITY ZONES");
+		$this->_addSidebarHeader("AVAILABILITY ZONES","/availabilityzones/view");
 		foreach($azs as $az) {
-			$this->_addSidebarItem($az->get_zone(),"/availabilityzone/view/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()));
+			$this->_addSidebarItem($az->get_zone(),"/availabilityzone/view/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()),"folder-open");
 		}
+		$this->_addSidebarHeader("SUBNETS");
+		$this->_addSidebarHeader("SYSTEMS");
 
 		// Trail
 		$this->_addTrail($dc->get_datacenter(),"/datacenter/view/".rawurlencode($dc->get_datacenter()));

@@ -23,12 +23,10 @@ class Datacenters extends ImpulseController {
 		$this->_addSidebarHeader("DATACENTERS");
 
 		foreach($dcs as $dc) {
-			$this->_addSidebarItem($dc->get_datacenter(),"/datacenter/view/".rawurlencode($dc->get_datacenter()));
-			#$content .= $dc->get_datacenter();
-			$this->_addContentToList($this->load->view('datacenter/detail',array('dc'=>$dc),true),2);
+			$this->_addSidebarItem($dc->get_datacenter(),"/datacenter/view/".rawurlencode($dc->get_datacenter()),"home");
 		}
 
-		$content = $this->_renderContentList(2);
+		$content = $this->load->view('datacenter/information',null,true);
 
 		$this->_addAction("Create","/datacenter/create/");
 

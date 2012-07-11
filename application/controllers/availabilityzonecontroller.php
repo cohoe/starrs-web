@@ -27,7 +27,7 @@ class Availabilityzonecontroller extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Sidebar
-		$this->_addSidebarHeader("AVAILABILITY ZONES");
+		$this->_addSidebarHeader("IP RANGES");
 
 		// Actions
 		$this->_addAction("Modify","/availabilityzone/modify/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()));
@@ -35,7 +35,7 @@ class Availabilityzonecontroller extends ImpulseController {
 
 		// Trail
 		$this->_addTrail($az->get_datacenter(),"/datacenter/view/".rawurlencode($az->get_datacenter()));
-		$this->_addTrail("Availability Zones","/datacenter/view/".rawurlencode($az->get_datacenter()));
+		$this->_addTrail("Availability Zones","/availabilityzones/view");
 		$this->_addTrail($az->get_zone(),"/availabilityzone/view/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()));
 
 		// Viewdata

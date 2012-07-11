@@ -105,7 +105,7 @@ class Api_ip_get extends ImpulseModel {
 		);
 	}
 	
-	public function subnets($username) {
+	public function subnets($username=null,$group=null) {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_ip_subnets({$this->db->escape($username)})";
 		
@@ -117,7 +117,7 @@ class Api_ip_get extends ImpulseModel {
 		// Generate results
 		$resultSet = array();
 		foreach($query->result_array() as $subnet) {
-			$sNet = new Subnet(
+			$resultSet[] = new Subnet(
 				$subnet['name'],
 				$subnet['subnet'],
 				$subnet['zone'],
@@ -130,21 +130,6 @@ class Api_ip_get extends ImpulseModel {
 				$subnet['last_modifier']
 			);
 			
-			try {
-				$fwAddresses = $this->api->firewall->get->addresses($sNet->get_subnet());
-				if(isset($fwAddresses['primary'])) {
-					$sNet->set_firewall_primary($fwAddresses['primary']);
-				}
-				if(isset($fwAddresses['secondary'])) {
-					$sNet->set_firewall_secondary($fwAddresses['secondary']);
-				}
-			}
-			catch (DBException $dbE) {
-				$this->_error($dbE->getMessage());
-			}
-			catch (ObjectNotFoundException $onfE) { }
-			
-			$resultSet[] = $sNet;
 		}
 		
 		// Return results
@@ -158,7 +143,7 @@ class Api_ip_get extends ImpulseModel {
 	
 	public function subnet($subnet) {
 		// SQL Query
-		$sql = "SELECT * FROM api.get_ip_subnet({$this->db->escape($subnet)})";
+		$sql = "SELECT * FROM api.get_ip_subnets() WHERE subnet = {$this->db->escape($subnet)}";
 		
 		$query = $this->db->query($sql);
 		
@@ -178,20 +163,6 @@ class Api_ip_get extends ImpulseModel {
 			$query->row()->date_modified,
 			$query->row()->last_modifier
 		);
-		
-		try {
-			$fwAddresses = $this->api->firewall->get->addresses($sNet->get_subnet());
-			if(isset($fwAddresses['primary'])) {
-				$sNet->set_firewall_primary($fwAddresses['primary']);
-			}
-			if(isset($fwAddresses['secondary'])) {
-				$sNet->set_firewall_secondary($fwAddresses['secondary']);
-			}
-		}
-		catch (DBException $dbE) {
-			$this->_error($dbE->getMessage());
-		}
-		catch (ObjectNotFoundException $onfE) { }
 		
 		// Return result
 		return $sNet;

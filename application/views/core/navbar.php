@@ -32,6 +32,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Systems <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/datacenters/">Datacenters</a></li>
+							<li><a href="/availabilityzones/view">Availability Zones</a></li>
 							<li><a href="/systems/view/">Systems</a></li>
 						</ul>
 					</li>
@@ -44,10 +45,17 @@
 						</ul>
 					</li>
 					<li <?=($header=='DHCP')?'class="active"':null;?>><a href="#">DHCP</a></li>
-					<li <?=($header=='IP')?'class="active"':null;?>><a href="#">IP</a></li>
+					<li class="dropdown <?=($header=='IP')?'active':null;?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">IP <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/ip/subnets">Subnets</a></li>
+							<li><a href="#">Ranges</a></li>
+						</ul>
+					</li>
 					<li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>
 					<li <?=($header=='Network')?'class="active"':null;?>><a href="#">Network</a></li>
 					<li <?=($header=='Statistics')?'class="active"':null;?>><a href="#">Statistics</a></li>
+					<li <?=($header=='Search')?'class="active"':null;?>><a href="#">Search</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
