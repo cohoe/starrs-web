@@ -5,8 +5,9 @@ class Subnetcontroller extends ImpulseController {
 
 	public function __construct() {
 		parent::__construct();
-		$this->_setNavHeader("Header");
-		$this->_addTrail("Header","#");
+		$this->_setNavHeader("IP");
+		$this->_addTrail("IP","/ip");
+		$this->_addTrail("Subnets","/ip/subnets/");
 	}
 
 	public function index() {
@@ -24,17 +25,20 @@ class Subnetcontroller extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Trail
-		#$this->_addTrail($obj->get_name(),"#");
+		$this->_addTrail($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()));
 
 		// Actions
 		$this->_addAction("Modify","#");
 		$this->_addAction("Remove","#");
 
 		// Viewdata
+		$viewData['snet'] = $snet;
 
 		// Content
-	#	$content = $this->load->view('#',$viewData,true);
-		$content = "foo";
+		$content = $this->load->view('ip/subnet/detail',$viewData,true);
+
+		// Sidebar
+		$this->_addSidebarHeader("RANGES");
 
 		// Render
 		$this->_render($content);

@@ -1,4 +1,4 @@
-<div class="span6 well">
+<div class="span7 well">
 	<a href="/ip/subnet/view/<?=rawurlencode($snet->get_subnet());?>"><h2><?=htmlentities($snet->get_subnet());?></h2></a>
 	<dl class="dl-horizontal">
 		<dt>Name</dt>
