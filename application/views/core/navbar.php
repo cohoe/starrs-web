@@ -28,7 +28,13 @@
 			</div>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li <?=($header=='Systems')?'class="active"':null;?>><a href="/systems/view/">Systems</a></li>
+					<li class="dropdown <?=($header=='Systems')?'active':null;?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Systems <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/datacenters/">Datacenters</a></li>
+							<li><a href="/systems/view/">Systems</a></li>
+						</ul>
+					</li>
 					<li class="dropdown <?=($header=='DNS')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DNS <b class="caret"></b></a>
 						<ul class="dropdown-menu">

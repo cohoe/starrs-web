@@ -12,6 +12,8 @@ class ImpulseController extends CI_Controller {
 	private $navheader;
 	private $contentList;
 
+	protected $forminfo;
+
 	private $js = array();
 
 	public function __construct() {
@@ -38,6 +40,9 @@ class ImpulseController extends CI_Controller {
 
 		// Base JS
 		$this->_addScript('/js/impulse.js');
+
+		// Forminfo
+		$this->forminfo = $this->load->view('core/forminfo',null,true);
 	}
 
 	public function index() {
@@ -244,6 +249,10 @@ class ImpulseController extends CI_Controller {
 		else {
 			return $this->input->post($var);
 		}
+	}
+
+	protected function _post($var) {
+		return $this->_postToNull($var);
 	}
 
 }

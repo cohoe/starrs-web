@@ -43,6 +43,7 @@ $route['404_override'] = '';
 // System is a reserved word
 $route['system/(.*?)'] = 'computersystem/$1';
 $route['datacenter/(.*?)'] = 'datacentercontroller/$1';
+$route['availabilityzone/(.*?)'] = 'availabilityzonecontroller/$1';
 $route['interface/(.*?)'] = 'interfacecontroller/$1';
 $route['dns/default_controller'] = 'dns/welcome';
 

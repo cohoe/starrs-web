@@ -5,7 +5,6 @@ $('#remove').click(function() {
 });
 
 $('#modal-confirm-btn').click(function() {
-	console.debug("lol");
 	$('#modal-confirm').modal('show',false);
 	$.post($('#remove').attr('href'),{ confirm:"confirm" },function(data) {
 		if(!data.match(/^\<script\>/g)) {

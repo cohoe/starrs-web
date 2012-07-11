@@ -1,7 +1,8 @@
-<div class="well">
+<div class="span7 well">
 	<h4><?=htmlentities($az->get_zone());?></h4>
-	<!--
 	<dl class="dl-horizontal">
+		<dt>Datacenter</dt>
+		<dd><?=htmlentities($az->get_datacenter());?></dd>
 		<dt>Date Created</dt>
 		<dd><?=htmlentities($az->get_date_created());?></dd>
 		<dt>Date Modified</dt>
@@ -11,5 +12,4 @@
 		<dt>Comment</dt>
 		<dd><?=htmlentities($az->get_comment());?>&nbsp;</dd>
 	</dl>
-	-->
 </div>

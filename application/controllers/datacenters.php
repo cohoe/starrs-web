@@ -5,6 +5,8 @@ class Datacenters extends ImpulseController {
 
 	public function __construct() {
 		parent::__construct();
+		$this->_setNavHeader("Systems");
+		$this->_addTrail("Datacenters","/datacenters");
 	}
 
 	public function index() {

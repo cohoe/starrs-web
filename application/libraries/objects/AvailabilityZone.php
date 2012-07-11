@@ -34,16 +34,16 @@ class AvailabilityZone extends ImpulseObject {
 	// SETTERS
 	
 	public function set_zone($new) {
-		$this->CI->api->systems->modify->availabilityzone($this->zone, 'zone', $new);
+		$this->CI->api->systems->modify->availabilityzone($this->datacenter, $this->zone, 'zone', $new);
 		$this->zone= $new;
 	}
 	public function set_datacenter($new) {
-		$this->CI->api->systems->modify->availabilityzone($this->zone, 'datacenter', $new);
+		$this->CI->api->systems->modify->availabilityzone($this->datacenter, $this->zone, 'datacenter', $new);
 		$this->datacenter= $new;
 	}
 	
 	public function set_comment($new) {
-		$this->CI->api->systems->modify->availabilityzone($this->zone, 'comment', $new);
+		$this->CI->api->systems->modify->availabilityzone($this->datacenter, $this->zone, 'comment', $new);
 		$this->comment = $new;
 	}
 	
