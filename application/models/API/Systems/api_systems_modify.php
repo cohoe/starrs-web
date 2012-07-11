@@ -35,6 +35,25 @@ class Api_systems_modify extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 	}
+
+	public function datacenter($datacenter, $field, $newValue) {
+		// SQL Query
+		$sql = "SELECT api.modify_datacenter({$this->db->escape($datacenter)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
+		$query = $this->db->query($sql);
+		
+		// Check error
+		$this->_check_error($query);
+	}
+
+	public function availabilityzone($datacenter, $zone, $field, $newValue) {
+		// SQL Query
+		$sql = "SELECT api.modify_availability_zone({$this->db->escape($datacenter)}, {$this->db->escape($zone)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
+		$query = $this->db->query($sql);
+		
+		// Check error
+		$this->_check_error($query);
+	}
+
 }
 /* End of file api_systems_modify.php */
 /* Location: ./application/models/API/Systems/api_systems_modify.php */

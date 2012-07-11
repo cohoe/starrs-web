@@ -93,6 +93,49 @@ class Api_systems_create extends ImpulseModel {
 		);
 	}
 
+	public function datacenter($name=null,$comment=null) {
+		// SQL
+		$sql = "SELECT * FROM api.create_datacenter(
+			{$this->db->escape($name)},
+			{$this->db->escape($comment)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new DataCenter(
+			$query->row()->datacenter,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function availabilityzone($datacenter=null,$zone=null,$comment=null) {
+		// SQL
+		$sql = "SELECT * FROM api.create_availability_zone(
+			{$this->db->escape($datacenter)},
+			{$this->db->escape($zone)},
+			{$this->db->escape($comment)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new AvailabilityZone(
+			$query->row()->datacenter,
+			$query->row()->zone,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_systems_create.php */
 /* Location: ./application/models/API/Systems/api_systems_create.php */

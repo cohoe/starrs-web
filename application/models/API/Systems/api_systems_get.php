@@ -303,6 +303,90 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function datacenters() {
+		// SQL
+		$sql = "SELECT * FROM api.get_datacenters()";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Results
+		$resultSet = array();
+		foreach($query->result_array() as $dc) {
+			$resultSet[] = new DataCenter(
+				$dc['datacenter'],
+				$dc['comment'],
+				$dc['date_created'],
+				$dc['date_modified'],
+				$dc['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function datacenterByName($name=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_datacenters() WHERE datacenter = {$this->db->escape($name)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Results
+		return new DataCenter(
+			$query->row()->datacenter,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function availabilityzonesByDatacenter($datacenter=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_availability_zones() WHERE datacenter = {$this->db->escape($datacenter)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Results
+		$resultSet = array();
+		foreach($query->result_array() as $zone) {
+			$resultSet[] = new AvailabilityZone(
+				$zone['datacenter'],
+				$zone['zone'],
+				$zone['comment'],
+				$zone['date_created'],
+				$zone['date_modified'],
+				$zone['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function availabilityzone($datacenter=null,$zone=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_availability_zones() WHERE datacenter = {$this->db->escape($datacenter)} AND zone = {$this->db->escape($zone)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Results
+		return new AvailabilityZone(
+			$query->row()->datacenter,
+			$query->row()->zone,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_systems_get.php */
 /* Location: ./application/models/API/Systems/api_systems_get.php */
