@@ -18,6 +18,7 @@ class ImpulseController extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+
 		
 		// Initialize the database connection
 		try {
