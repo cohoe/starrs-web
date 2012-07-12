@@ -79,10 +79,38 @@ class Api_ip_get extends ImpulseModel {
             throw new ObjectNotFoundException("No ranges were found. This indicates a database error. Contact your system administrator");
         }
 	}
+
+	public function rangesBySubnet($subnet=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_ip_ranges() WHERE subnet = {$this->db->escape($subnet)} ORDER BY name";
+		$query = $this->db->query($sql);
+
+        // Check error
+        $this->_check_error($query);
+
+        // Generate results
+        $resultSet = array();
+        foreach($query->result_array() as $range) {
+            $resultSet[] = new IpRange(
+                $range['first_ip'],
+                $range['last_ip'],
+                $range['use'],
+                $range['name'],
+                $range['subnet'],
+                $range['class'],
+                $range['comment'],
+                $range['date_created'],
+                $range['date_modified'],
+                $range['last_modifier']
+            );
+        }
+
+	   return $resultSet;
+	}
 	
 	public function range($name) {
         // SQL Query
-		$sql = "SELECT * FROM api.get_ip_range({$this->db->escape($name)})";
+		$sql = "SELECT * FROM api.get_ip_ranges() WHERE name = {$this->db->escape($name)}";
 		$query = $this->db->query($sql);
 
         // Check error
@@ -143,7 +171,7 @@ class Api_ip_get extends ImpulseModel {
 	
 	public function subnet($subnet) {
 		// SQL Query
-		$sql = "SELECT * FROM api.get_ip_subnets() WHERE subnet = {$this->db->escape($subnet)}";
+		$sql = "SELECT * FROM api.get_ip_subnets(null) WHERE subnet = {$this->db->escape($subnet)}";
 		
 		$query = $this->db->query($sql);
 		

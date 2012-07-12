@@ -25,7 +25,7 @@ class Subnets extends ImpulseController {
 		$this->_addTrail("Subnets","/ip/subnets/view/");
 
 		// Actions
-		$this->_addAction("Create","#");
+		$this->_addAction("Create","/ip/subnet/create");
 
 		// Content
 		$this->_addSidebarHeader("SUBNETS");
