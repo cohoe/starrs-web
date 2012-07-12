@@ -102,7 +102,7 @@ class Address extends ImpulseController {
 
 			// Content
 			$content = $this->load->view('interfaceaddress/create',$viewData,true);
-			$content .= $this->load->view('core/forminfo',null,true);
+			$content .= $this->forminfo;
 	
 			// Render
 			$this->_render($content);
@@ -180,7 +180,7 @@ class Address extends ImpulseController {
 
 			// Content
 			$content = $this->load->view('interfaceaddress/modify',$viewData,true);
-			$content .= $this->load->view('core/forminfo',null,true);
+			$content .= $this->forminfo;
 
 			// Render
 			$this->_render($content);

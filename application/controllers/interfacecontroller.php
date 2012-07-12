@@ -96,7 +96,7 @@ class InterfaceController extends ImpulseController {
 
 			// Content
 			$content = $this->load->view('interface/create',$viewData,true);
-			$content .= $this->load->view('core/forminfo',null,true);
+			$content .= $this->forminfo;
 
 			// Render
 			$this->_render($content);
@@ -153,7 +153,7 @@ class InterfaceController extends ImpulseController {
 
 			// Content
 			$content = $this->load->view('interface/modify',$viewData,true);
-			$content .= $this->load->view('core/forminfo',null,true);
+			$content .= $this->forminfo;
 
 			// Done
 			$this->_render($content);

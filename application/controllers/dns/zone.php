@@ -247,7 +247,7 @@ class Zone extends DnsController {
 
 		// Content
 		$content = $this->load->view('dns/zone/modify',$viewData,true);
-		$content .= $this->load->view('core/forminfo',null,true);
+		$content .= $this->forminfo;
 
 		$this->_render($content);
 	}

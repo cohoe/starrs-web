@@ -97,7 +97,7 @@ class Key extends DnsController {
 		$viewData['key'] = $k;
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$content = $this->load->view('dns/key/modify',$viewData,true);
-		$content .= $this->load->view('core/forminfo',null,true);
+		$content .= $this->forminfo;
 		$this->_render($content);
 	}
 

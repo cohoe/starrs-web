@@ -121,7 +121,7 @@ class ComputerSystem extends ImpulseController {
 			}
 			catch(Exception $e) { $this->_exit($e); return; }
 			$content=$this->load->view('system/create',$viewData,true);
-			$content .= $this->load->view('core/forminfo',null,true);
+			$content .= $this->forminfo;
 			$this->_render($content);
 		}
 	}
@@ -197,7 +197,7 @@ class ComputerSystem extends ImpulseController {
 
 			// Content
 			$content = $this->load->view('system/modify',$viewData,true);
-			$content .= $this->load->view('core/forminfo',null,true);
+			$content .= $this->forminfo;
 
 			// Done
 			$this->_render($content);

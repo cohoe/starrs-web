@@ -51,7 +51,13 @@
 							<li><a href="/ip/ranges">Ranges</a></li>
 						</ul>
 					</li>
-					<li <?=($header=='DHCP')?'class="active"':null;?>><a href="#">DHCP</a></li>
+					<li class="dropdown <?=($header=='DHCP')?'active':null;?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DHCP <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/dhcp/classes/view">Classes</a></li>
+							<li><a href="#">Global Options</a></li>
+						</ul>
+					</li>
 					<li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>
 					<li <?=($header=='Network')?'class="active"':null;?>><a href="#">Network</a></li>
 					<li <?=($header=='Statistics')?'class="active"':null;?>><a href="#">Statistics</a></li>
