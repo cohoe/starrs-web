@@ -208,6 +208,7 @@ class Api_dns_get extends ImpulseModel {
 				$zone['shared'],
 				$zone['owner'],
 				$zone['comment'],
+				$zone['ddns'],
 				$zone['date_created'],
 				$zone['date_modified'],
 				$zone['last_modifier']
@@ -437,6 +438,7 @@ class Api_dns_get extends ImpulseModel {
 			$query->row()->shared,
 			$query->row()->owner,
 			$query->row()->comment,
+			$query->row()->ddns,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

@@ -38,6 +38,15 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">DDNS: </label>
+				<div class="controls">
+					<select name="ddns">
+						<option value=0>No</option>
+						<option value=1>Yes</option>
+					</select>
+				</div>
+			</div>
 			<div class="control-group warning">	
 				<label class="control-label">Comment: </label>
 				<div class="controls">

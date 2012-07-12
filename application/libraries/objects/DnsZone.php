@@ -11,11 +11,12 @@ class DnsZone extends ImpulseObject {
 	private $shared;
 	private $owner;
 	private $comment;
+	private $ddns;
 	
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 
-    public function __construct($zone, $keyname, $forward, $shared, $owner, $comment, $dateCreated, $dateModified, $lastModifier) {
+    public function __construct($zone, $keyname, $forward, $shared, $owner, $comment, $ddns, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -25,7 +26,8 @@ class DnsZone extends ImpulseObject {
 		$this->forward = $forward;
 		$this->shared  = $shared;
 		$this->owner   = $owner;
-        $this->comment = $comment;
+          $this->comment = $comment;
+          $this->ddns = $ddns;
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -37,6 +39,7 @@ class DnsZone extends ImpulseObject {
 	public function get_shared()  { return $this->shared; }
 	public function get_owner()   { return $this->owner; }
 	public function get_comment() { return $this->comment; }
+	public function get_ddns() { return $this->ddns; }
 	
 
     ////////////////////////////////////////////////////////////////////////
@@ -72,6 +75,10 @@ class DnsZone extends ImpulseObject {
 		$this->comment = $new;
 	}
 	
+	public function set_ddns($new) {
+		$this->CI->api->dns->modify->zone($this->zone, 'ddns', $new);
+		$this->ddns = $new;
+	}
 
     ////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS

@@ -101,6 +101,7 @@ class Zone extends DnsController {
 					$this->input->post('shared'),
 					$this->input->post('owner'),
 					$this->input->post('comment'),
+					$this->input->post('ddns'),
 					$this->input->post('nameserver'),
 					$this->input->post('ttl'),
 					$this->input->post('contact'),
@@ -173,6 +174,10 @@ class Zone extends DnsController {
 			}
 			if($z->get_shared() != $this->input->post('shared')) {
 				try { $z->set_shared($this->input->post('shared')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($z->get_ddns() != $this->input->post('ddns')) {
+				try { $z->set_ddns($this->_post('ddns')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 			if($z->get_comment() != $this->input->post('comment')) {

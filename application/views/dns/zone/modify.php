@@ -42,6 +42,15 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">DDNS: </label>
+				<div class="controls">
+					<select name="ddns">
+						<option value='t' <?=($z->get_ddns()=='t')?"selected":'';?>>Yes</option>
+						<option value='f' <?=($z->get_ddns()=='f')?"selected":'';?>>No</option>
+					</select>
+				</div>
+			</div>
 			<div class="control-group warning">	
 				<label class="control-label">Comment: </label>
 				<div class="controls">

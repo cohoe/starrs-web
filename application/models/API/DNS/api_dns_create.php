@@ -35,7 +35,7 @@ class Api_dns_create extends ImpulseModel {
 		);
 	}
 	
-	public function zone($zone, $keyname, $forward, $shared, $owner, $comment, $nameserver, $ttl, $contact, $serial, $refresh, $retry, $expire, $minimum) {
+	public function zone($zone, $keyname, $forward, $shared, $owner, $comment, $ddns, $nameserver, $ttl, $contact, $serial, $refresh, $retry, $expire, $minimum) {
 		// SQL Query
 		$zonesql = "SELECT * FROM api.create_dns_zone(
 			{$this->db->escape($zone)},
@@ -43,7 +43,8 @@ class Api_dns_create extends ImpulseModel {
 			{$this->db->escape($forward)},
 			{$this->db->escape($shared)},
 			{$this->db->escape($owner)},
-			{$this->db->escape($comment)}
+			{$this->db->escape($comment)},
+			{$this->db->escape($ddns)}
 		)";
 		$soasql = "SELECT * FROM api.create_dns_soa(
 			{$this->db->escape($zone)},
@@ -75,6 +76,7 @@ class Api_dns_create extends ImpulseModel {
 			$zonequery->row()->shared,
 			$zonequery->row()->owner,
 			$zonequery->row()->comment,
+			$zonequery->row()->ddns,
 			$zonequery->row()->date_created,
 			$zonequery->row()->date_modified,
 			$zonequery->row()->last_modifier

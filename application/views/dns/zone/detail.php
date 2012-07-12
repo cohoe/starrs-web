@@ -7,6 +7,8 @@
 		<dd><?=htmlentities($zone->get_forward());?></dd>
 		<dt>Shared</dt>
 		<dd><?=htmlentities($zone->get_shared());?></dd>
+		<dt>DDNS</dt>
+		<dd><?=htmlentities($zone->get_ddns());?></dd>
 		<dt>Owner</dt>
 		<dd><?=htmlentities($zone->get_owner());?></dd>
 		<dt>Date Created</dt>
