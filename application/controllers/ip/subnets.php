@@ -19,6 +19,7 @@ class Subnets extends ImpulseController {
 		try {
 			$snets = $this->api->ip->get->subnets();
 		}
+		catch(ObjectNotFoundException $e) { $snets = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Trail
@@ -30,7 +31,6 @@ class Subnets extends ImpulseController {
 		// Content
 		$this->_addSidebarHeader("SUBNETS");
 		foreach($snets as $snet) {
-			#$this->_addContentToList($this->load->view('ip/subnet/detail',array('snet'=>$snet),true),2);
 			$this->_addSidebarItem($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()),"tags");
 		}
 

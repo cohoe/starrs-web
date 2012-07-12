@@ -62,10 +62,6 @@ class Api_dns_create extends ImpulseModel {
 		$soaquery = $this->db->query($soasql);
 		$this->db->trans_complete();
 
-		if($this->db->trans_status() === FALSE) {
-			throw new APIException("Zone create failed: ".$this->db->_error_message());
-		}
-		
 		// Check error
 		$this->_check_error($zonequery);
 		$this->_check_error($soaquery);
@@ -102,13 +98,15 @@ class Api_dns_create extends ImpulseModel {
 		return $objects;
 	}
 
-     public function address($address, $hostname, $zone, $ttl, $owner) {
+     public function address($address, $hostname, $zone, $ttl, $type, $reverse, $owner) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_dns_address(
 			{$this->db->escape($address)},
 			{$this->db->escape($hostname)},
 			{$this->db->escape($zone)},
 			{$this->db->escape($ttl)},
+			{$this->db->escape($type)},
+			{$this->db->escape($reverse)},
 			{$this->db->escape($owner)}
 		)";
 		$query = $this->db->query($sql);

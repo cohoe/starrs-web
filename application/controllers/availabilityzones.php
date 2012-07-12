@@ -22,7 +22,7 @@ class Availabilityzones extends ImpulseController {
 				try {
 					$azs = $this->api->systems->get->availabilityzonesByDatacenter($dc->get_datacenter());
 				}
-				catch(ObjectNotFoundException $e) {}
+				catch(ObjectNotFoundException $e) { $azs = array(); }
 				catch(Exception $e) { $this->_exit($e); return; }
 				foreach($azs as $az) {
 					$this->_addSidebarItem($az->get_zone(),"/availabilityzone/view/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()),"folder-open");
@@ -30,6 +30,7 @@ class Availabilityzones extends ImpulseController {
 				$azs = array();
 			}
 		}
+		catch(ObjectNotFoundException $e) { $this->_addSidebarHeader("DATACENTERS"); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Content

@@ -112,7 +112,14 @@ class ComputerSystem extends ImpulseController {
 			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
 			$viewData['isAdmin'] = $this->user->isAdmin();
 			$viewData['platforms'] = $this->api->systems->get->platforms();
-			$viewData['dcs'] = $this->api->systems->get->datacenters();
+			try {
+				$viewData['dcs'] = $this->api->systems->get->datacenters();
+			}
+			catch(ObjectNotFoundException $e) {
+				$this->_exit(new Exception("No Datacenters configured! Configure at least one datacenter before attempting to create a system."));
+				return;
+			}
+			catch(Exception $e) { $this->_exit($e); return; }
 			$content=$this->load->view('system/create',$viewData,true);
 			$content .= $this->load->view('core/forminfo',null,true);
 			$this->_render($content);

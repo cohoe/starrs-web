@@ -75,32 +75,37 @@ class Address extends ImpulseController {
 			catch (Exception $e) { $this->_error($e); }
 		}
 		else {
-		// Trail
-		$this->_addTrail("Systems","/systems");
-		$this->_addTrail($int->get_system_name(),"/system/view/".rawurlencode($int->get_system_name()));
-		$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_system_name()));
-		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
+			// Trail
+			$this->_addTrail("Systems","/systems");
+			$this->_addTrail($int->get_system_name(),"/system/view/".rawurlencode($int->get_system_name()));
+			$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_system_name()));
+			$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 
-		// View Data
-		try {
+			// View Data
 			$viewData['mac'] = $int->get_mac();
 			$viewData['ints'] = array();
 			$viewData['configs'] = $this->api->dhcp->get->configtypes();
-			$viewData['ranges'] = $this->api->ip->get->ranges();
-			$viewData['classes'] = $this->api->dhcp->get->classes();
+			try {
+				$viewData['ranges'] = $this->api->ip->get->ranges();
+			}
+			catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No IP ranges configured! Set up at least one IP range before attempting to create an address")); return; }
+			catch(Exception $e) { $this->_exit($e); return; }
+			try {
+				$viewData['classes'] = $this->api->dhcp->get->classes();
+			}
+			catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No DHCP classes configured! Set up at least one class before attempting to create an address")); return; }
+			catch(Exception $e) { $this->_exit($e); return; }
 			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveuser());
 			foreach($systems as $sys) {
 				$viewData['ints'] = array_merge($viewData['ints'],$this->api->systems->get->interfacesBySystem($sys->get_system_name()));
 			}
-		}
-		catch (Exception $e) { $this->_exit($e); return; }
 
-		// Content
-		$content = $this->load->view('interfaceaddress/create',$viewData,true);
-		$content .= $this->load->view('core/forminfo',null,true);
-
-		// Render
-		$this->_render($content);
+			// Content
+			$content = $this->load->view('interfaceaddress/create',$viewData,true);
+			$content .= $this->load->view('core/forminfo',null,true);
+	
+			// Render
+			$this->_render($content);
 		}
 	}
 

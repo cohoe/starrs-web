@@ -76,7 +76,14 @@ class Subnetcontroller extends ImpulseController {
 
 		$viewData['owner'] = $this->user->getActiveUser();
 		$viewData['isAdmin'] = $this->user->isAdmin();
-		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+		try {
+			$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+		}
+		catch(ObjectNotFoundException $e) {
+			$this->_exit(new Exception("No zones configured! Create at one or mroe DNS zones before attempting to create a subnet"));
+			return;
+		}
+		catch(Exception $e) { $this->_error($e); return; }
 		$viewData['dcs'] = $this->api->systems->get->datacenters();
 
 		$content = $this->load->view('ip/subnet/create',$viewData,true);

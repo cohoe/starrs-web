@@ -83,8 +83,16 @@ class Range extends ImpulseController {
 		// Viewdata
 		$viewData['snet'] = $snet;
 		$viewData['uses'] = $this->api->ip->get->uses();
-		$viewData['classes'] = $this->api->dhcp->get->classes();
-		$viewData['azs'] = $this->api->systems->get->availabilityzonesByDatacenter($snet->get_datacenter());
+		try {
+			$viewData['classes'] = $this->api->dhcp->get->classes();
+		}
+		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No DHCP classes configured! Set up at least one DHCP class before trying to create an IP range")); return; }
+		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$viewData['azs'] = $this->api->systems->get->availabilityzonesByDatacenter($snet->get_datacenter());
+		}
+		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No Availability Zones configured for your datacenter. Create an AZ before trying to create an IP range")); return; }
+		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Content
 		$content = $this->load->view('ip/range/create',$viewData,true);

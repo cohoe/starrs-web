@@ -24,6 +24,7 @@ class Zones extends DnsController {
 		$this->_addAction('Create',"/dns/zone/create");
 
 		// Generate content
+		$this->_addSidebarHeader("ZONES");
 		try {
 			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			foreach($zones as $z) {
@@ -32,8 +33,7 @@ class Zones extends DnsController {
 			$content = $this->load->view('dns/zone/information',null,true);
 		}
 		catch (ObjectNotFoundException $onfe) {
-			$content = $this->load->view('exceptions/objectnotfound',null,true);
-			$content .= $this->load->view('dns/zone/information',null,true);
+			$content = $this->load->view('dns/zone/information',null,true);
 		}
 		catch (Exception $e) {
 			$this->_exit($e); return;

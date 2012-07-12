@@ -25,6 +25,15 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">Create Reverse?: </label>
+			<div class="controls">
+				<select name="reverse" <?($user->isAdmin())?"":"readonly"?>>
+					<option value='t'>Yes</option>
+					<option value='n'>No</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">Owner: </label>
 			<div class="controls">
 				<input type="text" name="owner" value="<?=htmlentities($user->getActiveUser());?>" <?=($user->isAdmin())?"":"readonly"?>></input>

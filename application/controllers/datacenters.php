@@ -17,7 +17,7 @@ class Datacenters extends ImpulseController {
 		try {
 			$dcs = $this->api->systems->get->datacenters();
 		}
-		catch(ObjectNotFoundException $e) {print 'wat';}
+		catch(ObjectNotFoundException $e) { $dcs = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		$this->_addSidebarHeader("DATACENTERS");

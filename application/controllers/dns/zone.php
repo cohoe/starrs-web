@@ -119,7 +119,7 @@ class Zone extends DnsController {
 		try {
 			$viewData['keys'] = $this->api->dns->get->keysByUser($this->user->getActiveUser());
 		}
-		catch(ObjectNotFoundException $e) {}
+		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No Keys configured! Setup at least one DNS key before attempting to create a zone.")); return; }
 		catch(Exception $e) { $this->_error($e); return; }
 		
 		// View Data

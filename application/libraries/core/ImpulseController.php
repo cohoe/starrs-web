@@ -64,7 +64,13 @@ class ImpulseController extends CI_Controller {
 
 		// If the user is an admin then they have the ability to easily switch "viewing" users
 		if($this->user->isadmin()) {
-			$userData['users'] = $this->api->get->users();
+			try {
+				$userData['users'] = $this->api->get->users();
+			}
+			catch(ObjectNotFoundException $e) { $userData['users'] = array($this->user->getActiveUser()); }
+			catch(Exception $e) {
+				$content = $this->load->view('exceptions/exception',array("exception"=>$e),true);
+			}
 		}
 
 		// Load navbar view

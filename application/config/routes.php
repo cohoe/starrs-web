@@ -46,6 +46,7 @@ $route['datacenter/(.*?)'] = 'datacentercontroller/$1';
 $route['availabilityzone/(.*?)'] = 'availabilityzonecontroller/$1';
 $route['ip/subnet/(.*?)'] = 'ip/subnetcontroller/$1';
 $route['interface/(.*?)'] = 'interfacecontroller/$1';
+$route['dhcp/class/(.*?)'] = 'dhcp/classcontroller/$1';
 $route['dns/default_controller'] = 'dns/welcome';
 
 

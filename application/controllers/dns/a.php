@@ -17,15 +17,20 @@ class A extends DnsController {
 		$this->load->view('dns/a/detail',array('rec'=>$aRec));
 	}
 
-	public function create() {
+	public function create($address) {
+		// decode
+		$address = rawurldecode($address);
+
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {
 				$aRec = $this->api->dns->create->address(
-					$this->input->post('address'),
+					$address,
 					$this->input->post('hostname'),
 					$this->input->post('zone'),
 					$ttl,
+					'A',
+					$this->_post('reverse'),
 					$this->input->post('owner'));
 				$this->_sendClient("/dns/records/view/".rawurlencode($aRec->get_address()));
 			}

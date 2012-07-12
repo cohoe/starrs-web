@@ -25,6 +25,7 @@ class Systems extends ImpulseController {
 		$this->_addAction('Create',"/system/create");
 
 		// Generate content
+		$this->_addSidebarHeader("SYSTEMS");
 		try {
 			$systems = $this->api->systems->get->systemsByOwner($username);
 			$links = array();
@@ -39,8 +40,7 @@ class Systems extends ImpulseController {
 			}
 		}
 		catch (ObjectNotFoundException $onfe) {
-			$content = $this->load->view('exceptions/objectnotfound',null,true);
-			$content .= $this->load->view('system/information',null,true);
+			$content = $this->load->view('system/information',null,true);
 		}
 		catch (Exception $e) {
 			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
