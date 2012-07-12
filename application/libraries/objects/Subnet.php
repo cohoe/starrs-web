@@ -12,11 +12,12 @@ class Subnet extends ImpulseObject {
 	private $autogen;
 	private $dhcpEnable;
 	private $comment;
+	private $datacenter;
 
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 
-    public function __construct($name, $subnet, $zone, $owner, $autogen, $dhcpEnable, $comment, $dateCreated, $dateModified, $lastModifier) {
+    public function __construct($name, $subnet, $zone, $owner, $autogen, $dhcpEnable, $comment, $datacenter, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -28,6 +29,7 @@ class Subnet extends ImpulseObject {
         $this->autogen    = $autogen;
         $this->dhcpEnable = $dhcpEnable;
         $this->comment    = $comment;
+        $this->datacenter    = $datacenter;
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -40,6 +42,7 @@ class Subnet extends ImpulseObject {
 	public function get_autogen()            { return $this->autogen; }
     public function get_dhcp_enable()        { return $this->dhcpEnable; }
 	public function get_comment()            { return $this->comment; }
+	public function get_datacenter()            { return $this->datacenter; }
 
     ////////////////////////////////////////////////////////////////////////
 	// SETTERS
@@ -78,6 +81,11 @@ class Subnet extends ImpulseObject {
 	public function set_comment($new) {
 		$this->CI->api->ip->modify->subnet($this->subnet, 'comment', $new);
 		$this->comment = $new;
+	}
+
+	public function set_datacenter($new) {
+		$this->CI->api->ip->modify->subnet($this->subnet, 'datacenter', $new);
+		$this->datacenter = $new;
 	}
 
     ////////////////////////////////////////////////////////////////////////

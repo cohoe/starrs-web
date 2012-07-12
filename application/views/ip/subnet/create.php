@@ -25,6 +25,18 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">Datacenter: </label>
+				<div class="controls">
+					<select name="datacenter">
+						<?php
+						foreach($dcs as $dc) {
+							print "<option>".htmlentities($dc->get_datacenter())."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
 			<div class="control-group">	
 				<label class="control-label">DHCP Enable: </label>
 				<div class="controls">

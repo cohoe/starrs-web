@@ -30,6 +30,23 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">Datacenter: </label>
+				<div class="controls">
+					<select name="datacenter">
+						<?php
+						foreach($dcs as $dc) {
+							if($dc->get_datacenter() == $snet->get_datacenter()) {
+								print "<option selected>".htmlentities($dc->get_datacenter())."</option>";
+							}
+							else {
+								print "<option>".htmlentities($dc->get_datacenter())."</option>";
+							}
+						}
+						?>
+					</select>
+				</div>
+			</div>
 			<div class="control-group">	
 				<label class="control-label">DHCP Enable: </label>
 				<div class="controls">

@@ -41,7 +41,27 @@ class Datacentercontroller extends ImpulseController {
 			$this->_addSidebarItem($az->get_zone(),"/availabilityzone/view/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()),"folder-open");
 		}
 		$this->_addSidebarHeader("SUBNETS");
+		try {
+			$snets = $this->api->ip->get->subnets(null);
+		}
+		catch(ObjectNotFoundException $e) { $snets = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		foreach($snets as $snet) {
+			if($snet->get_datacenter() == $dc->get_datacenter()) {
+				$this->_addSidebarItem($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()),"tags");
+			}
+		}
 		$this->_addSidebarHeader("SYSTEMS");
+		try {
+			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+		}
+		catch(ObjectNotFoundException $e) { $systems = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		foreach($systems as $sys) {
+			if($sys->get_datacenter() == $dc->get_datacenter()) {
+				$this->_addSidebarItem($sys->get_system_name(),"/system/view/".rawurlencode($sys->get_system_name()),"hdd");
+			}
+		}
 
 		// Trail
 		$this->_addTrail($dc->get_datacenter(),"/datacenter/view/".rawurlencode($dc->get_datacenter()));

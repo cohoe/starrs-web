@@ -93,7 +93,8 @@ class ComputerSystem extends ImpulseController {
 					$this->input->post('comment'),
 					$this->input->post('group'),
 					$this->input->post('platform'),
-					$this->input->post('asset')
+					$this->input->post('asset'),
+					$this->input->post('datacenter')
 				);
 				$this->_sendClient("/system/view/{$sys->get_system_name()}");
 			}
@@ -111,6 +112,7 @@ class ComputerSystem extends ImpulseController {
 			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
 			$viewData['isAdmin'] = $this->user->isAdmin();
 			$viewData['platforms'] = $this->api->systems->get->platforms();
+			$viewData['dcs'] = $this->api->systems->get->datacenters();
 			$content=$this->load->view('system/create',$viewData,true);
 			$content .= $this->load->view('core/forminfo',null,true);
 			$this->_render($content);
@@ -152,6 +154,10 @@ class ComputerSystem extends ImpulseController {
 	               try { $sys->set_group($this->input->post('group')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
+	          if($sys->get_datacenter() != $this->input->post('datacenter')) {
+	               try { $sys->set_datacenter($this->input->post('datacenter')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
 	          if($sys->get_platform() != $this->input->post('platform')) {
 	               try { $sys->set_platform($this->input->post('platform')); }
 	               catch (Exception $e) { $err[] = $e; }
@@ -179,6 +185,7 @@ class ComputerSystem extends ImpulseController {
 			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
 			$viewData['isAdmin'] = $this->user->isAdmin();
 			$viewData['platforms'] = $this->api->systems->get->platforms();
+			$viewData['dcs'] = $this->api->systems->get->datacenters();
 			$viewData['sys'] = $sys;
 
 			// Content

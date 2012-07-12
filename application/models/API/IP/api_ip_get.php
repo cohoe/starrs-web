@@ -65,6 +65,8 @@ class Api_ip_get extends ImpulseModel {
                 $range['subnet'],
                 $range['class'],
                 $range['comment'],
+                $range['datacenter'],
+                $range['zone'],
                 $range['date_created'],
                 $range['date_modified'],
                 $range['last_modifier']
@@ -99,6 +101,8 @@ class Api_ip_get extends ImpulseModel {
                 $range['subnet'],
                 $range['class'],
                 $range['comment'],
+                $range['datacenter'],
+                $range['zone'],
                 $range['date_created'],
                 $range['date_modified'],
                 $range['last_modifier']
@@ -127,6 +131,8 @@ class Api_ip_get extends ImpulseModel {
 			$query->row()->subnet,
 			$query->row()->class,
 			$query->row()->comment,
+			$query->row()->datacenter,
+			$query->row()->zone,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier
@@ -153,6 +159,7 @@ class Api_ip_get extends ImpulseModel {
 				$subnet['autogen'],
 				$subnet['dhcp_enable'],
 				$subnet['comment'],
+				$subnet['datacenter'],
 				$subnet['date_created'],
 				$subnet['date_modified'],
 				$subnet['last_modifier']
@@ -187,6 +194,7 @@ class Api_ip_get extends ImpulseModel {
 			$query->row()->autogen,
 			$query->row()->dhcp_enable,
 			$query->row()->comment,
+			$query->row()->datacenter,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

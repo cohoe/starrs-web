@@ -32,6 +32,41 @@ class Api_systems_get extends ImpulseModel {
 				$system['platform_name'],
 				$system['asset'],
 				$system['group'],
+				$system['datacenter'],
+				$system['date_created'],
+				$system['date_modified'],
+				$system['last_modifier']				
+			);
+		}
+
+		// Return results
+		return $resultSet;
+	}
+
+	public function systemsByDatacenter($datacenter=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_systems(null) AS sysdata JOIN api.get_system_types() AS typedata ON sysdata.type = typedata.type WHERE datacenter = {$this->db->escape($datacenter)} ORDER BY system_name;";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$resultSet = array();
+		foreach($query->result_array() as $system) {
+			// Instantiate a new system object
+			$resultSet[] = new System(
+				$system['system_name'],
+				$system['owner'],
+				$system['comment'],
+				$system['type'],
+				$system['family'],
+				$system['os_name'],
+				$system['renew_date'],
+				$system['platform_name'],
+				$system['asset'],
+				$system['group'],
+				$system['datacenter'],
 				$system['date_created'],
 				$system['date_modified'],
 				$system['last_modifier']				
@@ -62,6 +97,7 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->platform_name,
 			$query->row()->asset,
 			$query->row()->group,
+			$query->row()->datacenter,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier
@@ -251,6 +287,7 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->platform_name,
 			$query->row()->asset,
 			$query->row()->group,
+			$query->row()->datacenter,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

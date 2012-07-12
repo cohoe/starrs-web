@@ -6,6 +6,8 @@
 		<div class="span8 well">
 			<h3>System</h3>
 			<dl class="dl-horizontal">
+				<dt>Datacenter</dt>
+				<dd><a href="/datacenter/view/<?=rawurlencode($sys->get_datacenter());?>"><?=htmlentities($sys->get_datacenter());?></a></dd>
 				<dt>Type</dt>
 				<dd><?=htmlentities($sys->get_type());?></dd>
 				<dt>Operating System</dt>
@@ -42,6 +44,7 @@
 				<dt>Memory</dt>
 				<dd><?=htmlentities($p->get_memory());?> GB</dd>
 			</dl>
+			<br />
 			<br />
 			<br />
 			<br />

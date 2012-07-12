@@ -6,7 +6,7 @@ require_once(APPPATH . "libraries/core/ImpulseModel.php");
  */
 class Api_ip_create extends ImpulseModel {
 	
-	public function subnet($subnet, $name, $comment, $autogen, $dhcp, $zone, $owner) {
+	public function subnet($subnet, $name, $comment, $autogen, $dhcp, $zone, $owner, $datacenter) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_ip_subnet(
 			{$this->db->escape($subnet)},
@@ -15,7 +15,8 @@ class Api_ip_create extends ImpulseModel {
 			{$this->db->escape($autogen)},
 			{$this->db->escape($dhcp)},
 			{$this->db->escape($zone)},
-			{$this->db->escape($owner)}
+			{$this->db->escape($owner)},
+			{$this->db->escape($datacenter)}
 		)";
 		
 		$query = $this->db->query($sql);
@@ -36,13 +37,14 @@ class Api_ip_create extends ImpulseModel {
 			$query->row()->autogen,
 			$query->row()->dhcp_enable,
 			$query->row()->comment,
+			$query->row()->datacenter,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier
 		);
 	}
 	
-	public function range($name, $firstIp, $lastIp, $subnet, $use, $class, $comment) {
+	public function range($name, $firstIp, $lastIp, $subnet, $use, $class, $comment, $datacenter, $zone) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_ip_range(
 			{$this->db->escape($name)},
@@ -51,8 +53,11 @@ class Api_ip_create extends ImpulseModel {
 			{$this->db->escape($subnet)},
 			{$this->db->escape($use)},
 			{$this->db->escape($class)},
-			{$this->db->escape($comment)}
+			{$this->db->escape($comment)},
+			{$this->db->escape($datacenter)},
+			{$this->db->escape($zone)}
 		)";
+
 		
 		$query = $this->db->query($sql);
 		
@@ -72,6 +77,8 @@ class Api_ip_create extends ImpulseModel {
 			$query->row()->subnet,
 			$query->row()->class,
 			$query->row()->comment,
+			$query->row()->datacenter,
+			$query->row()->zone,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

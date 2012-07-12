@@ -29,6 +29,7 @@ class Subnetcontroller extends ImpulseController {
 		$this->_addTrail($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()));
 
 		// Actions
+		$this->_addAction("Create Range","/ip/range/create/".rawurlencode($snet->get_subnet()),"success");
 		$this->_addAction("Modify","/ip/subnet/modify/".rawurlencode($snet->get_subnet()));
 		$this->_addAction("Remove","/ip/subnet/remove/".rawurlencode($snet->get_subnet()));
 
@@ -64,7 +65,8 @@ class Subnetcontroller extends ImpulseController {
 					$this->_post('autogen'),
 					$this->_post('dhcp_enable'),
 					$this->_post('zone'),
-					$this->_post('owner')
+					$this->_post('owner'),
+					$this->_post('datacenter')
 				);
 
 				$this->_sendClient("/ip/subnet/view/".rawurlencode($snet->get_subnet()));
@@ -75,6 +77,7 @@ class Subnetcontroller extends ImpulseController {
 		$viewData['owner'] = $this->user->getActiveUser();
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+		$viewData['dcs'] = $this->api->systems->get->datacenters();
 
 		$content = $this->load->view('ip/subnet/create',$viewData,true);
 		
@@ -124,6 +127,10 @@ class Subnetcontroller extends ImpulseController {
 				try { $snet->set_owner($this->_post('owner')); }
 				catch(Exception $e) { $err[] = $e; }
 			}
+			if($snet->get_datacenter() != $this->_post('datacenter')) {
+				try { $snet->set_datacenter($this->_post('datacenter')); }
+				catch(Exception $e) { $err[] = $e; }
+			}
 
 
 			if($err) {
@@ -137,6 +144,7 @@ class Subnetcontroller extends ImpulseController {
 		$viewData['snet'] = $snet;
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+		$viewData['dcs'] = $this->api->systems->get->datacenters();
 
 		// Content
 		$content = $this->load->view('ip/subnet/modify',$viewData,true);

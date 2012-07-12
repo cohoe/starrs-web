@@ -49,7 +49,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">IP <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/ip/subnets">Subnets</a></li>
-							<li><a href="#">Ranges</a></li>
+							<li><a href="/ip/ranges">Ranges</a></li>
 						</ul>
 					</li>
 					<li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>

@@ -28,6 +28,10 @@ class IpRange extends ImpulseObject {
     // string   A comment on the range
     private $comment;
 
+    private $datacenter;
+
+    private $zone;
+
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 
@@ -43,7 +47,7 @@ class IpRange extends ImpulseObject {
 	 * @param	long	$dateModified	Unix timestamp when the address was modified
 	 * @param	string	$lastModifier	The last user to modify the address
      */
-    public function __construct($firstIp, $lastIp, $use, $name, $subnet, $class, $comment, $dateCreated, $dateModified, $lastModifier) {
+    public function __construct($firstIp, $lastIp, $use, $name, $subnet, $class, $comment, $datacenter, $zone, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -55,6 +59,8 @@ class IpRange extends ImpulseObject {
         $this->subnet = $subnet;
         $this->class = $class;
         $this->comment = $comment;
+        $this->datacenter = $datacenter;
+        $this->zone = $zone;
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -67,6 +73,8 @@ class IpRange extends ImpulseObject {
     public function get_subnet()    { return $this->subnet; }
     public function get_class()	    { return $this->class; }
     public function get_comment()	{ return $this->comment; }
+    public function get_datacenter()	{ return $this->datacenter; }
+    public function get_zone()	{ return $this->zone; }
 
     ////////////////////////////////////////////////////////////////////////
 	// SETTERS
@@ -104,6 +112,16 @@ class IpRange extends ImpulseObject {
 	public function set_comment($new) {
 		$this->CI->api->ip->modify->range($this->name, 'comment', $new);
 		$this->comment = $new;
+	}
+
+	public function set_datacenter($new) {
+		$this->CI->api->ip->modify->range($this->name, 'datacenter', $new);
+		$this->datacenter = $new;
+	}
+
+	public function set_zone($new) {
+		$this->CI->api->ip->modify->range($this->name, 'zone', $new);
+		$this->zone = $new;
 	}
 
     ////////////////////////////////////////////////////////////////////////

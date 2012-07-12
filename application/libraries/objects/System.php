@@ -41,6 +41,8 @@ class System extends ImpulseObject {
     // string   The family of the type of system
     private $family;
 
+    private $datacenter;
+
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	
@@ -56,7 +58,7 @@ class System extends ImpulseObject {
 	 * @param	long	$dateModified	Unix timestamp when the record was modifed
 	 * @param	string	$lastModifier	The last user to modify the record
 	 */
-	public function __construct($systemName, $owner, $comment, $type, $family, $osName, $renewDate, $platform, $asset, $group, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($systemName, $owner, $comment, $type, $family, $osName, $renewDate, $platform, $asset, $group, $datacenter, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -71,6 +73,7 @@ class System extends ImpulseObject {
 		$this->platform = $platform;
 		$this->asset = $asset;
 		$this->group = $group;
+		$this->datacenter = $datacenter;
 		
 		// Initialize other vars
 		$this->hasInterfaces = false;
@@ -90,6 +93,7 @@ class System extends ImpulseObject {
 	public function get_platform()         { return $this->platform; }
 	public function get_asset()         { return $this->asset; }
 	public function get_group()         { return $this->group; }
+	public function get_datacenter()         { return $this->datacenter; }
     
 	////////////////////////////////////////////////////////////////////////
 	// SETTERS
@@ -132,6 +136,11 @@ class System extends ImpulseObject {
 	public function set_group($new) {
 		$this->CI->api->systems->modify->system($this->systemName, 'group', $new);
 		$this->group = $new; 
+	}
+
+	public function set_datacenter($new) {
+		$this->CI->api->systems->modify->system($this->systemName, 'datacenter', $new);
+		$this->datacenter = $new; 
 	}
 
 	////////////////////////////////////////////////////////////////////////
