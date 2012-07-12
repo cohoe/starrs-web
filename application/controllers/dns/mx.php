@@ -17,7 +17,9 @@ class Mx extends DnsController {
 		$this->load->view('dns/mx/detail',array('rec'=>$mRec));
 	}
 
-	public function create() {
+	public function create($address=null) {
+		// Decode
+		$address = rawurldecode($address);
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {
@@ -37,7 +39,7 @@ class Mx extends DnsController {
 				$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			}
 			catch (Exception $e) { $this->_error($e); return; }
-			$content = $this->load->view('dns/mx/create',array('zones'=>$zones,'user'=>$this->user),true);
+			$content = $this->load->view('dns/mx/create',array('zones'=>$zones,'user'=>$this->user,'address'=>$address),true);
 
 			$this->_renderSimple($content);
 		}

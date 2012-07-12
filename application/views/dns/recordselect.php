@@ -10,6 +10,7 @@
 					}
 					?>
 				</select>
+				<input type="hidden" name="address" value="<?=$address;?>" />
 			</div>
 		</div>
 	</fieldset>

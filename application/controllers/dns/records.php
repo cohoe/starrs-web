@@ -53,7 +53,7 @@ class Records extends DnsController {
 		$this->_addTrail("DNS Records","/dns/records/view/".rawurlencode($intAddr->get_address()));
 		
 		// Actions
-		$this->_addAction("Create","/dns/record/create/");
+		$this->_addAction("Create","/dns/records/create/".rawurlencode($intAddr->get_address()));
 		// Content
 		try {
 			$content = "<div class=\"span7\">";
@@ -86,9 +86,9 @@ class Records extends DnsController {
 		$this->_render($content);
 	}
 
-	public function create() {
+	public function create($address=null) {
 		$recTypes = $this->api->dns->get->recordtypes();
-		$this->load->view('dns/recordselect',array('types'=>$recTypes));
+		$this->load->view('dns/recordselect',array('types'=>$recTypes,'address'=>$address));
 	}
 }
 /* End of file records.php */

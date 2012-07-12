@@ -30,5 +30,6 @@
 				<input type="text" name="owner" value="<?=htmlentities($user->getActiveUser());?>" <?=($user->isAdmin())?"":"readonly"?>></input>
 			</div>
 		</div>
+		<input type="hidden" name="address" value="<?=$address;?>" />
 	</fieldset>
 </form>

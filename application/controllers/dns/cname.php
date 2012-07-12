@@ -17,7 +17,8 @@ class Cname extends DnsController {
 		$this->load->view('dns/cname/detail',array('rec'=>$cRec));
 	}
 
-	public function create() {
+	public function create($address=null) {
+		$address = rawurldecode($address);
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {
@@ -38,7 +39,7 @@ class Cname extends DnsController {
 				$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			}
 			catch (Exception $e) { $this->_error($e); return; }
-			$content = $this->load->view('dns/cname/create',array('zones'=>$zones,'user'=>$this->user),true);
+			$content = $this->load->view('dns/cname/create',array('zones'=>$zones,'user'=>$this->user,'address'=>$address),true);
 
 			$this->_renderSimple($content);
 		}

@@ -23,7 +23,6 @@ class Ns extends DnsController {
 			$address = rawurldecode($address);
 		}
 
-
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {

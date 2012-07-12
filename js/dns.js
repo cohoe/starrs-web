@@ -1,6 +1,6 @@
 // Create button on the main page to start the process of creating a record
 $('#create').click(function() {
-	$.get("/dns/records/create/",function(data) {
+	$.get($(this).attr('href'),function(data) {
 		$('#modal-select-body').html(data);
 		$('#modal-select').modal('show');
 	});
@@ -43,7 +43,7 @@ $('#createns').click(function() {
 
 // Click after selecting a record type from the dropdown in the popup
 $('#continue').click(function() {
-	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create/"+getIpFromUrl();
+	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create/"+$('[name=address]').val();
 	$.get(createUrl,function(data) {
 		$('#createrec').attr('href',createUrl);
 		$('#modal-select-body').html(data);
@@ -61,7 +61,6 @@ $('#cancel').click(function() {
 // Click the button to create a record
 $('#createrec').click(function() {
 	var dataStr = $('#create-form').serialize();
-	//dataStr = dataStr+"&address="+getIpFromUrl();
 	var url = $('#createrec').attr('href');
 	$.post(url,dataStr,function(data) {
 		handlePost(data);	
@@ -119,9 +118,6 @@ $('#modal-confirm-btn').click(function() {
 	return false;
 });
 
-function getIpFromUrl() {
-	return window.location.pathname.split('/').pop();
-}
 function getObjectFromUrl() {
 	return window.location.pathname.split('/').pop();
 }
