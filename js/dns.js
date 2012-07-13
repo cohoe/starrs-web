@@ -89,7 +89,7 @@ $('.btn-danger').click(function() {
 $('.btn-info').click(function() {
 	var url = $(this).parent().attr('href');
 	$.get(url,function(data) {
-		$('#modal-info .modal-header').html("<h2>Record Detail</h2>");
+		$('#modal-info .modal-header').html("<h2>Detail</h2>");
 		$('#modal-info-body').html(data);
 		$('#modal-info').modal('show');
 	});

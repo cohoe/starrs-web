@@ -7,6 +7,8 @@ class Subnetcontroller extends ImpulseController {
 		parent::__construct();
 		$this->_setNavHeader("IP");
 		$this->_addScript("/js/systems.js");
+		$this->_addScript("/js/dns.js");
+		$this->_addScript("/js/ip.js");
 		$this->_addTrail("IP","/ip");
 		$this->_addTrail("Subnets","/ip/subnets/");
 	}
@@ -30,14 +32,28 @@ class Subnetcontroller extends ImpulseController {
 
 		// Actions
 		$this->_addAction("Create Range","/ip/range/create/".rawurlencode($snet->get_subnet()),"success");
+		$this->_addAction("Create DHCP Option","/dhcp/subnetoption/create/".rawurlencode($snet->get_subnet()),"success");
 		$this->_addAction("Modify","/ip/subnet/modify/".rawurlencode($snet->get_subnet()));
 		$this->_addAction("Remove","/ip/subnet/remove/".rawurlencode($snet->get_subnet()));
 
 		// Viewdata
 		$viewData['snet'] = $snet;
 
+		// Options
+		try {
+			$opts = $this->api->dhcp->get->subnetoptions($snet->get_subnet());
+		}
+		catch(ObjectNotFoundException $e) { $opts = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		$table = $this->_renderSubnetOptionTable($opts);
+
 		// Content
-		$content = $this->load->view('ip/subnet/detail',$viewData,true);
+		$content = "<div class=\"span7\">";
+		$content .= $this->load->view('ip/subnet/detail',$viewData,true);
+		$content .= $this->load->view('dhcp/dhcpoptions',array('table'=>$table),true);
+		$content .= "</div>";
+		$content .= $this->load->view('dhcp/optioncreate',null,true);
 
 		// Sidebar
 		$this->_addSidebarHeader("RANGES");

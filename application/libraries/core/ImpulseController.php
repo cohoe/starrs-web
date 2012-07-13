@@ -262,6 +262,31 @@ class ImpulseController extends CI_Controller {
 		return $this->_postToNull($var);
 	}
 
+	protected function _renderSubnetOptionTable($opts) {
+		$html = "<table class=\"table table-striped table-bordered imp-dnstable\">";
+		$html .= "<tr><th>Option</th><th>Value</th><th style=\"width: 157px\">Actions</th></tr>";
+		
+		foreach($opts as $opt) {
+			// Links
+			$detLink = "/dhcp/subnetoption/view/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+			$modLink = "/dhcp/subnetoption/modify/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+			$remLink = "/dhcp/subnetoption/remove/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+
+			// Table
+			$html .= "<tr><td>".htmlentities($opt->get_option())."</td><td>".htmlentities($opt->get_value())."</td><td>";
+			$html .= "<a href=\"$detLink\"><button class=\"btn btn-mini btn-info\"\">Detail</button></a>";
+			$html .= "<span> </span>";
+			$html .= "<a href=\"$modLink\"><button class=\"btn btn-mini btn-warning\">Modify</button></a>";
+			$html .= "<span> </span>";
+			$html .= "<a href=\"$remLink\"><button class=\"btn btn-mini btn-danger\">Remove</button></a>";
+			$html .= "</td></tr>";
+		}
+
+		$html .= "</table>";
+
+		return $html;
+	}
+
 }
 /* End of file ImpulseController.php */
 /* Location: ./application/libraries/core/ImpulseController.php */

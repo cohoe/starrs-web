@@ -148,7 +148,7 @@ class Api_dhcp_get extends ImpulseModel {
 		}
     }
 
-     public function subnet_options($subnet) {
+     public function subnetoptions($subnet) {
         // SQL Query
 		$sql = "SELECT * FROM api.get_dhcp_subnet_options({$this->db->escape($subnet)})";
 		$query = $this->db->query($sql);
@@ -160,7 +160,7 @@ class Api_dhcp_get extends ImpulseModel {
 		$resultSet = array();
 		foreach($query->result_array() as $config) {
 			$resultSet[] = new SubnetOption(
-                $subnet,
+                	$subnet,
 				$config['option'],
 				$config['value'],
 				$config['date_created'],

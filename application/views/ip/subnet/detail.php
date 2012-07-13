@@ -1,4 +1,5 @@
-<div class="span7 well">
+<div class="row-fluid">
+<div class="well">
 	<a href="/ip/subnet/view/<?=rawurlencode($snet->get_subnet());?>"><h2><?=htmlentities($snet->get_subnet());?></h2></a>
 	<dl class="dl-horizontal">
 		<dt>Name</dt>
@@ -22,4 +23,5 @@
 		<dt>Comment</dt>
 		<dd><?=htmlentities($snet->get_comment());?>&nbsp;</dd>
 	</dl>
+</div>
 </div>
