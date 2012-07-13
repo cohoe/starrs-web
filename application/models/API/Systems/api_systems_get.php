@@ -210,6 +210,34 @@ class Api_systems_get extends ImpulseModel {
 		return $resultSet;
 	}
 
+	public function interfaceaddressesByRange($range=null) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_system_interface_addresses(null) WHERE api.get_address_range(address) = {$this->db->escape($range)} ORDER BY family(address),address;";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$resultSet = array();
+		foreach($query->result_array() as $interfaceAddress) {
+			$resultSet[] = new InterfaceAddress(
+				$interfaceAddress['address'],
+				$interfaceAddress['class'],
+				$interfaceAddress['config'],
+				$interfaceAddress['mac'],
+				$interfaceAddress['isprimary'],
+				$interfaceAddress['comment'],
+				$interfaceAddress['date_created'],
+				$interfaceAddress['date_modified'],
+				$interfaceAddress['last_modifier']
+			);
+		}
+
+		// Return results
+		return $resultSet;
+	}
+
 	public function interfaceaddressByAddress($address=null) {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_system_interface_address({$this->db->escape($address)})";

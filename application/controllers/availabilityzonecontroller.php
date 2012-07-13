@@ -22,13 +22,21 @@ class Availabilityzonecontroller extends ImpulseController {
 
 		// Instantiate
 		try {
-			#$dc = $this->api->systems->get->datacenterByName($datacenter);
 			$az = $this->api->systems->get->availabilityzone($datacenter, $zone);
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Sidebar
 		$this->_addSidebarHeader("IP RANGES");
+		try {
+			$rs = $this->api->ip->get->rangesByZone($az->get_zone());
+		}
+		catch(ObjectNotFoundException $e) { $rs = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		foreach($rs as $r) {
+			$this->_addSidebarItem($r->get_name(),"/ip/range/view/".rawurlencode($r->get_name()),"resize-full");
+		}
 
 		// Actions
 		$this->_addAction("Modify","/availabilityzone/modify/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()));

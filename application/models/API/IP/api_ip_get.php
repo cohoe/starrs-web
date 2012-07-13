@@ -111,6 +111,37 @@ class Api_ip_get extends ImpulseModel {
 
 	   return $resultSet;
 	}
+
+	public function rangesByZone($zone=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_ip_ranges() WHERE zone = {$this->db->escape($zone)} ORDER BY first_ip";
+		$query = $this->db->query($sql);
+
+        // Check error
+        $this->_check_error($query);
+
+        // Generate results
+        $resultSet = array();
+        foreach($query->result_array() as $range) {
+            $resultSet[] = new IpRange(
+                $range['first_ip'],
+                $range['last_ip'],
+                $range['use'],
+                $range['name'],
+                $range['subnet'],
+                $range['class'],
+                $range['comment'],
+                $range['datacenter'],
+                $range['zone'],
+                $range['date_created'],
+                $range['date_modified'],
+                $range['last_modifier']
+            );
+        }
+
+	   return $resultSet;
+	}
+	
 	
 	public function range($name) {
         // SQL Query

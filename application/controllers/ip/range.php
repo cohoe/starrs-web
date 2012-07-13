@@ -33,6 +33,14 @@ class Range extends ImpulseController {
 
 		// Sidebar
 		$this->_addSidebarHeader("RANGES");
+		try {
+			$intAddrs = $this->api->systems->get->interfaceaddressesByRange($r->get_name());
+		}
+		catch(ObjectNotFoundException $e) { $intAddrs = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		foreach($intAddrs as $intAddr) {
+			$this->_addSidebarItem($intAddr->get_address()." (".$intAddr->get_system_name().")","/address/view/".rawurlencode($intAddr->get_address()),"globe");
+		}
 
 		// Actions
 		$this->_addAction("Create DHCP Option","/dhcp/rangeoption/create/".rawurlencode($r->get_name()),"success");
