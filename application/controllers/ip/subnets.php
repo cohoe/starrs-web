@@ -6,6 +6,7 @@ class Subnets extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("IP");
+		$this->_setSubHeader("Subnets");
 		$this->_addTrail("IP","/ip");
 	}
 

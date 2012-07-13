@@ -49,7 +49,7 @@ class Api_dhcp_modify extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function range_option($range, $option, $value, $field, $newValue) {
+	public function rangeoption($range, $option, $value, $field, $newValue) {
 		// SQL Query
 		$sql = "SELECT api.modify_dhcp_range_option(
 			{$this->db->escape($range)},

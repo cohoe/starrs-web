@@ -6,6 +6,7 @@ class Subnetcontroller extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("IP");
+		$this->_setSubHeader("Subnets");
 		#$this->_addScript("/js/systems.js");
 		#$this->_addScript("/js/dns.js");
 		#$this->_addScript("/js/ip.js");

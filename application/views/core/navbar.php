@@ -31,31 +31,31 @@
 					<li class="dropdown <?=($header=='Systems')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Systems <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/datacenters/">Datacenters</a></li>
-							<li><a href="/availabilityzones/view">Availability Zones</a></li>
-							<li><a href="/systems/view/">Systems</a></li>
+							<li <?=($sub=='Datacenters')?'class="active"':null;?>><a href="/datacenters/">Datacenters</a></li>
+							<li <?=($sub=='Availability Zones')?'class="active"':null;?>><a href="/availabilityzones/view">Availability Zones</a></li>
+							<li <?=($sub=='Systems')?'class="active"':null;?>><a href="/systems/view/">Systems</a></li>
 						</ul>
 					</li>
 					<li class="dropdown <?=($header=='DNS')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DNS <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/dns/records">Records</a></li>
-							<li><a href="/dns/zones/">Zones</a></li>
-							<li><a href="/dns/keys/">Keys</a></li>
+							<li <?=($sub=='Records')?'class="active"':null;?>><a href="/dns/records">Records</a></li>
+							<li <?=($sub=='Zones')?'class="active"':null;?>><a href="/dns/zones/">Zones</a></li>
+							<li <?=($sub=='Keys')?'class="active"':null;?>><a href="/dns/keys/">Keys</a></li>
 						</ul>
 					</li>
 					<li class="dropdown <?=($header=='IP')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">IP <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/ip/subnets">Subnets</a></li>
-							<li><a href="/ip/ranges">Ranges</a></li>
+							<li <?=($sub=='Subnets')?'class="active"':null;?>><a href="/ip/subnets">Subnets</a></li>
+							<li <?=($sub=='Ranges')?'class="active"':null;?>><a href="/ip/ranges">Ranges</a></li>
 						</ul>
 					</li>
 					<li class="dropdown <?=($header=='DHCP')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DHCP <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/dhcp/classes/view">Classes</a></li>
-							<li><a href="#">Global Options</a></li>
+							<li <?=($sub=='Classes')?'class="active"':null;?>><a href="/dhcp/classes/view">Classes</a></li>
+							<li <?=($sub=='Global Options')?'class="active"':null;?>><a href="#">Global Options</a></li>
 						</ul>
 					</li>
 					<li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>

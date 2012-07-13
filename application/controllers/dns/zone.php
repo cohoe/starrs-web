@@ -6,6 +6,7 @@ class Zone extends DnsController {
 	public function __construct() {
 		parent::__construct();
 		$this->_addScript("/js/dns.js");
+		$this->_setSubHeader("Zones");
 		$this->_addTrail("Zones","/dns/zones/");
 	}
 

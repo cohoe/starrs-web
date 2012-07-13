@@ -10,6 +10,7 @@ class ImpulseController extends CI_Controller {
 
 	private $actions;
 	private $navheader;
+	private $subnav;
 	private $contentList;
 
 	protected $forminfo;
@@ -46,6 +47,8 @@ class ImpulseController extends CI_Controller {
 
 		// Forminfo
 		$this->forminfo = $this->load->view('core/forminfo',null,true);
+
+		// Variables
 	}
 
 	public function index() {
@@ -64,6 +67,7 @@ class ImpulseController extends CI_Controller {
 		$userData['userLevel'] = $this->user->get_user_level();
 		$userData['viewUser'] = $this->user->getActiveUser();
 		$userData['header'] = $this->navheader;
+		$userData['sub'] = $this->subnav;
 
 		// If the user is an admin then they have the ability to easily switch "viewing" users
 		if($this->user->isadmin()) {
@@ -171,6 +175,10 @@ class ImpulseController extends CI_Controller {
 
 	protected function _setNavHeader($header) {
 		$this->navheader = $header;
+	}
+
+	protected function _setSubHeader($sub) {
+		$this->subnav= $sub;
 	}
 
 	protected function _sendClient($url,$return=null) {
@@ -281,6 +289,11 @@ class ImpulseController extends CI_Controller {
 					$detLink = "/dhcp/subnetoption/view/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
 					$modLink = "/dhcp/subnetoption/modify/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
 					$remLink = "/dhcp/subnetoption/remove/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					break;
+				case "RangeOption":
+					$detLink = "/dhcp/rangeoption/view/".rawurlencode($opt->get_range())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					$modLink = "/dhcp/rangeoption/modify/".rawurlencode($opt->get_range())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					$remLink = "/dhcp/rangeoption/remove/".rawurlencode($opt->get_range())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
 					break;
 			}
 

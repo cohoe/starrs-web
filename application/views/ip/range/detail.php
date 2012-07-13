@@ -1,4 +1,4 @@
-<div class="span7 well">
+<div class="well">
 	<h2><?=htmlentities($r->get_name());?></h2>
 	<dl class="dl-horizontal">
 		<dt>First IP</dt>

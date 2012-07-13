@@ -6,6 +6,7 @@ class Systems extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("Systems");
+		$this->_setSubHeader("Systems");
 		$this->_addScript("/js/systems.js");
 	}
 

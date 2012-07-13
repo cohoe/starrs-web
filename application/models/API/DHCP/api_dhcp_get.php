@@ -197,7 +197,26 @@ class Api_dhcp_get extends ImpulseModel {
 		);
 	}
 
-     public function range_options($range) {
+    public function rangeoptionByHash($range, $option, $hash) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dhcp_range_options({$this->db->escape($range)}) WHERE option = {$this->db->escape($option)} AND md5(value) = {$this->db->escape($hash)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Generate results
+		return new RangeOption(
+			$query->row()->name,
+			$query->row()->option,
+			$query->row()->value,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+     public function rangeoptions($range) {
         // SQL Query
 		$sql = "SELECT * FROM api.get_dhcp_range_options({$this->db->escape($range)})";
 		$query = $this->db->query($sql);

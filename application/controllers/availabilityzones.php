@@ -6,6 +6,7 @@ class Availabilityzones extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("Systems");
+		$this->_setSubHeader("Availability Zones");
 		$this->_addTrail("Availability Zones","/availabilityzones/view");
 	}
 

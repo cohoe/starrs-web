@@ -3,6 +3,11 @@ require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Keys extends DnsController {
 
+	public function __construct() {
+		parent::__construct();
+		$this->_setSubHeader("Keys");
+	}
+
 	public function index() {
 		$this->_sendClient("/dns/keys/view/");
 	}

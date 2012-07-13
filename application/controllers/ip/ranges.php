@@ -6,6 +6,7 @@ class Ranges extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("IP");
+		$this->_setSubHeader("Ranges");
 		$this->_addTrail("IP","/ip");
 		$this->_addTrail("Ranges","/ip/ranges");
 	}

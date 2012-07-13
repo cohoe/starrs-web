@@ -5,7 +5,7 @@ class Key extends DnsController {
 
 	public function __construct() {
 		parent::__construct();
-		#$this->_addScript("/js/dns.js");
+		$this->_setSubHeader("Keys");
 		$this->_addTrail("Keys","/dns/keys");
 	}
 

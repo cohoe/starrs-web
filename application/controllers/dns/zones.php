@@ -2,6 +2,11 @@
 require_once(APPPATH . "libraries/core/DnsController.php");
 
 class Zones extends DnsController {
+	
+	public function __construct() {
+		parent::__construct();
+		$this->_setSubHeader("Zones");
+	}
 
 	public function index() {
 		$this->_sendClient("/dns/zones/view/");

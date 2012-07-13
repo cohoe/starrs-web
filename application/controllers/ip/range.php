@@ -6,8 +6,9 @@ class Range extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("IP");
+		$this->_setSubHeader("Ranges");
 		$this->_addTrail("IP","/ip");
-		$this->_addScript("/js/systems.js");
+		$this->_addScript("/js/ip.js");
 	}
 
 	public function index() {
@@ -34,13 +35,22 @@ class Range extends ImpulseController {
 		$this->_addSidebarHeader("RANGES");
 
 		// Actions
+		$this->_addAction("Create DHCP Option","/dhcp/rangeoption/create/".rawurlencode($r->get_name()),"success");
 		$this->_addAction("Modify","/ip/range/modify/".rawurlencode($r->get_name()));
 		$this->_addAction("Remove","/ip/range/remove/".rawurlencode($r->get_name()));
 
-		// Viewdata
+		// Options
+		try {
+			$opts = $this->api->dhcp->get->rangeoptions($r->get_name());
+		}
+		catch(ObjectNotFoundException $e) { $opts = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Content
-		$content = $this->load->view('ip/range/detail',array('r'=>$r),true);
+		$content = "<div class=span7>";
+		$content .= $this->load->view('ip/range/detail',array('r'=>$r),true);
+		$content .= $this->_renderOptionView($opts);
+		$content .= "</div>";
 
 		// Render
 		$this->_render($content);

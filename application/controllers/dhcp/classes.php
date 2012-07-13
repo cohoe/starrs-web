@@ -6,6 +6,7 @@ class Classes extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("DHCP");
+		$this->_setSubHeader("Classes");
 		$this->_addTrail("DHCP","/dhcp");
 		$this->_addTrail("classes","/dhcp/classes/view/");
 	}

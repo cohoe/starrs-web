@@ -85,7 +85,7 @@ class Api_dhcp_create extends ImpulseModel {
 		);
 	}
 	
-	public function range_option($range, $option, $value) {
+	public function rangeoption($range, $option, $value) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_dhcp_range_option(
 			{$this->db->escape($range)},
