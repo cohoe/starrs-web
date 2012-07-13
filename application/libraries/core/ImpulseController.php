@@ -48,7 +48,16 @@ class ImpulseController extends CI_Controller {
 		// Forminfo
 		$this->forminfo = $this->load->view('core/forminfo',null,true);
 
-		// Variables
+		// Table
+		$this->_configureTable();
+	}
+
+	private function _configureTable() {
+		$tmpl = array(
+			'table_open' => '<table class="table table-bordered table-striped">'
+		);
+
+		$this->table->set_template($tmpl);
 	}
 
 	public function index() {

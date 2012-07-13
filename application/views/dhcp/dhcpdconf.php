@@ -1,5 +1,4 @@
 <div class="span10">
-	<pre>
-		<?=$file;?>
+	<pre><?=$file;?>
 	</pre>
 </div>

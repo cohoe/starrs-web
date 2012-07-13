@@ -64,8 +64,11 @@ class Api extends ImpulseModel {
 	public function search($searchArray) {
 		// Build query string
 		$searchString = "WHERE system_name IS NOT NULL ";
-		if($searchArray['systemName']) {
-			$searchString .= "AND system_name ~* {$this->db->escape($searchArray['systemName'])} ";
+		if($searchArray['datacenter']) {
+			$searchString .= "AND datacenter ~* {$this->db->escape($searchArray['datacenter'])} ";
+		}
+		if($searchArray['availabilityzone']) {
+			$searchString .= "AND availability_zone ~* {$this->db->escape($searchArray['availabilityzone'])} ";
 		}
 		if($searchArray['mac']) {
 			$searchString .= "AND mac = {$this->db->escape($searchArray['mac'])} ";

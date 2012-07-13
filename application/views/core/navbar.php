@@ -62,7 +62,7 @@
 					<li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>
 					<li <?=($header=='Network')?'class="active"':null;?>><a href="#">Network</a></li>
 					<li <?=($header=='Statistics')?'class="active"':null;?>><a href="#">Statistics</a></li>
-					<li <?=($header=='Search')?'class="active"':null;?>><a href="#">Search</a></li>
+					<li <?=($header=='Search')?'class="active"':null;?>><a href="/search">Search</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
