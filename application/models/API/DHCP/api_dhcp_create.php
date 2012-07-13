@@ -22,7 +22,7 @@ class Api_dhcp_create extends ImpulseModel {
 		}
 		
 		// Return object
-		return new DhcpClass(
+		return new ConfigClass(
 			$query->row()->class,
 			$query->row()->comment,
 			$query->row()->date_created,

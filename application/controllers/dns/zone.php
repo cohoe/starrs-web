@@ -81,9 +81,6 @@ class Zone extends DnsController {
 
 			// Content
 			$content = $this->load->view('dns/zone/overview',$viewData,true);
-			$content .= $this->load->view('dns/modalcreate',null,true);
-			$content .= $this->load->view('dns/modalmodify',null,true);
-			$content .= $this->load->view('core/modalconfirm',null,true);
 		}	
 		catch(Exception $e) { $this->_exit($e); return; }
 

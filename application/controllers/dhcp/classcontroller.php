@@ -31,6 +31,9 @@ class Classcontroller extends ImpulseController {
 		$this->_addAction("Modify","/dhcp/class/modify/".rawurlencode($c->get_class()));
 		$this->_addAction("Remove","/dhcp/class/remove/".rawurlencode($c->get_class()));
 
+		// Sidebar
+		$this->_addSidebarHeader("SOMETHING");
+
 		// Viewdata
 		$viewData['c'] = $c; 
 
@@ -56,6 +59,74 @@ class Classcontroller extends ImpulseController {
 		$content = $this->load->view('dhcp/class/create',null,true);
 		$content .= $this->forminfo;
 		$this->_render($content);
+	}
+
+	public function modify($class) {
+		// Decode
+		$class = rawurldecode($class);
+
+		// Instantiate
+		try {
+			$c = $this->api->dhcp->get->_class($class);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		if($this->input->post()) {
+			$err = array();
+
+			if($c->get_class() != $this->_post('class')) {
+				try { $c->set_class($this->_post('class')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($c->get_comment() != $this->_post('comment')) {
+				try { $c->set_comment($this->_post('comment')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+
+			if($err) {
+				$this->_error($err);
+				return;
+			}
+
+			$this->_sendClient("/dhcp/class/view/".rawurlencode($c->get_class()));
+			return;
+		}
+
+		// Trail
+		$this->_addTrail($c->get_class(),"/dhcp/class/view/".rawurlencode($c->get_class()));
+
+		// Viewdata
+		$viewData['c'] = $c; 
+
+		// Content
+		$content = $this->load->view('dhcp/class/modify',array('c'=>$c),true);
+		$content .= $this->forminfo;
+
+		// Render
+		$this->_render($content);
+	}
+
+	public function remove($class) {
+		// Decode
+		$class = rawurldecode($class);
+
+		// Instantiate
+		try {
+			$c = $this->api->dhcp->get->_class($class);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		if($this->input->post('confirm')) {
+			try {
+				$this->api->dhcp->remove->_class($c->get_class());
+				$this->_sendClient("/dhcp/classes/view");
+			}
+			catch(Exception $e) { $this->_error($e); return; }
+		}
+		else {
+			$this->_error(new Exception("No confirmation"));
+			return;
+		}
 	}
 }
 

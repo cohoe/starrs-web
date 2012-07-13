@@ -9,8 +9,6 @@ class Subnetcontroller extends ImpulseController {
 		#$this->_addScript("/js/systems.js");
 		#$this->_addScript("/js/dns.js");
 		#$this->_addScript("/js/ip.js");
-		$this->_addScript("/js/table.js");
-		$this->_addScript("/js/modal.js");
 		$this->_addScript("/js/ip.js");
 		$this->_addTrail("IP","/ip");
 		$this->_addTrail("Subnets","/ip/subnets/");

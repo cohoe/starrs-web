@@ -103,3 +103,10 @@ function handlePostRedirect(data) {
 function refresh() {
 	location.reload(true);
 }
+
+// Remove Action Button
+$('#action-remove').click(function() {
+	$('#modal-confirm-btn').attr('href',$('#action-remove').attr('href'));
+	$('#modal-confirm').modal('show');
+	return false;
+});

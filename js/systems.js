@@ -1,10 +1,11 @@
-$('#remove').click(function() {
+$('#action-remove').click(function() {
 	$('#modal-confirm-btn').attr('href',$('#remove').attr('href'));
 	$('#modal-confirm').modal('show');
 	return false;
 });
 
 $('#modal-confirm-btn').click(function() {
+	console.debug('This function needs to die');
 	$('#modal-confirm').modal('show',false);
 	$.post($('#remove').attr('href'),{ confirm:"confirm" },function(data) {
 		if(!data.match(/^\<script\>/g)) {

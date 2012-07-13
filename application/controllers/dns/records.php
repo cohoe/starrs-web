@@ -70,9 +70,6 @@ class Records extends DnsController {
 		catch (ObjectNotFoundException $e) { $content = $this->load->view('exceptions/objectnotfound',array('span'=>7),true); }
 		catch (Exception $e) { $this->_exit($e); return; }
 
-		$content .= $this->load->view('dns/modalcreate',null,true);
-		$content .= $this->load->view('dns/modalmodify',null,true);
-
 		// Sidebar
 		$this->_addSidebarHeader("DNS RECORDS");
 		$this->_addSidebarItem("A/AAAA","#A/AAAA","font");

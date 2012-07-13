@@ -41,6 +41,8 @@ class ImpulseController extends CI_Controller {
 
 		// Base JS
 		$this->_addScript('/js/impulse.js');
+		$this->_addScript('/js/table.js');
+		$this->_addScript('/js/modal.js');
 
 		// Forminfo
 		$this->forminfo = $this->load->view('core/forminfo',null,true);
