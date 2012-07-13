@@ -31,13 +31,33 @@ class Search extends ImpulseController {
 		}
 		
 		// Data
-		$rs = $this->api->ip->get->ranges();
-		$snets = $this->api->ip->get->subnets();
-		$dcs = $this->api->systems->get->datacenters();
-		$zs = $this->api->dns->get->zonesByUser(null);
+		try {
+			$rs = $this->api->ip->get->ranges();
+		}
+		catch(ObjectNotFoundException $e) { $rs = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$snets = $this->api->ip->get->subnets();
+		}
+		catch(ObjectNotFoundException $e) { $snets = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$dcs = $this->api->systems->get->datacenters();
+		}
+		catch(ObjectNotFoundException $e) { $dcs = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$zs = $this->api->dns->get->zonesByUser(null);
+		}
+		catch(ObjectNotFoundException $e) { $zs = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
 		$azs = array();
 		foreach($dcs as $dc) {
-			$azs = array_merge($azs, $this->api->systems->get->availabilityzonesByDatacenter($dc->get_datacenter()));
+			try {
+				$azs = array_merge($azs, $this->api->systems->get->availabilityzonesByDatacenter($dc->get_datacenter()));
+			}
+			catch(ObjectNotFoundException $e) {}
+			catch(Exception $e) { $this->_exit($e); return; }
 		}
 
 		// Viewdata
