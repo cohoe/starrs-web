@@ -15,40 +15,49 @@ class Subnetoptioncontroller extends ImpulseController {
 
 		// Create
 		if($this->input->post()) {
-			print "lol";
-			return;
+			try {
+				$opt = $this->api->dhcp->create->subnetoption(
+					$snet->get_subnet(),
+					$this->_post('option'),
+					$this->_post('value')
+				);
+				$this->_sendClient("/ip/subnet/view/".rawurlencode($snet->get_subnet()));
+				return;
+			}
+			catch(Exception $e) { $this->_error($e); return; }
 		}
 
 		$content = $this->load->view('dhcp/option/create',null,true);
 
 		$this->_renderSimple($content);
 	}
-	public function view() {
+	public function view($subnet, $option, $hash) {
 		// Decode
-		$object = rawurldecode($object);
+		$subnet = rawurldecode($subnet);
+		$option = rawurldecode($option);
+		$hash = rawurldecode($hash);
 
 		// Instantiate
 		try {
-			$obj = $this->api->get->object($object);
+			$opt = $this->api->dhcp->get->subnetoptionByHash($subnet, $option, $hash);
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
-		// Trail
-		$this->_addTrail($obj->get_name(),"#");
-
-		// Actions
-		$this->_addAction("Modify","#");
-		$this->_addAction("Remove","#");
-
-		// Viewdata
-		$viewData['foo'] = "bar";
+		$viewData['opt'] = $opt;
 
 		// Content
-		$content = $this->load->view('#',$viewData,true);
-		$content .= $this->load->view('dhcp/optioncreate',null,true);
+		$content = $this->load->view('dhcp/option/detail',$viewData,true);
 
 		// Render
-		$this->_render($content);
+		$this->_renderSimple($content);
+	}
+
+	public function modify($subnet, $option, $hash) {
+		print "Modify";
+	}
+
+	public function remove($subnet, $option, $hash) {
+		print "Remove";
 	}
 }
 

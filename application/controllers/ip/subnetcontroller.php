@@ -6,9 +6,11 @@ class Subnetcontroller extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("IP");
-		$this->_addScript("/js/systems.js");
-		$this->_addScript("/js/dns.js");
-		$this->_addScript("/js/ip.js");
+		#$this->_addScript("/js/systems.js");
+		#$this->_addScript("/js/dns.js");
+		#$this->_addScript("/js/ip.js");
+		$this->_addScript("/js/table.js");
+		$this->_addScript("/js/modal.js");
 		$this->_addTrail("IP","/ip");
 		$this->_addTrail("Subnets","/ip/subnets/");
 	}
@@ -54,6 +56,8 @@ class Subnetcontroller extends ImpulseController {
 		$content .= $this->load->view('dhcp/dhcpoptions',array('table'=>$table),true);
 		$content .= "</div>";
 		$content .= $this->load->view('dhcp/optioncreate',null,true);
+
+		$content .= $this->load->view('core/modalmodify',null,true);
 
 		// Sidebar
 		$this->_addSidebarHeader("RANGES");

@@ -68,55 +68,8 @@ $('#createrec').click(function() {
 	return false;
 });
 
-// Click save to modify a record
-$('#save').click(function() {
-	var dataStr = $('#modify-form').serialize();
-	$.post($(this).attr('href'),dataStr,function(data) {
-		handlePost(data);
-	});
-	return false;
-});
-
-// Remove buttons on the main page
-$('.btn-danger').click(function() {
-	var url = $(this).parent().attr('href');
-	$('#modal-confirm-btn').attr('href',url);
-	$('#modal-confirm').modal('show');
-	return false;
-});
-
-// Info button on the main page
-$('.btn-info').click(function() {
-	var url = $(this).parent().attr('href');
-	$.get(url,function(data) {
-		$('#modal-info .modal-header').html("<h2>Detail</h2>");
-		$('#modal-info-body').html(data);
-		$('#modal-info').modal('show');
-	});
-	return false;
-});
-
-// Modify button on the main page
-$('.btn-warning').click(function() {
-	var url = $(this).parent().attr('href');
-	$.get(url,function(data) {
-		$('#modal-modify-body').html(data);
-		$('#save').attr('href',url);
-		$('#modal-modify').modal('show');
-	});
-	return false;
-});
-
 // Hax for zone
 $('#modifyzone .btn-warning').unbind('click');
-
-// Confirm to remove the record
-$('#modal-confirm-btn').click(function() {
-	$.post($(this).attr('href'),{confirm:"confirm"},function(data) {
-		handlePostRedirect(data);
-	});
-	return false;
-});
 
 function getObjectFromUrl() {
 	return window.location.pathname.split('/').pop();

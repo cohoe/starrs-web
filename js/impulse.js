@@ -79,7 +79,7 @@ $('#modify-form').submit(function() {
 	return false;
 });
 
-function handlePost(data) {
+function handlePostRefresh(data) {
 	if(!data.match(/^\<script\>/g)) {
 		$('#modal-error-body').html(data);
 		$('#modal-error').modal('show');

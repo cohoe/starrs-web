@@ -178,6 +178,25 @@ class Api_dhcp_get extends ImpulseModel {
 		}
     }
 
+    public function subnetoptionByHash($subnet, $option, $hash) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dhcp_subnet_options({$this->db->escape($subnet)}) WHERE option = {$this->db->escape($option)} AND md5(value) = {$this->db->escape($hash)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Generate results
+		return new SubnetOption(
+			$query->row()->subnet,
+			$query->row()->option,
+			$query->row()->value,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
      public function range_options($range) {
         // SQL Query
 		$sql = "SELECT * FROM api.get_dhcp_range_options({$this->db->escape($range)})";

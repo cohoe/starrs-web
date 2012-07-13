@@ -86,11 +86,11 @@ class ImpulseController extends CI_Controller {
 		// Content
 		$content.= $this->_renderActions();
 
-		// Error Handling
-		$content .= $this->load->view('core/modalerror',null,true);
-
 		// Confirmation
 		$content .= $this->load->view('core/modalconfirm',null,true);
+
+		// Error Handling
+		$content .= $this->load->view('core/modalerror',null,true);
 
 		// Info
 		$content .= $this->load->view('core/modalinfo',null,true);
@@ -274,7 +274,7 @@ class ImpulseController extends CI_Controller {
 
 			// Table
 			$html .= "<tr><td>".htmlentities($opt->get_option())."</td><td>".htmlentities($opt->get_value())."</td><td>";
-			$html .= "<a href=\"$detLink\"><button class=\"btn btn-mini btn-info\"\">Detail</button></a>";
+			$html .= "<a href=\"$detLink\"><button class=\"btn btn-mini btn-info\">Detail</button></a>";
 			$html .= "<span> </span>";
 			$html .= "<a href=\"$modLink\"><button class=\"btn btn-mini btn-warning\">Modify</button></a>";
 			$html .= "<span> </span>";

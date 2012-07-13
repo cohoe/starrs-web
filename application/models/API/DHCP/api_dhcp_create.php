@@ -58,7 +58,7 @@ class Api_dhcp_create extends ImpulseModel {
 		);
 	}
 	
-	public function subnet_option($subnet, $option, $value) {
+	public function subnetoption($subnet, $option, $value) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_dhcp_subnet_option(
 			{$this->db->escape($subnet)},
