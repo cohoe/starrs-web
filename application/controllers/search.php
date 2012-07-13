@@ -11,7 +11,10 @@ class Search extends ImpulseController {
 
 	public function index() {
 		if($this->input->post()) {
-			$query = $this->api->search($this->input->post());
+			try {
+				$query = $this->api->search($this->input->post());
+			}
+			catch(Exception $e) { $this->_exit($e); return; }
 			$results[] = array("Datacenter","Availability Zone","System Name","MAC","Address","System Owner","System Last Modifier","Range","Hostname","Zone","DNS Owner","DNS Last Modifier");
 			foreach($query->result_array() as $result) {
 				$datacenter = $result['datacenter'];
