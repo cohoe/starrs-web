@@ -41,8 +41,8 @@
 				<label class="control-label">DHCP Enable: </label>
 				<div class="controls">
 					<select name="dhcp_enable">
-						<option value=1>Yes</option>
-						<option value=0>No</option>
+						<option value="t">Yes</option>
+						<option value="f">No</option>
 					</select>
 				</div>
 			</div>
@@ -50,8 +50,8 @@
 				<label class="control-label">Autogen: </label>
 				<div class="controls">
 					<select name="autogen">
-						<option value=1>Yes</option>
-						<option value=0>No</option>
+						<option value="t">Yes</option>
+						<option value="f">No</option>
 					</select>
 				</div>
 			</div>

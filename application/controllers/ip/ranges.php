@@ -18,15 +18,22 @@ class Ranges extends ImpulseController {
 	public function view() {
 
 		// Sidebar
-		$this->_addSidebarHeader("RANGES");
 		try {
-			$ranges = $this->api->ip->get->ranges(); 
+			$snets = $this->api->ip->get->subnets($this->user->getActiveUser());
 		}
-		catch(ObjectNotFoundException $e) { $ranges = array(); }
+		catch(ObjectNotFoundException $e) { $snets= array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
-
-		foreach($ranges as $r) {
-			$this->_addSidebarItem($r->get_name(),"/ip/range/view/".rawurlencode($r->get_name()),"resize-full");
+		foreach($snets as $snet) {
+			$this->_addSidebarHeader($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()));
+			try {
+				$ranges = $this->api->ip->get->rangesBySubnet($snet->get_subnet()); 
+			}
+			catch(ObjectNotFoundException $e) { $ranges = array(); }
+			catch(Exception $e) { $this->_exit($e); return; }
+	
+			foreach($ranges as $r) {
+				$this->_addSidebarItem($r->get_name(),"/ip/range/view/".rawurlencode($r->get_name()),"resize-full");
+			}
 		}
 
 		// Content

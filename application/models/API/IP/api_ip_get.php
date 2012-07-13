@@ -84,7 +84,7 @@ class Api_ip_get extends ImpulseModel {
 
 	public function rangesBySubnet($subnet=null) {
 		// SQL
-		$sql = "SELECT * FROM api.get_ip_ranges() WHERE subnet = {$this->db->escape($subnet)} ORDER BY name";
+		$sql = "SELECT * FROM api.get_ip_ranges() WHERE subnet = {$this->db->escape($subnet)} ORDER BY first_ip";
 		$query = $this->db->query($sql);
 
         // Check error

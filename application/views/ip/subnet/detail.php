@@ -1,5 +1,5 @@
 <div class="row-fluid">
-<div class="well">
+<div class="span6 well">
 	<a href="/ip/subnet/view/<?=rawurlencode($snet->get_subnet());?>"><h2><?=htmlentities($snet->get_subnet());?></h2></a>
 	<dl class="dl-horizontal">
 		<dt>Name</dt>
@@ -24,4 +24,15 @@
 		<dd><?=htmlentities($snet->get_comment());?>&nbsp;</dd>
 	</dl>
 </div>
+	<div class="span6 well">
+		<h2>Ranges</h2>
+		<br />
+		<ul>
+			<?
+			foreach($ranges as $r) {
+				print "<li><a href=\"/ip/range/view/".rawurlencode($r->get_name())."\">".htmlentities($r->get_first_ip())." - ".htmlentities($r->get_last_ip())." (".htmlentities($r->get_name()).")</a></li>";
+			}
+			?>
+		</ul>
+	</div>
 </div>

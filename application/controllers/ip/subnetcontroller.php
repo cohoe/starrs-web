@@ -38,9 +38,6 @@ class Subnetcontroller extends ImpulseController {
 		$this->_addAction("Modify","/ip/subnet/modify/".rawurlencode($snet->get_subnet()));
 		$this->_addAction("Remove","/ip/subnet/remove/".rawurlencode($snet->get_subnet()));
 
-		// Viewdata
-		$viewData['snet'] = $snet;
-
 		// Options
 		try {
 			$opts = $this->api->dhcp->get->subnetoptions($snet->get_subnet());
@@ -48,6 +45,16 @@ class Subnetcontroller extends ImpulseController {
 		catch(ObjectNotFoundException $e) { $opts = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
+		// Rangs
+		try {
+			$ranges = $this->api->ip->get->rangesBySubnet($snet->get_subnet());
+		}
+		catch(ObjectNotFoundException $e) { $ranges = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		// Viewdata
+		$viewData['snet'] = $snet;
+		$viewData['ranges'] = $ranges;
 
 		// Content
 		$content = "<div class=\"span7\">";
@@ -57,11 +64,6 @@ class Subnetcontroller extends ImpulseController {
 
 		// Sidebar
 		$this->_addSidebarHeader("RANGES");
-		try {
-			$ranges = $this->api->ip->get->rangesBySubnet($snet->get_subnet());
-		}
-		catch(ObjectNotFoundException $e) { $ranges = array(); }
-		catch(Exception $e) { $this->_exit($e); return; }
 		foreach($ranges as $r) {
 			$this->_addSidebarItem($r->get_name(),"/ip/range/view/".rawurlencode($r->get_name()),"resize-full");
 		}

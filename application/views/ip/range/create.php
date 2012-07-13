@@ -35,6 +35,7 @@
 				<label class="control-label">DHCP Class: </label>
 				<div class="controls">
 					<select name="class">
+						<option></option>
 						<?php
 						foreach($classes as $c) {
 							print "<option>".htmlentities($c->get_class())."</option>";
