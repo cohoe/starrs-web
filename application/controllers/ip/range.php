@@ -96,6 +96,7 @@ class Range extends ImpulseController {
 
 		// Content
 		$content = $this->load->view('ip/range/create',$viewData,true);
+		$content .= $this->forminfo;
 
 		// Render
 		$this->_render($content);
@@ -164,6 +165,7 @@ class Range extends ImpulseController {
 
 		// Content
 		$content = $this->load->view('ip/range/modify',$viewData,true);
+		$content .= $this->forminfo;
 
 		// Render
 		$this->_render($content);

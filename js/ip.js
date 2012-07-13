@@ -1,17 +1,19 @@
-$('#createdhcpoption').click(function() {
+// IP - Subnet - Create DHCP Option
+$('#action-createdhcpoption').click(function() {
 	$.get($(this).attr('href'),function(data) {
+		$('#modal-create .modal-header').html("<h2>Create Option</h2>");
 		$('#modal-create-body').html(data);
-		$('#create').attr('href',$('#createdhcpoption').attr('href'));
+		$('#create').attr('href',$('#action-createdhcpoption').attr('href'));
 		$('#modal-create').modal('show');
 	});
 	return false;
 });
 
-$('#create').click(function() {
+$('#modal-create #create').click(function() {
 	var dataStr = $('#create-form').serialize();
 	var url = $('#create').attr('href');
 	$.post(url,dataStr,function(data) {
-		handlePost(data);
+		handlePostRefresh(data);
 	});
 	return false;
 });

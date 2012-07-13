@@ -86,14 +86,20 @@ class ImpulseController extends CI_Controller {
 		// Content
 		$content.= $this->_renderActions();
 
+		// Info
+		$content .= $this->load->view('core/modalinfo',null,true);
+
 		// Confirmation
 		$content .= $this->load->view('core/modalconfirm',null,true);
 
-		// Error Handling
-		$content .= $this->load->view('core/modalerror',null,true);
+		// Modify
+		$content .= $this->load->view('core/modalmodify',null,true);
 
-		// Info
-		$content .= $this->load->view('core/modalinfo',null,true);
+		// Create 
+		$content .= $this->load->view('core/modalcreate',null,true);
+
+		// Error Handling (Put all other modals above this one)
+		$content .= $this->load->view('core/modalerror',null,true);
 
 		// JS
 		$scripts = "";
@@ -262,15 +268,19 @@ class ImpulseController extends CI_Controller {
 		return $this->_postToNull($var);
 	}
 
-	protected function _renderSubnetOptionTable($opts) {
+	protected function _renderOptionView($opts) {
 		$html = "<table class=\"table table-striped table-bordered imp-dnstable\">";
 		$html .= "<tr><th>Option</th><th>Value</th><th style=\"width: 157px\">Actions</th></tr>";
 		
 		foreach($opts as $opt) {
 			// Links
-			$detLink = "/dhcp/subnetoption/view/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
-			$modLink = "/dhcp/subnetoption/modify/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
-			$remLink = "/dhcp/subnetoption/remove/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+			switch(get_class($opt)) {
+				case "SubnetOption":
+					$detLink = "/dhcp/subnetoption/view/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					$modLink = "/dhcp/subnetoption/modify/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					$remLink = "/dhcp/subnetoption/remove/".rawurlencode($opt->get_subnet())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					break;
+			}
 
 			// Table
 			$html .= "<tr><td>".htmlentities($opt->get_option())."</td><td>".htmlentities($opt->get_value())."</td><td>";
@@ -284,7 +294,8 @@ class ImpulseController extends CI_Controller {
 
 		$html .= "</table>";
 
-		return $html;
+		$view = $this->load->view('dhcp/dhcpoptions',array('table'=>$html),true);
+		return $view;
 	}
 
 }

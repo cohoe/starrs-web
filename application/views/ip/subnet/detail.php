@@ -5,7 +5,7 @@
 		<dt>Name</dt>
 		<dd><?=htmlentities($snet->get_name());?>&nbsp;</dd>
 		<dt>DNS Zone</dt>
-		<dd><?=htmlentities($snet->get_zone());?>&nbsp;</dd>
+		<dd><a href="/dns/zone/view/<?=rawurlencode($snet->get_zone());?>"><?=htmlentities($snet->get_zone());?></a>&nbsp;</dd>
 		<dt>Datacenter</dt>
 		<dd><a href="/datacenter/view/<?=rawurlencode($snet->get_datacenter());?>"><?=htmlentities($snet->get_datacenter());?></a>&nbsp;</dd>
 		<dt>DHCP Enable</dt>

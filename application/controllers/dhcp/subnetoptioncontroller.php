@@ -43,6 +43,7 @@ class Subnetoptioncontroller extends ImpulseController {
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
+		// Viewdata
 		$viewData['opt'] = $opt;
 
 		// Content
@@ -53,11 +54,75 @@ class Subnetoptioncontroller extends ImpulseController {
 	}
 
 	public function modify($subnet, $option, $hash) {
-		print "Modify";
+		// Decode
+		$subnet = rawurldecode($subnet);
+		$option = rawurldecode($option);
+		$hash = rawurldecode($hash);
+
+		// Instantiate
+		try {
+			$opt = $this->api->dhcp->get->subnetoptionByHash($subnet, $option, $hash);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		if($this->input->post()) {
+			$err = array();
+
+			if($opt->get_option() != $this->_post('option')) {
+				try { $opt->set_option($this->_post('option')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($opt->get_value() != $this->_post('value')) {
+				try { $opt->set_value($this->_post('value')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+
+			if($err) {
+				$this->_error($err);
+				return;
+			}
+
+			$this->_sendClient("/ip/subnet/view/".rawurlencode($opt->get_subnet()));
+		}
+
+		// Viewdata
+		$viewData['opt'] = $opt;
+
+		// Content
+		$content = $this->load->view('dhcp/option/modify',$viewData,true);
+
+		// Render
+		$this->_renderSimple($content);
 	}
 
 	public function remove($subnet, $option, $hash) {
-		print "Remove";
+		// Decode
+		$subnet = rawurldecode($subnet);
+		$option = rawurldecode($option);
+		$hash = rawurldecode($hash);
+
+		// Instantiate
+		try {
+			$opt = $this->api->dhcp->get->subnetoptionByHash($subnet, $option, $hash);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		if($this->input->post('confirm')) {
+			try {
+				$this->api->dhcp->remove->subnetoption(
+					$opt->get_subnet(),
+					$opt->get_option(),
+					$opt->get_value()
+				);
+
+				$this->_sendClient("/ip/subnet/view/".rawurlencode($opt->get_subnet()));
+			}
+			catch(Exception $e) { $this->_error($e); return; }
+		}
+		else {
+			$this->_error(new Exception("No confirmation"));
+			return;
+		}
 	}
 }
 

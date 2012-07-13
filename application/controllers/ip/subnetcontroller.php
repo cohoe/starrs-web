@@ -11,6 +11,7 @@ class Subnetcontroller extends ImpulseController {
 		#$this->_addScript("/js/ip.js");
 		$this->_addScript("/js/table.js");
 		$this->_addScript("/js/modal.js");
+		$this->_addScript("/js/ip.js");
 		$this->_addTrail("IP","/ip");
 		$this->_addTrail("Subnets","/ip/subnets/");
 	}
@@ -48,16 +49,12 @@ class Subnetcontroller extends ImpulseController {
 		catch(ObjectNotFoundException $e) { $opts = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
-		$table = $this->_renderSubnetOptionTable($opts);
 
 		// Content
 		$content = "<div class=\"span7\">";
 		$content .= $this->load->view('ip/subnet/detail',$viewData,true);
-		$content .= $this->load->view('dhcp/dhcpoptions',array('table'=>$table),true);
+		$content .= $this->_renderOptionView($opts);
 		$content .= "</div>";
-		$content .= $this->load->view('dhcp/optioncreate',null,true);
-
-		$content .= $this->load->view('core/modalmodify',null,true);
 
 		// Sidebar
 		$this->_addSidebarHeader("RANGES");
@@ -107,6 +104,7 @@ class Subnetcontroller extends ImpulseController {
 		$viewData['dcs'] = $this->api->systems->get->datacenters();
 
 		$content = $this->load->view('ip/subnet/create',$viewData,true);
+		$content .= $this->forminfo;
 		
 		// Render
 		$this->_render($content);
@@ -175,6 +173,7 @@ class Subnetcontroller extends ImpulseController {
 
 		// Content
 		$content = $this->load->view('ip/subnet/modify',$viewData,true);
+		$content .= $this->forminfo;
 
 		// Render
 		$this->_render($content);
