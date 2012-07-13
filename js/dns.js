@@ -1,5 +1,5 @@
 // Create button on the main page to start the process of creating a record
-$('#create').click(function() {
+$('#action-create').click(function() {
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-select-body').html(data);
 		$('#modal-select').modal('show');
@@ -63,7 +63,7 @@ $('#createrec').click(function() {
 	var dataStr = $('#create-form').serialize();
 	var url = $('#createrec').attr('href');
 	$.post(url,dataStr,function(data) {
-		handlePost(data);	
+		handlePostRefresh(data);	
 	});
 	return false;
 });

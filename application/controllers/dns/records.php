@@ -79,6 +79,8 @@ class Records extends DnsController {
 		$this->_addSidebarItem("MX","#MX","envelope");
 		$this->_addSidebarItem("NS","#NS","file");
 
+		$content .= $this->load->view('dns/modalcreate',null,true);
+
 		// Render
 		$this->_render($content);
 	}
