@@ -55,7 +55,8 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DHCP <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li <?=($sub=='Classes')?'class="active"':null;?>><a href="/dhcp/classes/view">Classes</a></li>
-							<li <?=($sub=='Global Options')?'class="active"':null;?>><a href="#">Global Options</a></li>
+							<li <?=($sub=='Global Options')?'class="active"':null;?>><a href="/dhcp/globaloptions/view">Global Options</a></li>
+							<li <?=($sub=='dhcpd')?'class="active"':null;?>><a href="/dhcp/dhcpd/view">ISC-DHCPD</a></li>
 						</ul>
 					</li>
 					<li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>

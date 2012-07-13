@@ -295,6 +295,11 @@ class ImpulseController extends CI_Controller {
 					$modLink = "/dhcp/rangeoption/modify/".rawurlencode($opt->get_range())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
 					$remLink = "/dhcp/rangeoption/remove/".rawurlencode($opt->get_range())."/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
 					break;
+				case "GlobalOption":
+					$detLink = "/dhcp/globaloption/view/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					$modLink = "/dhcp/globaloption/modify/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					$remLink = "/dhcp/globaloption/remove/".rawurlencode($opt->get_option())."/".rawurlencode(md5($opt->get_value()));
+					break;
 			}
 
 			// Table

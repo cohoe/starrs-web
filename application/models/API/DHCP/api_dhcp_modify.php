@@ -64,7 +64,7 @@ class Api_dhcp_modify extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function global_option($option, $value, $field, $newValue) {
+	public function globaloption($option, $value, $field, $newValue) {
 		// SQL Query
 		$sql = "SELECT api.modify_dhcp_global_option(
 			{$this->db->escape($option)},

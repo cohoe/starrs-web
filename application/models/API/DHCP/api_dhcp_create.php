@@ -112,7 +112,7 @@ class Api_dhcp_create extends ImpulseModel {
 		);
 	}
 	
-	public function global_option($option, $value) {
+	public function globaloption($option, $value) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_dhcp_global_option(
 			{$this->db->escape($option)},

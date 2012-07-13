@@ -89,7 +89,7 @@ class Api_dhcp_get extends ImpulseModel {
 		throw new ObjectNotFoundException("No DHCP classes found. This is a big problem. Talk to your administrator.");
 	}
 
-    public function global_options() {
+    public function globaloptions() {
         // SQL Query
 		$sql = "SELECT * FROM api.get_dhcp_global_options()";
 		$query = $this->db->query($sql);
@@ -117,6 +117,24 @@ class Api_dhcp_get extends ImpulseModel {
 			throw new ObjectNotFoundException("No DHCP global options found.");
 		}
     }
+
+    public function globaloptionByHash($option, $hash) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dhcp_global_options() WHERE option = {$this->db->escape($option)} AND md5(value) = {$this->db->escape($hash)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Generate results
+		return new GlobalOption(
+			$query->row()->option,
+			$query->row()->value,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 
     public function class_options($class) {
         // SQL Query
@@ -245,6 +263,17 @@ class Api_dhcp_get extends ImpulseModel {
 			throw new ObjectNotFoundException("No DHCP range options found.");
 		}
     }
+
+	public function dhcpdconfig() {
+		// SQL
+		$sql = "SELECT * from api.get_dhcpd_config()";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return $query->row()->get_dhcpd_config;
+	}
 }
 /* End of file api_dhcp_get.php */
 /* Location: ./application/models/API/DHCP/api_dhcp_get.php */

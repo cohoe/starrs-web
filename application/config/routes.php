@@ -49,6 +49,7 @@ $route['interface/(.*?)'] = 'interfacecontroller/$1';
 $route['dhcp/class/(.*?)'] = 'dhcp/classcontroller/$1';
 $route['dhcp/subnetoption/(.*?)'] = 'dhcp/subnetoptioncontroller/$1';
 $route['dhcp/rangeoption/(.*?)'] = 'dhcp/rangeoptioncontroller/$1';
+$route['dhcp/globaloption/(.*?)'] = 'dhcp/globaloptioncontroller/$1';
 $route['dns/default_controller'] = 'dns/welcome';
 
 
