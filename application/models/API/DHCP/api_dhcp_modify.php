@@ -19,7 +19,7 @@ class Api_dhcp_modify extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function class_option($class, $option, $value, $field, $newValue) {
+	public function classoption($class, $option, $value, $field, $newValue) {
 		// SQL Query
 		$sql = "SELECT api.modify_dhcp_class_option(
 			{$this->db->escape($class)},

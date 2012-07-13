@@ -31,7 +31,7 @@ class Api_dhcp_create extends ImpulseModel {
 		);
 	}
 	
-	public function class_option($class, $option, $value) {
+	public function classoption($class, $option, $value) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_dhcp_class_option(
 			{$this->db->escape($class)},

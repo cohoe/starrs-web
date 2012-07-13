@@ -1,4 +1,4 @@
-<div class="span7 well">
+<div class="well">
 	<h2><?=htmlentities($c->get_class());?></h2>
 	<dl class="dl-horizontal">
 		<dt>Date Created</dt>

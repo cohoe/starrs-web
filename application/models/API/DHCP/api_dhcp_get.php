@@ -136,7 +136,7 @@ class Api_dhcp_get extends ImpulseModel {
 		);
 	}
 
-    public function class_options($class) {
+    public function classoptions($class) {
         // SQL Query
 		$sql = "SELECT * FROM api.get_dhcp_class_options({$this->db->escape($class)})";
 		$query = $this->db->query($sql);
@@ -165,6 +165,26 @@ class Api_dhcp_get extends ImpulseModel {
 			throw new ObjectNotFoundException("No DHCP class options found.");
 		}
     }
+
+    public function classoptionByHash($class, $option, $hash) {
+		// SQL
+		$sql = "SELECT * FROM api.get_dhcp_class_options({$this->db->escape($class)}) WHERE option = {$this->db->escape($option)} AND md5(value) = {$this->db->escape($hash)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Generate results
+		return new ClassOption(
+			$query->row()->class,
+			$query->row()->option,
+			$query->row()->value,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
 
      public function subnetoptions($subnet) {
         // SQL Query

@@ -9,6 +9,7 @@ class Classcontroller extends ImpulseController {
 		$this->_setSubHeader("Classes");
 		$this->_addTrail("DHCP","/dhcp");
 		$this->_addTrail("Classes","/dhcp/classes/view/");
+		$this->_addScript("/js/ip.js");
 	}
 
 	public function index() {
@@ -29,6 +30,7 @@ class Classcontroller extends ImpulseController {
 		$this->_addTrail($c->get_class(),"/dhcp/class/view/".rawurlencode($c->get_class()));
 
 		// Actions
+		$this->_addAction("Create DHCP Option","/dhcp/classoption/create/".rawurlencode($c->get_class()),"success");
 		$this->_addAction("Modify","/dhcp/class/modify/".rawurlencode($c->get_class()));
 		$this->_addAction("Remove","/dhcp/class/remove/".rawurlencode($c->get_class()));
 
@@ -37,9 +39,18 @@ class Classcontroller extends ImpulseController {
 
 		// Viewdata
 		$viewData['c'] = $c; 
+		
+		try {
+			$opts = $this->api->dhcp->get->classoptions($c->get_class());
+		}
+		catch(ObjectNotFoundException $e) { $opts = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Content
-		$content = $this->load->view('dhcp/class/detail',$viewData,true);
+		$content = "<div class=\"span7\">";
+		$content .= $this->load->view('dhcp/class/detail',$viewData,true);
+		$content .= $this->_renderOptionView($opts);
+		$content .= "</div>";
 
 		// Render
 		$this->_render($content);

@@ -15,7 +15,7 @@ class Api_dhcp_remove extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function class_option($class, $option, $value) {
+	public function classoption($class, $option, $value) {
 		// SQL Query
 		$sql = "SELECT api.remove_dhcp_class_option(
 			{$this->db->escape($class)},
