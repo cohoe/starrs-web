@@ -37,6 +37,7 @@ class ImpulseLoader {
 		require_once(APPPATH . "libraries/objects/ClassOption.php");
 		require_once(APPPATH . "libraries/objects/RangeOption.php");
 		require_once(APPPATH . "libraries/objects/SubnetOption.php");
+		require_once(APPPATH . "libraries/objects/ConfigItem.php");
 		#require_once(APPPATH . "libraries/objects/NetworkSwitchport.php");
 		#require_once(APPPATH . "libraries/objects/NetworkSystem.php");
 

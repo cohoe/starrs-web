@@ -8,6 +8,7 @@ class Api_management_remove extends ImpulseModel {
 	public function site_configuration($directive) {
 		// SQL Query
 		$sql = "SELECT api.remove_site_configuration({$this->db->escape($directive)})";
+		$query = $this->db->query($sql);
 		
 		// Check errors
         $this->_check_error($query);
