@@ -18,7 +18,7 @@
 		<div class="span3">
 			<h2>Setup</h2>
 			<p>For administrators, see how to get started with a basic IMPULSE installation</p>
-			<p><a class="btn btn-primary" href="#">Setup &raquo;</a></p>
+			<p><a class="btn btn-primary" href="/setup">Setup &raquo;</a></p>
 		</div>
 		<div class="span3">
 			<h2>Report a Problem</h2>

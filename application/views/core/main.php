@@ -18,6 +18,7 @@
 			}
 		</style>
 		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/docs.css" rel="stylesheet">
 		<link href="/css/impulse.css" rel="stylesheet">
 		
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->

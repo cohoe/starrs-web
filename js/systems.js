@@ -19,9 +19,21 @@ $('#modal-confirm-btn').click(function() {
 	return false;
 });
 
-$('#renew').click(function() {
+$('#action-renewall').click(function() {
 	$.get($(this).attr('href'),function(data) {
-		$('#modal-info .modal-header').html("<h1>"+$('#renew').text()+"</h1>");
+		$('#modal-info .modal-header').html("<h1>"+$('#action-renew').text()+"</h1>");
+		$('#modal-info-body').html(data);
+		$('#modal-info').modal('show');
+		$('#modal-info .modal-footer .btn').click(function() {
+			document.location.reload(true);
+		});
+	});
+	return false;
+});
+
+$('#action-renew').click(function() {
+	$.get($(this).attr('href'),function(data) {
+		$('#modal-info .modal-header').html("<h1>"+$('#action-renew').text()+"</h1>");
 		$('#modal-info-body').html(data);
 		$('#modal-info').modal('show');
 		$('#modal-info .modal-footer .btn').click(function() {

@@ -34,6 +34,7 @@
 							<li <?=($sub=='Datacenters')?'class="active"':null;?>><a href="/datacenters/">Datacenters</a></li>
 							<li <?=($sub=='Availability Zones')?'class="active"':null;?>><a href="/availabilityzones/view">Availability Zones</a></li>
 							<li <?=($sub=='Systems')?'class="active"':null;?>><a href="/systems/view/">Systems</a></li>
+							<li <?=($sub=='Renew')?'class="active"':null;?>><a href="/systems/viewrenew/">Renew</a></li>
 						</ul>
 					</li>
 					<li class="dropdown <?=($header=='DNS')?'active':null;?>">
@@ -59,7 +60,13 @@
 							<li <?=($sub=='dhcpd')?'class="active"':null;?>><a href="/dhcp/dhcpd/view">ISC-DHCPD</a></li>
 						</ul>
 					</li>
-					<li <?=($header=='Management')?'class="active"':null;?>><a href="#">Management</a></li>
+					<li class="dropdown <?=($header=='Management')?'active':null;?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Management <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li <?=($sub=='Configuration')?'class="active"':null;?>><a href="#">Configuration</a></li>
+							<li <?=($sub=='Users')?'class="active"':null;?>><a href="#">Users</a></li>
+						</ul>
+					</li>
 					<li <?=($header=='Network')?'class="active"':null;?>><a href="#">Network</a></li>
 					<li <?=($header=='Statistics')?'class="active"':null;?>><a href="#">Statistics</a></li>
 					<li <?=($header=='Search')?'class="active"':null;?>><a href="/search">Search</a></li>

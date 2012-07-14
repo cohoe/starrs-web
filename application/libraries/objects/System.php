@@ -67,17 +67,13 @@ class System extends ImpulseObject {
 		$this->owner 		= $owner;
 		$this->comment 		= $comment;
 		$this->type			= $type;
-        $this->family		= $family;
+          $this->family		= $family;
 		$this->osName		= $osName;
 		$this->renewDate	= $renewDate; 
 		$this->platform = $platform;
 		$this->asset = $asset;
 		$this->group = $group;
 		$this->datacenter = $datacenter;
-		
-		// Initialize other vars
-		$this->hasInterfaces = false;
-		$this->interfaces = array();
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -88,7 +84,7 @@ class System extends ImpulseObject {
 	public function get_comment()       { return $this->comment; }
 	public function get_renew_date()    { return $this->renewDate; }
 	public function get_type()          { return $this->type; }
-    public function get_family()        { return $this->family; }
+     public function get_family()        { return $this->family; }
 	public function get_os_name()       { return $this->osName; }
 	public function get_platform()         { return $this->platform; }
 	public function get_asset()         { return $this->asset; }
@@ -146,47 +142,6 @@ class System extends ImpulseObject {
 	////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS
 	
-	public function add_interface($interface) {
-		// If it's not an interface, blow up
-		if(!($interface instanceof NetworkInterface)) {
-			throw new ObjectException("Cannot add a non-interface as an interface");
-		}
-		
-		// Add an interface to the local interfaces array
-		$this->interfaces[$interface->get_mac()] = $interface;
-		$this->hasInterfaces = true;
-	}
-
-
-
-    public function get_interface($mac) {
-        // Return the interface object that corresponds to the given MAC address
-		if(!isset($this->interfaces[$mac])) {
-			throw new ObjectException("No interface found!");
-		}
-		else {
-			return $this->interfaces[$mac];
-		}
-    }
-	
-	public function get_address($address) {
-		foreach($this->interfaces as $int) {
-			try {
-				$addr = $int->get_address($address);
-				if($addr instanceof InterfaceAddress) {
-					break;
-				}
-			}
-			catch (ObjectException $oE) {
-				$addr = NULL;
-			}
-		}
-		if($addr==NULL) {
-			throw new ObjectException("Unable to locate address $address on system ".$this->get_system_name());
-		}
-		return $addr;
-    }
-
 
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS

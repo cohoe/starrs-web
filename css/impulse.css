@@ -35,3 +35,7 @@
 .imp-dnstable td {
 	word-wrap: break-word;
 }
+
+.navbar-inner .container-fluid {
+	padding-right: 10px;
+}
