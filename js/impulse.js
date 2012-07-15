@@ -110,3 +110,9 @@ $('#action-remove').click(function() {
 	$('#modal-confirm').modal('show');
 	return false;
 });
+
+// Google Chart
+// Doesnt automatically resize when window changes, so make it do that.
+$(window).resize(function() {
+	drawChart();
+});

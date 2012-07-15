@@ -247,7 +247,6 @@ class ComputerSystem extends ImpulseController {
 	}
 
 	public function quickcreate() {
-		$this->_setSubHeader("Quick Create");
 		if($this->input->post()) {
 			try {
 				$this->api->systems->create->quick(
@@ -265,6 +264,8 @@ class ComputerSystem extends ImpulseController {
 			catch(Exception $e) { $this->_error($e); return; }
 		}
 
+		$this->_setSubHeader("Quick Create");
+		$this->_addTrail("Systems","/systems/view");
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['owner'] = $this->user->getActiveUser();
 		$viewData['ranges'] = $this->api->ip->get->ranges();

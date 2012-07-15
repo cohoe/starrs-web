@@ -7,9 +7,6 @@ class Subnetcontroller extends ImpulseController {
 		parent::__construct();
 		$this->_setNavHeader("IP");
 		$this->_setSubHeader("Subnets");
-		#$this->_addScript("/js/systems.js");
-		#$this->_addScript("/js/dns.js");
-		#$this->_addScript("/js/ip.js");
 		$this->_addScript("/js/ip.js");
 		$this->_addTrail("IP","/ip");
 		$this->_addTrail("Subnets","/ip/subnets/");
@@ -26,6 +23,7 @@ class Subnetcontroller extends ImpulseController {
 		// Instantiate
 		try {
 			$snet = $this->api->ip->get->subnet($subnet);
+			$stat = $this->api->ip->get->subnetStats($snet->get_subnet());
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
@@ -55,6 +53,7 @@ class Subnetcontroller extends ImpulseController {
 		// Viewdata
 		$viewData['snet'] = $snet;
 		$viewData['ranges'] = $ranges;
+		$viewData['stat'] = $stat;
 
 		// Content
 		$content = "<div class=\"span7\">";

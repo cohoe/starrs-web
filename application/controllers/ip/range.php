@@ -22,6 +22,7 @@ class Range extends ImpulseController {
 		// Instantiate
 		try {
 			$r = $this->api->ip->get->range($range);
+			$stat = $this->api->ip->get->rangeStatsByName($r->get_name());
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
@@ -31,21 +32,22 @@ class Range extends ImpulseController {
 		$this->_addTrail("Ranges","/ip/ranges/view/");
 		$this->_addTrail($r->get_name(),"/ip/range/view/".rawurlencode($r->get_name()));
 
-		// Sidebar
-		$this->_addSidebarHeader("RANGES");
-		try {
-			$intAddrs = $this->api->systems->get->interfaceaddressesByRange($r->get_name());
-		}
-		catch(ObjectNotFoundException $e) { $intAddrs = array(); }
-		catch(Exception $e) { $this->_exit($e); return; }
-		foreach($intAddrs as $intAddr) {
-			$this->_addSidebarItem($intAddr->get_address()." (".$intAddr->get_system_name().")","/address/view/".rawurlencode($intAddr->get_address()),"globe");
-		}
-
 		// Actions
 		$this->_addAction("Create DHCP Option","/dhcp/rangeoption/create/".rawurlencode($r->get_name()),"success");
 		$this->_addAction("Modify","/ip/range/modify/".rawurlencode($r->get_name()));
 		$this->_addAction("Remove","/ip/range/remove/".rawurlencode($r->get_name()));
+
+		// Sidebar
+		try {
+			$rs = $this->api->ip->get->ranges();
+		}
+		catch(ObjectNotFoundException $e) { $rs = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		$this->_addSidebarHeader("RANGES");
+		foreach($rs as $rng) {
+			$this->_addSidebarItem($rng->get_name(),"/ip/range/view/".rawurlencode($rng->get_name()),"resize-full");
+		}
 
 		// Options
 		try {
@@ -56,7 +58,7 @@ class Range extends ImpulseController {
 
 		// Content
 		$content = "<div class=span7>";
-		$content .= $this->load->view('ip/range/detail',array('r'=>$r),true);
+		$content .= $this->load->view('ip/range/detail',array('r'=>$r,'stat'=>$stat),true);
 		$content .= $this->_renderOptionView($opts);
 		$content .= "</div>";
 

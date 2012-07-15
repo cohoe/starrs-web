@@ -24,7 +24,33 @@
 		<dd><?=htmlentities($snet->get_comment());?>&nbsp;</dd>
 	</dl>
 </div>
-	<div class="span6 well">
+	<div class="well span6">
+		<h2>Utilization</h2>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			google.load("visualization", "1", {packages:["corechart"]});
+			google.setOnLoadCallback(drawChart);
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+					['Category', 'Quantity'],
+					['Free',	  <?=$stat->free;?>],
+					['In Use',	<?=$stat->inuse;?>]
+				]);
+
+				var options = {
+					backgroundColor: '#f5f5f5',
+					colors:['#49AFCD','#DA4F49']
+				};
+
+				var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+				chart.draw(data, options);
+			}
+		</script>
+		<div id="chart_div" style="width: 100%"></div>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="well">
 		<h2>Ranges</h2>
 		<br />
 		<ul>

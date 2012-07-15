@@ -257,6 +257,28 @@ class Api_ip_get extends ImpulseModel {
 			throw new ObjectNotFoundException("No IP range uses found.");
 		}
 	}
+
+	public function rangeStatsByName($range) {
+		// SQL
+		$sql = "SELECT * FROM api.get_range_utilization({$this->db->escape($range)})";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		return $query->row();
+	}
+
+	public function subnetStats($subnet) {
+		// SQL
+		$sql = "SELECT * FROM api.get_subnet_utilization({$this->db->escape($subnet)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return $query->row();
+	}
 }
 /* End of file api_ip_get.php */
 /* Location: ./application/models/API/IP/api_ip_get.php */
