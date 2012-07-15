@@ -138,6 +138,23 @@ class Api_systems_create extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function quick($systemname, $mac, $address, $zone, $owner, $group, $config) {
+		// SQL
+		$sql = "SELECT * FROM api.create_system_quick(
+			{$this->db->escape($systemname)},
+			{$this->db->escape($owner)},
+			{$this->db->escape($group)},
+			{$this->db->escape($mac)},
+			{$this->db->escape($address)},
+			{$this->db->escape($zone)},
+			{$this->db->escape($config)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+	}
 }
 /* End of file api_systems_create.php */
 /* Location: ./application/models/API/Systems/api_systems_create.php */

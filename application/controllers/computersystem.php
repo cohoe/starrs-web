@@ -245,6 +245,36 @@ class ComputerSystem extends ImpulseController {
 		}
 		catch(Exception $e) { $this->_error($e); }
 	}
+
+	public function quickcreate() {
+		$this->_setSubHeader("Quick Create");
+		if($this->input->post()) {
+			try {
+				$this->api->systems->create->quick(
+					$this->_post('system_name'),
+					$this->_post('mac'),
+					$this->_post('address'),
+					$this->_post('zone'),
+					$this->_post('owner'),
+					$this->_post('group'),
+					$this->_post('config')
+				);
+				$this->_sendClient("/system/view/".rawurlencode($this->_post('system_name')));
+				return;
+			}
+			catch(Exception $e) { $this->_error($e); return; }
+		}
+
+		$viewData['isAdmin'] = $this->user->isAdmin();
+		$viewData['owner'] = $this->user->getActiveUser();
+		$viewData['ranges'] = $this->api->ip->get->ranges();
+		$viewData['configs'] = $this->api->dhcp->get->configtypes();
+		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+		$content = $this->load->view('system/quick',$viewData,true);
+		$content .= $this->forminfo;
+		$this->_render($content);
+
+	}
 }
 
 /* End of file systems.php */
