@@ -114,7 +114,7 @@ $('#action-remove').click(function() {
 // Google Chart
 // Doesnt automatically resize when window changes, so make it do that.
 $(window).resize(function() {
-	if($('#chart_div') != []) {
+	if($('#chart_div').html() != null) {
 		drawChart();
 	}
 });
