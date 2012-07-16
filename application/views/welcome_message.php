@@ -1,14 +1,19 @@
 <div class="span12">
 	<div class="hero-unit">
+		<!--
 		<h1>IMPULSE</h1>
 		<h2>IP Management Program for Use in Local Server Environments</h2>
 		<p>IMPULSE lets you manage and allocate network resources in very complex configurations. Manage your systems, interfaces, addresses, and DNS records easily without having to pester your local system administrators.
+		-->
+		<h1>STARRS</h1>
+		<h2>System Technology Accounting and Resource Registration Solution</h2>
+		<p>STARRS (the successor to the IMPULSE project) lets you manage and allocate network resources in numberous complex configurations across your entire organization. Manage systems, interfaces, IP addresses, and DNS records easily without needing to constantly ask your local IT administrators. 
 	</div>
 	<div class="row-fluid">
 		<div class="span3">
-			<h2>Quick Start</h2>
+			<h2>Quick Create</h2>
 			<p>Use this to get a system registered on the network quickly with a simple configuration</p>
-			<p><a class="btn btn-primary" href="#">Quick Start &raquo;</a></p>
+			<p><a class="btn btn-primary" href="/system/quickcreate">Quick Create &raquo;</a></p>
 		</div><!--/span-->
 		<div class="span3">
 			<h2>Learn More</h2>

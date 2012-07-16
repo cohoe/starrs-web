@@ -6,7 +6,7 @@ class Search extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("Search");
-		$this->_addTrail("Search","#");
+		$this->_addTrail("Search","/search");
 	}
 
 	public function index() {
@@ -15,7 +15,7 @@ class Search extends ImpulseController {
 				$query = $this->api->search($this->input->post());
 			}
 			catch(Exception $e) { $this->_exit($e); return; }
-			$results[] = array("Datacenter","Availability Zone","System Name","MAC","Address","System Owner","System Last Modifier","Range","Hostname","Zone","DNS Owner","DNS Last Modifier");
+			$results[] = array("Datacenter","Availability Zone","System Name","Asset","Platform","MAC","Address","System Owner","System Last Modifier","Range","Hostname","Zone","DNS Owner","DNS Last Modifier");
 			foreach($query->result_array() as $result) {
 				$datacenter = $result['datacenter'];
 				$result['datacenter'] = "<a href=\"/datacenter/view/".rawurlencode($result['datacenter'])."\">{$result['datacenter']}</a>";
@@ -50,6 +50,11 @@ class Search extends ImpulseController {
 		catch(ObjectNotFoundException $e) { $dcs = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 		try {
+			$platforms = $this->api->systems->get->platforms();
+		}
+		catch(ObjectNotFoundException $e) { $platforms = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		try {
 			$zs = $this->api->dns->get->zonesByUser(null);
 		}
 		catch(ObjectNotFoundException $e) { $zs = array(); }
@@ -69,6 +74,7 @@ class Search extends ImpulseController {
 		$viewData['dcs'] = $dcs; 
 		$viewData['azs'] = $azs;
 		$viewData['zs'] = $zs;
+		$viewData['platforms'] = $platforms;
 
 		// Content
 		$content = $this->load->view('search/form',$viewData,true);

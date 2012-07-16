@@ -34,6 +34,25 @@
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label">Asset: </label>
+				<div class="controls">
+					<input type="text" name="asset" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Platform: </label>
+				<div class="controls">
+					<select name="platform_name">
+						<option></option>
+						<?php
+						foreach($platforms as $p) {
+							print "<option>".htmlentities($p->get_platform_name())."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label">MAC Address: </label>
 				<div class="controls">
 					<input type="text" name="mac" />

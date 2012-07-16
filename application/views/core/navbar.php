@@ -6,7 +6,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a class="brand" href="/">IMPULSE</a>
+			<a class="brand" href="/">STARRS</a>
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
 					<li><a href="#" onclick="setViewUser('<?=htmlentities($userName);?>')"><?=htmlentities($displayName)." (".htmlentities($userLevel).")"?></a></li>
