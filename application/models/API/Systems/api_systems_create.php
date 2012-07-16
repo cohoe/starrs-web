@@ -33,7 +33,6 @@ class Api_systems_create extends ImpulseModel {
 			$query->row()->type,
 			null,
 			$query->row()->os_name,
-			$query->row()->renew_date,
 			$query->row()->platform_name,
 			$query->row()->asset,
 			$query->row()->group,
@@ -68,7 +67,7 @@ class Api_systems_create extends ImpulseModel {
 		);
 	}
 
-	public function interfaceaddress($mac, $address, $config, $class, $isprimary, $comment) {
+	public function interfaceaddress($mac, $address, $config, $class, $isprimary, $comment, $renewDate) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_interface_address(
 			{$this->db->escape($mac)},
@@ -76,7 +75,8 @@ class Api_systems_create extends ImpulseModel {
 			{$this->db->escape($config)},
 			{$this->db->escape($class)},
 			{$this->db->escape($isprimary)},
-			{$this->db->escape($comment)})";
+			{$this->db->escape($comment)},
+			{$this->db->escape($renewDate)})";
 		$query = $this->db->query($sql);
 
 		// Check error
@@ -89,6 +89,7 @@ class Api_systems_create extends ImpulseModel {
 			$query->row()->mac,
 			$query->row()->isprimary,
 			$query->row()->comment,
+			$query->row()->renew_date,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

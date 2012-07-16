@@ -35,7 +35,7 @@
 							<li <?=($sub=='Availability Zones')?'class="active"':null;?>><a href="/availabilityzones/view">Availability Zones</a></li>
 							<li <?=($sub=='Systems')?'class="active"':null;?>><a href="/systems/view/">Systems</a></li>
 							<li class="divider"></li>
-							<li <?=($sub=='Renew')?'class="active"':null;?>><a href="/systems/viewrenew/">Renewal</a></li>
+							<li <?=($sub=='Renew')?'class="active"':null;?>><a href="/addresses/viewrenew/">Renewal</a></li>
 							<li <?=($sub=='Quick Create')?'class="active"':null;?>><a href="/system/quickcreate/">Quick Create</a></li>
 						</ul>
 					</li>

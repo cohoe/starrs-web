@@ -20,9 +20,9 @@ class API_Systems extends ImpulseModel {
 	////////////////////////////////////////////////////////////////////////
 	// PUBLIC FUNCTIONS 
 
-	public function renew($systemName) {
+	public function renew($address) {
 		// SQL Query
-		$sql = "SELECT api.renew_system({$this->db->escape($systemName)})";
+		$sql = "SELECT api.renew_interface_address({$this->db->escape($address)})";
 		$query = $this->db->query($sql);
 		
 		// Check error

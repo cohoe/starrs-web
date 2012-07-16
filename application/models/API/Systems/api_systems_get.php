@@ -28,7 +28,6 @@ class Api_systems_get extends ImpulseModel {
 				$system['type'],
 				$system['family'],
 				$system['os_name'],
-				$system['renew_date'],
 				$system['platform_name'],
 				$system['asset'],
 				$system['group'],
@@ -62,7 +61,6 @@ class Api_systems_get extends ImpulseModel {
 				$system['type'],
 				$system['family'],
 				$system['os_name'],
-				$system['renew_date'],
 				$system['platform_name'],
 				$system['asset'],
 				$system['group'],
@@ -93,7 +91,6 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->type,
 			$query->row()->family,
 			$query->row()->os_name,
-			$query->row()->renew_date,
 			$query->row()->platform_name,
 			$query->row()->asset,
 			$query->row()->group,
@@ -172,6 +169,7 @@ class Api_systems_get extends ImpulseModel {
 				$interfaceAddress['mac'],
 				$interfaceAddress['isprimary'],
 				$interfaceAddress['comment'],
+				$interfaceAddress['renew_date'],
 				$interfaceAddress['date_created'],
 				$interfaceAddress['date_modified'],
 				$interfaceAddress['last_modifier']
@@ -200,6 +198,7 @@ class Api_systems_get extends ImpulseModel {
 				$interfaceAddress['mac'],
 				$interfaceAddress['isprimary'],
 				$interfaceAddress['comment'],
+				$interfaceAddress['renew_date'],
 				$interfaceAddress['date_created'],
 				$interfaceAddress['date_modified'],
 				$interfaceAddress['last_modifier']
@@ -228,6 +227,7 @@ class Api_systems_get extends ImpulseModel {
 				$interfaceAddress['mac'],
 				$interfaceAddress['isprimary'],
 				$interfaceAddress['comment'],
+				$interfaceAddress['renew_date'],
 				$interfaceAddress['date_created'],
 				$interfaceAddress['date_modified'],
 				$interfaceAddress['last_modifier']
@@ -253,6 +253,7 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->mac,
 			$query->row()->isprimary,
 			$query->row()->comment,
+			$query->row()->renew_date,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier
@@ -311,7 +312,6 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->type,
 			$query->row()->family,
 			$query->row()->os_name,
-			$query->row()->renew_date,
 			$query->row()->platform_name,
 			$query->row()->asset,
 			$query->row()->group,
@@ -451,6 +451,17 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->date_modified,
 			$query->row()->last_modifier
 		);
+	}
+
+	public function defaultRenewDate() {
+		// SQL
+		$sql = "SELECT api.get_default_renew_date()";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return $query->row()->get_default_renew_date;
 	}
 }
 /* End of file api_systems_get.php */

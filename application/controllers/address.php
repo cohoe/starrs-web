@@ -30,9 +30,10 @@ class Address extends ImpulseController {
 		$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
 
 		// Actions
-		$this->_addAction('DNS Records',"/dns/records/view/".rawurlencode($intAddr->get_address()),"info");
 		$this->_addAction('Modify',"/address/modify/".rawurlencode($intAddr->get_address()));
 		$this->_addAction('Remove',"/address/remove/".rawurlencode($intAddr->get_address()));
+		$this->_addAction('DNS Records',"/dns/records/view/".rawurlencode($intAddr->get_address()),"primary");
+		$this->_addAction('Renew',"/address/renew/".rawurlencode($intAddr->get_address()));
 
 		// Content
 		$content = $this->load->view('interfaceaddress/detail',array("intAddr"=>$intAddr),true);
@@ -69,7 +70,8 @@ class Address extends ImpulseController {
 					$this->input->post('config'),
 					$this->input->post('class'),
 					$this->input->post('isprimary'),
-					$this->input->post('comment')
+					$this->input->post('comment'),
+					$this->input->post('renew_date')
 				);
 				$this->_sendClient("/address/view/".rawurlencode($intAddr->get_address()));
 			}
@@ -86,6 +88,8 @@ class Address extends ImpulseController {
 			$viewData['mac'] = $int->get_mac();
 			$viewData['ints'] = array();
 			$viewData['configs'] = $this->api->dhcp->get->configtypes();
+			$viewData['date'] = $this->api->systems->get->defaultRenewDate();
+			$viewData['user'] = $this->user;
 			try {
 				$viewData['ranges'] = $this->api->ip->get->ranges();
 			}
@@ -148,6 +152,10 @@ class Address extends ImpulseController {
 				try { $intAddr->set_mac($this->input->post('mac')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
+			if($intAddr->get_renew_date() != $this->input->post('renew_date')) {
+				try { $intAddr->set_renew_date($this->input->post('renew_date')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
 
 			if($err) {
 				$this->_error($err);
@@ -172,6 +180,7 @@ class Address extends ImpulseController {
 				$viewData['configs'] = $this->api->dhcp->get->configtypes();
 				$viewData['ranges'] = $this->api->ip->get->ranges();
 				$viewData['classes'] = $this->api->dhcp->get->classes();
+				$viewData['user'] = $this->user;
 				$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveuser());
 				foreach($systems as $sys) {
 					$viewData['ints'] = array_merge($viewData['ints'],$this->api->systems->get->interfacesBySystem($sys->get_system_name()));
@@ -217,6 +226,46 @@ class Address extends ImpulseController {
 			}
 			catch (Exception $e) { print $e->getMessage(); }
 		}
+	}
+
+	public function renew($address) {
+		// Decode
+		$address = rawurldecode($address);
+
+		if($address == 'all') {
+			try {
+				$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+				foreach($systems as $sys) {
+					try {
+						$intAddrs = $this->api->systems->get->interfaceaddressesBySystem($sys->get_system_name());
+						foreach($intAddrs as $intAddr) {
+							try {
+								$this->api->systems->renew($intAddr->get_address());
+							}
+							catch(ObjectNotFoundException $e) {}
+							catch(Exception $e) { $this->_error($e); return; }
+						}
+					}
+					catch(ObjectNotFoundException $e) {}
+					catch(Exception $e) { $this->_error($e); return; }
+				}
+			}
+			catch(ObjectNotFoundException $e) {}
+			catch(Exception $e) { $this->_error($e); return; }
+			$interval = $this->api->get->site_configuration('DEFAULT_RENEW_INTERVAL');
+			print "Renewed all of ".$this->user->getActiveUser()."'s systems for $interval.";
+			return;
+		}
+
+		// Instantiate
+		try {
+			$intAddr = $this->api->systems->get->interfaceaddressByAddress($address);
+			$this->api->systems->renew($intAddr->get_address());
+			$interval = $this->api->get->site_configuration('DEFAULT_RENEW_INTERVAL');
+			print "Renewed ".htmlentities($intAddr->get_address())." for $interval.";
+		}
+		catch(Exception $e) { $this->_error($e); return; }
+
 	}
 }
 

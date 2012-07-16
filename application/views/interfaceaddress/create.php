@@ -76,6 +76,12 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">	
+				<label class="control-label">Renew Date: </label>
+				<div class="controls">
+					<input type="text" name="renew_date" value="<?=$date;?>" <?($user->isAdmin())?"":"readonly";?> />
+				</div>
+			</div>
 			<div class="control-group warning">	
 				<label class="control-label">Comment: </label>
 				<div class="controls">

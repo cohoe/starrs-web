@@ -55,6 +55,45 @@ class Addresses extends ImpulseController {
 		// Render
 		$this->_render($content);
 	}
+
+	public function viewrenew($username=null) {
+		// Nav
+		$this->_setSubHeader("Renew");
+
+		// Decode
+		$username = rawurldecode($username);
+		if(!$username) {
+			$username = $this->user->getActiveUser();
+		}
+
+		// Breadcrumb Trail
+		$this->_addTrail("Systems","/systems");
+		$this->_addTrail($username,"/systems/view/".rawurlencode($username));
+		$this->_addTrail("Renew","/addresses/viewrenew/".rawurlencode($username));
+
+		// Actions
+		$this->_addAction("Renew All","/address/renew/all");
+
+		// Sidebar
+		$this->_addSidebarHeader("SYSTEMS");
+		$intAddrs = array();
+		try {
+			$systems = $this->api->systems->get->systemsByOwner($username);
+			foreach($systems as $sys) {
+				$this->_addSidebarItem($sys->get_system_name(),"/system/view/".rawurlencode($sys->get_system_name()),"hdd");
+				try {
+					$intAddrs = array_merge($intAddrs, $this->api->systems->get->interfaceaddressesBySystem($sys->get_system_name()));
+				}
+				catch(ObjectNotFoundException $e) {}
+				catch(Exception $e) { $this->_exit($e); return; }
+			}
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		$content = $this->load->view('system/viewrenew',array('intAddrs'=>$intAddrs),true);
+
+		$this->_render($content);
+	}
 }
 
 /* End of file addresses.php */

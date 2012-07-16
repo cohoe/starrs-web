@@ -41,33 +41,8 @@ class InterfaceAddress extends ImpulseObject {
     // boolean  Is this address dynamically assigned
 	private $dynamic;
 
-	////////////////////////////////////////////////////////////////////////
-	// DNS RELATED VARIABLES
-	
-	// string				The FQDN that resolves to this address
-	private $dnsFqdn;
-	
-	// array<AddressRecord>	AddressRecord objects of this address
-	private $dnsAddressRecords;
-	
-	// array<PointerRecord>	All pointer (CNAME,SRV) records that resolve to this address
-	private $dnsPointerRecords;
-	
-	// array<NsRecord>		All nameserver (NS) records that resolve to this address
-	private $dnsNsRecords;
-	
-	// array<MxRecords>		All mail server (MX) records that resolve to this address
-	private $dnsMxRecords;
-	
-	// array<TextRecord>	All TXT or SPF records that describe this address
-	private $dnsTextRecords;
-	
-	////////////////////////////////////////////////////////////////////////
-	// FIREWALL RELATED VARIABLES
-	
-	// bool					Firewall default action (t for deny, f for all)
-	private $fwDefault;
-	
+	private $renewDate;
+
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	
@@ -82,7 +57,7 @@ class InterfaceAddress extends ImpulseObject {
 	 * @param	long	$dateModified	Unix timestamp when the address was modified
 	 * @param	string	$lastModifier	The last user to modify the address
 	 */
-	public function __construct($address, $class, $config, $mac, $isPrimary, $comment, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($address, $class, $config, $mac, $isPrimary, $comment, $renewDate, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -93,6 +68,7 @@ class InterfaceAddress extends ImpulseObject {
 		$this->mac       = $mac;
 		$this->comment   = $comment; 
 		$this->isPrimary = $isPrimary;
+		$this->renewDate = $renewDate;
 		
 		// Determine the family of the address based on whether there's a : or not
 		$this->family  = (strpos($address, ':') === false) ? 4 : 6;
@@ -118,12 +94,7 @@ class InterfaceAddress extends ImpulseObject {
 	public function get_isprimary()       { return $this->isPrimary; }
 	public function get_fqdn()            { return $this->dnsFqdn; }
 	public function get_rules()           { return $this->fwRules; }
-	public function get_fw_default()      { return $this->fwDefault; }
-	public function get_address_records() { return $this->dnsAddressRecords; }
-	public function get_ns_records()      { return $this->dnsNsRecords; }
-	public function get_mx_records()      { return $this->dnsMxRecords; }
-	public function get_pointer_records() { return $this->dnsPointerRecords; }
-	public function get_text_records()    { return $this->dnsTextRecords; }
+	public function get_renew_date()      { return $this->renewDate; }
 	public function get_system_name()     { return $this->systemName; }
 	public function get_range()           { return $this->range; }
 	public function get_dynamic()		  { return $this->dynamic; }
@@ -160,10 +131,10 @@ class InterfaceAddress extends ImpulseObject {
 		$this->CI->api->systems->modify->interface_address($this->address, 'mac', $new);
 		$this->mac = $new;
 	}
-	
-	public function set_fw_default($action) {
-		$this->CI->api->firewall->modify->_default($this->address, $action);
-		$this->fwDefault = $action;
+
+	public function set_renew_date($new) {
+		$this->CI->api->systems->modify->interface_address($this->address, 'renew_date', $new);
+		$this->renew_date = $new;
 	}
 	
 	////////////////////////////////////////////////////////////////////////

@@ -33,7 +33,6 @@ class ComputerSystem extends ImpulseController {
 		$this->_addAction('Add Interface',"/interface/create/".rawurlencode($systemName),"success");
 		$this->_addAction('Modify',"/system/modify/".rawurlencode($systemName));
 		$this->_addAction('Remove',"/system/remove/".rawurlencode($systemName));
-		$this->_addAction('Renew',"/system/renew/".rawurlencode($systemName));
 
 		// Generate content
 		$content = $this->load->view('system/detail',array("sys"=>$sys,"p"=>$p),true);
@@ -219,31 +218,6 @@ class ComputerSystem extends ImpulseController {
 		else {
 			$this->_error(new Exception("No confirmation"));
 		}
-	}
-
-	public function renew($systemName) {
-		$systemName = rawurldecode($systemName);
-		if($systemName = 'all') {
-			try {
-				$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
-			}
-			catch(ObjectNotFoundException $e) { $systems = array(); }
-			catch(Exception $e) { $this->_error($e); return; }
-			foreach($systems as $sys) {
-				try {
-					$this->api->systems->renew($sys->get_system_name());
-				}
-				catch(Exception $e) { $this->_error($e); return; }
-			}
-			print "Successfully renewed all your owned systems.";
-			return;
-		}
-		try {
-			$this->api->systems->renew($systemName);
-			print "Successfully renewed {$systemName}.";
-
-		}
-		catch(Exception $e) { $this->_error($e); }
 	}
 
 	public function quickcreate() {

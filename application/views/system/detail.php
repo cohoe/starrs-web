@@ -26,8 +26,6 @@
 				<dd><?=htmlentities($sys->get_last_modifier());?></dd>
 				<dt>Comment</dt>
 				<dd><?=htmlentities($sys->get_comment());?>&nbsp;</dd>
-				<dt>Renew Date</dt>
-				<dd><?=htmlentities($sys->get_renew_date());?></dd>
 			</dl>
 		</div>
 		<div class="span4 well">

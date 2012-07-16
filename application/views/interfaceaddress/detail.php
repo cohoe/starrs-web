@@ -17,5 +17,7 @@
 		<dd><?=htmlentities($intAddr->get_last_modifier());?></dd>
 		<dt>Comment</dt>
 		<dd><?=htmlentities($intAddr->get_comment());?>&nbsp;</dd>
+		<dt>Renew Date</dt>
+		<dd><?=htmlentities($intAddr->get_renew_date());?></dd>
 	</dl>
 </div>
