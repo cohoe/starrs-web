@@ -15,7 +15,7 @@
 				<dt>Owner</dt>
 				<dd><?=htmlentities($sys->get_owner());?></dd>
 				<dt>Group</dt>
-				<dd><?=htmlentities($sys->get_group());?>&nbsp</dd>
+				<dd><a href="/group/view/<?=rawurlencode($sys->get_group());?>"><?=htmlentities($sys->get_group());?></a>&nbsp</dd>
 				<dt>Asset</dt>
 				<dd><?=htmlentities($sys->get_asset());?>&nbsp</dd>
 				<dt>Date Created</dt>
