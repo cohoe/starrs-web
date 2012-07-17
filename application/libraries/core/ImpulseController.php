@@ -28,8 +28,8 @@ class ImpulseController extends CI_Controller {
 		catch(ObjectNotFoundException $onfE) {
 			$this->_error("Unable to find your username (".$this->impulselib->get_username().") Make sure the LDAP server is functioning properly.");
 		}
-		catch(DBException $dbE) {
-			$this->_error("Database connection error: ".$dbE->getMessage());
+		catch(Exception $e) {
+			die("Cannot initialize. Contact your local system administrators");
 		}
 		
 		// Instantiate the user
