@@ -71,7 +71,7 @@ class Api extends ImpulseModel {
 			$searchString .= "AND asset ~* {$this->db->escape($searchArray['asset'])} ";
 		}
 		if($searchArray['group']) {
-			$searchString .= "AND group ~* {$this->db->escape($searchArray['group'])} ";
+			$searchString .= "AND \"group\" ~* {$this->db->escape($searchArray['group'])} ";
 		}
 		if($searchArray['platform_name']) {
 			$searchString .= "AND platform ~* {$this->db->escape($searchArray['platform_name'])} ";

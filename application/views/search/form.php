@@ -42,7 +42,14 @@
 			<div class="control-group">
 				<label class="control-label">Group: </label>
 				<div class="controls">
-					<input type="text" name="group" />
+					<select name="group">
+						<option></option>
+						<?php
+						foreach($gs as $g) {
+							print "<option>".htmlentities($g->get_group())."</option>";
+						}
+						?>
+					</select>
 				</div>
 			</div>
 			<div class="control-group">

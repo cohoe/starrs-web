@@ -17,3 +17,13 @@ $('#modal-create #create').click(function() {
 	});
 	return false;
 });
+
+$('#action-adduser').click(function() {
+	$.get($(this).attr('href'),function(data) {
+		$('#modal-create .modal-header').html("<h2>Add User</h2>");
+		$('#modal-create-body').html(data);
+		$('#create').attr('href',$('#action-adduser').attr('href'));
+		$('#modal-create').modal('show');
+	});
+	return false;
+});

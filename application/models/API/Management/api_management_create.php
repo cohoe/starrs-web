@@ -29,6 +29,52 @@ class Api_management_create extends ImpulseModel {
 		// Check errors
         $this->_check_error($query);
 	}
+
+	public function group($group, $privilege, $comment) {
+		// SQL
+		$sql = "SELECT * FROM api.create_group(
+			{$this->db->escape($group)},
+			{$this->db->escape($privilege)},
+			{$this->db->escape($comment)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new Group(
+			$query->row()->group,
+			$query->row()->privilege,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function groupMember($group, $user, $privilege) {
+		// SQL
+		$sql = "SELECT * FROM api.create_group_member(
+			{$this->db->escape($group)},
+			{$this->db->escape($user)},
+			{$this->db->escape($privilege)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new GroupMember(
+			$query->row()->group,
+			$query->row()->user,
+			$query->row()->privilege,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_management_create.php */
 /* Location: ./application/models/API/DNS/api_management_create.php */

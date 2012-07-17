@@ -96,6 +96,92 @@ class Api_management_get extends ImpulseModel {
 		}
 		return $resultSet;
 	}
+
+	public function groups() {
+		// SQL
+		$sql = "SELECT * FROM api.get_groups()";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		$resultSet = array();
+		foreach($query->result_array() as $group) {
+			$resultSet[] = new Group(
+				$group['group'],
+				$group['privilege'],
+				$group['comment'],
+				$group['date_created'],
+				$group['date_modified'],
+				$group['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function group($group=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_groups() WHERE \"group\" = {$this->db->escape($group)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new Group(
+			$query->row()->group,
+			$query->row()->privilege,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
+	public function groupMembers($group) {
+		// SQL
+		$sql = "SELECT * FROM api.get_group_members({$this->db->escape($group)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		$resultSet = array();
+		foreach($query->result_array() as $group) {
+			$resultSet[] = new GroupMember(
+				$group['group'],
+				$group['user'],
+				$group['privilege'],
+				$group['date_created'],
+				$group['date_modified'],
+				$group['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function groupMember($group, $user) {
+		// SQL
+		$sql = "SELECT * FROM api.get_group_members({$this->db->escape($group)}) WHERE \"user\" = {$this->db->escape($user)}";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new GroupMember(
+			$query->row()->group,
+			$query->row()->user,
+			$query->row()->privilege,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_management_get.php */
 /* Location: ./application/models/API/DNS/api_management_get.php */

@@ -21,6 +21,7 @@ class Search extends ImpulseController {
 				$result['datacenter'] = "<a href=\"/datacenter/view/".rawurlencode($result['datacenter'])."\">{$result['datacenter']}</a>";
 				$result['availability_zone'] = "<a href=\"/availabilityzone/view/".rawurlencode($datacenter)."/".rawurlencode($result['availability_zone'])."\">{$result['availability_zone']}</a>";
 				$result['system_name'] = "<a href=\"/system/view/".rawurlencode($result['system_name'])."\">{$result['system_name']}</a>";
+				$result['group'] = "<a href=\"/group/view/".rawurlencode($result['group'])."\">{$result['group']}</a>";
 				$result['mac'] = "<a href=\"/interface/view/".rawurlencode($result['mac'])."\">{$result['mac']}</a>";
 				$result['hostname'] = "<a href=\"/dns/view/".rawurlencode($result['address'])."\">{$result['hostname']}</a>";
 				$result['address'] = "<a href=\"/address/view/".rawurlencode($result['address'])."\">{$result['address']}</a>";
@@ -59,6 +60,11 @@ class Search extends ImpulseController {
 		}
 		catch(ObjectNotFoundException $e) { $zs = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$gs = $this->api->get->groups();
+		}
+		catch(ObjectNotFoundException $e) { $gs = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
 		$azs = array();
 		foreach($dcs as $dc) {
 			try {
@@ -75,6 +81,7 @@ class Search extends ImpulseController {
 		$viewData['azs'] = $azs;
 		$viewData['zs'] = $zs;
 		$viewData['platforms'] = $platforms;
+		$viewData['gs'] = $gs;
 
 		// Content
 		$content = $this->load->view('search/form',$viewData,true);
