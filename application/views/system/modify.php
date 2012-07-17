@@ -96,7 +96,19 @@
 			<div class="control-group warning">	
 				<label class="control-label">Group: </label>
 				<div class="controls">
-					<input type="text" name="group" value="<?=htmlentities($sys->get_group());?>" />
+					<select name="group">
+						<option></option>
+						<?
+						foreach($groups as $g) {
+							if($g->get_group() == $sys->get_group()) {
+								print "<option selected >".htmlentities($g->get_group())."</option>";
+							}
+							else {
+								print "<option>".htmlentities($g->get_group())."</option>";
+							}
+						}
+						?>
+					</select>
 				</div>
 			</div>
 			<div class="control-group">	

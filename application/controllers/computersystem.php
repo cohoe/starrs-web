@@ -112,6 +112,7 @@ class ComputerSystem extends ImpulseController {
 			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
 			$viewData['isAdmin'] = $this->user->isAdmin();
 			$viewData['platforms'] = $this->api->systems->get->platforms();
+			$viewData['groups'] = $this->api->get->groups();
 			try {
 				$viewData['dcs'] = $this->api->systems->get->datacenters();
 			}
@@ -194,6 +195,7 @@ class ComputerSystem extends ImpulseController {
 			$viewData['platforms'] = $this->api->systems->get->platforms();
 			$viewData['dcs'] = $this->api->systems->get->datacenters();
 			$viewData['sys'] = $sys;
+			$viewData['groups'] = $this->api->get->groups();
 
 			// Content
 			$content = $this->load->view('system/modify',$viewData,true);
