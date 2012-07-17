@@ -80,7 +80,7 @@ $autoload['helper'] = array('cookie');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('impulse');
 
 
 /*

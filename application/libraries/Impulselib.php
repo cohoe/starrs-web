@@ -16,13 +16,8 @@ class Impulselib {
 	function __construct() {
 		$this->CI =& get_instance();
 		
-		#$_SERVER['WEBAUTH_USER'] = "root";
-		#$_SERVER['WEBAUTH_LDAP_GIVENNAME'] = "Grant";
-		#$_SERVER['WEBAUTH_LDAP_SN'] = "Cohoe";
-       	$this->uname = $this->CI->input->server('WEBAUTH_USER');
-		#$this->fname = $this->CI->input->server('WEBAUTH_LDAP_GIVENNAME');
-		#$this->lname = $this->CI->input->server('WEBAUTH_LDAP_SN');
-		$this->fullName = $this->CI->input->server('WEBAUTH_LDAP_CN');
+       	$this->uname = $this->CI->input->server($this->CI->config->item('imp_username_env'));
+		$this->fullName = $this->CI->input->server($this->CI->config->item('imp_displayname_env'));
 	}
 
 	public function test() {

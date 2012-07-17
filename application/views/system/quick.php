@@ -69,7 +69,14 @@
 			<div class="control-group">	
 				<label class="control-label">Group: </label>
 				<div class="controls">
-					<input type="text" name="group" <?=($isAdmin)?"":"readonly";?> value="" />
+					<select name="group">
+						<option></option>
+						<?
+						foreach($groups as $g) {
+							print "<option>".htmlentities($g->get_group())."</option>";
+						}
+						?>
+					</select>
 				</div>
 			</div>
 			<div class="control-group">	

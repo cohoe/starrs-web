@@ -247,6 +247,7 @@ class ComputerSystem extends ImpulseController {
 		$viewData['ranges'] = $this->api->ip->get->ranges();
 		$viewData['configs'] = $this->api->dhcp->get->configtypes();
 		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+		$viewData['groups'] = $this->api->get->groups();
 		$content = $this->load->view('system/quick',$viewData,true);
 		$content .= $this->forminfo;
 		$this->_render($content);
