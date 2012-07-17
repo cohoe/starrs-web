@@ -40,6 +40,12 @@
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label">Group: </label>
+				<div class="controls">
+					<input type="text" name="group" />
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label">Platform: </label>
 				<div class="controls">
 					<select name="platform_name">

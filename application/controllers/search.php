@@ -15,7 +15,7 @@ class Search extends ImpulseController {
 				$query = $this->api->search($this->input->post());
 			}
 			catch(Exception $e) { $this->_exit($e); return; }
-			$results[] = array("Datacenter","Availability Zone","System Name","Asset","Platform","MAC","Address","System Owner","System Last Modifier","Range","Hostname","Zone","DNS Owner","DNS Last Modifier");
+			$results[] = array("Datacenter","Availability Zone","System Name","Asset","Group","Platform","MAC","Address","System Owner","System Last Modifier","Range","Hostname","Zone","DNS Owner","DNS Last Modifier");
 			foreach($query->result_array() as $result) {
 				$datacenter = $result['datacenter'];
 				$result['datacenter'] = "<a href=\"/datacenter/view/".rawurlencode($result['datacenter'])."\">{$result['datacenter']}</a>";
