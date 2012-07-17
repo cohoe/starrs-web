@@ -253,7 +253,7 @@ class Address extends ImpulseController {
 			catch(ObjectNotFoundException $e) {}
 			catch(Exception $e) { $this->_error($e); return; }
 			$interval = $this->api->get->site_configuration('DEFAULT_RENEW_INTERVAL');
-			print "Renewed all of ".$this->user->getActiveUser()."'s systems for $interval.";
+			print "Added $interval to all of {$this->user->getActiveUser()}'s systems renew dates.";
 			return;
 		}
 
@@ -262,7 +262,7 @@ class Address extends ImpulseController {
 			$intAddr = $this->api->systems->get->interfaceaddressByAddress($address);
 			$this->api->systems->renew($intAddr->get_address());
 			$interval = $this->api->get->site_configuration('DEFAULT_RENEW_INTERVAL');
-			print "Renewed ".htmlentities($intAddr->get_address())." for $interval.";
+			print "Added $interval to {$intAddr->get_address()}'s renew date.";
 		}
 		catch(Exception $e) { $this->_error($e); return; }
 
