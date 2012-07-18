@@ -33,7 +33,7 @@
 						<ul class="dropdown-menu">
 							<li <?=($sub=='Datacenters')?'class="active"':null;?>><a href="/datacenters/">Datacenters</a></li>
 							<li <?=($sub=='Availability Zones')?'class="active"':null;?>><a href="/availabilityzones/view">Availability Zones</a></li>
-							<li <?=($sub=='Platforms')?'class="active"':null;?>><a href="#">Platforms</a></li>
+							<li <?=($sub=='Platforms')?'class="active"':null;?>><a href="/platforms/view/">Platforms</a></li>
 							<li class="divider"></li>
 							<li <?=($sub=='Systems')?'class="active"':null;?>><a href="/systems/view/">Systems</a></li>
 							<li <?=($sub=='Renew')?'class="active"':null;?>><a href="/addresses/viewrenew/">Renewal</a></li>

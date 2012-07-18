@@ -6,6 +6,7 @@ class Template extends ImpulseController {
 	public function __construct() {
 		parent::__construct();
 		$this->_setNavHeader("Header");
+		$this->_setSubHeader("Object");
 		$this->_addTrail("Header","#");
 	}
 
@@ -31,7 +32,7 @@ class Template extends ImpulseController {
 		$this->_addAction("Remove","#");
 
 		// Viewdata
-		$viewData['foo'] = "bar"
+		$viewData['foo'] = "bar";
 
 		// Content
 		$content = $this->load->view('#',$viewData,true);

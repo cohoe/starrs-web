@@ -54,6 +54,14 @@ class Api_systems_modify extends ImpulseModel {
 		$this->_check_error($query);
 	}
 
+	public function platform($name, $field, $newValue) {
+		// SQL Query
+		$sql = "SELECT api.modify_platform({$this->db->escape($name)}, {$this->db->escape($field)}, {$this->db->escape($newValue)})";
+		$query = $this->db->query($sql);
+		
+		// Check error
+		$this->_check_error($query);
+	}
 }
 /* End of file api_systems_modify.php */
 /* Location: ./application/models/API/Systems/api_systems_modify.php */

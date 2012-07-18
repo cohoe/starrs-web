@@ -39,6 +39,30 @@ class Platform extends ImpulseObject {
 	public function get_disk() { return $this->disk; }
 	public function get_cpu() { return $this->cpu; }
 	public function get_memory() { return $this->memory; }
+
+	////////////////////////////////////////////////////////////////////////
+	// SETTERS
+
+	public function set_platform_name($new) {
+		$this->CI->api->systems->modify->platform($this->platformName, 'platform_name', $new);
+		$this->platformName = $new;
+	}
+	public function set_architecture($new) {
+		$this->CI->api->systems->modify->platform($this->platformName, 'architecture', $new);
+		$this->architecture = $new;
+	}
+	public function set_disk($new) {
+		$this->CI->api->systems->modify->platform($this->platformName, 'disk', $new);
+		$this->disk = $new;
+	}
+	public function set_cpu($new) {
+		$this->CI->api->systems->modify->platform($this->platformName, 'cpu', $new);
+		$this->cpu = $new;
+	}
+	public function set_memory($new) {
+		$this->CI->api->systems->modify->platform($this->platformName, 'memory', $new);
+		$this->memory = $new;
+	}
     
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS

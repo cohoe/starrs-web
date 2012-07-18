@@ -49,6 +49,15 @@ class Api_systems_remove extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 	}
+
+	public function platform($name) {
+		// SQL Query
+		$sql = "SELECT api.remove_platform({$this->db->escape($name)})";
+		$query = $this->db->query($sql);
+		
+		// Check error
+		$this->_check_error($query);
+	}
 }
 /* End of file api_systems_remove.php */
 /* Location: ./application/models/Systems/Systems/api_systems_remove.php */

@@ -463,6 +463,21 @@ class Api_systems_get extends ImpulseModel {
 
 		return $query->row()->get_default_renew_date;
 	}
+
+	public function architectures() {
+		// SQL
+		$sql = "SELECT architecture FROM api.get_system_architectures()";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		$resultSet = array();
+		foreach($query->result_array() as $arch) {
+			$resultSet[] = $arch['architecture'];
+		}
+		return $resultSet;
+	}
 }
 /* End of file api_systems_get.php */
 /* Location: ./application/models/API/Systems/api_systems_get.php */

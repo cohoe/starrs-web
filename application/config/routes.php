@@ -48,6 +48,7 @@ $route['ip/subnet/(.*?)'] = 'ip/subnetcontroller/$1';
 $route['interface/(.*?)'] = 'interfacecontroller/$1';
 $route['group/(.*?)'] = 'groupcontroller/$1';
 $route['groupmember/(.*?)'] = 'groupmembercontroller/$1';
+$route['platform/(.*?)'] = 'platformcontroller/$1';
 $route['dhcp/class/(.*?)'] = 'dhcp/classcontroller/$1';
 $route['dhcp/subnetoption/(.*?)'] = 'dhcp/subnetoptioncontroller/$1';
 $route['dhcp/rangeoption/(.*?)'] = 'dhcp/rangeoptioncontroller/$1';

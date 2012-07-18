@@ -156,6 +156,32 @@ class Api_systems_create extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 	}
+
+	public function platform($name, $arch, $disk, $cpu, $mem) {
+		// SQL
+		$sql = "SELECT * FROM api.create_platform(
+			{$this->db->escape($name)},
+			{$this->db->escape($arch)},
+			{$this->db->escape($disk)},
+			{$this->db->escape($cpu)},
+			{$this->db->escape($mem)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		return new Platform(
+			$query->row()->platform_name,
+			$query->row()->architecture,
+			$query->row()->disk,
+			$query->row()->cpu,
+			$query->row()->memory,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_systems_create.php */
 /* Location: ./application/models/API/Systems/api_systems_create.php */
