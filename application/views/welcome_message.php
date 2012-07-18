@@ -18,7 +18,7 @@
 		<div class="span3">
 			<h2>Learn More</h2>
 			<p>Read the documentation about the various system configurations that IMPULSE supports and some of the more fancy features that can be of use.</p>
-			<p><a class="btn btn-primary" href="#">Learn More &raquo;</a></p>
+			<p><a class="btn btn-primary" href="https://github.com/cohoe/impulse/wiki">Learn More &raquo;</a></p>
 		</div><!--/span-->
 		<div class="span3">
 			<h2>Setup</h2>

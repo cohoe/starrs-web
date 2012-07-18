@@ -67,6 +67,9 @@ class Api extends ImpulseModel {
 		if($searchArray['datacenter']) {
 			$searchString .= "AND datacenter ~* {$this->db->escape($searchArray['datacenter'])} ";
 		}
+		if($searchArray['systemName']) {
+			$searchString .= "AND system_name ~* {$this->db->escape($searchArray['systemName'])} ";
+		}
 		if($searchArray['asset']) {
 			$searchString .= "AND asset ~* {$this->db->escape($searchArray['asset'])} ";
 		}

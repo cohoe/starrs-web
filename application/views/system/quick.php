@@ -70,10 +70,13 @@
 				<label class="control-label">Group: </label>
 				<div class="controls">
 					<select name="group">
-						<option></option>
 						<?
 						foreach($groups as $g) {
-							print "<option>".htmlentities($g->get_group())."</option>";
+							if($g->get_group() == $default_group) {
+								print "<option selected>".htmlentities($g->get_group())."</option>";
+							} else {
+								print "<option>".htmlentities($g->get_group())."</option>";
+							}
 						}
 						?>
 					</select>

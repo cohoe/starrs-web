@@ -8,7 +8,7 @@ class Api_dhcp_get extends ImpulseModel {
 
 	public function configtypes($family=NULL) {
 		// SQL Query
-		$sql = "SELECT * FROM api.get_dhcp_config_types({$this->db->escape($family)}) ORDER BY CASE WHEN config='dhcp' THEN 1 ELSE 2 END";
+		$sql = "SELECT * FROM api.get_dhcp_config_types({$this->db->escape($family)})";
 		$query = $this->db->query($sql);
 		
 		// Check error

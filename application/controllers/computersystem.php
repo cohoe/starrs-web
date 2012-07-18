@@ -113,6 +113,11 @@ class ComputerSystem extends ImpulseController {
 			$viewData['isAdmin'] = $this->user->isAdmin();
 			$viewData['platforms'] = $this->api->systems->get->platforms();
 			$viewData['groups'] = $this->api->get->groups();
+			if($this->user->isadmin()) {
+				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
+			} else {
+				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_USER_GROUP'))->get_group();
+			}
 			try {
 				$viewData['dcs'] = $this->api->systems->get->datacenters();
 			}
@@ -248,6 +253,11 @@ class ComputerSystem extends ImpulseController {
 		$viewData['configs'] = $this->api->dhcp->get->configtypes();
 		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 		$viewData['groups'] = $this->api->get->groups();
+		if($this->user->isadmin()) {
+			$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
+		} else {
+			$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_USER_GROUP'))->get_group();
+		}
 		$content = $this->load->view('system/quick',$viewData,true);
 		$content .= $this->forminfo;
 		$this->_render($content);
