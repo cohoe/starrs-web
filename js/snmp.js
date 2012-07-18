@@ -28,6 +28,9 @@ $('#action-modify').click(function() {
 });
 
 $('#action-reload').click(function() {
+	$('#modal-info-body').html('Loading data from device...<br /><br /><div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
+	$('#modal-info .modal-footer').html('');
+	$('#modal-info').modal('show');
 	$.get($(this).attr('href'),function(data) {
 		handlePostRefresh(data);
 	});
