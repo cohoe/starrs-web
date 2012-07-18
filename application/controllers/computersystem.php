@@ -217,9 +217,11 @@ class ComputerSystem extends ImpulseController {
 			try {
 				$this->api->systems->remove->system($systemName);
 				$this->_sendClient("/systems/view/{$this->user->getACtiveUser()}");
+				return;
 			}
 			catch (Exception $e) {
-				$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+				$this->exit($e);
+				return;
 			}
 		}
 		else {
