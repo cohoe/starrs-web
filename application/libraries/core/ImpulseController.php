@@ -164,12 +164,17 @@ class ImpulseController extends CI_Controller {
 		}
 	}
 
-	protected function _addSidebarItem($text, $link, $icon=null) {
+	protected function _addSidebarItem($text, $link, $icon=null, $active=null) {
+		if($active) {
+			$pre = "<li class=\"active\">";
+		} else {
+			$pre = "<li>";
+		}
 		if($icon) {
-			$this->sidebarItems .= "<li><a href=\"$link\"><i class=\"icon-$icon icon-black\"></i> $text</a></li>";
+			$this->sidebarItems .= "$pre<a href=\"$link\"><i class=\"icon-$icon icon-black\"></i> $text</a></li>";
 		}
 		else {
-			$this->sidebarItems .= "<li><a href=\"$link\">$text</a></li>";
+			$this->sidebarItems .= "$pre<a href=\"$link\">$text</a></li>";
 		}
 	}
 
@@ -330,6 +335,10 @@ class ImpulseController extends CI_Controller {
 
 		$view = $this->load->view('dhcp/dhcpoptions',array('table'=>$html),true);
 		return $view;
+	}
+
+	protected function _renderException($e) {
+		return "<div class=\"span7\">".$this->load->view('exceptions/modalerror',array('exception'=>$e),true)."</div>";
 	}
 
 }

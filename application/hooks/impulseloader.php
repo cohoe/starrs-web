@@ -40,6 +40,7 @@ class ImpulseLoader {
 		require_once(APPPATH . "libraries/objects/ConfigItem.php");
 		require_once(APPPATH . "libraries/objects/Group.php");
 		require_once(APPPATH . "libraries/objects/GroupMember.php");
+		require_once(APPPATH . "libraries/objects/SnmpCred.php");
 		#require_once(APPPATH . "libraries/objects/NetworkSwitchport.php");
 		#require_once(APPPATH . "libraries/objects/NetworkSystem.php");
 

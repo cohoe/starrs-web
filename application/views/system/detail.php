@@ -3,7 +3,7 @@
 		<h2><?=htmlentities($sys->get_system_name());?></h2>
 	</div>
 	<div class="row-fluid">
-		<div class="span8 well">
+		<div class="span7 well">
 			<h3>System</h3>
 			<dl class="dl-horizontal">
 				<dt>Datacenter</dt>
@@ -28,7 +28,7 @@
 				<dd><?=htmlentities($sys->get_comment());?>&nbsp;</dd>
 			</dl>
 		</div>
-		<div class="span4 well">
+		<div class="span5 well">
 			<h3>Platform</h3>
 			<dl class="dl-horizontal">
 				<dt>Platform</dt>

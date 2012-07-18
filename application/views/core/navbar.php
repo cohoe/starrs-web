@@ -71,7 +71,13 @@
 							<li <?=($sub=='Groups')?'class="active"':null;?>><a href="/groups/view/">Groups</a></li>
 						</ul>
 					</li>
-					<li <?=($header=='Network')?'class="active"':null;?>><a href="#">Network</a></li>
+					<li class="dropdown <?=($header=='Network')?'active':null;?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Network <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li <?=($sub=='CAM')?'class="active"':null;?>><a href="/cam/">CAM Tables</a></li>
+							<li <?=($sub=='SNMP')?'class="active"':null;?>><a href="/snmp/">SNMP</a></li>
+						</ul>
+					</li>
 					<li <?=($header=='Search')?'class="active"':null;?>><a href="/search">Search</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->

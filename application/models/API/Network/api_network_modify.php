@@ -5,39 +5,12 @@
  */
 class Api_network_modify extends ImpulseModel {
 	
-	public function switchport($systemName, $portName, $field, $value) {
-		// SQL Query
-		$sql = "SELECT api.modify_network_switchport(
-			{$this->db->escape($systemName)},
-			{$this->db->escape($portName)},
-			{$this->db->escape($field)},
-			{$this->db->escape($value)}
-		)";
-        $query = $this->db->query($sql);
-		
-		// Check errors
-        $this->_check_error($query);
-	}
-
-    public function switchview_settings($systemName, $field, $newValue) {
+	public function snmp($systemName, $field, $value) {
         // SQL Query
-		$sql = "SELECT api.modify_system_switchview(
+		$sql = "SELECT api.modify_network_snmp(
 		    {$this->db->escape($systemName)},
 		    {$this->db->escape($field)},
-		    {$this->db->escape($newValue)}
-		)";
-		$query = $this->db->query($sql);
-
-		// Check errors
-        $this->_check_error($query);
-    }
-	
-	public function switchport_admin_state($systemName, $portName, $state) {
-        // SQL Query
-		$sql = "SELECT api.modify_switchport_admin_state(
-		    {$this->db->escape($systemName)},
-		    {$this->db->escape($portName)},
-		    {$this->db->escape($state)}
+		    {$this->db->escape($value)}
 		)";
 		$query = $this->db->query($sql);
 
