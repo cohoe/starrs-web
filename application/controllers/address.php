@@ -88,7 +88,7 @@ class Address extends ImpulseController {
 			$viewData['mac'] = $int->get_mac();
 			$viewData['ints'] = array();
 			$viewData['configs'] = $this->api->dhcp->get->configtypes();
-			$viewData['date'] = $this->api->systems->get->defaultRenewDate();
+			$viewData['date'] = $this->api->systems->get->defaultRenewDate($int->get_system_name());
 			$viewData['user'] = $this->user;
 			try {
 				$viewData['ranges'] = $this->api->ip->get->ranges();

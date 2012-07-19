@@ -67,9 +67,11 @@ class Groupcontroller extends ImpulseController {
 				$g = $this->api->create->group(
 					$this->_post('group'),
 					$this->_post('privilege'),
-					$this->_post('comment')
+					$this->_post('comment'),
+					$this->_post('renew')
 				);
 				$this->_sendClient("/group/view/".rawurlencode($g->get_group()));
+				return;
 			}
 			catch(Exception $e) { $this->_error($e); return; }
 		}
@@ -102,6 +104,10 @@ class Groupcontroller extends ImpulseController {
 			}
 			if($g->get_comment() != $this->_post('comment')) {
 				try { $g->set_comment($this->_post('comment')); }
+				catch (Exception $e) { $err[] = $e; }
+			}
+			if($g->get_renew() != $this->_post('renew')) {
+				try { $g->set_renew($this->_post('renew')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

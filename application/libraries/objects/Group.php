@@ -9,16 +9,19 @@ class Group extends ImpulseObject{
 
 	private $comment;
 
+	private $renew;
+
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	/**
 	 */
-	public function __construct($group, $privilege, $comment, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($group, $privilege, $comment, $renew, $dateCreated, $dateModified, $lastModifier) {
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 
 		$this->group = $group;
 		$this->privilege = $privilege;
 		$this->comment = $comment;
+		$this->renew = $renew;
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -27,6 +30,7 @@ class Group extends ImpulseObject{
 	public function get_group()	     { return $this->group; }
 	public function get_privilege()	{ return $this->privilege; }
 	public function get_comment()      { return $this->comment; }
+	public function get_renew()      { return $this->renew; }
 
 	////////////////////////////////////////////////////////////////////////
 	// GETTERS
@@ -44,6 +48,11 @@ class Group extends ImpulseObject{
 	public function set_comment($new) {
 		$this->CI->api->modify->group($this->group, 'comment', $new);
 		$this->comment= $new;
+	}
+
+	public function set_renew($new) {
+		$this->CI->api->modify->group($this->group, 'renew_interval', $new);
+		$this->renew= $new;
 	}
 	
 	////////////////////////////////////////////////////////////////////////

@@ -30,12 +30,13 @@ class Api_management_create extends ImpulseModel {
         $this->_check_error($query);
 	}
 
-	public function group($group, $privilege, $comment) {
+	public function group($group, $privilege, $comment, $renew) {
 		// SQL
 		$sql = "SELECT * FROM api.create_group(
 			{$this->db->escape($group)},
 			{$this->db->escape($privilege)},
-			{$this->db->escape($comment)}
+			{$this->db->escape($comment)},
+			{$this->db->escape($renew)}
 		)";
 		$query = $this->db->query($sql);
 
@@ -47,6 +48,7 @@ class Api_management_create extends ImpulseModel {
 			$query->row()->group,
 			$query->row()->privilege,
 			$query->row()->comment,
+			$query->row()->renew_interval,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

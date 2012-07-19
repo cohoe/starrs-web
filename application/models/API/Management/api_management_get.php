@@ -112,6 +112,7 @@ class Api_management_get extends ImpulseModel {
 				$group['group'],
 				$group['privilege'],
 				$group['comment'],
+				$group['renew_interval'],
 				$group['date_created'],
 				$group['date_modified'],
 				$group['last_modifier']
@@ -134,6 +135,7 @@ class Api_management_get extends ImpulseModel {
 			$query->row()->group,
 			$query->row()->privilege,
 			$query->row()->comment,
+			$query->row()->renew_interval,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

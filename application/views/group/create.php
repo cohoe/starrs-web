@@ -23,6 +23,12 @@
 					<input type="text" name="comment" />
 				</div>
 			</div>
+			<div class="control-group warning">
+				<label class="control-label">Default Renew Interval: </label>
+				<div class="controls">
+					<input type="text" name="renew" />
+				</div>
+			</div>
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Group" class="btn btn-primary" />

@@ -5,6 +5,8 @@
 			<dl class="dl-horizontal">
 				<dt>Global Privilege</dt>
 				<dd><?=htmlentities($g->get_privilege());?></dd>
+				<dt>Renew Interval</dt>
+				<dd><?=htmlentities($g->get_renew());?></dd>
 				<dt>Date Created</dt>
 				<dd><?=htmlentities($g->get_date_created());?></dd>
 				<dt>Date Modified</dt>

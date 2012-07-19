@@ -490,9 +490,9 @@ class Api_systems_get extends ImpulseModel {
 		);
 	}
 
-	public function defaultRenewDate() {
+	public function defaultRenewDate($systemName=null) {
 		// SQL
-		$sql = "SELECT api.get_default_renew_date()";
+		$sql = "SELECT api.get_default_renew_date({$this->db->escape($systemName)})";
 		$query = $this->db->query($sql);
 
 		// Check error
