@@ -99,6 +99,7 @@ class Cam extends ImpulseController {
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
+		$this->_sidebarBlank();
 
 		foreach($ports as $p) {
 			$this->_addContentToList($this->load->view('cam/locate',array('p'=>$p),true),2);

@@ -12,6 +12,7 @@ class ImpulseController extends CI_Controller {
 	private $navheader;
 	private $subnav;
 	private $contentList;
+	private $sidebarBlank;
 
 	protected $forminfo;
 
@@ -96,10 +97,10 @@ class ImpulseController extends CI_Controller {
 		$breadcrumb = $this->load->view('core/breadcrumb',array('segments'=>$this->trail),true);
 
 		// Sidebar
-		if($this->sidebarItems) {
-			$sidebar = $this->load->view('core/sidebarblank',array('sideContent'=>$this->sidebarItems),true);
-		} else {
+		if($this->sidebarBlank) {
 			$sidebar = "<div class=\"span3 offset3\"></div>";
+		} else {
+			$sidebar = $this->load->view('core/sidebarblank',array('sideContent'=>$this->sidebarItems),true);
 		}
 
 		// Content
@@ -343,6 +344,10 @@ class ImpulseController extends CI_Controller {
 
 	protected function _renderException($e) {
 		return "<div class=\"span7\">".$this->load->view('exceptions/modalerror',array('exception'=>$e),true)."</div>";
+	}
+
+	protected function _sidebarBlank() {
+		$this->sidebarBlank = true;
 	}
 
 }
