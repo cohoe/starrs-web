@@ -89,6 +89,25 @@ class Cam extends ImpulseController {
 		}
 		catch(Exception $e) { $this->_error($e); return; }
 	}
+
+	public function locate($mac) {
+		// Decode
+		$mac = rawurldecode($mac);
+		
+		try {
+			$ports = $this->api->network->get->interface_ports($mac);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+
+		foreach($ports as $p) {
+			$this->_addContentToList($this->load->view('cam/locate',array('p'=>$p),true),2);
+		}
+
+		$content = $this->_renderContentList(2);
+		
+		$this->_render($content);
+	}
 }
 
 /* End of file cam.php */

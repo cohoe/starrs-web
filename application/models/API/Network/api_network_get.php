@@ -33,6 +33,15 @@ class Api_network_get extends ImpulseModel {
 		);
 	}
 
+	public function interface_ports($mac) {
+		$sql = "SELECT * FROM api.get_interface_switchports({$this->db->escape($mac)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		return $query->result_array();
+	}
+
 }
 /* End of file api_network_get.php */
 /* Location: ./application/models/API/Network/api_network_get.php */

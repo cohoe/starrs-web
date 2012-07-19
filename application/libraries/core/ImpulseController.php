@@ -96,7 +96,11 @@ class ImpulseController extends CI_Controller {
 		$breadcrumb = $this->load->view('core/breadcrumb',array('segments'=>$this->trail),true);
 
 		// Sidebar
-		$sidebar = $this->load->view('core/sidebarblank',array('sideContent'=>$this->sidebarItems),true);
+		if($this->sidebarItems) {
+			$sidebar = $this->load->view('core/sidebarblank',array('sideContent'=>$this->sidebarItems),true);
+		} else {
+			$sidebar = "<div class=\"span3 offset3\"></div>";
+		}
 
 		// Content
 		$content.= $this->_renderActions();
