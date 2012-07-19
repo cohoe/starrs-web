@@ -39,14 +39,18 @@ class Range extends ImpulseController {
 
 		// Sidebar
 		try {
-			$rs = $this->api->ip->get->ranges();
+			$rs = $this->api->ip->get->rangesBySubnet($r->get_subnet());
 		}
 		catch(ObjectNotFoundException $e) { $rs = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		$this->_addSidebarHeader("RANGES");
 		foreach($rs as $rng) {
-			$this->_addSidebarItem($rng->get_name(),"/ip/range/view/".rawurlencode($rng->get_name()),"resize-full");
+			if($rng->get_name() == $r->get_name()) {
+				$this->_addSidebarItem($rng->get_name(),"/ip/range/view/".rawurlencode($rng->get_name()),"resize-full",1);
+			} else {
+				$this->_addSidebarItem($rng->get_name(),"/ip/range/view/".rawurlencode($rng->get_name()),"resize-full");
+			}
 		}
 
 		// Options

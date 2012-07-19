@@ -18,10 +18,11 @@ class Key extends DnsController {
 		$key = rawurldecode($key);
 
 		try {
+			$this->_addSidebarHeader("KEYS");
 			$keys = $this->api->dns->get->keysByUser($this->user->getActiveUser());
 			foreach($keys as $k) {
-				$this->_addSidebarItem($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()),"check");
 				if($k->get_keyname() == $key) {
+					$this->_addSidebarItem($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()),"check",1);
 					// Actions
 					$this->_addAction("Modify","/dns/key/modify/".rawurlencode($k->get_keyname()));
 					$this->_addAction("Remove","/dns/key/remove/".rawurlencode($k->get_keyname()));
@@ -29,6 +30,8 @@ class Key extends DnsController {
 					// Breadcrumb
 					$this->_addTrail($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()));
 					$content = $this->load->view('dns/key/detail',array("key"=>$k),true);
+				} else {
+					$this->_addSidebarItem($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()),"check");
 				}
 			}
 		}	

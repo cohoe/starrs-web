@@ -24,8 +24,7 @@ class Globaloptions extends ImpulseController {
 		catch(ObjectNotFoundException $e) { $opts = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
-		// Sidebar
-		$this->_addSidebarHeader("SOMETHING");
+		$this->_sidebarBlank();
 
 		// Actions
 		$this->_addAction("Create DHCP Option","/dhcp/globaloption/create","success");

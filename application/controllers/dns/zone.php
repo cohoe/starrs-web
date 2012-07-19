@@ -21,6 +21,7 @@ class Zone extends DnsController {
 		try {
 			// Get the zone info
 			$z = $this->api->dns->get->zoneByName($zone);
+			$zs = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			$zInfo = $this->load->view('dns/zone/detail',array('zone'=>$z),true);
 
 			// SOA
@@ -67,11 +68,14 @@ class Zone extends DnsController {
 			$this->_addTrail($z->get_zone(),"/dns/zone/view/".rawurlencode($z->get_zone()));
 
 			// Sidebar
-			$this->_addSidebarItem("Zone","#zone","list");
-			$this->_addSidebarItem("SOA","#soa","cog");
-			$this->_addSidebarItem("NS Records","#ns","file");
-			$this->_addSidebarItem("A/AAAA Records","#a","font");
-			$this->_addSidebarItem("TXT Records","#txt","list-alt");
+			$this->_addSidebarHeader("ZONES");
+			foreach($zs as $zne) {
+				if($zne->get_zone() == $z->get_zone()) {
+					$this->_addSidebarItem($zne->get_zone(),"/dns/zone/view/".rawurlencode($zne->get_zone()),"list",1);
+				} else {
+					$this->_addSidebarItem($zne->get_zone(),"/dns/zone/view/".rawurlencode($zne->get_zone()),"list");
+				}
+			}
 
 			// Actions
 			$this->_addAction("Create NS","/dns/ns/create/","success");

@@ -21,6 +21,7 @@ class Platformcontroller extends ImpulseController {
 		// Instantiate
 		try {
 			$p = $this->api->systems->get->platformByName($platform);
+			$ps = $this->api->systems->get->platforms();
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
@@ -30,6 +31,16 @@ class Platformcontroller extends ImpulseController {
 		// Actions
 		$this->_addAction("Modify","/platform/modify/".rawurlencode($p->get_platform_name()));
 		$this->_addAction("Remove","/platform/remove/".rawurlencode($p->get_platform_name()));
+
+		// Sidebar
+		$this->_addSidebarHeader("PLATFORMS");
+		foreach($ps as $pla) {
+			if($pla->get_platform_name() == $p->get_platform_name()) {
+				$this->_addSidebarItem($pla->get_platform_name(),"/platform/view/".rawurlencode($pla->get_platform_name()),"share",1);
+			} else {
+				$this->_addSidebarItem($pla->get_platform_name(),"/platform/view/".rawurlencode($pla->get_platform_name()),"share");
+			}
+		}
 
 		// Viewdata
 		$viewData['p'] = $p;

@@ -23,6 +23,7 @@ class Classcontroller extends ImpulseController {
 		// Instantiate
 		try {
 			$c = $this->api->dhcp->get->_class($class);
+			$cls = $this->api->dhcp->get->classes();
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
@@ -35,7 +36,14 @@ class Classcontroller extends ImpulseController {
 		$this->_addAction("Remove","/dhcp/class/remove/".rawurlencode($c->get_class()));
 
 		// Sidebar
-		$this->_addSidebarHeader("SOMETHING");
+		$this->_addSidebarHeader("CLASSES");
+		foreach($cls as $cla) {
+			if($cla->get_class() == $c->get_class()) {
+				$this->_addSidebarItem($cla->get_class(),"/dhcp/class/view/".rawurlencode($cla->get_class()),"briefcase",1);
+			} else {
+				$this->_addSidebarItem($cla->get_class(),"/dhcp/class/view/".rawurlencode($cla->get_class()),"briefcase");
+			}
+		}
 
 		// Viewdata
 		$viewData['c'] = $c; 

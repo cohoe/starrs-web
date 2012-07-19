@@ -22,6 +22,7 @@ class Groupcontroller extends ImpulseController {
 		// Instantiate
 		try {
 			$g = $this->api->get->group($group);
+			$gs = $this->api->get->groups();
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
@@ -33,6 +34,16 @@ class Groupcontroller extends ImpulseController {
 
 		// Trail
 		$this->_addTrail($g->get_group(),"/group/view/".rawurlencode($g->get_group()));
+
+		// Sidebar
+		$this->_addSidebarHeader("GROUPS");
+		foreach($gs as $gp) {
+			if($gp->get_group() == $g->get_group()) {
+				$this->_addSidebarItem($gp->get_group(),"/group/view/".rawurlencode($gp->get_group()),"book",1);
+			} else {
+				$this->_addSidebarItem($gp->get_group(),"/group/view/".rawurlencode($gp->get_group()),"book");
+			}
+		}
 
 		// Actions
 		$this->_addAction("Add User","/groupmember/create/".rawurlencode($g->get_group()),"success");

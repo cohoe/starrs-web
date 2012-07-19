@@ -23,6 +23,7 @@ class Subnetcontroller extends ImpulseController {
 		// Instantiate
 		try {
 			$snet = $this->api->ip->get->subnet($subnet);
+			$snets = $this->api->ip->get->subnets();
 			$stat = $this->api->ip->get->subnetStats($snet->get_subnet());
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
@@ -63,8 +64,12 @@ class Subnetcontroller extends ImpulseController {
 
 		// Sidebar
 		$this->_addSidebarHeader("RANGES");
-		foreach($ranges as $r) {
-			$this->_addSidebarItem($r->get_name(),"/ip/range/view/".rawurlencode($r->get_name()),"resize-full");
+		foreach($snets as $sn) {
+			if($sn->get_subnet() == $snet->get_subnet()) {
+				$this->_addSidebarItem($sn->get_subnet(),"/ip/subnet/view/".rawurlencode($sn->get_subnet()),"tags",1);
+			} else {
+				$this->_addSidebarItem($sn->get_subnet(),"/ip/subnet/view/".rawurlencode($sn->get_subnet()),"tags");
+			}
 		}
 
 		// Render
