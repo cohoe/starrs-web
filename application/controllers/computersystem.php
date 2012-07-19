@@ -34,6 +34,7 @@ class ComputerSystem extends ImpulseController {
 		if($sys->get_family() == 'Network') {
 			$this->_addAction("CAM Table","/cam/view/".rawurlencode($systemName));
 			$this->_addAction("SNMP","/snmp/view/".rawurlencode($systemName));
+			$this->_addAction("Switchports","/switchports/view".rawurlencode($sys->get_system_name()));
 		}
 		$this->_addAction('Modify',"/system/modify/".rawurlencode($systemName));
 		$this->_addAction('Remove',"/system/remove/".rawurlencode($systemName));
