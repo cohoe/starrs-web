@@ -28,11 +28,33 @@ $('#action-modify').click(function() {
 });
 
 $('#action-reload').click(function() {
-	$('#modal-info-body').html('Loading data from device...<br /><br /><div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
+	$('#modal-info-body').html('Loading data from device...<br /><br /><div class="progress progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
 	$('#modal-info .modal-footer').html('');
 	$('#modal-info').modal('show');
+	pgBar();
 	$.get($(this).attr('href'),function(data) {
 		handlePostRefresh(data);
+		$('#modal-info').modal('hide');
 	});
 	return false;
 });
+
+$('#action-reloadall').click(function() {
+	$('#modal-info-body').html('Loading data from device...<br /><br /><div class="progress progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
+	$('#modal-info .modal-footer').html('');
+	$('#modal-info').modal('show');
+	pgBar();
+	return false;
+});
+
+function pgBar() {
+	var width = 0;
+	var pG = setInterval(function() {
+		if(width == 100) {
+			clearInterval(pG);
+		} else {
+			$('#modal-info-body .bar').css('width',(width + 1)+'%');
+			width += 1;
+		}
+	},100);
+}

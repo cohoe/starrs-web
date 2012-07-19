@@ -49,6 +49,7 @@ class Cam extends ImpulseController {
 		$this->_addTrail($sys->get_system_name(),"/cam/view/".rawurlencode($sys->get_system_name()));
 
 		// Actions
+		$this->_addAction("SNMP","/snmp/view/".rawurlencode($sys->get_system_name()),"primary");
 		$this->_addAction("Reload","/cam/reload/".rawurlencode($sys->get_system_name()));
 
 		// Sidebar
@@ -93,20 +94,50 @@ class Cam extends ImpulseController {
 	public function locate($mac) {
 		// Decode
 		$mac = rawurldecode($mac);
-		
+
 		try {
-			$ports = $this->api->network->get->interface_ports($mac);
+			$int = $this->api->systems->get->interfaceByMac($mac);
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
-
-		$this->_sidebarBlank();
-
-		foreach($ports as $p) {
-			$this->_addContentToList($this->load->view('cam/locate',array('p'=>$p),true),2);
-		}
-
-		$content = $this->_renderContentList(2);
 		
+		$this->_addSidebarHeader("ADDRESSES","/addresses/view/".rawurlencode($int->get_mac()));
+		$recs = array();
+          try {
+               $intAddrs = $this->api->systems->get->interfaceaddressesByMac($int->get_mac());
+               foreach($intAddrs as $intAddr) {
+                    $this->_addSidebarItem($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()),"globe");
+                    try {
+                         $recs = array_merge($recs,$this->api->dns->get->recordsByAddress($intAddr->get_address()));
+                    }
+                    catch (Exception $e) {}
+               }
+          }
+          catch(ObjectNotFoundException $e) {}
+          catch(Exception $e) {
+               $this->_exit($e);
+               return;
+          }
+
+          $this->_addSidebarHeader("DNS RECORDS");
+          $this->_addSidebarDnsRecords($recs);
+
+		// Trail
+		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
+
+		// Actions
+		$this->_addAction("Reload All","#");
+
+		try {
+			$ports = $this->api->network->get->interface_ports($mac);
+			foreach($ports as $p) {
+				$this->_addContentToList($this->load->view('cam/locate',array('p'=>$p),true),2);
+			}
+
+			$content = $this->_renderContentList(2);
+		}
+		catch(ObjectNotFoundException $e) { $content = $this->_renderException(new ObjectNotFoundException("No CAM table entries were found!")); }
+		catch(Exception $e) { $content = $this->_renderException($e); }
+
 		$this->_render($content);
 	}
 }
