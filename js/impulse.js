@@ -47,7 +47,7 @@ function setViewUserSelect() {
 }
 
 $(document).ready(function() {
-	$('.controls input').blur(function() {
+	$('#create-form .controls input, #modify-form .controls input').blur(function() {
 		if($(this).parent().parent().attr('class').match(/warning/g)) { return; };
 		if($(this).attr('value') != "") {
 			$(this).parent().parent().removeClass("error");
@@ -57,7 +57,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.controls select').change(function() {
+	$('#create-form .controls select, #modify-form .controls select').change(function() {
 		if($(this,'option:selected').attr('value') != "") {
 			$(this).parent().parent().removeClass("error");
 		}
