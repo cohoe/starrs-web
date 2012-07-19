@@ -1,4 +1,3 @@
-<div class="span3 offset3"></div>
 <div class="span7 well">
 	<h2><a href="/system/view/<?=rawurlencode($sys->get_system_name());?>"><?=htmlentities($sys->get_system_name());?></a>
 	<small><?=($cam)?$cam[0]['timestamp']:"No CAM data";?></small></h2>

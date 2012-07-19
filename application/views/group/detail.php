@@ -1,4 +1,3 @@
-<div class="span3 offset3"></div>
 <div class="row-fluid span7">
 	<div class="row-fluid">
 		<div class="well">

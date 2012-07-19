@@ -1,4 +1,3 @@
-<div class="span3 offset3"></div>
 <div class="span7 well">
 	<h2><?=htmlentities($p->get_platform_name());?></h2>
 	<dl class="dl-horizontal">

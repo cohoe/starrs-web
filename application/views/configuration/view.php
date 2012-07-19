@@ -1,4 +1,3 @@
-<div class="offset3 span3"></div>
 <div class="span7 well">
 	<h2>Site Configuration</h2>
 	<br />

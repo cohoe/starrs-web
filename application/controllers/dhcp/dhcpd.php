@@ -27,6 +27,9 @@ class Dhcpd extends ImpulseController {
 		// Viewdata
 		$viewData['file'] = $this->api->dhcp->get->dhcpdconfig();
 
+		// Sidebar
+		$this->_sidebarBlank();
+
 		// Content
 		$content = $this->load->view('dhcp/dhcpdconf',$viewData,true);
 

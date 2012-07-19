@@ -44,6 +44,9 @@ class Configuration extends ImpulseController {
 		// Viewdata
 		$viewData['confs'] = $confs;
 
+		// Sidebar
+		$this->_sidebarBlank();
+
 		// Content
 		$content = $this->load->view('configuration/view',$viewData,true);
 

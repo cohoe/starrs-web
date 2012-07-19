@@ -8,7 +8,9 @@ $('#action-create').click(function() {
 	return false;
 });
 
+$('#modal-create #create').unbind('click');
 $('#modal-create #create').click(function() {
+console.debug('lolol');
      var dataStr = $('#create-form').serialize();
      var url = $('#create').attr('href');
      $.post(url,dataStr,function(data) {
