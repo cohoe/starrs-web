@@ -120,6 +120,9 @@ class Api extends ImpulseModel {
 				$searchString .= "AND address = {$this->db->escape($searchArray['ipaddress'])} ";
 			}
 		}
+		if($searchArray['subnet']) {
+			$searchString .= "AND address << {$this->db->escape($searchArray['subnet'])} ";
+		}
 		if($searchArray['range']) {
 			if($searchArray['range'] == 'null') {
 				$searchString .= "AND range IS NULL ";

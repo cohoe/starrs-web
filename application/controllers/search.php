@@ -74,6 +74,7 @@ class Search extends ImpulseController {
 			catch(Exception $e) { $this->_exit($e); return; }
 		}
 
+
 		// Viewdata
 		$viewData['rs'] = $rs;
 		$viewData['snets'] = $snets;

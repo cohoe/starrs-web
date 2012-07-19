@@ -72,6 +72,19 @@
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label">Subnet: </label>
+				<div class="controls">
+					<select name="subnet">
+						<option></option>
+						<?php
+						foreach($snets as $snet) {
+							print "<option>".htmlentities($snet->get_subnet())."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label">IP Address: </label>
 				<div class="controls">
 					<input type="text" name="ipaddress" />
