@@ -128,7 +128,9 @@ class ImpulseController extends CI_Controller {
 		}
 
 		// Send the data to the browser
-		$this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content,'scripts'=>$scripts));
+		$finalOut = $this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content,'scripts'=>$scripts),true);
+		$this->output->set_output($finalOut);
+		return $finalOut;
 	}
 
 	protected function _addAction($action,$link,$class=null) {
@@ -243,7 +245,8 @@ class ImpulseController extends CI_Controller {
 
 	protected function _exit($e) {
 		$content = $this->load->view('exceptions/exception',array("exception"=>$e),true);
-		$this->_render($content);
+		$output = $this->_render($content);
+		die($output);
 	}
 
 	protected function _addContentToList($content, $cols) {

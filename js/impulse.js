@@ -30,7 +30,11 @@ function getViewUserFromCookie() {
 
 function setViewUserSelect() {
 	var i;
-	var options = document.getElementById("viewuser").options;
+	if(document.getElementById("viewuser")) {
+		var options = document.getElementById("viewuser").options;
+	} else {
+		var options = 0;
+	}
 	var viewUser = getViewUserFromCookie();
 	if(viewUser == '') {
 		return;
