@@ -27,6 +27,7 @@ class Datacentercontroller extends ImpulseController {
 
 		// Actions
 		$this->_addAction("Create Availability Zone","/availabilityzone/create/".rawurlencode($dc->get_datacenter()),"success");
+		$this->_addAction("Create VLAN","/network/vlan/create/".rawurlencode($dc->get_datacenter()),"success");
 		$this->_addAction("Modify","/datacenter/modify/".rawurlencode($dc->get_datacenter()));
 		$this->_addAction("Remove","/datacenter/remove/".rawurlencode($dc->get_datacenter()));
 
@@ -41,7 +42,7 @@ class Datacentercontroller extends ImpulseController {
 		foreach($azs as $az) {
 			$this->_addSidebarItem($az->get_zone(),"/availabilityzone/view/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()),"folder-open");
 		}
-		$this->_addSidebarHeader("SUBNETS");
+		$this->_addSidebarHeader("SUBNETS","/ip/subnets/view/");
 		try {
 			$snets = $this->api->ip->get->subnets(null);
 		}
@@ -52,16 +53,14 @@ class Datacentercontroller extends ImpulseController {
 				$this->_addSidebarItem($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()),"tags");
 			}
 		}
-		$this->_addSidebarHeader("SYSTEMS");
+		$this->_addSidebarHeader("VLANS","/network/vlans/view/");
 		try {
-			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+			$vlans = $this->api->network->get->vlans($dc->get_datacenter());
 		}
-		catch(ObjectNotFoundException $e) { $systems = array(); }
+		catch(ObjectNotFoundException $e) { $vlans = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
-		foreach($systems as $sys) {
-			if($sys->get_datacenter() == $dc->get_datacenter()) {
-				$this->_addSidebarItem($sys->get_system_name(),"/system/view/".rawurlencode($sys->get_system_name()),"hdd");
-			}
+		foreach($vlans as $v) {
+			$this->_addSidebarItem($v->get_vlan(),"/network/vlan/view/".rawurlencode($v->get_datacenter())."/".rawurlencode($v->get_vlan()),"signal");
 		}
 
 		// Trail

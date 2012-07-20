@@ -64,6 +64,45 @@ class Api_network_get extends ImpulseModel {
 		return $resultSet;
 	}
 
+	public function vlans($datacenter=null) {
+		$sql = "SELECT * FROM api.get_vlans({$this->db->escape($datacenter)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		$resultSet = array();
+		foreach($query->result_array() as $vlan) {
+			$resultSet[] = new Vlan(
+				$vlan['datacenter'],
+				$vlan['vlan'],
+				$vlan['name'],
+				$vlan['comment'],
+				$vlan['date_created'],
+				$vlan['date_modified'],
+				$vlan['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
+	public function vlan($datacenter,$vlan) {
+		$sql = "SELECT * FROM api.get_vlans({$this->db->escape($datacenter)}) WHERE vlan = {$this->db->escape($vlan)}";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		return new Vlan(
+			$query->row()->datacenter,
+			$query->row()->vlan,
+			$query->row()->name,
+			$query->row()->comment,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
 }
 /* End of file api_network_get.php */
 /* Location: ./application/models/API/Network/api_network_get.php */

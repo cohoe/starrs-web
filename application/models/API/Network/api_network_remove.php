@@ -13,6 +13,15 @@ class Api_network_remove extends ImpulseModel {
 		// Check errors
         $this->_check_error($query);
     }
+
+    public function vlan($datacenter, $vlan) {
+        // SQL Query
+		$sql = "SELECT api.remove_vlan({$this->db->escape($datacenter)}, {$this->db->escape($vlan)})";
+		$query = $this->db->query($sql);
+
+		// Check errors
+        $this->_check_error($query);
+    }
 	
 }
 /* End of file api_network_remove.php */

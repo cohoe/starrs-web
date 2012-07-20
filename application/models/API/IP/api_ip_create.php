@@ -38,6 +38,7 @@ class Api_ip_create extends ImpulseModel {
 			$query->row()->dhcp_enable,
 			$query->row()->comment,
 			$query->row()->datacenter,
+			$query->row()->vlan,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

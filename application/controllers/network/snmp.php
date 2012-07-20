@@ -8,7 +8,7 @@ class Snmp extends ImpulseController {
 		$this->_setNavHeader("Network");
 		$this->_setSubHeader("SNMP");
 		$this->_addTrail("Network","/network");
-		$this->_addTrail("SNMP","/snmp");
+		$this->_addTrail("SNMP","/network/snmp");
 		$this->_addScript("/js/snmp.js");
 	}
 
@@ -21,7 +21,7 @@ class Snmp extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		foreach($systems as $nsys) {
-			$this->_addSidebarItem($nsys->get_system_name(),"/snmp/view/".rawurlencode($nsys->get_system_name()),"hdd");
+			$this->_addSidebarItem($nsys->get_system_name(),"/network/snmp/view/".rawurlencode($nsys->get_system_name()),"hdd");
 		}
 
 		$content = $this->load->view('snmp/information',null,true);
@@ -41,15 +41,15 @@ class Snmp extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Trail
-		$this->_addTrail($sys->get_system_name(),"/snmp/view/".rawurlencode($sys->get_system_name()));
+		$this->_addTrail($sys->get_system_name(),"/network/snmp/view/".rawurlencode($sys->get_system_name()));
 
 		// Sidebar
 		$this->_addSidebarHeader("SYSTEMS");
 		foreach($systems as $nsys) {
 			if($nsys->get_system_name() == $sys->get_system_name()) {
-				$this->_addSidebarItem($nsys->get_system_name(),"/snmp/view/".rawurlencode($nsys->get_system_name()),"hdd",1);
+				$this->_addSidebarItem($nsys->get_system_name(),"/network/snmp/view/".rawurlencode($nsys->get_system_name()),"hdd",1);
 			} else {
-				$this->_addSidebarItem($nsys->get_system_name(),"/snmp/view/".rawurlencode($nsys->get_system_name()),"hdd");
+				$this->_addSidebarItem($nsys->get_system_name(),"/network/snmp/view/".rawurlencode($nsys->get_system_name()),"hdd");
 			}
 		}
 
@@ -57,10 +57,10 @@ class Snmp extends ImpulseController {
 			$snmp = $this->api->network->get->snmp($sys->get_system_name());
 
 			// Actions
-			$this->_addAction("CAM Table","/cam/view/".rawurlencode($sys->get_system_name()));
-			$this->_addAction("Switchports","/switchports/view/".rawurlencode($sys->get_system_name()));
-			$this->_addAction("Modify","/snmp/modify/".rawurlencode($sys->get_system_name()));
-			$this->_addAction("Remove","/snmp/remove/".rawurlencode($sys->get_system_name()));
+			$this->_addAction("CAM Table","/network/cam/view/".rawurlencode($sys->get_system_name()));
+			$this->_addAction("Switchports","/network/switchports/view/".rawurlencode($sys->get_system_name()));
+			$this->_addAction("Modify","/network/snmp/modify/".rawurlencode($sys->get_system_name()));
+			$this->_addAction("Remove","/network/snmp/remove/".rawurlencode($sys->get_system_name()));
 
 			// Viewdata
 			$viewData['sys'] = $sys;
@@ -71,7 +71,7 @@ class Snmp extends ImpulseController {
 		}
 		catch(ObjectNotFoundException $e) {
 			// Actions
-			$this->_addAction("Create","/snmp/create/".rawurlencode($sys->get_system_name()));
+			$this->_addAction("Create","/network/snmp/create/".rawurlencode($sys->get_system_name()));
 
 			// Content
 			$content = $this->_renderException($e);
@@ -99,7 +99,7 @@ class Snmp extends ImpulseController {
 				$this->_post('ro'),
 				$this->_post('rw')
 			);
-			$this->_sendClient("/snmp/view/".rawurlencode($sys->get_system_name()));
+			$this->_sendClient("/network/snmp/view/".rawurlencode($sys->get_system_name()));
 			return;
 		}
 
@@ -122,7 +122,7 @@ class Snmp extends ImpulseController {
 		if($this->input->post('confirm')) {
 			try {
 				$this->api->network->remove->snmp($sys->get_system_name());
-				$this->_sendClient("/snmp/view/".rawurlencode($sys->get_system_name()));
+				$this->_sendClient("/network/snmp/view/".rawurlencode($sys->get_system_name()));
 				return;
 			}
 			catch(Exception $e) { $this->_error($e); return; }
@@ -158,7 +158,7 @@ class Snmp extends ImpulseController {
 				$this->_error($err); return;
 			}
 
-			$this->_sendClient("/snmp/view/".rawurlencode($sys->get_system_name()));
+			$this->_sendClient("/network/snmp/view/".rawurlencode($sys->get_system_name()));
 			return;
 		}
 
@@ -172,4 +172,4 @@ class Snmp extends ImpulseController {
 }
 
 /* End of file snmp.php */
-/* Location: ./application/controllers/snmp.php */
+/* Location: ./application/controllers/network/snmp.php */

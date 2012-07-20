@@ -74,10 +74,10 @@
 					<li class="dropdown <?=($header=='Network')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Network <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li <?=($sub=='SNMP')?'class="active"':null;?>><a href="/snmp/">SNMP</a></li>
-							<li <?=($sub=='CAM')?'class="active"':null;?>><a href="/cam/">CAM Tables</a></li>
-							<li <?=($sub=='VLANs')?'class="active"':null;?>><a href="/vlans/">VLANs</a></li>
-							<li <?=($sub=='Switchports')?'class="active"':null;?>><a href="/switchports/">Switchports</a></li>
+							<li <?=($sub=='SNMP')?'class="active"':null;?>><a href="/network/snmp/">SNMP</a></li>
+							<li <?=($sub=='CAM')?'class="active"':null;?>><a href="/network/cam/">CAM Tables</a></li>
+							<li <?=($sub=='VLANs')?'class="active"':null;?>><a href="/network/vlans/">VLANs</a></li>
+							<li <?=($sub=='Switchports')?'class="active"':null;?>><a href="/network/switchports/">Switchports</a></li>
 						</ul>
 					</li>
 					<li <?=($header=='Search')?'class="active"':null;?>><a href="/search">Search</a></li>

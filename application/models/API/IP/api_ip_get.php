@@ -28,10 +28,6 @@ class Api_ip_get extends ImpulseModel {
 		return $query->row()->get_address_from_range;
 	}
 	
-	// @todo: Get subnet addresses (for the lulz)
-	
-	// @todo: Get range addresses (also for the lulz)
-	
 	public function address_range($address) {
         // SQL Query
 		$sql = "SELECT api.get_address_range({$this->db->escape($address)})";
@@ -191,6 +187,7 @@ class Api_ip_get extends ImpulseModel {
 				$subnet['dhcp_enable'],
 				$subnet['comment'],
 				$subnet['datacenter'],
+				$subnet['vlan'],
 				$subnet['date_created'],
 				$subnet['date_modified'],
 				$subnet['last_modifier']
@@ -226,6 +223,7 @@ class Api_ip_get extends ImpulseModel {
 			$query->row()->dhcp_enable,
 			$query->row()->comment,
 			$query->row()->datacenter,
+			$query->row()->vlan,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier
@@ -278,6 +276,38 @@ class Api_ip_get extends ImpulseModel {
 		$this->_check_error($query);
 
 		return $query->row();
+	}
+
+	public function subnetsByVlan($datacenter, $vlan) {
+		// SQL Query
+		$sql = "SELECT * FROM api.get_ip_subnets(null) WHERE datacenter = {$this->db->escape($datacenter)} AND vlan = {$this->db->escape($vlan)}";
+		
+		$query = $this->db->query($sql);
+		
+		// Check error
+		$this->_check_error($query);
+		
+		// Generate results
+		$resultSet = array();
+		foreach($query->result_array() as $subnet) {
+			$resultSet[] = new Subnet(
+				$subnet['name'],
+				$subnet['subnet'],
+				$subnet['zone'],
+				$subnet['owner'],
+				$subnet['autogen'],
+				$subnet['dhcp_enable'],
+				$subnet['comment'],
+				$subnet['datacenter'],
+				$subnet['vlan'],
+				$subnet['date_created'],
+				$subnet['date_modified'],
+				$subnet['last_modifier']
+			);
+			
+		}
+		
+		return $resultSet;
 	}
 }
 /* End of file api_ip_get.php */

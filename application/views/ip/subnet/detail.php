@@ -8,6 +8,8 @@
 		<dd><a href="/dns/zone/view/<?=rawurlencode($snet->get_zone());?>"><?=htmlentities($snet->get_zone());?></a>&nbsp;</dd>
 		<dt>Datacenter</dt>
 		<dd><a href="/datacenter/view/<?=rawurlencode($snet->get_datacenter());?>"><?=htmlentities($snet->get_datacenter());?></a>&nbsp;</dd>
+		<dt>VLAN</dt>
+		<dd><a href="/network/vlan/view/<?=rawurlencode($snet->get_datacenter())."/".rawurlencode($snet->get_vlan());?>"><?=htmlentities($snet->get_vlan());?></a>&nbsp;</dd>
 		<dt>DHCP Enable</dt>
 		<dd><?=htmlentities($snet->get_dhcp_enable());?></dd>
 		<dt>Autogen</dt>

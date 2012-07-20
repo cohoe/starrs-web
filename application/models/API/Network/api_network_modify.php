@@ -17,6 +17,20 @@ class Api_network_modify extends ImpulseModel {
 		// Check errors
         $this->_check_error($query);
     }
+
+	public function vlan($datacenter, $vlan, $field, $value) {
+        // SQL Query
+		$sql = "SELECT api.modify_vlan(
+		    {$this->db->escape($datacenter)},
+		    {$this->db->escape($vlan)},
+		    {$this->db->escape($field)},
+		    {$this->db->escape($value)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check errors
+		$this->_check_error($query);
+	}
 }
 /* End of file api_network_modify.php */
 /* Location: ./application/models/API/Network/api_network_modify.php */

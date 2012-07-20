@@ -8,7 +8,7 @@ class Switchports extends ImpulseController {
 		$this->_setNavHeader("Network");
 		$this->_setSubHeader("Switchports");
 		$this->_addTrail("Network","/network");
-		$this->_addTrail("Switchports","/switchports");
+		$this->_addTrail("Switchports","/network/switchports");
 		$this->_addScript("/js/snmp.js");
 	}
 
@@ -21,7 +21,7 @@ class Switchports extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		foreach($systems as $nsys) {
-			$this->_addSidebarItem($nsys->get_system_name(),"/switchports/view/".rawurlencode($nsys->get_system_name()),"hdd");
+			$this->_addSidebarItem($nsys->get_system_name(),"/network/switchports/view/".rawurlencode($nsys->get_system_name()),"hdd");
 		}
 
 		$content = $this->load->view('switchport/information',null,true);
@@ -41,19 +41,19 @@ class Switchports extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Trail
-		$this->_addTrail($sys->get_system_name(),"/snmp/view/".rawurlencode($sys->get_system_name()));
+		$this->_addTrail($sys->get_system_name(),"/network/snmp/view/".rawurlencode($sys->get_system_name()));
 
 		// Action
-		$this->_addAction("SNMP","/snmp/view/".rawurlencode($sys->get_system_name()),"primary");
-		$this->_addAction("Reload","/switchports/reload/".rawurlencode($sys->get_system_name()));
+		$this->_addAction("SNMP","/network/snmp/view/".rawurlencode($sys->get_system_name()),"primary");
+		$this->_addAction("Reload","/network/switchports/reload/".rawurlencode($sys->get_system_name()));
 
 		// Sidebar
 		$this->_addSidebarHeader("SYSTEMS");
 		foreach($systems as $nsys) {
 			if($nsys->get_system_name() == $sys->get_system_name()) {
-				$this->_addSidebarItem($nsys->get_system_name(),"/switchports/view/".rawurlencode($nsys->get_system_name()),"hdd",1);
+				$this->_addSidebarItem($nsys->get_system_name(),"/network/switchports/view/".rawurlencode($nsys->get_system_name()),"hdd",1);
 			} else {
-				$this->_addSidebarItem($nsys->get_system_name(),"/switchports/view/".rawurlencode($nsys->get_system_name()),"hdd");
+				$this->_addSidebarItem($nsys->get_system_name(),"/network/switchports/view/".rawurlencode($nsys->get_system_name()),"hdd");
 			}
 		}
 
@@ -71,7 +71,7 @@ class Switchports extends ImpulseController {
 			// Content
 			$content = $this->_renderException($e);
 		}
-		catch(Exception $e) { $this->_exit($e); return; }
+		catch(Exception $e) { $content = $this->_renderException($e); }
 
 		// Render
 		$this->_render($content);
@@ -177,7 +177,7 @@ class Switchports extends ImpulseController {
 
           try {
                $this->api->network->reload_switchports($sys->get_system_name());
-               $this->_sendClient("/switchports/view/".rawurlencode($sys->get_system_name()));
+               $this->_sendClient("/network/switchports/view/".rawurlencode($sys->get_system_name()));
                return;
           }
           catch(Exception $e) { $this->_error($e); return; }
@@ -185,4 +185,4 @@ class Switchports extends ImpulseController {
 }
 
 /* End of file snmp.php */
-/* Location: ./application/controllers/snmp.php */
+/* Location: ./application/controllers/network/snmp.php */

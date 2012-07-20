@@ -13,11 +13,12 @@ class Subnet extends ImpulseObject {
 	private $dhcpEnable;
 	private $comment;
 	private $datacenter;
+	private $vlan;
 
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 
-    public function __construct($name, $subnet, $zone, $owner, $autogen, $dhcpEnable, $comment, $datacenter, $dateCreated, $dateModified, $lastModifier) {
+    public function __construct($name, $subnet, $zone, $owner, $autogen, $dhcpEnable, $comment, $datacenter, $vlan, $dateCreated, $dateModified, $lastModifier) {
 		// Chain into the parent
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 		
@@ -30,6 +31,7 @@ class Subnet extends ImpulseObject {
         $this->dhcpEnable = $dhcpEnable;
         $this->comment    = $comment;
         $this->datacenter    = $datacenter;
+	   $this->vlan = $vlan;
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -43,6 +45,7 @@ class Subnet extends ImpulseObject {
     public function get_dhcp_enable()        { return $this->dhcpEnable; }
 	public function get_comment()            { return $this->comment; }
 	public function get_datacenter()            { return $this->datacenter; }
+	public function get_vlan()            { return $this->vlan; }
 
     ////////////////////////////////////////////////////////////////////////
 	// SETTERS
@@ -86,6 +89,11 @@ class Subnet extends ImpulseObject {
 	public function set_datacenter($new) {
 		$this->CI->api->ip->modify->subnet($this->subnet, 'datacenter', $new);
 		$this->datacenter = $new;
+	}
+
+	public function set_vlan($new) {
+		$this->CI->api->ip->modify->subnet($this->subnet, 'vlan', $new);
+		$this->vlan = $new;
 	}
 
     ////////////////////////////////////////////////////////////////////////
