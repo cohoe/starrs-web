@@ -39,3 +39,7 @@
 .navbar-inner .container-fluid {
 	padding-right: 10px;
 }
+
+.imp-hide {
+	display: none;
+}

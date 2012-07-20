@@ -3,7 +3,7 @@
 		<div class="control-group error">
 			<label class="control-label">Alias: </label>
 			<div class="controls">
-				<input type="text" name="alias" />
+				<input type="text" name="alias" />&nbsp;<span id="inuse" class="label label-important imp-hide">In use!</span>
 			</div>
 		</div>
 		<div class="control-group">

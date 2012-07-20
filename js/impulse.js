@@ -123,6 +123,18 @@ $(window).resize(function() {
 	}
 });
 
-$('[name=hostname]').blur(function() {
-	console.debug('trolololo');
+$('[name=hostname],[name=zone],[name=alias]').change(function() {
+	console.debug("Hello!");
+	var hostname = $('[name=hostname]').attr('value');
+	var zone = $('[name=zone]').attr('value');
+	$.get("/dns/records/check_hostname/"+zone+"/"+hostname,function(data) {
+		console.debug("got");
+		if(data != "") {
+			console.debug("inuse");
+			$('#inuse').removeClass('imp-hide');
+		} else {
+			console.debug("free");
+			$('#inuse').addClass('imp-hide');
+		}
+	});
 });
