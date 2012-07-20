@@ -89,6 +89,10 @@ class Records extends DnsController {
 		$recTypes = $this->api->dns->get->recordtypes();
 		$this->load->view('dns/recordselect',array('types'=>$recTypes,'address'=>$address));
 	}
+
+	public function check_hostname($zone=null, $hostname=null) {
+		print $this->api->dns->check_hostname($hostname, $zone);
+	}
 }
 /* End of file records.php */
 /* Location: ./application/controllers/dns/records.php */

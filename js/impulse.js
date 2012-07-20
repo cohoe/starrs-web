@@ -122,3 +122,7 @@ $(window).resize(function() {
 		drawChart();
 	}
 });
+
+$('[name=hostname]').blur(function() {
+	console.debug('trolololo');
+});
