@@ -30,7 +30,7 @@ $('#action-modify').click(function() {
 });
 
 $('#action-reload').click(function() {
-	$('#modal-info-body').html('Loading data from device...<br /><br /><div class="progress progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
+	$('#modal-info-body').html('Loading data from device. This can take a while.<br /><br /><div class="progress active"><div class="bar" style="width: 0%;"></div></div>');
 	$('#modal-info .modal-footer').html('');
 	$('#modal-info').modal('show');
 	pgBar();
@@ -42,7 +42,7 @@ $('#action-reload').click(function() {
 });
 
 $('#action-reloadall').click(function() {
-	$('#modal-info-body').html('Loading data from device...<br /><br /><div class="progress progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
+	$('#modal-info-body').html('Loading data from device. This can take a while.<br /><br /><div class="progress active"><div class="bar" style="width: 0%;"></div></div>');
 	$('#modal-info .modal-footer').html('');
 	$('#modal-info').modal('show');
 	pgBar();
@@ -58,5 +58,5 @@ function pgBar() {
 			$('#modal-info-body .bar').css('width',(width + 1)+'%');
 			width += 1;
 		}
-	},100);
+	},300);
 }

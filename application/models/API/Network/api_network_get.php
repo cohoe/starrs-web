@@ -42,6 +42,28 @@ class Api_network_get extends ImpulseModel {
 		return $query->result_array();
 	}
 
+	public function switchports($system) {
+		$sql = "SELECT * FROM api.get_system_switchports({$this->db->escape($system)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		$resultSet = array();
+		foreach($query->result_array() as $port) {
+			$resultSet[] = new Switchport(
+				$port['system_name'],
+				$port['admin'],
+				$port['oper'],
+				$port['name'],
+				$port['desc'],
+				$port['alias'],
+				$port['timestamp']
+			);
+		}
+
+		return $resultSet;
+	}
+
 }
 /* End of file api_network_get.php */
 /* Location: ./application/models/API/Network/api_network_get.php */
