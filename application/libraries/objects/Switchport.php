@@ -1,33 +1,41 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Switchport {
+class Switchport extends ImpulseObject {
 
 	////////////////////////////////////////////////////////////////////////
 	// MEMBER VARIABLES
 	
 	private $systemName;
 	
-	private $adminState;
-	
-	private $operState;
-	
 	private $name;
 	
 	private $description;
-	
+
 	private $alias;
+
+	private $index;
+
+	private $adminState;
+	
+	private $operState;
+
+	private $trunk;
+	
 	
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	
-	public function __construct($systemName, $adminState, $operState, $name, $description, $alias, $date) {
+	public function __construct($systemName, $name, $description, $alias, $index, $adminState, $operState, $trunk, $dateCreated, $dateModified, $lastModifier) {
+		parent::__construct($dateCreated, $dateModified, $lastModifier);
+
 		$this->systemName = $systemName;
 		$this->adminState = $adminState;
 		$this->operState = $operState;
 		$this->name = $name;
 		$this->description = $description;
 		$this->alias = $alias;
-		$this->date = $date;
+		$this->index = $index;
+		$this->trunk = $trunk;
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -39,11 +47,31 @@ class Switchport {
 	public function get_name()        { return $this->name; }
 	public function get_description() { return $this->description; }
 	public function get_alias()       { return $this->alias; }
-	public function get_date()       { return $this->date; }
+	public function get_index()       { return $this->index; }
+	public function get_trunk()       { return $this->trunk; }
 	
 	////////////////////////////////////////////////////////////////////////
 	// SETTERS
+
+	public function set_admin_state($new) {
+		$this->CI->api->network->modify->switchport($this->systemName, $this->index, 'admin_state', $new);
+		$this->adminState = $new;
+	}
+
+	public function set_oper_state($new) {
+		$this->CI->api->network->modify->switchport($this->systemName, $this->index, 'oper_state', $new);
+		$this->operState = $new;
+	}
 	
+	public function set_alias($new) {
+		$this->CI->api->network->modify->switchport($this->systemName, $this->index, 'alias', $new);
+		$this->alias = $new;
+	}
+
+	public function set_trunk($new) {
+		$this->CI->api->network->modify->switchport($this->systemName, $this->index, 'trunk', $new);
+		$this->trunk = $new;
+	}
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS
 	

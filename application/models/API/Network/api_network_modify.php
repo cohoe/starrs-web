@@ -18,6 +18,20 @@ class Api_network_modify extends ImpulseModel {
         $this->_check_error($query);
     }
 
+    public function switchport($systemName, $index, $field, $value) {
+        // SQL Query
+		$sql = "SELECT api.modify_switchport(
+		    {$this->db->escape($systemName)},
+		    {$this->db->escape($index)},
+		    {$this->db->escape($field)},
+		    {$this->db->escape($value)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check errors
+		$this->_check_error($query);
+    }
+
 	public function vlan($datacenter, $vlan, $field, $value) {
         // SQL Query
 		$sql = "SELECT api.modify_vlan(

@@ -52,12 +52,16 @@ class Api_network_get extends ImpulseModel {
 		foreach($query->result_array() as $port) {
 			$resultSet[] = new Switchport(
 				$port['system_name'],
-				$port['admin'],
-				$port['oper'],
 				$port['name'],
-				$port['desc'],
+				$port['description'],
 				$port['alias'],
-				$port['timestamp']
+				$port['index'],
+				$port['admin_state'],
+				$port['oper_state'],
+				$port['trunk'],
+				$port['date_created'],
+				$port['date_modified'],
+				$port['last_modifier']
 			);
 		}
 

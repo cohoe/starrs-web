@@ -1,6 +1,6 @@
 <div class="span7 well">
 	<h2><a href="/system/view/<?=rawurlencode($sys->get_system_name());?>"><?=htmlentities($sys->get_system_name());?></a>
-	<small><?=($ifs)?$ifs[0]->get_date():"No CAM data";?></small></h2>
+	<small><?=($ifs)?$ifs[0]->get_date_modified():"No CAM data";?></small></h2>
 	<table class="table table-bordered table-striped imp-dnstable">
 		<tr><th>Name</th><th>Admin State</th><th>Operational State</th><th>Alias</th></tr>
 		<?
