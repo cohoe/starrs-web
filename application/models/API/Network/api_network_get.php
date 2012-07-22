@@ -55,7 +55,7 @@ class Api_network_get extends ImpulseModel {
 				$port['name'],
 				$port['description'],
 				$port['alias'],
-				$port['index'],
+				$port['ifindex'],
 				$port['admin_state'],
 				$port['oper_state'],
 				$port['trunk'],
