@@ -31,7 +31,7 @@ class Api_network extends ImpulseModel {
 	}
 
 	public function reload_switchports($systemName) {
-		$sql = "SELECT api.reload_switchports({$this->db->escape($systemName)})";
+		$sql = "SELECT api.reload_network_switchports({$this->db->escape($systemName)})";
 		$query = $this->db->query($sql);
 
 		$this->_check_error($query);

@@ -19,13 +19,13 @@ class Switchport extends ImpulseObject {
 	
 	private $operState;
 
-	private $trunk;
+	private $vlan;
 	
 	
 	////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	
-	public function __construct($systemName, $name, $description, $alias, $index, $adminState, $operState, $trunk, $dateCreated, $dateModified, $lastModifier) {
+	public function __construct($systemName, $name, $description, $alias, $index, $adminState, $operState, $vlan, $dateCreated, $dateModified, $lastModifier) {
 		parent::__construct($dateCreated, $dateModified, $lastModifier);
 
 		$this->systemName = $systemName;
@@ -35,7 +35,7 @@ class Switchport extends ImpulseObject {
 		$this->description = $description;
 		$this->alias = $alias;
 		$this->index = $index;
-		$this->trunk = $trunk;
+		$this->vlan = $vlan;
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ class Switchport extends ImpulseObject {
 	public function get_description() { return $this->description; }
 	public function get_alias()       { return $this->alias; }
 	public function get_index()       { return $this->index; }
-	public function get_trunk()       { return $this->trunk; }
+	public function get_vlan()       { return $this->vlan; }
 	
 	////////////////////////////////////////////////////////////////////////
 	// SETTERS
@@ -68,9 +68,9 @@ class Switchport extends ImpulseObject {
 		$this->alias = $new;
 	}
 
-	public function set_trunk($new) {
-		$this->CI->api->network->modify->switchport($this->systemName, $this->index, 'trunk', $new);
-		$this->trunk = $new;
+	public function set_vlan($new) {
+		$this->CI->api->network->modify->switchport($this->systemName, $this->index, 'vlan', $new);
+		$this->vlan = $new;
 	}
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS

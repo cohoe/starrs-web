@@ -32,7 +32,7 @@ class InterfaceController extends ImpulseController {
 		// Actions
 		$this->_addAction('Add Address',"/address/create/".rawurlencode($mac),"success");
 		if($this->user->isAdmin()) {
-			$this->_addAction("Locate","/cam/locate/".rawurlencode($mac));
+			$this->_addAction("Locate","/network/cam/locate/".rawurlencode($mac));
 		}
 		$this->_addAction('Modify',"/interface/modify/".rawurlencode($mac));
 		$this->_addAction('Remove',"/interface/remove/".rawurlencode($mac));

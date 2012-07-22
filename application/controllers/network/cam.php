@@ -50,6 +50,7 @@ class Cam extends ImpulseController {
 
 		// Actions
 		$this->_addAction("SNMP","/network/snmp/view/".rawurlencode($sys->get_system_name()),"primary");
+		$this->_addAction("Switchports","/network/switchports/view/".rawurlencode($sys->get_system_name()),"primary");
 		$this->_addAction("Reload","/network/cam/reload/".rawurlencode($sys->get_system_name()));
 
 		// Sidebar

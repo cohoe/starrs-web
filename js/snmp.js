@@ -53,7 +53,8 @@ function pgBar() {
 	var width = 0;
 	var pG = setInterval(function() {
 		if(width == 100) {
-			clearInterval(pG);
+			width = 0;
+			// clearInterval(pG);
 		} else {
 			$('#modal-info-body .bar').css('width',(width + 1)+'%');
 			width += 1;

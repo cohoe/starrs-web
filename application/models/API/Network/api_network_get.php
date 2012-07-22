@@ -53,12 +53,12 @@ class Api_network_get extends ImpulseModel {
 			$resultSet[] = new Switchport(
 				$port['system_name'],
 				$port['name'],
-				$port['description'],
+				$port['desc'],
 				$port['alias'],
 				$port['ifindex'],
 				$port['admin_state'],
 				$port['oper_state'],
-				$port['trunk'],
+				$port['vlan'],
 				$port['date_created'],
 				$port['date_modified'],
 				$port['last_modifier']

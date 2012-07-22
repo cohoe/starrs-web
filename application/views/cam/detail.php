@@ -5,7 +5,7 @@
 		<tr><th>MAC Address</th><th>Port Name</th><th>VLAN</th></tr>
 		<?
 		foreach($cam as $c) {
-			print "<tr><td><a href=\"/interface/view/".rawurlencode($c['mac'])."\">{$c['mac']}</a></td><td>{$c['ifname']}</td><td>{$c['vlan']}</td></tr>";
+			print "<tr><td><a href=\"/interface/view/".rawurlencode($c['mac'])."\">{$c['mac']}</a></td><td>{$c['ifname']}</td><td><a href=\"/network/vlan/view/".rawurlencode($sys->get_datacenter())."/".rawurlencode($c['vlan'])."\">{$c['vlan']}</a></td></tr>";
 		}
 		?>
 	</table>

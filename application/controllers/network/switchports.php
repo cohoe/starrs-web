@@ -45,6 +45,7 @@ class Switchports extends ImpulseController {
 
 		// Action
 		$this->_addAction("SNMP","/network/snmp/view/".rawurlencode($sys->get_system_name()),"primary");
+		$this->_addAction("CAM Table","/network/cam/view/".rawurlencode($sys->get_system_name()),"primary");
 		$this->_addAction("Reload","/network/switchports/reload/".rawurlencode($sys->get_system_name()));
 
 		// Sidebar
