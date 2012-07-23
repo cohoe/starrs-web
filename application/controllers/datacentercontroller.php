@@ -42,6 +42,15 @@ class Datacentercontroller extends ImpulseController {
 		foreach($azs as $az) {
 			$this->_addSidebarItem($az->get_zone(),"/availabilityzone/view/".rawurlencode($az->get_datacenter())."/".rawurlencode($az->get_zone()),"folder-open");
 		}
+		$this->_addSidebarHeader("VLANS","/network/vlans/view/");
+		try {
+			$vlans = $this->api->network->get->vlans($dc->get_datacenter());
+		}
+		catch(ObjectNotFoundException $e) { $vlans = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		foreach($vlans as $v) {
+			$this->_addSidebarItem($v->get_vlan(),"/network/vlan/view/".rawurlencode($v->get_datacenter())."/".rawurlencode($v->get_vlan()),"signal");
+		}
 		$this->_addSidebarHeader("SUBNETS","/ip/subnets/view/");
 		try {
 			$snets = $this->api->ip->get->subnets(null);
@@ -52,15 +61,6 @@ class Datacentercontroller extends ImpulseController {
 			if($snet->get_datacenter() == $dc->get_datacenter()) {
 				$this->_addSidebarItem($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()),"tags");
 			}
-		}
-		$this->_addSidebarHeader("VLANS","/network/vlans/view/");
-		try {
-			$vlans = $this->api->network->get->vlans($dc->get_datacenter());
-		}
-		catch(ObjectNotFoundException $e) { $vlans = array(); }
-		catch(Exception $e) { $this->_exit($e); return; }
-		foreach($vlans as $v) {
-			$this->_addSidebarItem($v->get_vlan(),"/network/vlan/view/".rawurlencode($v->get_datacenter())."/".rawurlencode($v->get_vlan()),"signal");
 		}
 
 		// Trail

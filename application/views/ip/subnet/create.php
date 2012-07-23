@@ -37,6 +37,24 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">VLAN: </label>
+				<div class="controls">
+					<select name="vlan">
+						<?php
+						foreach($vlans as $v) {
+							print "<option>".htmlentities($v->get_vlan())."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">	
+				<label class="control-label">DHCP Enable: </label>
+				<div class="controls">
+					<select name="dhcp_enable">
+						<option value="t">Yes</option>
+						<option value="f">No</option>
 			<div class="control-group">	
 				<label class="control-label">DHCP Enable: </label>
 				<div class="controls">

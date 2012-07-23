@@ -47,6 +47,23 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">VLAN: </label>
+				<div class="controls">
+					<select name="vlan">
+						<?php
+						foreach($vlans as $v) {
+							if($v->get_vlan() == $snet->get_vlan()) {
+								print "<option selected>".htmlentities($v->get_vlan())."</option>";
+							}
+							else {
+								print "<option>".htmlentities($v->get_vlan())."</option>";
+							}
+						}
+						?>
+					</select>
+				</div>
+			</div>
 			<div class="control-group">	
 				<label class="control-label">DHCP Enable: </label>
 				<div class="controls">

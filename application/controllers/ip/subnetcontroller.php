@@ -88,7 +88,8 @@ class Subnetcontroller extends ImpulseController {
 					$this->_post('dhcp_enable'),
 					$this->_post('zone'),
 					$this->_post('owner'),
-					$this->_post('datacenter')
+					$this->_post('datacenter'),
+					$this->_post('vlan')
 				);
 
 				$this->_sendClient("/ip/subnet/view/".rawurlencode($snet->get_subnet()));
@@ -107,6 +108,7 @@ class Subnetcontroller extends ImpulseController {
 		}
 		catch(Exception $e) { $this->_error($e); return; }
 		$viewData['dcs'] = $this->api->systems->get->datacenters();
+		$viewData['vlans'] = $this->api->network->get->vlans(null);
 
 		$content = $this->load->view('ip/subnet/create',$viewData,true);
 		$content .= $this->forminfo;
@@ -161,6 +163,10 @@ class Subnetcontroller extends ImpulseController {
 				try { $snet->set_datacenter($this->_post('datacenter')); }
 				catch(Exception $e) { $err[] = $e; }
 			}
+			if($snet->get_vlan() != $this->_post('vlan')) {
+				try { $snet->set_vlan($this->_post('vlan')); }
+				catch(Exception $e) { $err[] = $e; }
+			}
 
 
 			if($err) {
@@ -175,6 +181,7 @@ class Subnetcontroller extends ImpulseController {
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 		$viewData['dcs'] = $this->api->systems->get->datacenters();
+		$viewData['vlans'] = $this->api->network->get->vlans($snet->get_datacenter());
 
 		// Content
 		$content = $this->load->view('ip/subnet/modify',$viewData,true);

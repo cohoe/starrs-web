@@ -6,7 +6,7 @@ require_once(APPPATH . "libraries/core/ImpulseModel.php");
  */
 class Api_ip_create extends ImpulseModel {
 	
-	public function subnet($subnet, $name, $comment, $autogen, $dhcp, $zone, $owner, $datacenter) {
+	public function subnet($subnet, $name, $comment, $autogen, $dhcp, $zone, $owner, $datacenter, $vlan) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_ip_subnet(
 			{$this->db->escape($subnet)},
@@ -16,7 +16,8 @@ class Api_ip_create extends ImpulseModel {
 			{$this->db->escape($dhcp)},
 			{$this->db->escape($zone)},
 			{$this->db->escape($owner)},
-			{$this->db->escape($datacenter)}
+			{$this->db->escape($datacenter)},
+			{$this->db->escape($vlan)}
 		)";
 		
 		$query = $this->db->query($sql);
