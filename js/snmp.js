@@ -61,3 +61,20 @@ function pgBar() {
 		}
 	},300);
 }
+
+$('.switchport-link').click(function() {
+	$.get($(this).attr('href'),function(data) {
+		$('#modal-info-body').html(data);
+		$('#modal-info').modal('show');
+	});
+	return false;
+});
+
+$('.switchport-div').click(function() {
+	var ifId = $(this).attr('id');
+	$.get($('#'+ifId+'-a').attr('href'),function(data) {
+		$('#modal-info-body').html(data);
+		$('#modal-info').modal('show');
+	});
+	return false;
+});

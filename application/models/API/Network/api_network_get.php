@@ -13,7 +13,19 @@ class Api_network_get extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 
-		return $query->result_array();
+		#return $query->result_array();
+		$resultSet = array();
+		foreach($query->result_array() as $cam) {
+			$resultSet[] = new CamEntry(
+				$cam['system_name'],
+				$this->switchport($cam['system_name'],$cam['ifindex']),
+				$cam['mac'],
+				$cam['date_created'],
+				$cam['date_modified'],
+				$cam['last_modifier']
+			);
+		}
+		return $resultSet;
 	}
 	
 	public function snmp($systemName) {
@@ -66,6 +78,27 @@ class Api_network_get extends ImpulseModel {
 		}
 
 		return $resultSet;
+	}
+
+	public function switchport($systemname, $ifindex) {
+		$sql = "SELECT * FROM api.get_network_switchport({$this->db->escape($systemname)}, {$this->db->escape($ifindex)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		return new Switchport(
+			$query->row()->system_name,
+			$query->row()->name,
+			$query->row()->desc,
+			$query->row()->alias,
+			$query->row()->ifindex,
+			$query->row()->admin_state,
+			$query->row()->oper_state,
+			$query->row()->vlan,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
 	}
 
 	public function vlans($datacenter=null) {

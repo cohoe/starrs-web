@@ -77,6 +77,22 @@ class Switchport extends ImpulseObject {
 	
 	////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS
+
+	public function get_css_class() {
+		if($this->adminState=='t') {
+			if($this->operState=='t') {
+				return "up";
+			} else {
+				return "down";
+			}
+		} else {
+			return "disabled";
+		}
+	}
+
+	public function get_number() {
+		return preg_replace('/^(.*?)\/(.*?)$/','$2',$this->name);
+	}
 }
 /* End of file Switchport.php */
 /* Location: ./application/libraries/objects/Switchport.php */

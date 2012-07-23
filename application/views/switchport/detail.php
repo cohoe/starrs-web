@@ -1,15 +1,31 @@
-<div class="span7 well">
-	<h2><a href="/system/view/<?=rawurlencode($sys->get_system_name());?>"><?=htmlentities($sys->get_system_name());?></a>
-	<small><?=($ifs)?$ifs[0]->get_date_modified():"No CAM data";?></small></h2>
-	<table class="table table-bordered table-striped imp-dnstable">
-		<tr><th>Name</th><th>Admin State</th><th>Operational State</th><th>Alias</th></tr>
-		<?
-		$up = "<span class=\"label label-success\">Up</span>";
-		$down = "<span class=\"label label-inverse\">Down</span>";
-		$disabled= "<span class=\"label label-important\">Disabled</span>";
-		foreach($ifs as $if) {
-			print "<tr><td>{$if->get_name()}</td><td>".(($if->get_admin_state()=='t')?$up:$disabled)."</td><td>".(($if->get_oper_state()=='t')?$up:$down)."</td><td>{$if->get_alias()}</td></tr>";
-		}
-		?>
-	</table>
-</div>
+	<dl class="dl-horizontal">
+		<dt>System Name</dt>
+		<dd><?=htmlentities($sp->get_system_name());?></dd>
+		<dt>Interface Name</dt>
+		<dd><?=htmlentities($sp->get_name());?></dd>
+		<dt>Description</dt>
+		<dd><?=htmlentities($sp->get_description());?></dd>
+		<dt>Alias</dt>
+		<dd><?=htmlentities($sp->get_alias());?>&nbsp;</dd>
+		<dt>Index</dt>
+		<dd><?=htmlentities($sp->get_index());?></dd>
+		<dt>State</dt>
+		<dd><?
+		if($sp->get_admin_state()=='t') { 
+			if($sp->get_oper_state()=='t') { 
+				print $ifState['up'];
+			} else { 
+				print $ifState['down'];
+			} 
+		} else {
+			print $ifState['disabled']; 
+		}?></dd>
+		<dt>VLAN</dt>
+		<dd><?=htmlentities($sp->get_vlan());?>&nbsp;</dd>
+		<dt>Date Created</dt>
+		<dd><?=htmlentities($sp->get_date_created());?></dd>
+		<dt>Date Modified</dt>
+		<dd><?=htmlentities($sp->get_date_modified());?></dd>
+		<dt>Last Modifier</dt>
+		<dd><?=htmlentities($sp->get_last_modifier());?></dd>
+	</dl>

@@ -161,6 +161,35 @@ class Impulselib {
 			return null;
 		}
 	}
+
+	public function prepareBlades($sys, $ifs) {
+		switch($sys->get_platform()) {
+			case 'Cisco 2960-48':
+				$blades[0] = new Blade(48,4,2);
+				$blades[1] = new Blade(2,4,2);
+
+				foreach($ifs as $if) {
+			          if(preg_match('/Gi|Fa/',$if->get_name())) {
+			               #$bladeNum = preg_replace('/^(Gi|Fa)(\d)\/(.*?)$/','$2',$if->get_name());
+     	     		     if(preg_match('/Gi/',$if->get_name())) { $bladeNum = 1; }
+			               else { $bladeNum = 0; }
+	          		     if($if->get_index() % 2 == 0) {
+     	               		$blades[$bladeNum]->add_if($if, 1);
+			               } else {
+          			          $blades[$bladeNum]->add_if($if, 0);
+		          	     }
+	          		} else {
+			               $otherIfs[] = $if;
+          			}
+				}
+				break;
+			default:
+				$blades = null;
+				break;
+		}
+
+		return $blades;
+	}
 }
 /* End of file Impulselib.php */
 /* Location: ./application/libraries/Impulselib.php */

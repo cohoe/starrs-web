@@ -43,6 +43,8 @@ class ImpulseLoader {
 		require_once(APPPATH . "libraries/objects/SnmpCred.php");
 		require_once(APPPATH . "libraries/objects/Switchport.php");
 		require_once(APPPATH . "libraries/objects/Vlan.php");
+		require_once(APPPATH . "libraries/objects/CamEntry.php");
+		require_once(APPPATH . "libraries/objects/Blade.php");
 
 		#require_once(APPPATH . "libraries/objects/NetworkSwitchport.php");
 		#require_once(APPPATH . "libraries/objects/NetworkSystem.php");

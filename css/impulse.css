@@ -43,3 +43,23 @@
 .imp-hide {
 	display: none;
 }
+
+.imp-switchport {
+	background-color: green;
+	text-align: center;
+	color: white;
+	border-radius: 4px;
+	padding-top: 5px;
+}
+
+.imp-up {
+	background-color: #468847;
+}
+
+.imp-down {
+	background-color: #333;
+}
+
+.imp-disabled {
+	background-color: #B94A48;
+}

@@ -62,11 +62,15 @@ class Switchports extends ImpulseController {
 			$ifs = $this->api->network->get->switchports($sys->get_system_name());
 
 			// Viewdata
-			$viewData['sys'] = $sys;
-			$viewData['ifs'] = $ifs;
-
-			// Content
-			$content = $this->load->view('switchport/detail',$viewData,true);
+			$viewData['blades'] = $this->impulselib->prepareBlades($sys, $ifs);
+			if($viewData['blades']) {
+				// Content
+				$content = $this->load->view('switchport/overview',$viewData,true);
+			} else {
+				$viewData['ifs'] = $ifs;
+				$viewData['sys'] = $sys;
+				$content = $this->load->view('switchport/oldoverview',$viewData,true);
+			}
 		}
 		catch(ObjectNotFoundException $e) {
 			// Content

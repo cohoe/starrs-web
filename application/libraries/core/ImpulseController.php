@@ -14,6 +14,8 @@ class ImpulseController extends CI_Controller {
 	private $contentList;
 	private $sidebarBlank;
 
+	protected $ifState;
+
 	protected $forminfo;
 
 	private $js = array();
@@ -45,6 +47,11 @@ class ImpulseController extends CI_Controller {
 		$this->_addScript('/js/impulse.js');
 		$this->_addScript('/js/table.js');
 		$this->_addScript('/js/modal.js');
+
+		// Switchport
+		$this->ifState['up'] = "<span class=\"label label-success\">Up</span>";
+		$this->ifState['down'] = "<span class=\"label label-inverse\">Down</span>";
+		$this->ifState['disabled'] = "<span class=\"label label-important\">Disabled</span>";
 
 		// Forminfo
 		$this->forminfo = $this->load->view('core/forminfo',null,true);
