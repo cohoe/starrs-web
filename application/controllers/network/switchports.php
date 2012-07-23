@@ -36,9 +36,15 @@ class Switchports extends ImpulseController {
 		// Instantiate
 		try {
 			$sys = $this->api->systems->get->systemByName($system);
-			$systems = $this->api->systems->get->systemsByFamily('Network',$this->user->getActiveUser());
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
+		
+		try {
+			$systems = $this->api->systems->get->systemsByFamily('Network',$this->user->getActiveUser());
+		}
+		catch(ObjectNotFoundException $e) { $systems = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+
 
 		// Trail
 		$this->_addTrail($sys->get_system_name(),"/network/snmp/view/".rawurlencode($sys->get_system_name()));
@@ -46,7 +52,6 @@ class Switchports extends ImpulseController {
 		// Action
 		$this->_addAction("SNMP","/network/snmp/view/".rawurlencode($sys->get_system_name()),"primary");
 		$this->_addAction("CAM Table","/network/cam/view/".rawurlencode($sys->get_system_name()),"primary");
-		$this->_addAction("Reload","/network/switchports/reload/".rawurlencode($sys->get_system_name()));
 
 		// Sidebar
 		$this->_addSidebarHeader("SYSTEMS");
@@ -63,6 +68,7 @@ class Switchports extends ImpulseController {
 
 			// Viewdata
 			$viewData['blades'] = $this->impulselib->prepareBlades($sys, $ifs);
+			$viewData['sys'] = $sys;
 			if($viewData['blades']) {
 				// Content
 				$content = $this->load->view('switchport/overview',$viewData,true);
@@ -169,24 +175,6 @@ class Switchports extends ImpulseController {
 
 		$this->_renderSimple($content);
 	}
-
-	public function reload($system) {
-          // Decode
-          $system = rawurldecode($system);
-
-          // Instantiate
-          try {
-               $sys = $this->api->systems->get->systemByName($system);
-          }
-          catch(Exception $e) { $this->_exit($e); return; }
-
-          try {
-               $this->api->network->reload_switchports($sys->get_system_name());
-               $this->_sendClient("/network/switchports/view/".rawurlencode($sys->get_system_name()));
-               return;
-          }
-          catch(Exception $e) { $this->_error($e); return; }
-     }
 }
 
 /* End of file snmp.php */

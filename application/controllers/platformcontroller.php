@@ -105,8 +105,8 @@ class Platformcontroller extends ImpulseController {
 				try { $p->set_cpu($this->_post('cpu')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($p->get_memory() != $this->_post('memory')) {
-				try { $p->set_memory($this->_post('memory')); }
+			if($p->get_memory() != $this->input->post('memory')) {
+				try { $p->set_memory($this->input->post('memory')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

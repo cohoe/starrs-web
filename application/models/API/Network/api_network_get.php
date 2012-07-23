@@ -51,11 +51,17 @@ class Api_network_get extends ImpulseModel {
 
 		$this->_check_error($query);
 
-		return $query->result_array();
+		$resultSet = array();
+		foreach($query->result_array() as $port) {
+			$resultSet[] = $this->switchport($port['system_name'],$port['ifindex']);
+		}
+
+		return $resultSet;
 	}
 
 	public function switchports($system) {
 		$sql = "SELECT * FROM api.get_system_switchports({$this->db->escape($system)})";
+		#$sql = "SELECT * FROM api.get_network_switchports({$this->db->escape($system)})";
 		$query = $this->db->query($sql);
 
 		$this->_check_error($query);

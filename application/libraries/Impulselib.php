@@ -183,6 +183,51 @@ class Impulselib {
           			}
 				}
 				break;
+			case 'Cisco 2960-24':
+				$blades[0] = new Blade(24,2,2);
+
+				foreach($ifs as $if) {
+			          if(preg_match('/Gi|Fa/',$if->get_name())) {
+			               $bladeNum = preg_replace('/^(Gi|Fa)(\d)\/(.*?)$/','$2',$if->get_name());
+     	     		     #if(preg_match('/Gi/',$if->get_name())) { $bladeNum = 1; }
+			               #else { $bladeNum = 0; }
+	          		     if($if->get_index() % 2 == 0) {
+     	               		$blades[$bladeNum]->add_if($if, 1);
+			               } else {
+          			          $blades[$bladeNum]->add_if($if, 0);
+		          	     }
+	          		} else {
+			               $otherIfs[] = $if;
+          			}
+				}
+				break;
+			case 'Cisco 6509-CSH':
+				$blades[1] = new Blade(2,2,1);
+				$blades[2] = new Blade(48,4,2);
+				$blades[3] = new Blade(48,4,2);
+				$blades[4] = new Blade(48,4,2);
+				$blades[5] = new Blade(48,4,2);
+				$blades[6] = new Blade(48,4,2);
+				$blades[7] = new Blade(48,4,2);
+				$blades[8] = new Blade(8,8,1);
+				$blades[9] = new Blade(16,8,2);
+
+				foreach($ifs as $if) {
+			          if(preg_match('/Gi|Fa/',$if->get_name())) {
+			               $bladeNum = preg_replace('/^(Gi|Fa)(\d)\/(.*?)$/','$2',$if->get_name());
+						if($blades[$bladeNum]->get_port_groups() == $blades[$bladeNum]->get_int_count()) {
+          			          $blades[$bladeNum]->add_if($if, 0);
+						}
+	          		     elseif($if->get_index() % 2 == 0) {
+     	               		$blades[$bladeNum]->add_if($if, 1);
+			               } else {
+          			          $blades[$bladeNum]->add_if($if, 0);
+		          	     }
+	          		} else {
+			               $otherIfs[] = $if;
+          			}
+				}
+				break;
 			default:
 				$blades = null;
 				break;

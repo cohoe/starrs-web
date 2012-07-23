@@ -126,7 +126,6 @@ class Cam extends ImpulseController {
 		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 
 		// Actions
-		$this->_addAction("Reload All","#");
 
 		try {
 			$ports = $this->api->network->get->interface_ports($mac);
