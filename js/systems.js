@@ -4,22 +4,23 @@ $('#action-remove').click(function() {
 	return false;
 });
 
-$('#modal-confirm-btn').click(function() {
-	console.debug('This function needs to die');
-	$('#modal-confirm').modal('show',false);
-	$.post($('#remove').attr('href'),{ confirm:"confirm" },function(data) {
-		if(!data.match(/^\<script\>/g)) {
-			$('#modal-error-body').html(data);
-			$('#modal-error').modal('show');
-		}
-		else {
-			$(this).html($('#remove').html() + data);
-		}
-	});
-	return false;
-});
+//$('#modal-confirm-btn').click(function() {
+//	console.debug('This function needs to die');
+//	$('#modal-confirm').modal('show',false);
+//	$.post($('#remove').attr('href'),{ confirm:"confirm" },function(data) {
+//		if(!data.match(/^\<script\>/g)) {
+//			$('#modal-error-body').html(data);
+//			$('#modal-error').modal('show');
+//		}
+//		else {
+//			$(this).html($('#remove').html() + data);
+//		}
+//	});
+//	return false;
+//});
 
 $('#action-renewall').click(function() {
+	$('#action-renewall .btn').addClass('disabled');
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-info .modal-header').html("<h1>"+$('#action-renew').text()+"</h1>");
 		$('#modal-info-body').html(data);
@@ -33,6 +34,7 @@ $('#action-renewall').click(function() {
 
 $('.renew').unbind('click');
 $('.renew').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-info .modal-header').html("<h1>"+$('#action-renew').text()+"</h1>");
 		$('#modal-info-body').html(data);
@@ -45,6 +47,7 @@ $('.renew').click(function() {
 });
 
 $('#action-renew').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-info .modal-header').html("<h1>"+$('#action-renew').text()+"</h1>");
 		$('#modal-info-body').html(data);

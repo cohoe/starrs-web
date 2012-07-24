@@ -225,7 +225,7 @@ class ComputerSystem extends ImpulseController {
 				return;
 			}
 			catch (Exception $e) {
-				$this->exit($e);
+				$this->_error($e);
 				return;
 			}
 		}

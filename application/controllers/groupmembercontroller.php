@@ -41,7 +41,7 @@ class Groupmembercontroller extends ImpulseController {
 				$this->_sendClient("/group/view/".rawurlencode($gm->get_group()));
 				return;
 			}
-			catch(Exception $e) { $this->_exit($e); return; }
+			catch(Exception $e) { $this->_error($e); return; }
 		}
 
 		$content = $this->load->view('groupmember/create',array('g'=>$g),true);

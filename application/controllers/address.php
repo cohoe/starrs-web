@@ -118,7 +118,6 @@ class Address extends ImpulseController {
 		// Decode
 		$address = rawurldecode($address);
 		// Instantiate
-
 		try {
 			$intAddr = $this->api->systems->get->interfaceaddressByAddress($address);
 			$int = $this->api->systems->get->interfaceByMac($intAddr->get_mac());
@@ -174,17 +173,21 @@ class Address extends ImpulseController {
 			$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
 
 			// View Data
+			$viewData['intAddr'] = $intAddr;
 			try {
-				$viewData['intAddr'] = $intAddr;
-				$viewData['ints'] = array();
-				$viewData['configs'] = $this->api->dhcp->get->configtypes();
-				$viewData['ranges'] = $this->api->ip->get->ranges();
-				$viewData['classes'] = $this->api->dhcp->get->classes();
-				$viewData['user'] = $this->user;
 				$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveuser());
 				foreach($systems as $sys) {
 					$viewData['ints'] = array_merge($viewData['ints'],$this->api->systems->get->interfacesBySystem($sys->get_system_name()));
 				}
+			}
+			catch(ObjectNotFoundException $e) { $viewData['ints'][] = $int; }
+			catch(Exception $e) { $this->_exit($e); return; }
+
+			try {
+				$viewData['configs'] = $this->api->dhcp->get->configtypes();
+				$viewData['ranges'] = $this->api->ip->get->ranges();
+				$viewData['classes'] = $this->api->dhcp->get->classes();
+				$viewData['user'] = $this->user;
 			}
 			catch (Exception $e) { $this->_exit($e); return; }
 
@@ -200,14 +203,24 @@ class Address extends ImpulseController {
 	public function remove($address) {
 		// Decode
 		$address = rawurldecode($address);
-		
-		// Remove
+
+		// Instantiate
 		try {
 			$intAddr = $this->api->systems->get->interfaceaddressByAddress($address);
-			$this->api->systems->remove->interfaceaddress($intAddr->get_address());
-			$this->_sendClient("/addresses/view/".rawurlencode($intAddr->get_mac()));
+		} 
+		catch(Exception $e) { $this->_error($e); return; }
+		
+		// Remove
+		if($this->input->post('confirm')) {
+			try {
+				$this->api->systems->remove->interfaceaddress($intAddr->get_address());
+				$this->_sendClient("/addresses/view/".rawurlencode($intAddr->get_mac()));
+				return;
+			}
+			catch (Exception $e) { $this->_error($e); return; }
+		} else {
+			$this->_error(new Exception("No cmonfirmation"));
 		}
-		catch (Exception $e) { $this->_error($e); }
 	}
 
 	public function getfromrange() {
