@@ -25,10 +25,11 @@
 					</select>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group error">
 				<label class="control-label">Datacenter: </label>
 				<div class="controls">
 					<select name="datacenter">
+						<option></option>
 						<?php
 						foreach($dcs as $dc) {
 							print "<option>".htmlentities($dc->get_datacenter())."</option>";
@@ -37,15 +38,11 @@
 					</select>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group error">
 				<label class="control-label">VLAN: </label>
 				<div class="controls">
 					<select name="vlan">
-						<?php
-						foreach($vlans as $v) {
-							print "<option>".htmlentities($v->get_vlan())."</option>";
-						}
-						?>
+						<option></option>
 					</select>
 				</div>
 			</div>

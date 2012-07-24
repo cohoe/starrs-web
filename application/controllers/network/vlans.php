@@ -15,7 +15,19 @@ class Vlans extends ImpulseController {
 		$this->_sendClient("/network/vlans/view/");
 	}
 
-	public function view() {
+	public function view($datacenter=null) {
+		if($datacenter) {
+			try {
+				$vlans = $this->api->network->get->vlans($datacenter);
+				foreach($vlans as $vlan) {
+					print $vlan->get_vlan().":";
+				}
+			}
+			catch(ObjectNotFoundException $e) {}
+			catch(Exception $e) { $this->_exit($e); return; }
+			return;
+		}
+
 		// Instantiate
 		try {
 			$dcs = $this->api->systems->get->datacenters();

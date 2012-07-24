@@ -27,3 +27,20 @@ $('#action-adduser').click(function() {
 	});
 	return false;
 });
+
+$('[name=datacenter]').change(function() {
+	var datacenter = $('[name=datacenter] option:selected').text();
+	$.get("/network/vlans/view/"+datacenter,function(data) {
+		var vlans = data.split(":");
+		vlans.pop();
+		$('[name=vlan]').empty();
+		for(var i=0; i<vlans.length; i++) {
+			$('[name=vlan]').append("<option>"+vlans[i]+"</option>");
+		}
+		if($('[name=vlan]').attr('value') != "") {
+			$('[name=vlan]').parent().parent().removeClass("error");
+		} else {
+			$('[name=vlan]').parent().parent().addClass("error");
+		}
+	});
+});
