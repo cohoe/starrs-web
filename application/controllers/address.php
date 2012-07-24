@@ -152,8 +152,8 @@ class Address extends ImpulseController {
 				try { $intAddr->set_mac($this->input->post('mac')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($intAddr->get_renew_date() != $this->input->post('renew_date')) {
-				try { $intAddr->set_renew_date($this->input->post('renew_date')); }
+			if($intAddr->get_renew_date() != $this->_post('renew_date')) {
+				try { $intAddr->set_renew_date($this->_post('renew_date')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 
