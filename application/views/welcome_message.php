@@ -7,7 +7,7 @@
 		-->
 		<h1>STARRS</h1>
 		<h2>System Technology Accounting and Resource Registration Solution</h2>
-		<p>STARRS (the successor to the STARRS project) lets you manage and allocate network resources in numberous complex configurations across your entire organization. Manage systems, interfaces, IP addresses, and DNS records easily without needing to constantly ask your local IT administrators. 
+		<p>STARRS (the successor to the IMPULSE project) lets you manage and allocate network resources in numberous complex configurations across your entire organization. Manage systems, interfaces, IP addresses, and DNS records easily without needing to constantly ask your local IT administrators. 
 	</div>
 	<div class="row-fluid">
 		<div class="span3">
