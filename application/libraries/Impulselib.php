@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * Library of general functions for the operation of IMPULSE
+ * Library of general functions for the operation of STARRS
  */
 class Impulselib {
 

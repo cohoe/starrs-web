@@ -1,6 +1,6 @@
 <?php
 /**
- * This class contains the definition of an IMPULSE Object. Basically any true 
+ * This class contains the definition of an STARRS Object. Basically any true 
  * object in the Impulse system has a date modified, created, and a user who
  * performed the last modification. This class provides simple inheritance to
  * access all that data. 

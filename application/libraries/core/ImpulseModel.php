@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * The replacement IMPULSE controller class. All controllers should extend from this rather than the builtin
+ * The replacement STARRS controller class. All controllers should extend from this rather than the builtin
  */
 abstract class ImpulseModel extends CI_Model {
 

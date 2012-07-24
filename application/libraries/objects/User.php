@@ -18,7 +18,7 @@ class User {
 	// The display name of the current user passed in through Webauth
 	private $displayName;
 
-	// The privilege level as determined by IMPULSE
+	// The privilege level as determined by STARRS
 	private $userLevel;
 
 	// The user that you are viewing

@@ -6,7 +6,7 @@ require_once(APPPATH . "models/API/Management/api_management_remove.php");
 require_once(APPPATH . "models/API/Management/api_management_get.php");
 
 /**
- * The IMPULSE API - the only supported way to interact with the IMPULSE database. 
+ * The STARRS API - the only supported way to interact with the STARRS database. 
  */
 class Api extends ImpulseModel {
 

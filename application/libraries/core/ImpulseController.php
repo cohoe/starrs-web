@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * The replacement IMPULSE controller class. All controllers should extend from this rather than the builtin
+ * The replacement STARRS controller class. All controllers should extend from this rather than the builtin
  */
 class ImpulseController extends CI_Controller {
 
@@ -75,7 +75,7 @@ class ImpulseController extends CI_Controller {
 	protected function _render($content=null) {
 		
 		// Page title
-		$title = "IMPULSE: ".ucfirst($this->uri->segment(1))."/".ucfirst($this->uri->segment(2));
+		$title = "STARRS: ".ucfirst($this->uri->segment(1))."/".ucfirst($this->uri->segment(2));
 	
 		// Basic information about the user should be displayed
 		$userData['userName'] = $this->user->get_user_name();

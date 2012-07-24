@@ -2,13 +2,13 @@
 	<header class="jumbotron subhead" id="overview">
 		<h1>Setup</h1>
 		<p class="lead">
-			IMPULSE is designed to handle a variety of different network setups and reduce administrative overhead. These are the basic objects that you as an administrator need to configure for a new installation. After configuring one or more of each object, proceed on to the next. Attempting to configure objects out of order will result in errors.
+			STARRS is designed to handle a variety of different network setups and reduce administrative overhead. These are the basic objects that you as an administrator need to configure for a new installation. After configuring one or more of each object, proceed on to the next. Attempting to configure objects out of order will result in errors.
 		</p>
 	</header>
 	<section id="siteconfig">
 		<div class="page-header">
 			<h1>Site Configuration 
-				<small>Make IMPULSE fit your needs</small>
+				<small>Make STARRS fit your needs</small>
 			</h1>
 		</div>
 		<div class="container">
@@ -22,7 +22,7 @@
 			</h1>
 		</div>
 		<div class="container">
-			Your systems and subnets that IMPULSE controls will be assigned to one or more datacenters within your organization. Datacenters act as logical containers and can allow you to more accurately organize your resources.
+			Your systems and subnets that STARRS controls will be assigned to one or more datacenters within your organization. Datacenters act as logical containers and can allow you to more accurately organize your resources.
 		</div>
 	</section>
 	<section id="availabilityzones">
@@ -35,6 +35,16 @@
 			Datacenters are broken into several different Availability Zones. These allow you to further classify your resources depending on other organizational criteria. For example, some systems might be in a Production AZ while others are located in a Development AZ.
 		</div>
 	</section>
+	<section id="vlans">
+		<div class="page-header">
+			<h1>VLANs
+				<small>Layer-2 networks</small>
+			</h1>
+		</div>
+		<div class="container">
+			Your hosts in a datacenter are broken up into multiple VLANs across your switching infrastructure. STARRS will track your VLANs so you know where devices are in your network. You can also view switchport assignments and CAM tables based on the VLANs you configure.
+		</div>
+	</section>
 	<section id="keys">
 		<div class="page-header">
 			<h1>DNS Keys
@@ -42,7 +52,7 @@
 			</h1>
 		</div>
 		<div class="container">
-			To manage your DNS zones, IMPULSE uses TSIG keys to send updates to your authoritative nameservers. This allows for easy one-stop management of DNS records in your zones. Users can even create certain records for their own systems if their application depends on them.
+			To manage your DNS zones, STARRS uses TSIG keys to send updates to your authoritative nameservers. This allows for easy one-stop management of DNS records in your zones. Users can even create certain records for their own systems if their application depends on them.
 		</div>
 	</section>
 	<section id="zones">
@@ -52,7 +62,7 @@
 			</h1>
 		</div>
 		<div class="container">
-			DNS zones are regions of the DNS namespace that you have authority over. Should you wish, IMPULSE can be configured to send DDNS updates to your authoritative nameserver to add new records.
+			DNS zones are regions of the DNS namespace that you have authority over. Should you wish, STARRS can be configured to send DDNS updates to your authoritative nameserver to add new records.
 		</div>
 	</section>
 	<section id="subnets">
@@ -62,7 +72,7 @@
 			</h1>
 		</div>
 		<div class="container">
-			This is the core resource that IMPULSE controls. Your subnets are assigned to datacenters, with ranges of IP addresses assigned to Availability Zones. System Interfaces are then configured with addresses from your available subnets. 
+			This is the core resource that STARRS controls. Your subnets are assigned to datacenters, with ranges of IP addresses assigned to Availability Zones. System Interfaces are then configured with addresses from your available subnets. 
 		</div>
 	</section>
 	<section id="classes">

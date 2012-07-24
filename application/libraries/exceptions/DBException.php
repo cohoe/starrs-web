@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * An exception thrown from the IMPULSE core.
+ * An exception thrown from the STARRS core.
  */
 class DBException extends Exception {
 
