@@ -67,7 +67,6 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Management <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li <?=($sub=='Configuration')?'class="active"':null;?>><a href="/configuration/view">Configuration</a></li>
-							<li <?=($sub=='Users')?'class="active"':null;?>><a href="#">Users</a></li>
 							<li <?=($sub=='Groups')?'class="active"':null;?>><a href="/groups/view/">Groups</a></li>
 						</ul>
 					</li>
