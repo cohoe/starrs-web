@@ -256,14 +256,34 @@ class ComputerSystem extends ImpulseController {
 		$this->_addTrail("Systems","/systems/view");
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['owner'] = $this->user->getActiveUser();
-		$viewData['ranges'] = $this->api->ip->get->ranges();
+		try {
+			$viewData['ranges'] = $this->api->ip->get->ranges();
+		}
+		catch(ObjectNotFoundException $e) { $viewData['ranges'] = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
 		$viewData['configs'] = $this->api->dhcp->get->configtypes();
-		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
-		$viewData['groups'] = $this->api->get->groups();
+		try {
+			$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
+		}
+		catch(ObjectNotFoundException $e) { $viewData['zones'] = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$viewData['groups'] = $this->api->get->groups();
+		}
+		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No groups found! Configure at least one group before attempting to create a system")); return; }
+		catch(Exception $e) { $this->_exit($e); return; }
 		if($this->user->isadmin()) {
-			$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
+			try {
+				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
+			}
+			catch(ObjectNotFoundException $e) { $viewData['default_group'] = null; }
+			catch(Exception $e) { $this->_exit($e); return; }
 		} else {
-			$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_USER_GROUP'))->get_group();
+			try {
+				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_USER_GROUP'))->get_group();
+			}
+			catch(ObjectNotFoundException $e) { $viewData['default_group'] = null; }
+			catch(Exception $e) { $this->_exit($e); return; }
 		}
 		$content = $this->load->view('system/quick',$viewData,true);
 		$content .= $this->forminfo;

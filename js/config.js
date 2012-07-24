@@ -9,6 +9,7 @@ $('#action-create').click(function() {
 	return false;
 });
 
+$('#modal-create #create').unbind('click');
 $('#modal-create #create').click(function() {
 	var dataStr = $('#create-form').serialize();
 	var url = $('#create').attr('href');

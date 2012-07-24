@@ -28,23 +28,14 @@ class Systems extends ImpulseController {
 		$this->_addSidebarHeader("SYSTEMS");
 		try {
 			$systems = $this->api->systems->get->systemsByOwner($username);
-			$links = array();
-			foreach($systems as $system) {
-				$links[$system->get_system_name()]['link'] = "/system/view/".rawurlencode($system->get_system_name());
-				$links[$system->get_system_name()]['text'] = $system->get_system_name();
+			foreach($systems as $sys) {
+				$this->_addSidebarItem($sys->get_system_name(),"/system/view/".rawurlencode($sys->get_system_name()),"hdd");
 			}
+		}
+		catch (ObjectNotFoundException $onfe) { }
+		catch(Exception $e) { $this->_exit($e); return; }
 
-			$content = $this->load->view('system/information',null,true);
-			foreach($links as $item) {
-				$this->_addSidebarItem($item['text'],$item['link'],"hdd");
-			}
-		}
-		catch (ObjectNotFoundException $onfe) {
-			$content = $this->load->view('system/information',null,true);
-		}
-		catch (Exception $e) {
-			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
-		}
+		$content = $this->load->view('system/information',null,true);
 
 		// Render page
 		$this->_render($content);

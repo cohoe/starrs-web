@@ -15,6 +15,16 @@
 			There are several key variables that you need to configure to make your installation work. You can find these under Management->Configuration on the navigation bar. Once you have configured these, you can proceed with the basic setup. Failure to configure these variables will result in unintended operation as many key functions depend on them.
 		</div>
 	</section>
+	<section id="groups">
+		<div class="page-header">
+			<h1>Groups
+				<small>User management</small>
+			</h1>
+		</div>
+		<div class="container">
+			Users of STARRS can be a member of multiple groups. Each group may have different configuration options. A default ADMIN and USER group should be specified to allow for users to be easily authenticated. Alternatively an LDAP source may be used.
+		</div>
+	</section>
 	<section id="datacenters">
 		<div class="page-header">
 			<h1>Datacenters

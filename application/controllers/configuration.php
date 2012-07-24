@@ -36,6 +36,7 @@ class Configuration extends ImpulseController {
 		try {
 			$confs = $this->api->get->site_configuration_all();
 		}
+		catch(ObjectNotFoundException $e) { $confs = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Actions
