@@ -1,4 +1,5 @@
 $('#action-remove').click(function() {
+	$(this).addClass("disabled");
 	$('#modal-confirm-btn').attr('href',$('#remove').attr('href'));
 	$('#modal-confirm').modal('show');
 	return false;
@@ -20,6 +21,7 @@ $('#action-remove').click(function() {
 //});
 
 $('#action-renewall').click(function() {
+	$(this).addClass("disabled");
 	$('#action-renewall .btn').addClass('disabled');
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-info .modal-header').html("<h1>"+$('#action-renew').text()+"</h1>");

@@ -63,3 +63,9 @@
 .imp-disabled {
 	background-color: #B94A48;
 }
+
+.imp-loading {
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

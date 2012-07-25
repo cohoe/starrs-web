@@ -1,4 +1,5 @@
 $('#action-create').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-create .modal-header').html("<h2>Create Credentials</h2>");
 		$('#modal-create-body').html(data);
@@ -10,7 +11,7 @@ $('#action-create').click(function() {
 
 $('#modal-create #create').unbind('click');
 $('#modal-create #create').click(function() {
-console.debug('lolol');
+	$(this).addClass("disabled");
      var dataStr = $('#create-form').serialize();
      var url = $('#create').attr('href');
      $.post(url,dataStr,function(data) {
@@ -20,6 +21,7 @@ console.debug('lolol');
 });
 
 $('#action-modify').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
           $('#modal-modify .modal-header').html("<h2>Modify Credentials</h2>");
           $('#modal-modify-body').html(data);
@@ -30,6 +32,7 @@ $('#action-modify').click(function() {
 });
 
 $('#action-reload').click(function() {
+	$(this).addClass("disabled");
 	$('#modal-info-body').html('Loading data from device. This can take a while.<br /><br /><div class="progress active"><div class="bar" style="width: 0%;"></div></div>');
 	$('#modal-info .modal-footer').html('');
 	$('#modal-info').modal('show');
@@ -42,6 +45,7 @@ $('#action-reload').click(function() {
 });
 
 $('#action-reloadall').click(function() {
+	$(this).addClass("disabled");
 	$('#modal-info-body').html('Loading data from device. This can take a while.<br /><br /><div class="progress active"><div class="bar" style="width: 0%;"></div></div>');
 	$('#modal-info .modal-footer').html('');
 	$('#modal-info').modal('show');
@@ -63,6 +67,7 @@ function pgBar() {
 }
 
 $('.switchport-link').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-info-body').html(data);
 		$('#modal-info').modal('show');
@@ -71,6 +76,7 @@ $('.switchport-link').click(function() {
 });
 
 $('.switchport-div').click(function() {
+	$(this).addClass("disabled");
 	var ifId = $(this).attr('id');
 	$.get($('#'+ifId+'-a').attr('href'),function(data) {
 		$('#modal-info-body').html(data);

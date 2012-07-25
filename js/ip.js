@@ -1,5 +1,6 @@
 // IP - Subnet - Create DHCP Option
 $('#action-createdhcpoption').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-create .modal-header').html("<h2>Create Option</h2>");
 		$('#modal-create-body').html(data);
@@ -12,6 +13,7 @@ $('#action-createdhcpoption').click(function() {
 $('#modal-create #create').click(function() {
 	var dataStr = $('#create-form').serialize();
 	var url = $('#create').attr('href');
+	$(this).addClass("disabled");
 	$.post(url,dataStr,function(data) {
 		handlePostRefresh(data);
 	});
@@ -19,6 +21,7 @@ $('#modal-create #create').click(function() {
 });
 
 $('#action-adduser').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-create .modal-header').html("<h2>Add User</h2>");
 		$('#modal-create-body').html(data);

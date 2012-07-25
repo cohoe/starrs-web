@@ -1,5 +1,6 @@
 // Create button on the main page to start the process of creating a record
 $('#action-create').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-select-body').html(data);
 		$('#modal-select').modal('show');
@@ -8,6 +9,7 @@ $('#action-create').click(function() {
 });
 
 $('#createaddress').click(function() {
+	$(this).addClass("disabled");
 	$.get("/dns/zonea/create/"+getObjectFromUrl(),function(data) {
 		$('#modal-select-body').html(data);
 		$('#continue').addClass('hide');
@@ -19,6 +21,7 @@ $('#createaddress').click(function() {
 });
 
 $('#createtxt').click(function() {
+	$(this).addClass("disabled");
 	$.get("/dns/zonetxt/create/"+getObjectFromUrl(),function(data) {
 		$('#modal-select-body').html(data);
 		$('#continue').addClass('hide');
@@ -31,6 +34,7 @@ $('#createtxt').click(function() {
 
 // NS
 $('#createns').click(function() {
+	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
 		$('#modal-select-body').html(data);
 		$('#continue').addClass('hide');
@@ -43,6 +47,7 @@ $('#createns').click(function() {
 
 // Click after selecting a record type from the dropdown in the popup
 $('#continue').click(function() {
+	$(this).addClass("disabled");
 	var createUrl = "/dns/"+$('[name=rectype]').val().toLowerCase()+"/create/"+$('[name=address]').val();
 	$.get(createUrl,function(data) {
 		$('#createrec').attr('href',createUrl);
@@ -54,12 +59,14 @@ $('#continue').click(function() {
 
 // Close the popup and return classes to their defaults
 $('#cancel').click(function() {
+	$(this).addClass("disabled");
 	$('#continue').removeClass('hide');
 	$('#createrec').addClass('hide');
 });
 
 // Click the button to create a record
 $('#createrec').click(function() {
+	$(this).addClass("disabled");
 	var dataStr = $('#create-form').serialize();
 	var url = $('#createrec').attr('href');
 	$.post(url,dataStr,function(data) {

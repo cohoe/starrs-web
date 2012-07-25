@@ -110,6 +110,7 @@ function refresh() {
 
 // Remove Action Button
 $('#action-remove').click(function() {
+	$(this).addClass("disabled");
 	$('#modal-confirm-btn').attr('href',$('#action-remove').attr('href'));
 	$('#modal-confirm').modal('show');
 	return false;
@@ -137,4 +138,15 @@ $('[name=hostname],[name=zone],[name=alias]').change(function() {
 			$('#inuse').addClass('imp-hide');
 		}
 	});
+});
+
+$('[name=submit]').click(function() {
+	$('#modal-loading').modal('show');
+	//return false;
+	$(this).addClass('disabled');
+});
+
+$('.modal-footer .btn').click(function() {
+	$('[name=submit]').removeClass('disabled');
+	$('#modal-loading').modal('hide');
 });
