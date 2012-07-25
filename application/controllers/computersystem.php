@@ -91,15 +91,15 @@ class ComputerSystem extends ImpulseController {
 		if($this->input->post()) {
 			try {
 				$sys = $this->api->systems->create->system(
-					$this->input->post('systemName'),
-					$this->input->post('owner'),
-					$this->input->post('type'),
-					$this->input->post('osName'),
-					$this->input->post('comment'),
-					$this->input->post('group'),
-					$this->input->post('platform'),
-					$this->input->post('asset'),
-					$this->input->post('datacenter')
+					$this->_post('systemName'),
+					$this->_post('owner'),
+					$this->_post('type'),
+					$this->_post('osName'),
+					$this->_post('comment'),
+					$this->_post('group'),
+					$this->_post('platform'),
+					$this->_post('asset'),
+					$this->_post('datacenter')
 				);
 				$this->_sendClient("/system/view/{$sys->get_system_name()}");
 			}
@@ -148,40 +148,40 @@ class ComputerSystem extends ImpulseController {
 	          $err = array();
 	
 	          // Check for which field was modified
-	          if($sys->get_system_name() != $this->input->post('systemName')) {
-	               try { $sys->set_system_name($this->input->post('systemName')); }
+	          if($sys->get_system_name() != $this->_post('systemName')) {
+	               try { $sys->set_system_name($this->_post('systemName')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_type() != $this->input->post('type')) {
-	               try { $sys->set_type($this->input->post('type')); }
+	          if($sys->get_type() != $this->_post('type')) {
+	               try { $sys->set_type($this->_post('type')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_os_name() != $this->input->post('osName')) {
-	               try { $sys->set_os_name($this->input->post('osName')); }
+	          if($sys->get_os_name() != $this->_post('osName')) {
+	               try { $sys->set_os_name($this->_post('osName')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_comment() != $this->input->post('comment')) {
-	               try { $sys->set_comment($this->input->post('comment')); }
+	          if($sys->get_comment() != $this->_post('comment')) {
+	               try { $sys->set_comment($this->_post('comment')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_owner() != $this->input->post('owner')) {
-	               try { $sys->set_owner($this->input->post('owner')); }
+	          if($sys->get_owner() != $this->_post('owner')) {
+	               try { $sys->set_owner($this->_post('owner')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_group() != $this->input->post('group')) {
-	               try { $sys->set_group($this->input->post('group')); }
+	          if($sys->get_group() != $this->_post('group')) {
+	               try { $sys->set_group($this->_post('group')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_datacenter() != $this->input->post('datacenter')) {
-	               try { $sys->set_datacenter($this->input->post('datacenter')); }
+	          if($sys->get_datacenter() != $this->_post('datacenter')) {
+	               try { $sys->set_datacenter($this->_post('datacenter')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_platform() != $this->input->post('platform')) {
-	               try { $sys->set_platform($this->input->post('platform')); }
+	          if($sys->get_platform() != $this->_post('platform')) {
+	               try { $sys->set_platform($this->_post('platform')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($sys->get_asset() != $this->input->post('asset')) {
-	               try { $sys->set_asset($this->input->post('asset')); }
+	          if($sys->get_asset() != $this->_post('asset')) {
+	               try { $sys->set_asset($this->_post('asset')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
 	

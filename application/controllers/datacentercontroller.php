@@ -109,12 +109,12 @@ class Datacentercontroller extends ImpulseController {
 		if($this->input->post()) {
 			$err = array();
 
-			if($dc->get_datacenter() != $this->input->post('name')) {
-				try { $dc->set_datacenter($this->input->post('name')); }
+			if($dc->get_datacenter() != $this->_post('name')) {
+				try { $dc->set_datacenter($this->_post('name')); }
 				catch(Exception $e) { $err[] = $e; }
 			}
-			if($dc->get_comment() != $this->input->post('comment')) {
-				try { $dc->set_comment($this->input->post('comment')); }
+			if($dc->get_comment() != $this->_post('comment')) {
+				try { $dc->set_comment($this->_post('comment')); }
 				catch(Exception $e) { $err[] = $e; }
 			}
 

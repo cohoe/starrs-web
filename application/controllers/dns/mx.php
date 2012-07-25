@@ -23,13 +23,13 @@ class Mx extends DnsController {
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {
-				$aRec = $this->api->dns->get->address($this->input->post('zone'),$this->input->post('address'));
+				$aRec = $this->api->dns->get->address($this->_post('zone'),$this->_post('address'));
 				$mRec = $this->api->dns->create->mx(
 					$aRec->get_hostname(),
-					$this->input->post('zone'),
-					$this->input->post('preference'),
+					$this->_post('zone'),
+					$this->_post('preference'),
 					$ttl,
-					$this->input->post('owner'));
+					$this->_post('owner'));
 				$this->_sendClient("/dns/records/view/".rawurlencode($mRec->get_address()));
 			}
 			catch (Exception $e) { $this->_error($e); return; }
@@ -58,24 +58,24 @@ class Mx extends DnsController {
 
 			$err = array();
 
-			if($mRec->get_hostname() != $this->input->post('hostname')) {
-				try { $mRec->set_hostname($this->input->post('hostname')); }
+			if($mRec->get_hostname() != $this->_post('hostname')) {
+				try { $mRec->set_hostname($this->_post('hostname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($mRec->get_zone() != $this->input->post('zone')) {
-				try { $mRec->get_zone($this->input->post('zone')); }
+			if($mRec->get_zone() != $this->_post('zone')) {
+				try { $mRec->get_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($mRec->get_ttl() != $this->input->post('ttl')) {
-				try { $mRec->set_ttl($this->input->post('ttl')); }
+			if($mRec->get_ttl() != $this->_post('ttl')) {
+				try { $mRec->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($mRec->get_owner() != $this->input->post('owner')) {
-				try { $mRec->set_owner($this->input->post('owner')); }
+			if($mRec->get_owner() != $this->_post('owner')) {
+				try { $mRec->set_owner($this->_post('owner')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($mRec->get_preference() != $this->input->post('preference')) {
-				try { $mRec->set_preference($this->input->post('preference')); }
+			if($mRec->get_preference() != $this->_post('preference')) {
+				try { $mRec->set_preference($this->_post('preference')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

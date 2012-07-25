@@ -76,10 +76,10 @@ class InterfaceController extends ImpulseController {
 		if($this->input->post()) {
 			try {
 				$int = $this->api->systems->create->_interface(
-					$this->input->post('systemName'),
-					$this->input->post('mac'),
-					$this->input->post('name'),
-					$this->input->post('comment')
+					$this->_post('systemName'),
+					$this->_post('mac'),
+					$this->_post('name'),
+					$this->_post('comment')
 				);
 				$this->_sendClient("/interface/view/".rawurlencode($int->get_mac()));
 			}
@@ -116,20 +116,20 @@ class InterfaceController extends ImpulseController {
 
 		if($this->input->post()) {
 			$err = array();
-			if($int->get_system_name() != $this->input->post('systemName')) {
-				try { $int->set_system_name($this->input->post('systemName')); }
+			if($int->get_system_name() != $this->_post('systemName')) {
+				try { $int->set_system_name($this->_post('systemName')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($int->get_name() != $this->input->post('name')) {
-				try { $int->set_name($this->input->post('name')); }
+			if($int->get_name() != $this->_post('name')) {
+				try { $int->set_name($this->_post('name')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($int->get_comment() != $this->input->post('comment')) {
-				try { $int->set_comment($this->input->post('comment')); }
+			if($int->get_comment() != $this->_post('comment')) {
+				try { $int->set_comment($this->_post('comment')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($int->get_mac() != $this->input->post('mac')) {
-				try { $int->set_mac($this->input->post('mac')); }
+			if($int->get_mac() != $this->_post('mac')) {
+				try { $int->set_mac($this->_post('mac')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

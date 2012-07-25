@@ -44,10 +44,10 @@ class Key extends DnsController {
 		if($this->input->post()) {
 			try {
 				$k = $this->api->dns->create->key(
-					$this->input->post('keyname'),
-					$this->input->post('key'),
-					$this->input->post('owner'),
-					$this->input->post('comment')
+					$this->_post('keyname'),
+					$this->_post('key'),
+					$this->_post('owner'),
+					$this->_post('comment')
 				);
 				$this->_sendClient("/dns/key/view/".rawurlencode($k->get_keyname()));
 			}
@@ -72,20 +72,20 @@ class Key extends DnsController {
 
 		if($this->input->post()) {
 			$err = array();
-			if($k->get_keyname() != $this->input->post('keyname')) {
-	               try { $k->set_keyname($this->input->post('keyname')); }
+			if($k->get_keyname() != $this->_post('keyname')) {
+	               try { $k->set_keyname($this->_post('keyname')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($k->get_key() != $this->input->post('key')) {
-	               try { $k->set_key($this->input->post('key')); }
+	          if($k->get_key() != $this->_post('key')) {
+	               try { $k->set_key($this->_post('key')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($k->get_comment() != $this->input->post('comment')) {
-	               try { $k->set_comment($this->input->post('comment')); }
+	          if($k->get_comment() != $this->_post('comment')) {
+	               try { $k->set_comment($this->_post('comment')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
-	          if($k->get_owner() != $this->input->post('owner')) {
-	               try { $k->set_owner($this->input->post('owner')); }
+	          if($k->get_owner() != $this->_post('owner')) {
+	               try { $k->set_owner($this->_post('owner')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
 

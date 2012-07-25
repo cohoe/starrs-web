@@ -23,11 +23,11 @@ class Txt extends DnsController {
 			$ttl = $this->_postToNull('ttl');
 			try {
 				$tRec = $this->api->dns->create->txt(
-					$this->input->post('hostname'),
-					$this->input->post('zone'),
-					$this->input->post('text'),
+					$this->_post('hostname'),
+					$this->_post('zone'),
+					$this->_post('text'),
 					$ttl,
-					$this->input->post('owner'));
+					$this->_post('owner'));
 				$this->_sendClient("/dns/records/view/".rawurlencode($tRec->get_address()));
 			}
 			catch (Exception $e) { $this->_error($e); return; }
@@ -59,24 +59,24 @@ class Txt extends DnsController {
 
 			$err = array();
 
-			if($tRec->get_hostname() != $this->input->post('hostname')) {
-				try { $tRec->set_hostname($this->input->post('hostname')); }
+			if($tRec->get_hostname() != $this->_post('hostname')) {
+				try { $tRec->set_hostname($this->_post('hostname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($tRec->get_zone() != $this->input->post('zone')) {
-				try { $tRec->get_zone($this->input->post('zone')); }
+			if($tRec->get_zone() != $this->_post('zone')) {
+				try { $tRec->get_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($tRec->get_ttl() != $this->input->post('ttl')) {
-				try { $tRec->set_ttl($this->input->post('ttl')); }
+			if($tRec->get_ttl() != $this->_post('ttl')) {
+				try { $tRec->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($tRec->get_owner() != $this->input->post('owner')) {
-				try { $tRec->set_owner($this->input->post('owner')); }
+			if($tRec->get_owner() != $this->_post('owner')) {
+				try { $tRec->set_owner($this->_post('owner')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($tRec->get_text() != $this->input->post('text')) {
-				try { $tRec->set_text($this->input->post('text')); }
+			if($tRec->get_text() != $this->_post('text')) {
+				try { $tRec->set_text($this->_post('text')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

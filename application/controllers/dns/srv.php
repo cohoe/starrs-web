@@ -27,16 +27,16 @@ class Srv extends DnsController {
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {
-				$aRec = $this->api->dns->get->address($this->input->post('zone'),$this->input->post('address'));
+				$aRec = $this->api->dns->get->address($this->_post('zone'),$this->_post('address'));
 				$sRec = $this->api->dns->create->srv(
-					$this->input->post('alias'),
+					$this->_post('alias'),
 					$aRec->get_hostname(),
-					$this->input->post('zone'),
-					$this->input->post('priority'),
-					$this->input->post('weight'),
-					$this->input->post('port'),
+					$this->_post('zone'),
+					$this->_post('priority'),
+					$this->_post('weight'),
+					$this->_post('port'),
 					$ttl,
-					$this->input->post('owner')
+					$this->_post('owner')
 				);
 				$this->_sendClient("/dns/records/view/".rawurlencode($sRec->get_address()));
 			}
@@ -69,36 +69,36 @@ class Srv extends DnsController {
 
 			$err = array();
 
-			if($sRec->get_alias() != $this->input->post('alias')) {
-				try { $sRec->set_alias($this->input->post('alias')); }
+			if($sRec->get_alias() != $this->_post('alias')) {
+				try { $sRec->set_alias($this->_post('alias')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($sRec->get_hostname() != $this->input->post('hostname')) {
-				try { $sRec->set_hostname($this->input->post('hostname')); }
+			if($sRec->get_hostname() != $this->_post('hostname')) {
+				try { $sRec->set_hostname($this->_post('hostname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($sRec->get_zone() != $this->input->post('zone')) {
-				try { $sRec->get_zone($this->input->post('zone')); }
+			if($sRec->get_zone() != $this->_post('zone')) {
+				try { $sRec->get_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($sRec->get_ttl() != $this->input->post('ttl')) {
-				try { $sRec->set_ttl($this->input->post('ttl')); }
+			if($sRec->get_ttl() != $this->_post('ttl')) {
+				try { $sRec->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($sRec->get_owner() != $this->input->post('owner')) {
-				try { $sRec->set_owner($this->input->post('owner')); }
+			if($sRec->get_owner() != $this->_post('owner')) {
+				try { $sRec->set_owner($this->_post('owner')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($sRec->get_priority() != $this->input->post('priority')) {
-				try { $sRec->set_priority($this->input->post('priority')); }
+			if($sRec->get_priority() != $this->_post('priority')) {
+				try { $sRec->set_priority($this->_post('priority')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($sRec->get_weight() != $this->input->post('weight')) {
-				try { $sRec->set_weight($this->input->post('weight')); }
+			if($sRec->get_weight() != $this->_post('weight')) {
+				try { $sRec->set_weight($this->_post('weight')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($sRec->get_port() != $this->input->post('port')) {
-				try { $sRec->set_port($this->input->post('port')); }
+			if($sRec->get_port() != $this->_post('port')) {
+				try { $sRec->set_port($this->_post('port')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

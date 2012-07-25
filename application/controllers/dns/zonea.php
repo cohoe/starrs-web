@@ -15,8 +15,8 @@ class Zonea extends DnsController {
 		if($this->input->post()) {
 			try {
 				$za = $this->api->dns->create->zonea(
-					$this->input->post('zone'),
-					$this->input->post('address'),
+					$this->_post('zone'),
+					$this->_post('address'),
 					$this->_postToNull('ttl')
 				);
 
@@ -91,19 +91,19 @@ class Zonea extends DnsController {
 		}
 		catch(Exception $e) { $this->_error($e); return; }
 		
-		if($this->input->post()) {
+		if($this->_post()) {
 			$err = array();
 
-			if($za->get_ttl() != $this->input->post('ttl')) {
-				try { $za->set_ttl($this->input->post('ttl')); }
+			if($za->get_ttl() != $this->_post('ttl')) {
+				try { $za->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($za->get_address() != $this->input->post('address')) {
-				try { $za->set_address($this->input->post('address')); }
+			if($za->get_address() != $this->_post('address')) {
+				try { $za->set_address($this->_post('address')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($za->get_zone() != $this->input->post('zone')) {
-				try { $za->set_zone($this->input->post('zone')); }
+			if($za->get_zone() != $this->_post('zone')) {
+				try { $za->set_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

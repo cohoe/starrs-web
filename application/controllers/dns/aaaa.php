@@ -22,11 +22,11 @@ class Aaaa extends DnsController {
 			$ttl = $this->_postToNull('ttl');
 			try {
 				$aRec = $this->api->dns->create->address(
-					$this->input->post('address'),
-					$this->input->post('hostname'),
-					$this->input->post('zone'),
+					$this->_post('address'),
+					$this->_post('hostname'),
+					$this->_post('zone'),
 					$ttl,
-					$this->input->post('owner'));
+					$this->_post('owner'));
 				$this->_sendClient("/dns/records/view/".rawurlencode($aRec->get_address()));
 			}
 			catch (Exception $e) { $this->_error($e); return; }
@@ -55,24 +55,24 @@ class Aaaa extends DnsController {
 
 			$err = array();
 
-			if($aRec->get_hostname() != $this->input->post('hostname')) {
-				try { $aRec->set_hostname($this->input->post('hostname')); }
+			if($aRec->get_hostname() != $this->_post('hostname')) {
+				try { $aRec->set_hostname($this->_post('hostname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($aRec->get_zone() != $this->input->post('zone')) {
-				try { $aRec->get_zone($this->input->post('zone')); }
+			if($aRec->get_zone() != $this->_post('zone')) {
+				try { $aRec->get_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($aRec->get_ttl() != $this->input->post('ttl')) {
-				try { $aRec->set_ttl($this->input->post('ttl')); }
+			if($aRec->get_ttl() != $this->_post('ttl')) {
+				try { $aRec->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($aRec->get_owner() != $this->input->post('owner')) {
-				try { $aRec->set_owner($this->input->post('owner')); }
+			if($aRec->get_owner() != $this->_post('owner')) {
+				try { $aRec->set_owner($this->_post('owner')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($aRec->get_address() != $this->input->post('address')) {
-				try { $aRec->set_address($this->input->post('address')); }
+			if($aRec->get_address() != $this->_post('address')) {
+				try { $aRec->set_address($this->_post('address')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

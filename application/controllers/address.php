@@ -65,13 +65,13 @@ class Address extends ImpulseController {
 		if($this->input->post()) {
 			try {
 				$intAddr = $this->api->systems->create->interfaceaddress(
-					$this->input->post('mac'),
-					$this->input->post('address'),
-					$this->input->post('config'),
-					$this->input->post('class'),
-					$this->input->post('isprimary'),
-					$this->input->post('comment'),
-					$this->input->post('renew_date')
+					$this->_post('mac'),
+					$this->_post('address'),
+					$this->_post('config'),
+					$this->_post('class'),
+					$this->_post('isprimary'),
+					$this->_post('comment'),
+					$this->_post('renew_date')
 				);
 				$this->_sendClient("/address/view/".rawurlencode($intAddr->get_address()));
 			}
@@ -127,28 +127,28 @@ class Address extends ImpulseController {
 		if($this->input->post()) {
 			$err = array();
 
-			if($intAddr->get_address() != $this->input->post('address')) {
-				try { $intAddr->set_address($this->input->post('address')); }
+			if($intAddr->get_address() != $this->_post('address')) {
+				try { $intAddr->set_address($this->_post('address')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($intAddr->get_config() != $this->input->post('config')) {
-				try { $intAddr->set_config($this->input->post('config')); }
+			if($intAddr->get_config() != $this->_post('config')) {
+				try { $intAddr->set_config($this->_post('config')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($intAddr->get_class() != $this->input->post('class')) {
-				try { $intAddr->set_class($this->input->post('class')); }
+			if($intAddr->get_class() != $this->_post('class')) {
+				try { $intAddr->set_class($this->_post('class')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($intAddr->get_isprimary() != $this->input->post('isprimary')) {
-				try { $intAddr->set_isprimary($this->input->post('isprimary')); }
+			if($intAddr->get_isprimary() != $this->_post('isprimary')) {
+				try { $intAddr->set_isprimary($this->_post('isprimary')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($intAddr->get_comment() != $this->input->post('comment')) {
-				try { $intAddr->set_comment($this->input->post('comment')); }
+			if($intAddr->get_comment() != $this->_post('comment')) {
+				try { $intAddr->set_comment($this->_post('comment')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($intAddr->get_mac() != $this->input->post('mac')) {
-				try { $intAddr->set_mac($this->input->post('mac')); }
+			if($intAddr->get_mac() != $this->_post('mac')) {
+				try { $intAddr->set_mac($this->_post('mac')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 			if($intAddr->get_renew_date() != $this->_post('renew_date')) {

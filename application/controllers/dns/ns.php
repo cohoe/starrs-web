@@ -27,9 +27,9 @@ class Ns extends DnsController {
 			$ttl = $this->_postToNull('ttl');
 			try {
 				$nRec = $this->api->dns->create->ns(
-					$this->input->post('zone'),
-					$this->input->post('nameserver'),
-					$this->input->post('address'),
+					$this->_post('zone'),
+					$this->_post('nameserver'),
+					$this->_post('address'),
 					$ttl);
 				$this->_sendClient("/dns/records/view/".rawurlencode($nRec->get_address()));
 			}
@@ -59,20 +59,20 @@ class Ns extends DnsController {
 
 			$err = array();
 
-			if($nRec->get_zone() != $this->input->post('zone')) {
-				try { $nRec->get_zone($this->input->post('zone')); }
+			if($nRec->get_zone() != $this->_post('zone')) {
+				try { $nRec->get_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($nRec->get_ttl() != $this->input->post('ttl')) {
-				try { $nRec->set_ttl($this->input->post('ttl')); }
+			if($nRec->get_ttl() != $this->_post('ttl')) {
+				try { $nRec->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($nRec->get_nameserver() != $this->input->post('nameserver')) {
-				try { $nRec->set_nameserver($this->input->post('nameserver')); }
+			if($nRec->get_nameserver() != $this->_post('nameserver')) {
+				try { $nRec->set_nameserver($this->_post('nameserver')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($nRec->get_address() != $this->input->post('address')) {
-				try { $nRec->set_address($this->input->post('address')); }
+			if($nRec->get_address() != $this->_post('address')) {
+				try { $nRec->set_address($this->_post('address')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

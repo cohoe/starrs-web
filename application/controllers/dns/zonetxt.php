@@ -16,8 +16,8 @@ class Zonetxt extends DnsController {
 			try {
 				$zt = $this->api->dns->create->zonetxt(
 					$this->_postToNull('hostname'),
-					$this->input->post('zone'),
-					$this->input->post('text'),
+					$this->_post('zone'),
+					$this->_post('text'),
 					$this->_postToNull('ttl')
 				);
 
@@ -81,19 +81,19 @@ class Zonetxt extends DnsController {
 		if($this->input->post()) {
 			$err = array();
 
-			if($zt->get_ttl() != $this->input->post('ttl')) {
-				try { $zt->set_ttl($this->input->post('ttl')); }
+			if($zt->get_ttl() != $this->_post('ttl')) {
+				try { $zt->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($zt->get_text() != $this->input->post('text')) {
-				try { $zt->set_text($this->input->post('text')); }
+			if($zt->get_text() != $this->_post('text')) {
+				try { $zt->set_text($this->_post('text')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($zt->get_zone() != $this->input->post('zone')) {
-				try { $zt->set_zone($this->input->post('zone')); }
+			if($zt->get_zone() != $this->_post('zone')) {
+				try { $zt->set_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($zt->get_hostname() != $this->input->post('hostname')) {
+			if($zt->get_hostname() != $this->_post('hostname')) {
 				try { $zt->set_hostname($this->_postToNull('hostname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}

@@ -97,21 +97,21 @@ class Zone extends DnsController {
 		if($this->input->post()) {
 			try {
 				$res = $this->api->dns->create->zone(
-					$this->input->post('zone'),
-					$this->input->post('key'),
-					$this->input->post('forward'),
-					$this->input->post('shared'),
-					$this->input->post('owner'),
-					$this->input->post('comment'),
-					$this->input->post('ddns'),
-					$this->input->post('nameserver'),
-					$this->input->post('ttl'),
-					$this->input->post('contact'),
-					$this->input->post('serial'),
-					$this->input->post('refresh'),
-					$this->input->post('retry'),
-					$this->input->post('expire'),
-					$this->input->post('minimum')
+					$this->_post('zone'),
+					$this->_post('key'),
+					$this->_post('forward'),
+					$this->_post('shared'),
+					$this->_post('owner'),
+					$this->_post('comment'),
+					$this->_post('ddns'),
+					$this->_post('nameserver'),
+					$this->_post('ttl'),
+					$this->_post('contact'),
+					$this->_post('serial'),
+					$this->_post('refresh'),
+					$this->_post('retry'),
+					$this->_post('expire'),
+					$this->_post('minimum')
 				);
 				$z = $res['zone'];
 				$this->_sendClient("/dns/zone/view/".rawurlencode($z->get_zone()));
@@ -162,68 +162,68 @@ class Zone extends DnsController {
 		if($this->input->post()) {
 			$err = array();
 			// Zone stuff
-			if($z->get_zone() != $this->input->post('zone')) {
-				try { $z->set_zone($this->input->post('zone')); }
+			if($z->get_zone() != $this->_post('zone')) {
+				try { $z->set_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($z->get_keyname() != $this->input->post('keyname')) {
-				try { $z->set_keyname($this->input->post('keyname')); }
+			if($z->get_keyname() != $this->_post('keyname')) {
+				try { $z->set_keyname($this->_post('keyname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($z->get_forward() != $this->input->post('forward')) {
-				try { $z->set_forward($this->input->post('forward')); }
+			if($z->get_forward() != $this->_post('forward')) {
+				try { $z->set_forward($this->_post('forward')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($z->get_shared() != $this->input->post('shared')) {
-				try { $z->set_shared($this->input->post('shared')); }
+			if($z->get_shared() != $this->_post('shared')) {
+				try { $z->set_shared($this->_post('shared')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($z->get_ddns() != $this->input->post('ddns')) {
+			if($z->get_ddns() != $this->_post('ddns')) {
 				try { $z->set_ddns($this->_post('ddns')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($z->get_comment() != $this->input->post('comment')) {
-				try { $z->set_comment($this->input->post('comment')); }
+			if($z->get_comment() != $this->_post('comment')) {
+				try { $z->set_comment($this->_post('comment')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($z->get_owner() != $this->input->post('owner')) {
-				try { $z->set_owner($this->input->post('owner')); }
+			if($z->get_owner() != $this->_post('owner')) {
+				try { $z->set_owner($this->_post('owner')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 
 			// SOA
 			// Reinstantiate since the zone might have changed
 			$soa = $this->api->dns->get->soa($z->get_zone());
-			if($soa->get_nameserver() != $this->input->post('nameserver')) {
-				try { $soa->set_nameserver($this->input->post('nameserver')); }
+			if($soa->get_nameserver() != $this->_post('nameserver')) {
+				try { $soa->set_nameserver($this->_post('nameserver')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($soa->get_ttl() != $this->input->post('ttl')) {
-				try { $soa->set_ttl($this->input->post('ttl')); }
+			if($soa->get_ttl() != $this->_post('ttl')) {
+				try { $soa->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($soa->get_contact() != $this->input->post('contact')) {
-				try { $soa->set_contact($this->input->post('contact')); }
+			if($soa->get_contact() != $this->_post('contact')) {
+				try { $soa->set_contact($this->_post('contact')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($soa->get_serial() != $this->input->post('serial')) {
-				try { $soa->set_serial($this->input->post('serial')); }
+			if($soa->get_serial() != $this->_post('serial')) {
+				try { $soa->set_serial($this->_post('serial')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($soa->get_refresh() != $this->input->post('refresh')) {
-				try { $soa->set_refresh($this->input->post('refresh')); }
+			if($soa->get_refresh() != $this->_post('refresh')) {
+				try { $soa->set_refresh($this->_post('refresh')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($soa->get_retry() != $this->input->post('retry')) {
-				try { $soa->set_retry($this->input->post('retry')); }
+			if($soa->get_retry() != $this->_post('retry')) {
+				try { $soa->set_retry($this->_post('retry')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($soa->get_expire() != $this->input->post('expire')) {
-				try { $soa->set_expire($this->input->post('expire')); }
+			if($soa->get_expire() != $this->_post('expire')) {
+				try { $soa->set_expire($this->_post('expire')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($soa->get_minimum() != $this->input->post('minimum')) {
-				try { $soa->set_minimum($this->input->post('minimum')); }
+			if($soa->get_minimum() != $this->_post('minimum')) {
+				try { $soa->set_minimum($this->_post('minimum')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 

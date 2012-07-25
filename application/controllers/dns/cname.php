@@ -22,13 +22,13 @@ class Cname extends DnsController {
 		if($this->input->post()) {
 			$ttl = $this->_postToNull('ttl');
 			try {
-				$aRec = $this->api->dns->get->address($this->input->post('zone'),$this->input->post('address'));
+				$aRec = $this->api->dns->get->address($this->_post('zone'),$this->_post('address'));
 				$cRec = $this->api->dns->create->cname(
-					$this->input->post('alias'),
+					$this->_post('alias'),
 					$aRec->get_hostname(),
-					$this->input->post('zone'),
+					$this->_post('zone'),
 					$ttl,
-					$this->input->post('owner')
+					$this->_post('owner')
 				);
 				$this->_sendClient("/dns/records/view/".rawurlencode($cRec->get_address()));
 			}
@@ -58,24 +58,24 @@ class Cname extends DnsController {
 
 			$err = array();
 
-			if($cRec->get_alias() != $this->input->post('alias')) {
-				try { $cRec->set_alias($this->input->post('alias')); }
+			if($cRec->get_alias() != $this->_post('alias')) {
+				try { $cRec->set_alias($this->_post('alias')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($cRec->get_hostname() != $this->input->post('hostname')) {
-				try { $cRec->set_hostname($this->input->post('hostname')); }
+			if($cRec->get_hostname() != $this->_post('hostname')) {
+				try { $cRec->set_hostname($this->_post('hostname')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($cRec->get_zone() != $this->input->post('zone')) {
-				try { $cRec->get_zone($this->input->post('zone')); }
+			if($cRec->get_zone() != $this->_post('zone')) {
+				try { $cRec->get_zone($this->_post('zone')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($cRec->get_ttl() != $this->input->post('ttl')) {
-				try { $cRec->set_ttl($this->input->post('ttl')); }
+			if($cRec->get_ttl() != $this->_post('ttl')) {
+				try { $cRec->set_ttl($this->_post('ttl')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($cRec->get_owner() != $this->input->post('owner')) {
-				try { $cRec->set_owner($this->input->post('owner')); }
+			if($cRec->get_owner() != $this->_post('owner')) {
+				try { $cRec->set_owner($this->_post('owner')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 
