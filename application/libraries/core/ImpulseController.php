@@ -62,7 +62,7 @@ class ImpulseController extends CI_Controller {
 
 	private function _configureTable() {
 		$tmpl = array(
-			'table_open' => '<table class="table table-bordered table-striped">'
+			'table_open' => '<table id="datatable" class="table table-bordered table-striped tablesorter">'
 		);
 
 		$this->table->set_template($tmpl);

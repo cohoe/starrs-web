@@ -67,6 +67,8 @@ $(document).ready(function() {
 	});
 
 	setViewUserSelect();
+
+	$("#datatable").tablesorter(); 
 });
 
 $('#create-form').submit(function() {
