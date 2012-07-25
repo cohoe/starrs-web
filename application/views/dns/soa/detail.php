@@ -1,4 +1,4 @@
-<div class="span6 well">
+<div class="span7 well">
 	<a name="soa"></a><h3>SOA</h3>
 	<dl class="dl-horizontal">
 		<dt>Nameserver</dt>

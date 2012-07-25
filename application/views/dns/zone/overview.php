@@ -6,7 +6,6 @@
 	</div>
 	<div class="row-fluid">
 		<?=$zoneInfo;?>
-		<?=$soaInfo;?>
 	</div>
 	<div class="row-fluid">
 		<a name="ns"></a>

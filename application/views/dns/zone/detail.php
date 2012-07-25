@@ -1,4 +1,4 @@
-<div class="span6 well">
+<div class="well">
 	<a name="zone"></a><h3>Zone</h3>
 	<dl class="dl-horizontal">
 		<dt>Keyname</dt>

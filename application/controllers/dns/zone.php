@@ -24,14 +24,6 @@ class Zone extends DnsController {
 			$zs = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			$zInfo = $this->load->view('dns/zone/detail',array('zone'=>$z),true);
 
-			// SOA
-			try {
-				$soaRec = $this->api->dns->get->soa($z->get_zone());
-				$soaInfo = $this->load->view('dns/soa/detail',array('soaRec'=>$soaRec),true);
-			}
-			catch(ObjectNotFoundException $e) { $soaInfo = "<div class=\"span6 well\"><a name=\"soa\"></a><h3>SOA</h3></div>"; }
-			catch(Exception $e) { $this->_exit($e); return; }
-
 			// A/AAAA Records
 			try {
 				$aRecs = $this->api->dns->get->zoneAddressesByZone($z->get_zone());
@@ -59,7 +51,6 @@ class Zone extends DnsController {
 			// View Data
 			$viewData['zone'] = $z;
 			$viewData['zoneInfo'] = $zInfo;
-			$viewData['soaInfo'] = $soaInfo;
 			$viewData['aRecInfo'] = $aRecInfo;
 			$viewData['tRecInfo'] = $tRecInfo;
 			$viewData['nRecInfo'] = $nRecInfo;
@@ -81,6 +72,7 @@ class Zone extends DnsController {
 			$this->_addAction("Create NS","/dns/ns/create/","success");
 			$this->_addAction("Create Address","/dns/zonea/create/".rawurlencode($z->get_zone()),"success");
 			$this->_addAction("Create TXT","/dns/zonetxt/create/".rawurlencode($z->get_zone()),"success");
+			$this->_addAction("SOA","/dns/soa/view/".rawurlencode($z->get_zone()),"primary");
 			$this->_addAction("Modify Zone","/dns/zone/modify/".rawurlencode($z->get_zone()),"warning");
 			$this->_addAction("Remove","/dns/zone/remove/".rawurlencode($z->get_zone()));
 
@@ -96,24 +88,15 @@ class Zone extends DnsController {
 	public function create() {
 		if($this->input->post()) {
 			try {
-				$res = $this->api->dns->create->zone(
+				$z = $this->api->dns->create->zone(
 					$this->_post('zone'),
 					$this->_post('key'),
 					$this->_post('forward'),
 					$this->_post('shared'),
 					$this->_post('owner'),
 					$this->_post('comment'),
-					$this->_post('ddns'),
-					$this->_post('nameserver'),
-					$this->_post('ttl'),
-					$this->_post('contact'),
-					$this->_post('serial'),
-					$this->_post('refresh'),
-					$this->_post('retry'),
-					$this->_post('expire'),
-					$this->_post('minimum')
+					$this->input->post('ddns')
 				);
-				$z = $res['zone'];
 				$this->_sendClient("/dns/zone/view/".rawurlencode($z->get_zone()));
 			}
 			catch(Exception $e) { $this->_error($e); return; }
@@ -155,7 +138,6 @@ class Zone extends DnsController {
 		// Instantiate
 		try {
 			$z = $this->api->dns->get->zoneByName($zone);
-			$soa = $this->api->dns->get->soa($zone);
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
@@ -178,8 +160,8 @@ class Zone extends DnsController {
 				try { $z->set_shared($this->_post('shared')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-			if($z->get_ddns() != $this->_post('ddns')) {
-				try { $z->set_ddns($this->_post('ddns')); }
+			if($z->get_ddns() != $this->input->post('ddns')) {
+				try { $z->set_ddns($this->input->post('ddns')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
 			if($z->get_comment() != $this->_post('comment')) {
@@ -190,43 +172,6 @@ class Zone extends DnsController {
 				try { $z->set_owner($this->_post('owner')); }
 				catch (Exception $e) { $err[] = $e; }
 			}
-
-			// SOA
-			// Reinstantiate since the zone might have changed
-			$soa = $this->api->dns->get->soa($z->get_zone());
-			if($soa->get_nameserver() != $this->_post('nameserver')) {
-				try { $soa->set_nameserver($this->_post('nameserver')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-			if($soa->get_ttl() != $this->_post('ttl')) {
-				try { $soa->set_ttl($this->_post('ttl')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-			if($soa->get_contact() != $this->_post('contact')) {
-				try { $soa->set_contact($this->_post('contact')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-			if($soa->get_serial() != $this->_post('serial')) {
-				try { $soa->set_serial($this->_post('serial')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-			if($soa->get_refresh() != $this->_post('refresh')) {
-				try { $soa->set_refresh($this->_post('refresh')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-			if($soa->get_retry() != $this->_post('retry')) {
-				try { $soa->set_retry($this->_post('retry')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-			if($soa->get_expire() != $this->_post('expire')) {
-				try { $soa->set_expire($this->_post('expire')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-			if($soa->get_minimum() != $this->_post('minimum')) {
-				try { $soa->set_minimum($this->_post('minimum')); }
-				catch (Exception $e) { $err[] = $e; }
-			}
-
 			if($err) {
 				$this->_error($err); return;
 			}
@@ -242,7 +187,6 @@ class Zone extends DnsController {
 		// View Data
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['z'] = $z;
-		$viewData['soa'] = $soa;
 		
 		// Trail
 		$this->_addTrail($z->get_zone(),"/dns/zone/view/".rawurlencode($z->get_zone()));

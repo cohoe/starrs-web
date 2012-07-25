@@ -35,7 +35,7 @@ class Api_dns_create extends ImpulseModel {
 		);
 	}
 	
-	public function zone($zone, $keyname, $forward, $shared, $owner, $comment, $ddns, $nameserver, $ttl, $contact, $serial, $refresh, $retry, $expire, $minimum) {
+	public function zone($zone, $keyname, $forward, $shared, $owner, $comment, $ddns) {
 		// SQL Query
 		$zonesql = "SELECT * FROM api.create_dns_zone(
 			{$this->db->escape($zone)},
@@ -46,30 +46,13 @@ class Api_dns_create extends ImpulseModel {
 			{$this->db->escape($comment)},
 			{$this->db->escape($ddns)}
 		)";
-		$soasql = "SELECT * FROM api.create_dns_soa(
-			{$this->db->escape($zone)},
-			{$this->db->escape($ttl)},
-			{$this->db->escape($nameserver)},
-			{$this->db->escape($contact)},
-			{$this->db->escape($serial)},
-			{$this->db->escape($refresh)},
-			{$this->db->escape($retry)},
-			{$this->db->escape($expire)},
-			{$this->db->escape($minimum)}
-		)";
-		$this->db->trans_off();
-		$this->db->trans_start();
 		$zonequery = $this->db->query($zonesql);
-		$soaquery = $this->db->query($soasql);
-		$this->db->trans_complete();
 
 		// Check error
 		$this->_check_error($zonequery);
-		$this->_check_error($soaquery);
 		
 		// Return object
-		$objects = array();
-		$objects['zone'] = new DnsZone(
+		return new DnsZone(
 			$zonequery->row()->zone,
 			$zonequery->row()->keyname,
 			$zonequery->row()->forward,
@@ -82,22 +65,29 @@ class Api_dns_create extends ImpulseModel {
 			$zonequery->row()->last_modifier
 		);
 
-		$objects['soa'] = new SoaRecord(
-			$soaquery->row()->zone,
-			$soaquery->row()->nameserver,
-			$soaquery->row()->ttl,
-			$soaquery->row()->contact,
-			$soaquery->row()->serial,
-			$soaquery->row()->refresh,
-			$soaquery->row()->retry,
-			$soaquery->row()->expire,
-			$soaquery->row()->minimum,
-			$soaquery->row()->date_created,
-			$soaquery->row()->date_modified,
-			$soaquery->row()->last_modifier
-		);
-
 		return $objects;
+	}
+
+	public function soa($zone) {
+		$sql = "SELECT * FROM api.create_dns_soa({$this->db->escape($zone)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		return new SoaRecord(
+			$query->row()->zone,
+			$query->row()->nameserver,
+			$query->row()->ttl,
+			$query->row()->contact,
+			$query->row()->serial,
+			$query->row()->refresh,
+			$query->row()->retry,
+			$query->row()->expire,
+			$query->row()->minimum,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
 	}
 
      public function address($address, $hostname, $zone, $ttl, $type, $reverse, $owner) {
