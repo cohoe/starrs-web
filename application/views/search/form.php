@@ -91,6 +91,19 @@
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label">Config: </label>
+				<div class="controls">
+					<select name="config">
+						<option></option>
+						<?php
+						foreach($configs as $c) {
+							print "<option>".htmlentities($c->get_config())."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label">Range: </label>
 				<div class="controls">
 					<select name="range">
