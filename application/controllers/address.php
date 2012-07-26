@@ -174,6 +174,7 @@ class Address extends ImpulseController {
 
 			// View Data
 			$viewData['intAddr'] = $intAddr;
+			$viewData['ints'] = array();
 			try {
 				$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveuser());
 				foreach($systems as $sys) {
