@@ -68,8 +68,8 @@
 				<label class="control-label">DHCP Enable: </label>
 				<div class="controls">
 					<select name="dhcp_enable">
-						<option value=1 <?($snet->get_dhcp_enable()=='t')?"selected":'';?>>Yes</option>
-						<option value=0 <?($snet->get_dhcp_enable()=='f')?"selected":'';?>>No</option>
+						<option value="t" <?($snet->get_dhcp_enable()=='t')?"selected":'';?>>Yes</option>
+						<option value="f" <?($snet->get_dhcp_enable()=='f')?"selected":'';?>>No</option>
 					</select>
 				</div>
 			</div>
