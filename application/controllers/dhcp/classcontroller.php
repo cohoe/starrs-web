@@ -72,6 +72,7 @@ class Classcontroller extends ImpulseController {
 					$this->_post('comment')
 				);
 				$this->_sendClient("/dhcp/class/view/".rawurlencode($c->get_class()));
+				return;
 			}
 			catch(Exception $e) { $this->_error($e); return; }
 		}

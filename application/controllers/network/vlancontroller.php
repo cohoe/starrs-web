@@ -39,9 +39,9 @@ class Vlancontroller extends ImpulseController {
 		$this->_addSidebarHeader("VLANs");
 		foreach($vlans as $vla) {
 			if($vla->get_vlan() == $v->get_vlan()) {
-				$this->_addSidebarItem($vla->get_vlan(),"/network/vlan/view/".rawurlencode($vla->get_datacenter())."/".rawurlencode($vla->get_vlan()),"signal",1);
+				$this->_addSidebarItem($vla->get_vlan()." (".$vla->get_name().")","/network/vlan/view/".rawurlencode($vla->get_datacenter())."/".rawurlencode($vla->get_vlan()),"signal",1);
 			} else {
-				$this->_addSidebarItem($vla->get_vlan(),"/network/vlan/view/".rawurlencode($vla->get_datacenter())."/".rawurlencode($vla->get_vlan()),"signal");
+				$this->_addSidebarItem($vla->get_vlan()." (".$vla->get_name().")","/network/vlan/view/".rawurlencode($vla->get_datacenter())."/".rawurlencode($vla->get_vlan()),"signal");
 			}
 		}
 
