@@ -63,7 +63,7 @@ class Subnetcontroller extends ImpulseController {
 		$content .= "</div>";
 
 		// Sidebar
-		$this->_addSidebarHeader("RANGES");
+		$this->_addSidebarHeader("SUBNETS");
 		foreach($snets as $sn) {
 			if($sn->get_subnet() == $snet->get_subnet()) {
 				$this->_addSidebarItem($sn->get_subnet(),"/ip/subnet/view/".rawurlencode($sn->get_subnet()),"tags",1);
@@ -107,8 +107,16 @@ class Subnetcontroller extends ImpulseController {
 			return;
 		}
 		catch(Exception $e) { $this->_error($e); return; }
-		$viewData['dcs'] = $this->api->systems->get->datacenters();
-		$viewData['vlans'] = $this->api->network->get->vlans(null);
+		try {
+			$viewData['dcs'] = $this->api->systems->get->datacenters();
+		}
+		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No datacenters found. Configure at least one datacenter before creating a subnet")); return; }
+		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$viewData['vlans'] = $this->api->network->get->vlans(null);
+		}
+		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No VLANs found. Configure at least one datacenter before creating a subnet")); return; }
+		catch(Exception $e) { $this->_exit($e); return; }
 
 		$content = $this->load->view('ip/subnet/create',$viewData,true);
 		$content .= $this->forminfo;
