@@ -13,6 +13,12 @@
 					<input type="text" name="key" />
 				</div>
 			</div>
+			<div class="control-group error">
+				<label class="control-label">Encryption Algorithm: </label>
+				<div class="controls">
+					<input type="text" name="enctype" />
+				</div>
+			</div>
 			<div class="control-group warning">	
 				<label class="control-label">Comment: </label>
 				<div class="controls">

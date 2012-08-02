@@ -3,6 +3,8 @@
 	<dl class="dl-horizontal">
 		<dt>Key</dt>
 		<dd><?=htmlentities($key->get_key());?></dd>
+		<dt>Encryption</dt>
+		<dd><?=htmlentities($key->get_enctype());?></dd>
 		<dt>Owner</dt>
 		<dd><?=htmlentities($key->get_owner());?></dd>
 		<dt>Date Created</dt>

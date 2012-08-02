@@ -46,6 +46,7 @@ class Key extends DnsController {
 				$k = $this->api->dns->create->key(
 					$this->_post('keyname'),
 					$this->_post('key'),
+					$this->_post('enctype'),
 					$this->_post('owner'),
 					$this->_post('comment')
 				);
@@ -77,6 +78,10 @@ class Key extends DnsController {
 	          }
 	          if($k->get_key() != $this->_post('key')) {
 	               try { $k->set_key($this->_post('key')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($k->get_enctype() != $this->_post('enctype')) {
+	               try { $k->set_enctype($this->_post('enctype')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
 	          if($k->get_comment() != $this->_post('comment')) {

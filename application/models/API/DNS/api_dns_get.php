@@ -233,6 +233,7 @@ class Api_dns_get extends ImpulseModel {
 			$resultSet[] = new DnsKey(
 				$key['keyname'],
 				$key['key'],
+				$key['enctype'],
 				$key['owner'],
 				$key['comment'],
 				$key['date_created'],
@@ -564,6 +565,7 @@ class Api_dns_get extends ImpulseModel {
 			$resultSet[] = new DnsKey(
 				$key['keyname'],
 				$key['key'],
+				$key['enctype'],
 				$key['owner'],
 				$key['comment'],
 				$key['date_created'],
@@ -586,6 +588,7 @@ class Api_dns_get extends ImpulseModel {
 		return new DnsKey(
 			$query->row()->keyname,
 			$query->row()->key,
+			$query->row()->enctype,
 			$query->row()->owner,
 			$query->row()->comment,
 			$query->row()->date_created,
