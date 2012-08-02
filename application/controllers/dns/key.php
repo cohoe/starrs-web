@@ -73,9 +73,12 @@ class Key extends DnsController {
 		// decode
 		$key = rawurldecode($key);
 
+		// User stuff
+		if($this->user->getActiveUser() == 'all') { $uname = null; } else { $uname = $this->user->getActiveUser(); }
+
 		// Instantiate
 		try {
-			$k = $this->api->dns->get->keyByUserName($this->user->getActiveUser(),$key);
+			$k = $this->api->dns->get->keyByUserName($uname,$key);
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 
