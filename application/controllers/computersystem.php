@@ -114,8 +114,7 @@ class ComputerSystem extends ImpulseController {
 			// View data
 			$viewData['sysTypes'] = $this->api->systems->get->types();
 			$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
-			$viewData['owner'] = ($this->user->getActiveUser() == 'all') ? $this->user->get_user_name() : $this->user->getActiveUser();
-			$viewData['isAdmin'] = $this->user->isAdmin();
+			$viewData['user'] = $this->user;
 			$viewData['platforms'] = $this->api->systems->get->platforms();
 			$viewData['groups'] = $this->api->get->groups();
 			if($this->user->isadmin()) {
@@ -254,8 +253,7 @@ class ComputerSystem extends ImpulseController {
 
 		$this->_setSubHeader("Quick Create");
 		$this->_addTrail("Systems","/systems/view");
-		$viewData['isAdmin'] = $this->user->isAdmin();
-		$viewData['owner'] = $this->user->getActiveUser();
+		$viewData['user'] = $this->user;
 		try {
 			$viewData['ranges'] = $this->api->ip->get->ranges();
 		}

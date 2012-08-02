@@ -72,7 +72,7 @@
 			<div class="control-group">	
 				<label class="control-label">Owner: </label>
 				<div class="controls">
-					<input type="text" name="owner" <?=($isAdmin)?"":"readonly";?> value="<?=htmlentities($owner);?>" />
+					<input type="text" name="owner" <?=($user->isAdmin())?"":"readonly";?> value="<?=htmlentities($user->get_user_name());?>" />
 				</div>
 			</div>
 			<div class="control-group">	

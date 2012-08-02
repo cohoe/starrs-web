@@ -54,8 +54,7 @@ class Key extends DnsController {
 			catch(Exception $e) { $this->_error($e); return; }
 		}
 
-		$viewData['owner'] = $this->user->getActiveUser();
-		$viewData['isAdmin'] = $this->user->isAdmin();
+		$viewData['user'] = $this->user;
 		$content = $this->load->view('dns/key/create',$viewData,true);
 		$this->_render($content);
 	}
