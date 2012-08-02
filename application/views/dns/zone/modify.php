@@ -28,8 +28,8 @@
 				<label class="control-label">Forward: </label>
 				<div class="controls">
 					<select name="forward">
-						<option value=1 <?=($z->get_forward()=='t')?"selected":'';?>>Yes</option>
-						<option value=0 <?=($z->get_forward()=='f')?"selected":'';?>>No</option>
+						<option value='t' <?=($z->get_forward()=='t')?"selected":'';?>>Yes</option>
+						<option value='f' <?=($z->get_forward()=='f')?"selected":'';?>>No</option>
 					</select>
 				</div>
 			</div>
@@ -37,8 +37,8 @@
 				<label class="control-label">Shared: </label>
 				<div class="controls">
 					<select name="shared">
-						<option value=1 <?=($z->get_shared()=='t')?"selected":'';?>>Yes</option>
-						<option value=0 <?=($z->get_shared()=='f')?"selected":'';?>>No</option>
+						<option value='t' <?=($z->get_shared()=='t')?"selected":'';?>>Yes</option>
+						<option value='f' <?=($z->get_shared()=='f')?"selected":'';?>>No</option>
 					</select>
 				</div>
 			</div>

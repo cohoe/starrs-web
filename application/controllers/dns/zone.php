@@ -24,13 +24,28 @@ class Zone extends DnsController {
 			$zs = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			$zInfo = $this->load->view('dns/zone/detail',array('zone'=>$z),true);
 
+			// Actions
+			$this->_addAction("Create NS","/dns/ns/create/","success");
+
 			// A/AAAA Records
-			try {
-				$aRecs = $this->api->dns->get->zoneAddressesByZone($z->get_zone());
-				$aRecInfo = $this->_renderDnsTable($aRecs, "Zone A/AAAA");
-			}
-			catch(ObjectNotFoundException $e) { $aRecInfo = $this->_renderDnsTable(array(),"Zone A/AAAA",1); }
-			catch(Exception $e) { $this->_exit($e); return; }
+			if($z->get_forward() == 't') {
+				try {
+					$aRecs = $this->api->dns->get->zoneAddressesByZone($z->get_zone());
+					$aRecInfo = $this->_renderDnsTable($aRecs, "Zone A/AAAA");
+				}
+				catch(ObjectNotFoundException $e) { $aRecInfo = $this->_renderDnsTable(array(),"Zone A/AAAA",1); }
+				catch(Exception $e) { $this->_exit($e); return; }
+				// TXT Records
+				try {
+					$tRecs = $this->api->dns->get->zoneTextsByZone($z->get_zone());
+					$tRecInfo = $this->_renderDnsTable($tRecs, "Zone TXT");
+				}
+				catch(ObjectNotFoundException $e) { $tRecInfo = $this->_renderDnsTable(array(),"Zone TXT",1); }
+				catch(Exception $e) { $this->_exit($e); return; }
+
+				$this->_addAction("Create Address","/dns/zonea/create/".rawurlencode($z->get_zone()),"success");
+				$this->_addAction("Create TXT","/dns/zonetxt/create/".rawurlencode($z->get_zone()),"success");
+			} else { $aRecInfo = null; $tRecInfo = null; }
 
 			// NS Records
 			try {
@@ -38,14 +53,6 @@ class Zone extends DnsController {
 				$nRecInfo = $this->_renderDnsTable($nRecs, "Zone NS");
 			}
 			catch(ObjectNotFoundException $e) { $nRecInfo = $this->_renderDnsTable(array(),"NS",1); }
-			catch(Exception $e) { $this->_exit($e); return; }
-
-			// TXT Records
-			try {
-				$tRecs = $this->api->dns->get->zoneTextsByZone($z->get_zone());
-				$tRecInfo = $this->_renderDnsTable($tRecs, "Zone TXT");
-			}
-			catch(ObjectNotFoundException $e) { $tRecInfo = $this->_renderDnsTable(array(),"Zone TXT",1); }
 			catch(Exception $e) { $this->_exit($e); return; }
 
 			// View Data
@@ -68,10 +75,6 @@ class Zone extends DnsController {
 				}
 			}
 
-			// Actions
-			$this->_addAction("Create NS","/dns/ns/create/","success");
-			$this->_addAction("Create Address","/dns/zonea/create/".rawurlencode($z->get_zone()),"success");
-			$this->_addAction("Create TXT","/dns/zonetxt/create/".rawurlencode($z->get_zone()),"success");
 			$this->_addAction("SOA","/dns/soa/view/".rawurlencode($z->get_zone()),"primary");
 			$this->_addAction("Modify Zone","/dns/zone/modify/".rawurlencode($z->get_zone()),"warning");
 			$this->_addAction("Remove","/dns/zone/remove/".rawurlencode($z->get_zone()));
