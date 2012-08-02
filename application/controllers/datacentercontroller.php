@@ -49,7 +49,7 @@ class Datacentercontroller extends ImpulseController {
 		catch(ObjectNotFoundException $e) { $vlans = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 		foreach($vlans as $v) {
-			$this->_addSidebarItem($v->get_vlan(),"/network/vlan/view/".rawurlencode($v->get_datacenter())."/".rawurlencode($v->get_vlan()),"signal");
+			$this->_addSidebarItem($v->get_vlan()." (".$v->get_name().")","/network/vlan/view/".rawurlencode($v->get_datacenter())."/".rawurlencode($v->get_vlan()),"signal");
 		}
 		$this->_addSidebarHeader("SUBNETS","/ip/subnets/view/");
 		try {
