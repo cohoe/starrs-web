@@ -13,6 +13,12 @@
 					<input type="text" name="key" value="<?=$key->get_key();?>"/>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">Encryption Algorithm: </label>
+				<div class="controls">
+					<input type="text" name="enctype" value="<?=$key->get_enctype();?>"/>
+				</div>
+			</div>
 			<div class="control-group warning">	
 				<label class="control-label">Comment: </label>
 				<div class="controls">

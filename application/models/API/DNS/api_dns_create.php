@@ -6,11 +6,12 @@ require_once(APPPATH . "libraries/core/ImpulseModel.php");
  */
 class Api_dns_create extends ImpulseModel {
 	
-	public function key($keyname, $key, $owner, $comment) {
+	public function key($keyname, $key, $enctype, $owner, $comment) {
 		// SQL Query
 		$sql = "SELECT * FROM api.create_dns_key(
 			{$this->db->escape($keyname)},
 			{$this->db->escape($key)},
+			{$this->db->escape($enctype)},
 			{$this->db->escape($owner)},
 			{$this->db->escape($comment)}
 		)";
@@ -27,6 +28,7 @@ class Api_dns_create extends ImpulseModel {
 		return new DnsKey(
 			$query->row()->keyname,
 			$query->row()->key,
+			$query->row()->enctype,
 			$query->row()->owner,
 			$query->row()->comment,
 			$query->row()->date_created,
