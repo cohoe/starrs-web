@@ -16,9 +16,10 @@ class Welcome extends DnsController {
 		catch (Exception $e) { $this->_exit($e); return; }
 		$this->_addSidebarHeader("KEYS");
 		try {
-			$keys = $this->api->dns->get->keysByOwner($this->user->getActiveUser());
+			if($this->user->getActiveUser() == 'all') { $uname = null; } else { $uname = $this->user->getActiveUser(); }
+			$keys = $this->api->dns->get->keysByOwner($uname);
 			foreach($keys as $key) {
-				$this->_addSidebarItem($key->get_keyname(),"#","move");
+				$this->_addSidebarItem($key->get_keyname(),"/dns/key/view/".rawurlencode($key->get_keyname()),"check");
 			}
 		}
 		catch (ObjectNotFoundException $e) {}

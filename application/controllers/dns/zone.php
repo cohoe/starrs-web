@@ -103,7 +103,8 @@ class Zone extends DnsController {
 		}
 
 		try {
-			$viewData['keys'] = $this->api->dns->get->keysByUser($this->user->getActiveUser());
+			if($this->user->getActiveUser() == 'all') { $uname = null; } else { $uname = $this->user->getActiveUser(); }
+			$viewData['keys'] = $this->api->dns->get->keysByUser($uname);
 		}
 		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No Keys configured! Setup at least one DNS key before attempting to create a zone.")); return; }
 		catch(Exception $e) { $this->_error($e); return; }
@@ -178,7 +179,8 @@ class Zone extends DnsController {
 		}
 
 		try {
-			$viewData['keys'] = $this->api->dns->get->keysByUser($this->user->getActiveUser());
+			if($this->user->getActiveUser() == 'all') { $uname = null; } else { $uname = $this->user->getActiveUser(); }
+			$viewData['keys'] = $this->api->dns->get->keysByUser($uname);
 		}
 		catch(ObjectNotFoundException $e) {}
 		catch(Exception $e) { $this->_error($e); return; }
