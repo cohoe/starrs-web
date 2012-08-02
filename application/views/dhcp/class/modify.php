@@ -16,7 +16,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/dhcp/class/view/<?=rawurlencode($c->get_class());?>"><button class="btn">Cancel</button></a>
+					<a href="/dhcp/class/view/<?=rawurlencode($c->get_class());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

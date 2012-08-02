@@ -101,7 +101,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Modify Address" class="btn btn-primary" />
-					<a href="/address/view/<?=rawurlencode($intAddr->get_address());?>"><button class="btn">Cancel</button></a>
+					<a href="/address/view/<?=rawurlencode($intAddr->get_address());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

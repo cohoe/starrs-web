@@ -16,7 +16,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Datacenter" class="btn btn-primary" />
-					<a href="/datacenters/view"><button class="btn">Cancel</button></a>
+					<a href="/datacenters/view" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

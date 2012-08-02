@@ -16,7 +16,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Class" class="btn btn-primary" />
-					<a href="/dhcp/classes/view"><button class="btn">Cancel</button></a>
+					<a href="/dhcp/classes/view" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

@@ -85,7 +85,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Subnet" class="btn btn-primary" />
-					<a href="/ip/subnets/view"><button class="btn">Cancel</button></a>
+					<a href="/ip/subnets/view" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

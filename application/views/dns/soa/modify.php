@@ -52,7 +52,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/dns/soa/view/<?=rawurlencode($soa->get_zone());?>"><button class="btn">Cancel</button></a>
+					<a href="/dns/soa/view/<?=rawurlencode($soa->get_zone());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

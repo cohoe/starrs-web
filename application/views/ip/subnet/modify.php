@@ -97,7 +97,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/ip/subnet/view/<?=rawurlencode($snet->get_subnet())?>"><button class="btn">Cancel</button></a>
+					<a href="/ip/subnet/view/<?=rawurlencode($snet->get_subnet())?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

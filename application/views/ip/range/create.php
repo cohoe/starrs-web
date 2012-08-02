@@ -65,7 +65,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Range" class="btn btn-primary" />
-					<a href="/ip/subnet/view/<?=rawurlencode($snet->get_subnet());?>"><button class="btn">Cancel</button></a>
+					<a href="/ip/subnet/view/<?=rawurlencode($snet->get_subnet());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 			<input type="hidden" name="datacenter" value="<?=$snet->get_datacenter();?>" />

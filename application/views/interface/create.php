@@ -39,7 +39,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Interface" class="btn btn-primary" />
-					<a href="/interfaces/view/<?=rawurlencode($systemName);?>"><button class="btn">Cancel</button></a>
+					<a href="/interfaces/view/<?=rawurlencode($systemName);?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

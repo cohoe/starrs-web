@@ -32,7 +32,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Group" class="btn btn-primary" />
-					<a href="/groups/view"><button class="btn">Cancel</button></a>
+					<a href="/groups/view" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

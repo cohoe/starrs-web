@@ -80,7 +80,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/ip/range/view/<?=rawurlencode($r->get_name());?>"><button class="btn">Cancel</button></a>
+					<a href="/ip/range/view/<?=rawurlencode($r->get_name());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 			<input type="hidden" name="datacenter" value="<?=$r->get_datacenter();?>" />
