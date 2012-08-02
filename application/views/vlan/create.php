@@ -22,7 +22,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create VLAN" class="btn btn-primary" />
-					<a href="/network/vlans/view"><button class="btn">Cancel</button></a>
+					<a href="/network/vlans/view" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

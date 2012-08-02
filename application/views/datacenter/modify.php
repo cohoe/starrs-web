@@ -16,7 +16,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/datacenter/view/<?=rawurlencode($dc->get_datacenter());?>"><button class="btn">Cancel</button></a>
+					<a href="/datacenter/view/<?=rawurlencode($dc->get_datacenter());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

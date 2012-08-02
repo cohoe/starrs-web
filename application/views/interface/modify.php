@@ -39,7 +39,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/interface/view/<?=rawurlencode($int->get_mac());?>"><button class="btn">Cancel</button></a>
+					<a href="/interface/view/<?=rawurlencode($int->get_mac());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

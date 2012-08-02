@@ -32,7 +32,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Modify Group" class="btn btn-primary" />
-					<a href="/group/view/<?=rawurlencode($g->get_group());?>"><button class="btn">Cancel</button></a>
+					<a href="/group/view/<?=rawurlencode($g->get_group());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

@@ -40,7 +40,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Platform" class="btn btn-primary" />
-					<a href="/platforms/view"><button class="btn">Cancel</button></a>
+					<a href="/platforms/view" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

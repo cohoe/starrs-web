@@ -114,7 +114,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/system/view/<?=rawurlencode($sys->get_system_name());?>"><button class="btn">Cancel</button></a>
+					<a href="/system/view/<?=rawurlencode($sys->get_system_name());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

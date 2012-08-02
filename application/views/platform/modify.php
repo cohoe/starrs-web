@@ -44,7 +44,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/platform/view/<?=rawurlencode($p->get_platform_name());?>"><button class="btn">Cancel</button></a>
+					<a href="/platform/view/<?=rawurlencode($p->get_platform_name());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

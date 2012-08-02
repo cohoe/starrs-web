@@ -62,7 +62,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Zone" class="btn btn-primary" />
-					<a href="/dns/zone"><button class="btn">Cancel</button></a>
+					<a href="/dns/zone" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

@@ -38,7 +38,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Save" class="btn btn-primary" />
-					<a href="/network/vlan/view/<?=rawurlencode($v->get_datacenter());?>/<?=rawurlencode($v->get_vlan());?>"><button class="btn">Cancel</button></a>
+					<a href="/network/vlan/view/<?=rawurlencode($v->get_datacenter());?>/<?=rawurlencode($v->get_vlan());?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

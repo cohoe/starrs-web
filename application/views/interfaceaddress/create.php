@@ -91,7 +91,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Address" class="btn btn-primary" />
-					<a href="/addresses/view/<?=rawurlencode($mac);?>"><button class="btn">Cancel</button></a>
+					<a href="/addresses/view/<?=rawurlencode($mac);?>" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>

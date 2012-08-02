@@ -28,7 +28,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create Key" class="btn btn-primary" />
-					<a href="/dns/keys"><button class="btn">Cancel</button></a>
+					<a href="/dns/keys" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>
