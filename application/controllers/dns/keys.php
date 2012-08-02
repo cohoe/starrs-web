@@ -15,10 +15,8 @@ class Keys extends DnsController {
 	public function view($username=null)
 	{
 		$username = rawurldecode($username);
-		// Username cannot be null in this case
-		if(!$username) {
-			$username = $this->user->getActiveUser();
-		}
+		// Usernallme cannot be null in this case
+		if($this->user->getActiveUser() == 'all') { $username = null; } else { $username = $this->user->getActiveUser(); }
 
 		// Breadcrumb trail
 		$this->_addTrail('DNS',"/dns");
@@ -33,7 +31,7 @@ class Keys extends DnsController {
 
 		// Generate content
 		try {
-			$keys = $this->api->dns->get->keysByUser($this->user->getActiveUser());
+			$keys = $this->api->dns->get->keysByUser($username);
 			foreach($keys as $k) {
 				$this->_addSidebarItem($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()),"check");
 			}

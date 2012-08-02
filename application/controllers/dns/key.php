@@ -18,24 +18,33 @@ class Key extends DnsController {
 		$key = rawurldecode($key);
 
 		try {
-			$this->_addSidebarHeader("KEYS");
-			$keys = $this->api->dns->get->keysByUser($this->user->getActiveUser());
+			$dk = $this->api->dns->get->keyByUserName(null, $key);
+		}
+		catch(Exception $e) { $this->_error($e); return; }
+
+		$this->_addSidebarHeader("KEYS");
+		try { 
+			if($this->user->getActiveUser() == 'all') { $uname = null; } else { $uname = $this->user->getActiveUser(); }
+			$keys = $this->api->dns->get->keysByUser($uname);
 			foreach($keys as $k) {
 				if($k->get_keyname() == $key) {
 					$this->_addSidebarItem($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()),"check",1);
-					// Actions
-					$this->_addAction("Modify","/dns/key/modify/".rawurlencode($k->get_keyname()));
-					$this->_addAction("Remove","/dns/key/remove/".rawurlencode($k->get_keyname()));
-
-					// Breadcrumb
-					$this->_addTrail($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()));
-					$content = $this->load->view('dns/key/detail',array("key"=>$k),true);
 				} else {
 					$this->_addSidebarItem($k->get_keyname(),"/dns/key/view/".rawurlencode($k->get_keyname()),"check");
 				}
 			}
-		}	
+		}
+		catch(ObjectNotFoundException $e) {}
 		catch(Exception $e) { $this->_exit($e); return; }
+
+		// Actions
+		$this->_addAction("Modify","/dns/key/modify/".rawurlencode($dk->get_keyname()));
+		$this->_addAction("Remove","/dns/key/remove/".rawurlencode($dk->get_keyname()));
+
+		// Breadcrumb
+		$this->_addTrail($dk->get_keyname(),"/dns/key/view/".rawurlencode($dk->get_keyname()));
+		$content = $this->load->view('dns/key/detail',array("key"=>$dk),true);
+
 		// Render
 		$this->_render($content);
 	}

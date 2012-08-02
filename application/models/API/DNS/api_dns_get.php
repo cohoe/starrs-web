@@ -577,7 +577,7 @@ class Api_dns_get extends ImpulseModel {
 		return $resultSet;
 	}
 
-	public function keyByUserName($user=nulll,$key=null) {
+	public function keyByUserName($user=null,$key=null) {
 		// SQL
 		$sql = "SELECT * FROM api.get_dns_keys({$this->db->escape($user)}) WHERE keyname = {$this->db->escape($key)}";
 		$query = $this->db->query($sql);
