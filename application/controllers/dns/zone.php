@@ -109,8 +109,7 @@ class Zone extends DnsController {
 		catch(Exception $e) { $this->_error($e); return; }
 		
 		// View Data
-		$viewData['owner'] = $this->user->getActiveUser();
-		$viewData['isAdmin'] = $this->user->isAdmin();
+		$viewData['user'] = $this->user;
 
 		// Content
 		$content = $this->load->view('dns/zone/create',$viewData,true);

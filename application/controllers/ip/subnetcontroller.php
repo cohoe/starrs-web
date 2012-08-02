@@ -97,8 +97,7 @@ class Subnetcontroller extends ImpulseController {
 			catch(Exception $e) { $this->_error($e); return; }
 		}
 
-		$viewData['owner'] = $this->user->getActiveUser();
-		$viewData['isAdmin'] = $this->user->isAdmin();
+		$viewData['user'] = $this->user;
 		try {
 			$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 		}
