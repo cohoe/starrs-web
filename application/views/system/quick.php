@@ -85,7 +85,7 @@
 			<div class="control-group">	
 				<div class="form-actions">
 					<input type="submit" name="submit" value="Create System" class="btn btn-primary" />
-					<a href="/systems/view"><button class="btn">Cancel</button></a>
+					<a href="/systems/view" class="btn">Cancel</a>
 				</div>
 			</div>
 		</fieldset>
