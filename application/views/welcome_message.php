@@ -11,15 +11,15 @@
 	</div>
 	<div class="row-fluid">
 		<div class="span3">
-			<h2>Quick Create</h2>
-			<p>Use this to get a system registered on the network quickly with a simple configuration</p>
-			<p><a class="btn btn-primary" href="/system/quickcreate">Quick Create &raquo;</a></p>
+			<h2>Get Started</h2>
+			<p>Look at your currently registered systems and create a new one if you don't have any.</p>
+			<p><a class="btn btn-primary" href="/systems/view">Get Started &raquo;</a></p>
 		</div><!--/span-->
-		<div class="span3">
-			<h2>Learn More</h2>
-			<p>Read the documentation about the various system configurations that STARRS supports and some of the more fancy features that can be of use.</p>
-			<p><a class="btn btn-primary" href="http://www.grantcohoe.com/projects/starrs">Learn More &raquo;</a></p>
-		</div><!--/span-->
+				<div class="span3">
+					<h2>Learn More</h2>
+					<p>Read the documentation about the various system configurations that STARRS supports and some of the more fancy features that can be of use.</p>
+					<p><a class="btn btn-primary" href="http://www.grantcohoe.com/projects/starrs">Learn More &raquo;</a></p>
+				</div>
 		<div class="span3">
 			<h2>Setup</h2>
 			<p>For administrators, see how to get started with a basic STARRS installation</p>
@@ -33,6 +33,6 @@
 				<li><a href="https://www.github.com/cohoe/impulse">DB/API</a></li>
 				<li><a href="https://www.github.com/ryansb/ish">Shell</a></li>
 			</ul>
-		</div><!--/span-->
+		</div>
 	</div><!--/row-->
 </div><!--/span-->
