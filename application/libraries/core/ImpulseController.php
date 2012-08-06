@@ -75,7 +75,10 @@ class ImpulseController extends CI_Controller {
 	protected function _render($content=null) {
 		
 		// Page title
-		$title = "STARRS: ".ucfirst($this->uri->segment(1))."/".ucfirst($this->uri->segment(2));
+		$title = "STARRS: ";
+		foreach($this->uri->segment_array() as $seg) {
+			$title .= ucfirst(rawurldecode($seg))."/";
+		}
 	
 		// Basic information about the user should be displayed
 		$userData['userName'] = $this->user->get_user_name();
