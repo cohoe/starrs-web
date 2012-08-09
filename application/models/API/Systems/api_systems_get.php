@@ -79,6 +79,43 @@ class Api_systems_get extends ImpulseModel {
 		return $resultSet;
 	}
 
+	public function systemsByType($type=null,$owner=null) {
+		// Check if should be null
+		if($owner == "all") {
+			$owner = null;
+		}
+		// SQL Query
+		$sql = "SELECT * FROM api.get_systems({$this->db->escape($owner)}) AS sysdata JOIN api.get_system_types() AS typedata ON sysdata.type = typedata.type WHERE sysdata.type = {$this->db->escape($type)} ORDER BY system_name;";
+		$query = $this->db->query($sql);
+
+		// Check Error
+		$this->_check_error($query);
+
+		// Generate results
+		$resultSet = array();
+		foreach($query->result_array() as $system) {
+			// Instantiate a new system object
+			$resultSet[] = new System(
+				$system['system_name'],
+				$system['owner'],
+				$system['comment'],
+				$system['type'],
+				$system['family'],
+				$system['os_name'],
+				$system['platform_name'],
+				$system['asset'],
+				$system['group'],
+				$system['datacenter'],
+				$system['date_created'],
+				$system['date_modified'],
+				$system['last_modifier']				
+			);
+		}
+
+		// Return results
+		return $resultSet;
+	}
+
 	public function systemsByDatacenter($datacenter=null) {
 		// SQL Query
 		$sql = "SELECT * FROM api.get_systems(null) AS sysdata JOIN api.get_system_types() AS typedata ON sysdata.type = typedata.type WHERE datacenter = {$this->db->escape($datacenter)} ORDER BY system_name;";

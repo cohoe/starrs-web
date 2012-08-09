@@ -21,11 +21,6 @@
 		<link href="/css/docs.css" rel="stylesheet">
 		<link href="/css/impulse.css" rel="stylesheet">
 		
-		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-
 		<link rel="shortcut icon" href="/ico/favicon.ico">
 		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
 		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
@@ -51,5 +46,11 @@
 		<script src="/js/bootstrap.min.js"></script>
 		<script src="/js/jquery.tablesorter.min.js"></script>
 		<?=$scripts;?>
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="/js/iefix.js"></script>
+		<![endif]-->
+
 	</body>
 </html>
