@@ -45,6 +45,8 @@ class ImpulseLoader {
 		require_once(APPPATH . "libraries/objects/Vlan.php");
 		require_once(APPPATH . "libraries/objects/CamEntry.php");
 		require_once(APPPATH . "libraries/objects/Blade.php");
+		require_once(APPPATH . "libraries/objects/LibvirtHost.php");
+		require_once(APPPATH . "libraries/objects/LibvirtDomain.php");
 
 		#require_once(APPPATH . "libraries/objects/NetworkSwitchport.php");
 		#require_once(APPPATH . "libraries/objects/NetworkSystem.php");

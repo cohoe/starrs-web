@@ -30,6 +30,9 @@ class ComputerSystem extends ImpulseController {
 		$this->_addTrail("$systemName","/system/view/".rawurlencode($systemName));
 
 		// Actions
+		if($sys->get_type() == 'Virtual Machine') {
+			$this->_addAction("Manage","#","primary");
+		}
 		$this->_addAction('Add Interface',"/interface/create/".rawurlencode($systemName),"success");
 		if($sys->get_family() == 'Network') {
 			$this->_addAction("CAM Table","/network/cam/view/".rawurlencode($systemName));
@@ -82,6 +85,11 @@ class ComputerSystem extends ImpulseController {
 
 		$this->_addSidebarHeader("DNS RECORDS");
 		$this->_addSidebarDnsRecords($recs);
+
+		if($sys->get_type() == 'VM Host') {
+			$this->_addSidebarHeader("DOMAINS");
+
+		}
 
 		// Render page
 		$this->_render($content);
