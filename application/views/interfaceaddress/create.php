@@ -47,8 +47,8 @@
 				<label class="control-label">Primary: </label>
 				<div class="controls">
 					<select name="isprimary">
-						<option value=1>Yes</option>
-						<option value=0>No</option>
+						<option value='t'>Yes</option>
+						<option value='f'>No</option>
 					</select>
 				</div>
 			</div>

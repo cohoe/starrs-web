@@ -23,7 +23,7 @@ class Search extends ImpulseController {
 				$result['system_name'] = "<a href=\"/system/view/".rawurlencode($result['system_name'])."\">{$result['system_name']}</a>";
 				$result['group'] = "<a href=\"/group/view/".rawurlencode($result['group'])."\">{$result['group']}</a>";
 				$result['mac'] = "<a href=\"/interface/view/".rawurlencode($result['mac'])."\">{$result['mac']}</a>";
-				$result['hostname'] = "<a href=\"/dns/view/".rawurlencode($result['address'])."\">{$result['hostname']}</a>";
+				$result['hostname'] = "<a href=\"/dns/records/view/".rawurlencode($result['address'])."\">{$result['hostname']}</a>";
 				$result['address'] = "<a href=\"/address/view/".rawurlencode($result['address'])."\">{$result['address']}</a>";
 				$result['zone'] = "<a href=\"/dns/zone/view/".rawurlencode($result['zone'])."\">{$result['zone']}</a>";
 				$result['range'] = "<a href=\"/ip/range/view/".rawurlencode($result['range'])."\">{$result['range']}</a>";

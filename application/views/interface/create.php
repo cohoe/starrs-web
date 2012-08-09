@@ -1,23 +1,6 @@
 	<form method="POST" class="form-horizontal well span9" id="create-form">
 		<fieldset>
 			<legend>Create Interface</legend>
-			<div class="control-group">
-				<label class="control-label">System Name: </label>
-				<div class="controls">
-					<select name="systemName">
-						<?php
-						foreach($systems as $sys) {
-							if($sys->get_system_name() == $systemName) {
-								print "<option value=\"".htmlentities($sys->get_system_name())."\" selected>".htmlentities($sys->get_system_name())."</option>";
-							}
-							else {
-								print "<option value=\"".htmlentities($sys->get_system_name())."\">".htmlentities($sys->get_system_name())."</option>";
-							}
-						}
-						?>
-					</select>
-				</div>
-			</div>
 			<div class="control-group error">
 				<label class="control-label">Interface Name: </label>
 				<div class="controls">
