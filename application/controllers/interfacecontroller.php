@@ -76,7 +76,7 @@ class InterfaceController extends ImpulseController {
 		if($this->input->post()) {
 			try {
 				$int = $this->api->systems->create->_interface(
-					$this->_post('systemName'),
+					$sys->get_system_name(),
 					$this->_post('mac'),
 					$this->_post('name'),
 					$this->_post('comment')
