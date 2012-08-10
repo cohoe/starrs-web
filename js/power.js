@@ -9,7 +9,7 @@ $('#action-power').click(function() {
 
 $('#execute').click(function() {
      $(this).addClass("disabled");
-	console.debug($('#action-power').attr('href'));
+	$('#modal-loading').modal('show');
 	$.post($('#action-power').attr('href')+"/"+$('[name=action]').val(),function(data) {
 		handlePostRefresh(data);
 	});
