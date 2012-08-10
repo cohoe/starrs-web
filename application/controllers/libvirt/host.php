@@ -7,7 +7,8 @@ class Host extends ImpulseController {
 		parent::__construct();
 		$this->_setNavHeader("Cloud");
 		$this->_setSubHeader("Hosts");
-		$this->_addTrail("Header","#");
+		$this->_addTrail("Libvirt","/libvirt");
+		$this->_addTrail("Hosts","/libvirt/hosts/view/");
 	}
 
 	public function index() {

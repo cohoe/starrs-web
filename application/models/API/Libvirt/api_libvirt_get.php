@@ -6,6 +6,7 @@
 class Api_libvirt_get extends ImpulseModel {
 
 	public function hosts($username) {
+		if($username == 'all') { $username = null; }
 		$sql = "SELECT * FROM api.get_hosts({$this->db->escape($username)}) as hostdata WHERE api.get_system_owner(hostdata.system_name) = {$this->db->escape($username)}";
 		$query = $this->db->query($sql);
 
@@ -27,6 +28,7 @@ class Api_libvirt_get extends ImpulseModel {
 	}
 
 	public function host($name,$user) {
+		if($user == 'all') { $user = null; }
 		$sql = "SELECT * FROM api.get_hosts({$this->db->escape($user)}) WHERE system_name = {$this->db->escape($name)}";
 		$query = $this->db->query($sql);
 
