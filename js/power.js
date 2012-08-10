@@ -1,5 +1,5 @@
 $('#action-power').click(function() {
-     $(this).addClass("disabled");
+     $('#action-power .btn-warning').addClass("disabled");
      $.get($(this).attr('href'),function(data) {
           $('#modal-select-body').html(data);
           $('#modal-select').modal('show');
