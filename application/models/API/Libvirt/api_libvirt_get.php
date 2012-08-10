@@ -67,7 +67,7 @@ class Api_libvirt_get extends ImpulseModel {
 	}
 
 	public function domain($host, $domain) {
-		$sql = "SELECT * FROM api.get_host_domains({$this->db->escape($host)}) WHERE domain_name = {$this->db->escape($domain)}";
+		$sql = "SELECT * FROM api.get_host_domain({$this->db->escape($host)}, {$this->db->escape($domain)})";
 		$query = $this->db->query($sql);
 
 		$this->_check_error($query);
