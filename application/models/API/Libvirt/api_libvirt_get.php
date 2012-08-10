@@ -55,6 +55,8 @@ class Api_libvirt_get extends ImpulseModel {
 			$resultSet[] = new LibvirtDomain(
 				$dom['host_name'],
 				$dom['domain_name'],
+				$dom['state'],
+				$dom['definition'],
 				$dom['date_created'],
 				$dom['date_modified'],
 				$dom['last_modifier']
@@ -62,6 +64,23 @@ class Api_libvirt_get extends ImpulseModel {
 		}
 
 		return $resultSet;
+	}
+
+	public function domain($host, $domain) {
+		$sql = "SELECT * FROM api.get_host_domains({$this->db->escape($host)}) WHERE domain_name = {$this->db->escape($domain)}";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		return new LibvirtDomain(
+			$query->row()->host_name,
+			$query->row()->domain_name,
+			$query->row()->state,
+			$query->row()->definition,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
 	}
 }
 /* End of file api_libvirt_get.php */

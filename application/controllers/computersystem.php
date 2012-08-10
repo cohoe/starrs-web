@@ -20,6 +20,13 @@ class ComputerSystem extends ImpulseController {
 			$sys = $this->api->systems->get->systemByName($systemName);
 			$p = $this->api->systems->get->platformByName($sys->get_platform());
 		}
+		catch(ObjectNotFoundException $e) {
+			$content = $this->_renderException($e);
+			$this->_addAction("Create","/system/create/".rawurlencode($systemName));
+			$this->_sidebarBlank();
+			$this->_render($content);
+			return;
+		}
 		catch(Exception $e) {
 			$this->_exit($e);
 			return;
@@ -31,7 +38,24 @@ class ComputerSystem extends ImpulseController {
 
 		// Actions
 		if($sys->get_type() == 'Virtual Machine') {
-			$this->_addAction("Manage","#","primary");
+			try {
+				$hs = $this->api->libvirt->get->hosts($this->user->getActiveUser());
+				foreach($hs as $h) {
+					try {
+						$doms = $this->api->libvirt->get->domainsByHost($h->get_system_Name());
+						foreach($doms as $dom) {
+							if($dom->get_system_name() == $sys->get_system_name()) {
+								$this->_addAction("Manage","/libvirt/domain/view/".rawurlencode($dom->get_host_name())."/".rawurlencode($sys->get_system_name()),"primary");
+								break;
+							}
+						}
+					}
+					catch(ObjectNotFoundException $e) {}
+					catch(Exception $e) { $this->_error($e); return; }
+				}
+			}
+			catch(ObjectNotFoundException $e) {}
+			catch(Exception $e) { $this->_error($e); return; }
 		}
 		$this->_addAction('Add Interface',"/interface/create/".rawurlencode($systemName),"success");
 		if($sys->get_family() == 'Network') {
@@ -87,15 +111,25 @@ class ComputerSystem extends ImpulseController {
 		$this->_addSidebarDnsRecords($recs);
 
 		if($sys->get_type() == 'VM Host') {
-			$this->_addSidebarHeader("DOMAINS");
-
+			$this->_addSidebarHeader("DOMAINS","/libvirt/host/view/".rawurlencode($sys->get_system_name()));
+			try {
+				$doms = $this->api->libvirt->get->domainsByHost($sys->get_system_name());
+			}
+			catch(ObjectNotFoundException $e) { $doms = array(); }
+			catch(Exception $e) { $this->_exit($e); return; }
+			foreach($doms as $dom) {
+				$this->_addSidebarItem($dom->get_system_name(), "/system/view/".rawurlencode($dom->get_system_name()), "hdd");
+			}
 		}
 
 		// Render page
 		$this->_render($content);
 	}
 
-	public function create() {
+	public function create($systemName=null) {
+		// Decode
+		$systemName = rawurldecode($systemName);
+
 		if($this->input->post()) {
 			try {
 				$sys = $this->api->systems->create->system(
@@ -120,6 +154,7 @@ class ComputerSystem extends ImpulseController {
 			$this->_addTrail("Systems","/systems/");
 
 			// View data
+			$viewData['name'] = $systemName;
 			$viewData['sysTypes'] = $this->api->systems->get->types();
 			$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
 			$viewData['user'] = $this->user;

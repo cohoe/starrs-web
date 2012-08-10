@@ -4,7 +4,7 @@
 			<div class="control-group error">
 				<label class="control-label">System Name: </label>
 				<div class="controls">
-					<input type="text" name="systemName" />
+					<input type="text" name="systemName" value="<?=$name?>" />
 				</div>
 			</div>
 			<div class="control-group error">

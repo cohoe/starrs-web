@@ -1,5 +1,5 @@
 <div class="span7 well">
-	<h3><?=htmlentities($h->get_system_name());?></h3>
+	<h3><a href="/system/view/<?=rawurlencode($h->get_system_name())?>"><?=htmlentities($h->get_system_name());?></a></h3>
 	<dl class="dl-horizontal">
 		<dt>URI</dt>
 		<dd><?=htmlentities($h->get_uri());?></dd>
