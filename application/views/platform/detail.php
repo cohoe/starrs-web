@@ -1,4 +1,6 @@
-<div class="span7 well">
+<div class="span7">
+<div class="row-fluid">
+<div class="span12 well">
 	<h2><?=htmlentities($p->get_platform_name());?></h2>
 	<dl class="dl-horizontal">
 		<dt>Architecture</dt>
@@ -16,4 +18,14 @@
 		<dt>Last Modifier</dt>
 		<dd><?=htmlentities($p->get_last_modifier());?></dd>
 	</dl>
+</div>
+</div>
+<div class="row-fluid">
+<div class="well">
+<h2>Definition</h2>
+<pre>
+<?=(isset($pl))?htmlentities($pl->get_definition()):null;?>
+</pre>
+</div>
+</div>
 </div>

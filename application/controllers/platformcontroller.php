@@ -24,11 +24,17 @@ class Platformcontroller extends ImpulseController {
 			$ps = $this->api->systems->get->platforms();
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
+		try {
+			$lp = $this->api->libvirt->get->platform($platform);
+		}
+		catch(ObjectNotFoundException $e) { }
+		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Trail
 		$this->_addTrail($p->get_platform_name(),"/platform/view/".rawurlencode($p->get_platform_name()));
 
 		// Actions
+		$this->_addAction("Define","/platform/define/".rawurlencode($p->get_platform_name()));
 		$this->_addAction("Modify","/platform/modify/".rawurlencode($p->get_platform_name()));
 		$this->_addAction("Remove","/platform/remove/".rawurlencode($p->get_platform_name()));
 
@@ -44,6 +50,9 @@ class Platformcontroller extends ImpulseController {
 
 		// Viewdata
 		$viewData['p'] = $p;
+		if(isset($lp)) {
+			$viewData['lp'] = $lp;
+		}
 
 		// Content
 		$content = $this->load->view('platform/detail',$viewData,true);
@@ -148,6 +157,28 @@ class Platformcontroller extends ImpulseController {
 			return;
 		}
 
+	}
+
+	public function define($platform) {
+		// Decode
+		$platform = rawurldecode($platform);
+
+		// Instantiate
+		try {
+			$p = $this->api->systems->get->platformByName($platform);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		if($this->input->post()) {
+			print $this->input->post('definition');
+			return;
+		}
+
+		$viewData['p'] = $p;
+
+		$content = $this->load->view('platform/define',$viewData,true);
+		$content .= $this->forminfo;
+		$this->_render($content);
 	}
 }
 
