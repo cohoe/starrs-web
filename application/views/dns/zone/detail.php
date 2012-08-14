@@ -4,11 +4,11 @@
 		<dt>Keyname</dt>
 		<dd><?=htmlentities($zone->get_keyname());?></dd>
 		<dt>Forward</dt>
-		<dd><?=htmlentities($zone->get_forward());?></dd>
+		<dd><?=($zone->get_forward()=='t')?"Yes":"No";?></dd>
 		<dt>Shared</dt>
-		<dd><?=htmlentities($zone->get_shared());?></dd>
+		<dd><?=($zone->get_shared()=='t')?"Yes":"No";?></dd>
 		<dt>DDNS</dt>
-		<dd><?=htmlentities($zone->get_ddns());?></dd>
+		<dd><?=($zone->get_ddns()=='t')?"Enabled":"Disabled";?></dd>
 		<dt>Owner</dt>
 		<dd><?=htmlentities($zone->get_owner());?></dd>
 		<dt>Date Created</dt>

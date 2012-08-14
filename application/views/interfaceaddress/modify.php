@@ -31,13 +31,12 @@
 					<select name="mac">
 						<?php
 						foreach($ints as $int) {
-							if($int->get_mac() == $intAddr->get_mac()) {
-								print "<option value=\"".htmlentities($int->get_mac())."\" selected>".htmlentities($int->get_mac())." (".htmlentities($int->get_system_name()).")</option>";
-							}
-							else {
+							if($int->get_mac() != $currentInt->get_mac()) {
 								print "<option value=\"".htmlentities($int->get_mac())."\">".htmlentities($int->get_mac())." (".htmlentities($int->get_system_name()).")</option>";
+
 							}
 						}
+						print "<option value=\"".htmlentities($currentInt->get_mac())."\" selected>".htmlentities($currentInt->get_mac())." (".htmlentities($currentInt->get_system_name()).")</option>";
 						?>
 					</select>
 				</div>

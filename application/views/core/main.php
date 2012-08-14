@@ -31,6 +31,12 @@
 	<body>
 		<?=$navbar;?>
 		<div class="container-fluid">
+		<!--[if lt IE 9]>
+			<div class="alert">
+				WARNING! You are using Microsoft Internet Explorer which is not fully supported at this time and may cause unintended operation. Please use Google Chrome or Mozilla Firefox to ensure all features function as intended.
+			</div>
+		<![endif]-->
+
 			<?=$breadcrumb;?>
 			<div class="row-fluid">
 				<?=$sidebar;?>

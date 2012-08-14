@@ -178,11 +178,17 @@ class Address extends ImpulseController {
 			try {
 				$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveuser());
 				foreach($systems as $sys) {
-					$viewData['ints'] = array_merge($viewData['ints'],$this->api->systems->get->interfacesBySystem($sys->get_system_name()));
+					try {
+						$viewData['ints'] = array_merge($viewData['ints'],$this->api->systems->get->interfacesBySystem($sys->get_system_name()));
+					}
+					catch(ObjectNotFoundException $e) {}
+					catch(Exception $e) { $this->_error($e); return; }
 				}
 			}
 			catch(ObjectNotFoundException $e) { $viewData['ints'][] = $int; }
 			catch(Exception $e) { $this->_exit($e); return; }
+
+			$viewData['currentInt'] = $int;
 
 			try {
 				$viewData['configs'] = $this->api->dhcp->get->configtypes();

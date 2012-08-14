@@ -22,6 +22,7 @@ class Zonetxt extends DnsController {
 				);
 
 				$this->_sendClient("/dns/zone/view/".rawurlencode($zt->get_zone()));
+				return;
 			}
 			catch (Exception $e) { $this->_error($e); return; }
 		}

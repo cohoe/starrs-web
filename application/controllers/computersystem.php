@@ -76,7 +76,7 @@ class ComputerSystem extends ImpulseController {
 		try {
 			$ints = $this->api->systems->get->interfacesBySystem($systemName);
 			foreach($ints as $int) {
-				$this->_addSidebarItem($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()),"road");
+				$this->_addSidebarItem($int->get_name()." (".$int->get_mac().")","/interface/view/".rawurlencode($int->get_mac()),"road");
 				try {
 					$intAddrs = array_merge($intAddrs, $this->api->systems->get->interfaceaddressesByMac($int->get_mac()));
 				}
@@ -96,7 +96,7 @@ class ComputerSystem extends ImpulseController {
 		}
 		$this->_addSidebarHeader("ADDRESSES");
 		foreach($intAddrs as $intAddr) {
-			$this->_addSidebarItem($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()),"globe");
+			$this->_addSidebarItem($intAddr->get_address()." (".$intAddr->get_mac().")","/address/view/".rawurlencode($intAddr->get_address()),"globe");
 			try {
 				$recs = array_merge($recs, $this->api->dns->get->recordsByAddress($intAddr->get_address()));
 			}

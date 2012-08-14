@@ -127,6 +127,8 @@ class ImpulseController extends CI_Controller {
 
 		// Create 
 		$content .= $this->load->view('core/modalcreate',null,true);
+
+		$content .= $this->load->view('core/modalselect',null,true);
 		
 		$content .= $this->load->view('core/modalloading',null,true);
 
