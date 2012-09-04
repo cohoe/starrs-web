@@ -201,6 +201,7 @@ class CI_Security {
 	 */
 	public function csrf_show_error()
 	{
+		die("lolol");
 		show_error('The action you have requested is not allowed.');
 	}
 
