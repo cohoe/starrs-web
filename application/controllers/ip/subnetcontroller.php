@@ -188,7 +188,11 @@ class Subnetcontroller extends ImpulseController {
 		$viewData['isAdmin'] = $this->user->isAdmin();
 		$viewData['zones'] = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 		$viewData['dcs'] = $this->api->systems->get->datacenters();
-		$viewData['vlans'] = $this->api->network->get->vlans($snet->get_datacenter());
+		try {
+			$viewData['vlans'] = $this->api->network->get->vlans($snet->get_datacenter());
+		}
+		catch(ObjectNotFoundException $e) { $viewData['vlans'] = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Content
 		$content = $this->load->view('ip/subnet/modify',$viewData,true);
