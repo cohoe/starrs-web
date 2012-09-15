@@ -294,65 +294,6 @@ class Api_dhcp_get extends ImpulseModel {
 
 		return $query->row()->get_dhcpd_config;
 	}
-
-	public function networks() {
-		$sql = "SELECT * FROM api.get_dhcp_networks()";
-		$query = $this->db->query($sql);
-
-		// Check error
-		$this->_check_error($query);
-
-		$resultSet = array();
-		foreach($query->result_array() as $net) {
-			$resultSet[] = new SharedNetwork(
-				$net['name'],
-				$net['comment'],
-				$net['date_created'],
-				$net['date_modified'],
-				$net['last_modifier']
-			);
-		}
-
-		return $resultSet;
-	}
-
-	public function network($name) {
-		$sql = "SELECT * FROM api.get_dhcp_networks() WHERE name = {$this->db->escape($name)}";
-		$query = $this->db->query($sql);
-
-		// Check error
-		$this->_check_error($query);
-
-		return new SharedNetwork(
-			$query->row()->name,
-			$query->row()->comment,
-			$query->row()->date_created,
-			$query->row()->date_modified,
-			$query->row()->last_modifier
-		);
-
-	}
-
-	public function network_subnets($name) {
-		$sql = "SELECT * FROM api.get_dhcp_network_subnets({$this->db->escape($name)})";
-		$query = $this->db->query($sql);
-
-		// Check error
-		$this->_check_error($query);
-
-		$resultSet = array();
-		foreach($query->result_array() as $subnet) {
-			$resultSet[] = new SharedNetworkSubnet(
-				$subnet['name'],
-				$subnet['subnet'],
-				$subnet['date_created'],
-				$subnet['date_modified'],
-				$subnet['last_modifier']
-			);
-		}
-
-		return $resultSet;
-	}
 }
 /* End of file api_dhcp_get.php */
 /* Location: ./application/models/API/DHCP/api_dhcp_get.php */
