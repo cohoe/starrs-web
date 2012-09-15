@@ -44,7 +44,7 @@
 			</div>
 			<hr>
 			<div class="footer">
-				<p>STARRS &copy; 2012 <a href="http://www.grantcohoe.com">Grant Cohoe</a> - <a href="https://github.com/cohoe/impulse/wiki#wiki-Project_Team">Credits</a></p>
+				<p>STARRS &copy; 2012 <a href="http://www.grantcohoe.com">Grant Cohoe</a></p>
 			</div>
 		</div>
 
@@ -54,7 +54,7 @@
 		<?=$scripts;?>
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
-			<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="/js/html5.js"></script>
 			<script src="/js/iefix.js"></script>
 		<![endif]-->
 
