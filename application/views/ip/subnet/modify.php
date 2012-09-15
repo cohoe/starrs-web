@@ -68,8 +68,19 @@
 				<label class="control-label">DHCP Enable: </label>
 				<div class="controls">
 					<select name="dhcp_enable">
-						<option value="t" <?($snet->get_dhcp_enable()=='t')?"selected":'';?>>Yes</option>
-						<option value="f" <?($snet->get_dhcp_enable()=='f')?"selected":'';?>>No</option>
+						<!--
+						<?
+						if($snet->get_dhcp_enable()=='t') {
+							print "<option value='t' selected>Yes</option>";
+							print "<option value='f'>No</option>";
+						} else {
+							print "<option value='t'>Yes</option>";
+							print "<option value='f' selected>No</option>";
+						}
+						?>
+						-->
+						<option value='t' <?=($snet->get_dhcp_enable()=='t')?"selected":'';?>>Yes</option>
+						<option value='f' <?=($snet->get_dhcp_enable()=='f')?"selected":'';?>>No</option>
 					</select>
 				</div>
 			</div>
@@ -77,8 +88,8 @@
 				<label class="control-label">Autogen: </label>
 				<div class="controls">
 					<select name="autogen">
-						<option value=t <?($snet->get_autogen()=='t')?"selected":'';?>>Yes</option>
-						<option value=f <?($snet->get_autogen()=='f')?"selected":'';?>>No</option>
+						<option value=t <?=($snet->get_autogen()=='t')?"selected":'';?>>Yes</option>
+						<option value=f <?=($snet->get_autogen()=='f')?"selected":'';?>>No</option>
 					</select>
 				</div>
 			</div>
