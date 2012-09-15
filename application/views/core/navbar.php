@@ -59,7 +59,6 @@
 					<li class="dropdown <?=($header=='DHCP')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DHCP <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li <?=($sub=='Networks')?'class="active"':null;?>><a href="/dhcp/networks/view">Networks</a></li>
 							<li <?=($sub=='Classes')?'class="active"':null;?>><a href="/dhcp/classes/view">Classes</a></li>
 							<li <?=($sub=='Global Options')?'class="active"':null;?>><a href="/dhcp/globaloptions/view">Global Options</a></li>
 							<li <?=($sub=='dhcpd')?'class="active"':null;?>><a href="/dhcp/dhcpd/view">ISC-DHCPD</a></li>
