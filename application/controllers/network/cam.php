@@ -8,7 +8,7 @@ class Cam extends ImpulseController {
 		$this->_setNavHeader("Network");
 		$this->_setSubHeader("CAM");
 		$this->_addTrail("Network","/");
-		$this->_addTrail("CAM","/cam");
+		$this->_addTrail("CAM","/network/cam");
 		$this->_addScript("/js/snmp.js");
 	}
 
