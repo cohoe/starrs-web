@@ -228,6 +228,30 @@ class Impulselib {
           			}
 				}
 				break;
+			case 'Cisco SF-300-24P':
+				$blades[0] = new Blade(24, 12, 2);
+				$blades[1] = new Blade(4, 2, 2);
+				foreach($ifs as $if) {
+			          if(preg_match('/fa/',$if->get_name())) {
+			               #$bladeNum = preg_replace('/^(Gi|Fa)(\d)\/(.*?)$/','$2',$if->get_name());
+     	     		     #if(preg_match('/Gi/',$if->get_name())) { $bladeNum = 1; }
+			               #else { $bladeNum = 0; }
+	          		     if($if->get_index() <= 12) {
+     	               		$blades[0]->add_if($if, 0);
+			               } else {
+          			          $blades[0]->add_if($if, 1);
+		          	     }
+					} elseif (preg_match('/gi/',$if->get_name())) {
+	          		     if($if->get_index() % 2 == 0) {
+     	               		$blades[1]->add_if($if, 1);
+			               } else {
+          			          $blades[1]->add_if($if, 0);
+						}
+	          		} else {
+			               $otherIfs[] = $if;
+          			}
+				}
+				break;
 			default:
 				$blades = null;
 				break;

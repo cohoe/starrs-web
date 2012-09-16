@@ -25,7 +25,7 @@ class Platformcontroller extends ImpulseController {
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
 		try {
-			$lp = $this->api->libvirt->get->platform($platform);
+			#$lp = $this->api->libvirt->get->platform($platform);
 		}
 		catch(ObjectNotFoundException $e) { }
 		catch(Exception $e) { $this->_exit($e); return; }
