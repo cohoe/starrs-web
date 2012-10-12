@@ -93,12 +93,15 @@ class Snmp extends ImpulseController {
 		catch(Exception $e) { $this->_error($e); return; }
 
 		if($this->input->post()) {
-			$snmp = $this->api->network->create->snmp(
-				$sys->get_system_name(),
-				$this->_post('address'),
-				$this->_post('ro'),
-				$this->_post('rw')
-			);
+			try {
+				$snmp = $this->api->network->create->snmp(
+					$sys->get_system_name(),
+					$this->_post('address'),
+					$this->_post('ro'),
+					$this->_post('rw')
+			  );
+			}
+			catch(Exception $e) { $this->_error($e); return; } 
 			$this->_sendClient("/network/snmp/view/".rawurlencode($sys->get_system_name()));
 			return;
 		}

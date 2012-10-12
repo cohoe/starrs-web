@@ -21,7 +21,7 @@
 						<option></option>
 						<?php
 						foreach($azs as $az) {
-							print "<option>".htmlentities($az->get_zone())."</option>";
+							print "<option value=\"{$az->get_zone()}\">".htmlentities($az->get_zone())." (".$az->get_datacenter().")</option>";
 						}
 						?>
 					</select>

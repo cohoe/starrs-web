@@ -151,7 +151,7 @@ class Api_systems_get extends ImpulseModel {
 
 	public function systemByName($name=null) {
 		//SQL Query
-		$sql = "SELECT * FROM api.get_systems(null) AS sysdata JOIN api.get_system_types() as typedata ON sysdata.type = typedata.type WHERE system_name = {$this->db->escape($name)};";
+		$sql = "SELECT *,sysdata.date_created as syscdate,sysdata.date_modified as sysmdate,sysdata.last_modifier as syslm FROM api.get_systems(null) AS sysdata JOIN api.get_system_types() as typedata ON sysdata.type = typedata.type WHERE system_name = {$this->db->escape($name)};";
 		$query = $this->db->query($sql);
 
 		// Check Error
@@ -169,9 +169,9 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->asset,
 			$query->row()->group,
 			$query->row()->datacenter,
-			$query->row()->date_created,
-			$query->row()->date_modified,
-			$query->row()->last_modifier
+			$query->row()->syscdate,
+			$query->row()->sysmdate,
+			$query->row()->syslm
 		);
 
 		return $sys;
