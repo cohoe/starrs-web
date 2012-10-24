@@ -23,7 +23,7 @@ class Systems extends ImpulseController {
 		
 		// Actions
 		$this->_addAction('Create',"/system/create");
-		$this->_addAction('Create (Quick)',"/system/quickcreate");
+		$this->_addAction('Quick Create',"/system/quickcreate");
 
 		// Generate content
 		$this->_addSidebarHeader("SYSTEMS");
