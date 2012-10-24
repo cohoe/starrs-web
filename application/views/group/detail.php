@@ -20,6 +20,20 @@
 	</div>
 	<div class="row-fluid">
 		<div class="well">
+			<h3>IP Ranges</h3>
+			<table class="table table-bordered table-striped imp-dnstable">
+				<tr><th>Name</th><th>First IP</th><th>Last IP</th><th style="width: 162px;">Actions</th></tr>
+				<?
+				foreach($ranges as $r) {
+					$rem = "<a href=\"/grouprange/remove/".rawurlencode($g->get_group())."/".rawurlencode($r->get_name())."\"><button class=\"btn btn-mini btn-danger\">Remove</button></a>";
+					print "<tr><td><a href=\"/ip/range/view/".rawurlencode($r->get_name())."\">".htmlentities($r->get_name())."</a></td><td>".htmlentities($r->get_first_ip())."</td><td>".htmlentities($r->get_last_ip())."</td><td>$rem</td></tr>";
+				}
+				?>
+			</table>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="well">
 			<h3>Members</h3>
 			<table class="table table-bordered table-striped imp-dnstable">
 				<tr><th>Username</th><th>Group Privilege</th><th style="width: 162px;">Actions</th></tr>

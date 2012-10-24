@@ -299,7 +299,7 @@ class ComputerSystem extends ImpulseController {
 		$this->_addTrail("Systems","/systems/view");
 		$viewData['user'] = $this->user;
 		try {
-			$viewData['ranges'] = $this->api->ip->get->ranges();
+			$viewData['ranges'] = $this->api->ip->get->rangesByUser($this->user->getActiveUser());
 		}
 		catch(ObjectNotFoundException $e) { $viewData['ranges'] = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }

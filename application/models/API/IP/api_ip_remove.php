@@ -23,6 +23,15 @@ class Api_ip_remove extends ImpulseModel {
 		// Check error
 		$this->_check_error($query);
 	}
+
+	public function rangegroup($group, $range) {
+		// SQL Query
+		$sql = "SELECT api.remove_range_group({$this->db->escape($range)}, {$this->db->escape($group)})";
+		$query = $this->db->query($sql);
+		
+		// Check error
+		$this->_check_error($query);
+	}
 }
 /* End of file api_ip_remove.php */
 /* Location: ./application/models/API/IP/api_ip_remove.php */

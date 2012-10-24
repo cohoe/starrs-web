@@ -41,6 +41,60 @@ class Api_ip_get extends ImpulseModel {
         // Generate and return result
 		return $query->row()->get_address_range;
 	}
+
+	public function rangesByGroup($group) {
+		$sql = "SELECT * FROM api.get_group_ranges({$this->db->escape($group)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		$resultSet = array();
+        foreach($query->result_array() as $range) {
+            $resultSet[] = new IpRange(
+                $range['first_ip'],
+                $range['last_ip'],
+                $range['use'],
+                $range['name'],
+                $range['subnet'],
+                $range['class'],
+                $range['comment'],
+                $range['datacenter'],
+                $range['zone'],
+                $range['date_created'],
+                $range['date_modified'],
+                $range['last_modifier']
+            );
+        }
+
+		return $resultSet;
+	}
+
+	public function rangesByUser($user) {
+		$sql = "SELECT * FROM api.get_user_ranges({$this->db->escape($user)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		$resultSet = array();
+        foreach($query->result_array() as $range) {
+            $resultSet[] = new IpRange(
+                $range['first_ip'],
+                $range['last_ip'],
+                $range['use'],
+                $range['name'],
+                $range['subnet'],
+                $range['class'],
+                $range['comment'],
+                $range['datacenter'],
+                $range['zone'],
+                $range['date_created'],
+                $range['date_modified'],
+                $range['last_modifier']
+            );
+        }
+
+		return $resultSet;
+	}
 	
 	public function ranges() {
         // SQL Query

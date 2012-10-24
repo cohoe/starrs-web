@@ -32,6 +32,12 @@ class Groupcontroller extends ImpulseController {
 		catch(ObjectNotFoundException $e) { $gms = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
+		try {
+			$ranges = $this->api->ip->get->rangesByGroup($g->get_group());
+		}
+		catch(ObjectNotFoundException $e) { $ranges = array(); }
+		catch(Exception $e) { $this->_exit($e); return; }
+
 		// Trail
 		$this->_addTrail($g->get_group(),"/group/view/".rawurlencode($g->get_group()));
 
@@ -47,12 +53,14 @@ class Groupcontroller extends ImpulseController {
 
 		// Actions
 		$this->_addAction("Add User","/groupmember/create/".rawurlencode($g->get_group()),"success");
+		$this->_addAction("Add Range","/grouprange/create/".rawurlencode($g->get_group()),"success");
 		$this->_addAction("Modify","/group/modify/".rawurlencode($g->get_group()));
 		$this->_addAction("Remove","/group/remove/".rawurlencode($g->get_group()));
 
 		// Viewdata
 		$viewData['g'] = $g;
 		$viewData['gms'] = $gms;
+		$viewData['ranges'] = $ranges;
 
 		// Content
 		$content = $this->load->view('group/detail',$viewData,true);

@@ -31,6 +31,17 @@ $('#action-adduser').click(function() {
 	return false;
 });
 
+$('#action-addrange').click(function() {
+	$(this).addClass("disabled");
+	$.get($(this).attr('href'),function(data) {
+		$('#modal-create .modal-header').html("<h2>Add Range</h2>");
+		$('#modal-create-body').html(data);
+		$('#create').attr('href',$('#action-addrange').attr('href'));
+		$('#modal-create').modal('show');
+	});
+	return false;
+});
+
 $('[name=datacenter]').change(function() {
 	var datacenter = $('[name=datacenter] option:selected').text();
 	$.get("/network/vlans/view/"+datacenter,function(data) {

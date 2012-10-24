@@ -11,9 +11,9 @@
 		<dt>VLAN</dt>
 		<dd><a href="/network/vlan/view/<?=rawurlencode($snet->get_datacenter())."/".rawurlencode($snet->get_vlan());?>"><?=htmlentities($snet->get_vlan());?></a>&nbsp;</dd>
 		<dt>DHCP Enable</dt>
-		<dd><?=htmlentities($snet->get_dhcp_enable());?></dd>
+		<dd><?=htmlentities(($snet->get_dhcp_enable()=='t')?'Yes':'No');?></dd>
 		<dt>Autogen</dt>
-		<dd><?=htmlentities($snet->get_autogen());?></dd>
+		<dd><?=htmlentities(($snet->get_autogen()=='t')?'Yes':'No');?></dd>
 		<dt>Owner</dt>
 		<dd><?=htmlentities($snet->get_owner());?></dd>
 		<dt>Date Created</dt>

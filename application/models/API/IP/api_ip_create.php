@@ -86,6 +86,17 @@ class Api_ip_create extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function rangegroup($range, $group) {
+		$sql = "SELECT * FROM api.create_range_group(
+			{$this->db->escape($range)},
+			{$this->db->escape($group)}
+		)";
+
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+	}
 	
 	// @todo: IP address range. 
 }
