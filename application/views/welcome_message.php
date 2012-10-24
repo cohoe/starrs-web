@@ -13,7 +13,7 @@
 		<div class="span3">
 			<h2>Get Started</h2>
 			<p>Look at your currently registered systems and create a new one if you don't have any.</p>
-			<p><a class="btn btn-primary" href="/systems/view">Get Started &raquo;</a></p>
+			<p><a class="btn btn-primary" href="/systems/quickcreate">Get Started &raquo;</a></p>
 		</div><!--/span-->
 				<div class="span3">
 					<h2>Learn More</h2>
