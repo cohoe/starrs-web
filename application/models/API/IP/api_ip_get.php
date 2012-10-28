@@ -70,7 +70,7 @@ class Api_ip_get extends ImpulseModel {
 	}
 
 	public function rangesByUser($user) {
-		$sql = "SELECT * FROM api.get_user_ranges({$this->db->escape($user)})";
+		$sql = "SELECT DISTINCT * FROM api.get_user_ranges({$this->db->escape($user)})";
 		$query = $this->db->query($sql);
 
 		$this->_check_error($query);

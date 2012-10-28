@@ -62,16 +62,22 @@ $('#action-renew').click(function() {
 });
 
 $('[name=range]').change(function() {
-	$.post("/address/getfromrange",{range:$(this).val()},function(data) {
-		if(data.match(/ERROR/)) {
-			$('#modal-error-body').html(data);
-			$('#modal-error').modal('show');
-		}
-		else {
-			$('[name=address]').val(data);
-			$('[name=address]').parent().parent().removeClass('error');
-		}
-	});
+	if($(this).val()) {
+		$.post("/address/getfromrange",{range:$(this).val()},function(data) {
+			if(data.match(/ERROR/)) {
+				$('#modal-error-body').html(data);
+				$('#modal-error').modal('show');
+			}
+			else {
+				$('[name=address]').val(data);
+				$('[name=address]').parent().parent().removeClass('error');
+			}
+		});
+	} else {
+		$('[name=address]').val("");
+		$('[name=address]').parent().parent().addClass('error');
+		
+	}
 });
 
 $('[name=address]').change(function() {
