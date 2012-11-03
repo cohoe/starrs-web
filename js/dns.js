@@ -81,3 +81,7 @@ $('#modifyzone .btn-warning').unbind('click');
 function getObjectFromUrl() {
 	return window.location.pathname.split('/').pop();
 }
+
+function getSchemaFromUrl() {
+	window.location.pathname.split('/')[1];
+}

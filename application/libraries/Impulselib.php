@@ -7,6 +7,7 @@ class Impulselib {
 	private $fullName;
 	private $uname;
 	private $CI;
+	private $tooltips;
 
 	const createbtnclass = "success";
 
@@ -18,6 +19,8 @@ class Impulselib {
 		
        	$this->uname = $this->CI->input->server($this->CI->config->item('imp_username_env'));
 		$this->fullName = $this->CI->input->server($this->CI->config->item('imp_displayname_env'));
+
+		$this->populate_tooltips();
 	}
 
 	public function test() {
@@ -32,6 +35,79 @@ class Impulselib {
 	function get_eui64_address($mac) {
 		return $mac;
 	}
+
+	function get_tooltips() { return $this->tooltips; }
+
+	private function populate_tooltips() {
+		# Datacenters
+		$this->tooltips['datacenter']['Date Created'] = "The date on which the datacenter was created.";
+		$this->tooltips['datacenter']['Date Modified'] = "The date on which the datacenter was last modified.";
+		$this->tooltips['datacenter']['Last Modifier'] = "The last user to modify the datacenter.";
+		$this->tooltips['datacenter']['Comment'] = "A note about the datacenter.";
+
+		# Availability zone
+		$this->tooltips['availabilityzone']['Datacenter'] = "The datacenter in which the availability zone lives.";
+		$this->tooltips['availabilityzone']['Date Created'] = "The date on which the availability zone was created.";
+		$this->tooltips['availabilityzone']['Date Modified'] = "The date on which the availability zone was last modified.";
+		$this->tooltips['availabilityzone']['Last Modifier'] = "The last user to modify the availability zone.";
+		$this->tooltips['availabilityzone']['Comment'] = "A note about a particular availablility zone.";
+
+		# Platform
+		$this->tooltips['platform']['Architecture'] = "The CPU architecture of a given hardware platform.";
+		$this->tooltips['platform']['Disk'] = "The disk configuration of a hardware platform.";
+		$this->tooltips['platform']['CPU'] = "The CPU configuration of a hardware platform.";
+		$this->tooltips['platform']['Memory'] = "The memory configuration of a hardware platform.";
+		$this->tooltips['platform']['Date Created'] = "The date on which the platform was created.";
+		$this->tooltips['platform']['Date Modified'] = "The date on which the platform was last modified.";
+		$this->tooltips['platform']['Last Modifier'] = "The last user to modify the platform.";
+
+		# Systems
+		$this->tooltips['system']['Datacenter'] = "The physical location in which resources or objects reside. Used for physical asset tracking.";
+		$this->tooltips['system']['Type'] = "A generic classification of a system. Used for enabling special features such as SNMP and Libvirt.";
+		$this->tooltips['system']['Operating System'] = "The operating system loaded on the system. Used for fun statistics about the site.";
+		$this->tooltips['system']['Owner'] = "The user that ownes the particiular resource. Used to associate all resources to a specific person.";
+		$this->tooltips['system']['Group'] = "An owning group associated with a resource or object. Used for privileging and access control.";
+		$this->tooltips['system']['Asset'] = "An organization-specified inventory management identifier attached to an object. Used for inventory management.";
+		$this->tooltips['system']['Date Created'] = "The date on which the resource or object was created.";
+		$this->tooltips['system']['Date Modified'] = "The date on which the resource or object was last modified.";
+		$this->tooltips['system']['Last Modifier'] = "The last user to modify the resource or object.";
+		$this->tooltips['system']['Comment'] = "A note associated with the object or resource.";
+
+		$this->tooltips['system']['Platform'] = "A generic hardware configuration applied to a system. Used to enable certain features or views.";
+		$this->tooltips['system']['Architecture'] = "The CPU architecture of a given hardware platform.";
+		$this->tooltips['system']['Disk'] = "The disk configuration of a hardware platform.";
+		$this->tooltips['system']['CPU'] = "The CPU configuration of a hardware platform.";
+		$this->tooltips['system']['Memory'] = "The memory configuration of a hardware platform.";
+
+		$this->tooltips['system']['System Name'] = "A logical name given to a computer system.";
+		$this->tooltips['system']['Mac Address'] = "The EUI48 address from your NIC. This can be entered in Windows/Linux/Cisco notation.";
+		$this->tooltips['system']['Range'] = "The IP address range to pull from when provisioning an address.";
+		$this->tooltips['system']['Address'] = "The IP address that has been provisioned to you. This can be either IPv4 or IPv6.";
+		$this->tooltips['system']['Config'] = "The method that you receive your IP address. DHCP(v6) addresses will be handed out by the DHCP server. Static addresses must be configured by the user. Autoconf addresses are treated like static addresses in STARRS, but are not configured on the system by a user.";
+		$this->tooltips['system']['Zone'] = "The DNS domain name.";
+
+		$this->tooltips['ip']['Name'] = "A logical/human readable name assigned to an IP subnet";
+		$this->tooltips['ip']['DNS Zone'] = "A DNS domain associated with the subnet.";
+		$this->tooltips[''][''] = "";
+		$this->tooltips[''][''] = "";
+		$this->tooltips[''][''] = "";
+		$this->tooltips[''][''] = "";
+		$this->tooltips[''][''] = "";
+		$this->tooltips[''][''] = "";
+
+		# DNS
+		
+		# IP
+
+		# DHCP
+		
+		# Management
+
+		# Network
+
+		# Other
+	}
+
 
     /**
      * Get the path of the OS image based on the OS name

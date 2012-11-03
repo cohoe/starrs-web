@@ -67,7 +67,7 @@ class ComputerSystem extends ImpulseController {
 		$this->_addAction('Remove',"/system/remove/".rawurlencode($systemName));
 
 		// Generate content
-		$content = $this->load->view('system/detail',array("sys"=>$sys,"p"=>$p),true);
+		$content = $this->loadview('system/detail',array("sys"=>$sys,"p"=>$p),true);
 
 		$intAddrs = array();
 		$recs = array();
@@ -82,7 +82,7 @@ class ComputerSystem extends ImpulseController {
 				}
 				catch (ObjectNotFoundException $e) {}
 				catch (Exception $e) {
-					$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+					$content = $this->loadview('exceptions/exception',array('exception'=>$e),true);
 					$this->_render($content);
 					return;
 				}
@@ -90,7 +90,7 @@ class ComputerSystem extends ImpulseController {
 		}
 		catch (ObjectNotFoundException $e) {}
 		catch (Exception $e) {
-			$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+			$content = $this->loadview('exceptions/exception',array('exception'=>$e),true);
 			$this->_render($content);
 			return;
 		}
@@ -102,7 +102,7 @@ class ComputerSystem extends ImpulseController {
 				$recs = array_merge($recs, $this->api->dns->get->recordsByAddress($intAddr->get_address()));
 			}
 			catch (Exception $e) {
-				$content = $this->load->view('exceptions/exception',array('exception'=>$e),true);
+				$content = $this->loadview('exceptions/exception',array('exception'=>$e),true);
 				$this->_render($content);
 				return;
 			}
@@ -174,7 +174,7 @@ class ComputerSystem extends ImpulseController {
 				return;
 			}
 			catch(Exception $e) { $this->_exit($e); return; }
-			$content=$this->load->view('system/create',$viewData,true);
+			$content=$this->loadview('system/create',$viewData,true);
 			$content .= $this->forminfo;
 			$this->_render($content);
 		}
@@ -251,7 +251,7 @@ class ComputerSystem extends ImpulseController {
 			$viewData['groups'] = $this->api->get->groups();
 
 			// Content
-			$content = $this->load->view('system/modify',$viewData,true);
+			$content = $this->loadview('system/modify',$viewData,true);
 			$content .= $this->forminfo;
 
 			// Done
@@ -327,7 +327,7 @@ class ComputerSystem extends ImpulseController {
 			catch(ObjectNotFoundException $e) { $viewData['default_group'] = null; }
 			catch(Exception $e) { $this->_exit($e); return; }
 		}
-		$content = $this->load->view('system/quick',$viewData,true);
+		$content = $this->loadview('system/quick',$viewData,true);
 		$content .= $this->forminfo;
 		$this->_render($content);
 

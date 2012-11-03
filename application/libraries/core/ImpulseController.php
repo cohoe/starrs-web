@@ -367,6 +367,11 @@ class ImpulseController extends CI_Controller {
 		$this->sidebarBlank = true;
 	}
 
+	protected function loadview($path, $data, $return) {
+		$data['tooltips'] = $this->impulselib->get_tooltips();
+		return $this->load->view($path, $data, $return);
+	}
+
 }
 /* End of file ImpulseController.php */
 /* Location: ./application/libraries/core/ImpulseController.php */

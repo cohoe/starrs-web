@@ -149,28 +149,21 @@ $('.modal-footer .btn').click(function() {
 	$('#modal-loading').modal('hide');
 });
 
-function assignTip(thing) {
-	return function(data) {
-	console.debug("eee"+thing.html());
-		console.debug("wat"+data);
-		thing.attr('title',data);
-		$('dt').tooltip({placement:'right'})
-	}
-}
-
 function getSchemaFromUrl() {
 	return window.location.pathname.split('/')[1];
 }
 
-$('dt').each(function() {
-	var obj = $(this);
+function assignTip(item, data) {
+	item.attr('title',data);
+}
 
-	$.get("/tooltip/view/"+getSchemaFromUrl()+"/"+$(this).html(), function(data) {
-		obj.attr('title',data);
-		obj.tooltip('fixTitle');
+// Tooltip placement
+$('dt').each(function() {
+	var item = $(this);
+	$.get("/tooltip/view/"+getSchemaFromUrl()+"/"+$(this).text(), function(data) {
+		assignTip(item, data);
 	});
 });
-
 
 $('dt').tooltip({placement:'right'});
 $('.control-label').tooltip({placement:'right'});
