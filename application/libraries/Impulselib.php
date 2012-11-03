@@ -86,19 +86,65 @@ class Impulselib {
 		$this->tooltips['system']['Config'] = "The method that you receive your IP address. DHCP(v6) addresses will be handed out by the DHCP server. Static addresses must be configured by the user. Autoconf addresses are treated like static addresses in STARRS, but are not configured on the system by a user.";
 		$this->tooltips['system']['Zone'] = "The DNS domain name.";
 
+		# Subnet
 		$this->tooltips['ip']['Name'] = "A logical/human readable name assigned to an IP subnet";
 		$this->tooltips['ip']['DNS Zone'] = "A DNS domain associated with the subnet.";
-		$this->tooltips[''][''] = "";
-		$this->tooltips[''][''] = "";
-		$this->tooltips[''][''] = "";
-		$this->tooltips[''][''] = "";
-		$this->tooltips[''][''] = "";
-		$this->tooltips[''][''] = "";
+		$this->tooltips['ip']['Datacenter'] = "The physical location in which this subnet has been allocation.";
+		$this->tooltips['ip']['VLAN'] = "The layer-2 network on which this subnet operates on.";
+		$this->tooltips['ip']['DHCP Enable'] = "When enabled, this subnet will be managed by the STARRS-controlled DHCP server. Otherwise no DHCP functions will be enabled for this subnet.";
+		$this->tooltips['ip']['Autogen'] = "STARRS populates a table of all managed IP addresses. In the case of IPv6 subnets which are insanely large, this is not desired. This field will be going away soon.";
+		$this->tooltips['ip']['Owner'] = "The username who administers or controls the subnet.";
+		$this->tooltips['ip']['Date Created'] = "The date that the subnet was created.";
+		$this->tooltips['ip']['Date Modified'] = "The date that the subnet was last modified.";
+		$this->tooltips['ip']['Last Modifier'] = "The last person to modify the subnet.";
+		$this->tooltips['ip']['Comment'] = "A note about the subnet.";
+
+		# Ranges
+		$this->tooltips['ip']['First IP'] = "The first IP address in the range.";
+		$this->tooltips['ip']['Last IP'] = "The last IP address in the range.";
+		$this->tooltips['ip']['Subnet'] = "The CIDR-notated subnet that the range is a part of.";
+		$this->tooltips['ip']['Use'] = "The use code specifies a purpose for a range. UREG is for user registrations (users go in and provision resource). ROAM is for DHCP dynamic pools. RESV is reserved ranges that do not show up in non-admin user views. AREG is deprecated.";
+		$this->tooltips['ip']['Class'] = "An optional DHCP class that is assigned to all clients within the range.";
+		$this->tooltips['ip']['Availability Zone'] = "The availability zone that this range is to operate in.";
+		$this->tooltips['ip']['Comment'] = "A note about the IP range.";
+		$this->tooltips['ip']['Date Created'] = "The date that the range was created.";
+		$this->tooltips['ip']['Date Modified'] = "The date that the range was last modified.";
+		$this->tooltips['ip']['Last Modifier'] = "The last person to modify the range.";
+		
+		# Class
+		$this->tooltips['dhcp']['Comment'] = "A note about the DHCP class.";
+		$this->tooltips['dhcp']['Date Created'] = "The date that the class was created.";
+		$this->tooltips['dhcp']['Date Modified'] = "The date that the class was last modified.";
+		$this->tooltips['dhcp']['Last Modifier'] = "The last person to modify the class.";
+
+		# Group
+		$this->tooltips['group']['Global Privilege'] = "The privilege level in global scope that this group should receive. This allows you to specify a global ADMIN group.";
+		$this->tooltips['group']['Renew Interval'] = "The default time between address renewals applied to all members of the group.";
+		$this->tooltips['group']['Comment'] = "A note about the DHCP class.";
+		$this->tooltips['group']['Date Created'] = "The date that the group was created.";
+		$this->tooltips['group']['Date Modified'] = "The date that the group was last modified.";
+		$this->tooltips['group']['Last Modifier'] = "The last person to modify the group.";
+
+		# Network  
+		$this->tooltips['network']['Address'] = "The IP address associated with the network device used for communication.";
+		$this->tooltips['network']['RO Community'] = "The SNMPv2 read-only community.";
+		$this->tooltips['network']['RW Community'] = "The SNMPv2 read-write community.";
+		$this->tooltips['network']['Date Created'] = "The date that the resource was created.";
+		$this->tooltips['network']['Date Modified'] = "The date that the resource was last modified.";
+		$this->tooltips['network']['Last Modifier'] = "The last person to modify the resource.";
+		$this->tooltips['network']['Name'] = "A human-readable name given to a VLAN.";
+		$this->tooltips['network']['Datacenter'] = "The datacenter in which this VLAN resides.";
+		$this->tooltips['network']['Comment'] = "A note about the resource.";
+
+		# DNS
+		$this->tooltips['dns']['Keyname'] = "The name of the DDNS key.";
+		$this->tooltips['dns']['Forward'] = "Is this zone a forward lookup zone? (ex: example.com is forward while 10.in-addr.arpa is reverse.";
+		$this->tooltips['dns']['Shared'] = "A shared zone allows non-admin or non-owning users to create records within that zone.";
+		$this->tooltips['dns']['DDNS'] = "Enable DDNS updates for this zone when new records are created.";
+
 
 		# DNS
 		
-		# IP
-
 		# DHCP
 		
 		# Management
