@@ -141,13 +141,27 @@ class Impulselib {
 		$this->tooltips['dns']['Forward'] = "Is this zone a forward lookup zone? (ex: example.com is forward while 10.in-addr.arpa is reverse.";
 		$this->tooltips['dns']['Shared'] = "A shared zone allows non-admin or non-owning users to create records within that zone.";
 		$this->tooltips['dns']['DDNS'] = "Enable DDNS updates for this zone when new records are created.";
+		$this->tooltips['dns']['Owner'] = "The owning user of the resource.";
+		$this->tooltips['dns']['Date Created'] = "The date that the resource was created.";
+		$this->tooltips['dns']['Date Modified'] = "The date that the resource was last modified.";
+		$this->tooltips['dns']['Last Modifier'] = "The last person to modify the resource.";
+		$this->tooltips['dns']['Comment'] = "A note about the resource.";
+
+		$this->tooltips['dns']['Key'] = "The name of the DDNS key. This should match the configuration of your DNS server.";
+		$this->tooltips['dns']['Encryption'] = "The type of encryption that the key is stored in. Usually hmac-md5.";
+
 
 
 		# DNS
 		
 		# DHCP
+		$this->tooltips['dhcp']['Option'] = "The option identifier for the DHCP configuration file (ex: 'option subnet-mask')";
+		$this->tooltips['dhcp']['Value'] = "The value of the configured option (ex: '255.255.255.0')";
 		
 		# Management
+		$this->tooltips['configuration']['Option'] = "The name of the configuration directive. (ex: DEFAULT_SYSTEM_TYPE)";
+		$this->tooltips['configuration']['Value'] = "The value of the configuration directive. (ex: Server)";
+		
 
 		# Network
 

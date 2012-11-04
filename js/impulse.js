@@ -171,6 +171,15 @@ $('dt').each(function() {
 	});
 });
 
+$('th').each(function() {
+	var obj = $(this);
+	$.get("/tooltip/view/"+getSchemaFromUrl()+"/"+$(this).html(), function(data) {
+		obj.attr('title',data);
+		obj.tooltip('fixTitle');
+	});
+});
+
 
 $('dt').tooltip({placement:'right'});
+$('th').tooltip({placement:'top'});
 $('.control-label').tooltip({placement:'right'});
