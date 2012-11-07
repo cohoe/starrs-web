@@ -395,6 +395,22 @@ class Impulselib {
 
 		return $blades;
 	}
+
+	/**
+	 * Borrowed from https://github.com/BlakeGardner/php-mac-address
+	 */
+	public function generate_mac_address() {
+		$vals = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+		if (count($vals) >= 1) {
+			$mac = array("de","ad"); // Force a specific prefix
+			while (count($mac) < 6) {
+				shuffle($vals);
+				$mac[] = $vals[0] . $vals[1];
+			}
+			$mac = implode(":", $mac);
+		}
+		print $mac;
+	}
 }
 /* End of file Impulselib.php */
 /* Location: ./application/libraries/Impulselib.php */

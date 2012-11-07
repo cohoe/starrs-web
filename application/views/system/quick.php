@@ -8,9 +8,13 @@
 				</div>
 			</div>
 			<div class="control-group error">
-				<label class="control-label">Mac Address: </label>
+				<label class="control-label">MAC Address: </label>
 				<div class="controls">
 					<input type="text" name="mac" />
+					<?if($random) {?>
+					<a href="#" class="btn" id="random-mac">Random</a>
+					<div id="mac-warning" class="alert hidden" style="margin-top: 1em; margin-bottom: 0em;">Heads Up! You should only use a random MAC address when you do not have access to the system's actual MAC address.</div>
+					<?}?>
 				</div>
 			</div>
 			<div class="controls docs-input-sizes">

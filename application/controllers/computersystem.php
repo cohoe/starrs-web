@@ -327,6 +327,7 @@ class ComputerSystem extends ImpulseController {
 			catch(ObjectNotFoundException $e) { $viewData['default_group'] = null; }
 			catch(Exception $e) { $this->_exit($e); return; }
 		}
+		$viewData['random'] = $this->api->get->site_configuration('ALLOW_RANDOM_MAC');
 		$content = $this->loadview('system/quick',$viewData,true);
 		$content .= $this->forminfo;
 		$this->_render($content);

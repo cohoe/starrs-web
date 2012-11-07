@@ -92,3 +92,12 @@ $('[name=address]').change(function() {
 		}
 	});
 });
+
+$('#random-mac').click(function() {
+	$.get("/interfaces/randommac",function(data) {
+		$('[name=mac]').val(data);
+		$('[name=mac]').parent().parent().removeClass('error');
+		$('#mac-warning').removeClass('hidden');
+	});
+	return false;
+});

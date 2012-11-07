@@ -55,6 +55,10 @@ class Interfaces extends ImpulseController {
 		// Render
 		$this->_render($content);
 	}
+
+	public function randommac() {
+		print $this->impulselib->generate_mac_address();
+	}
 }
 
 /* End of file interfaces.php */
