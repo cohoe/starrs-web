@@ -140,7 +140,7 @@ class Api_systems_create extends ImpulseModel {
 		);
 	}
 
-	public function quick($systemname, $mac, $address, $zone, $owner, $group, $config) {
+	public function quick($systemname, $mac, $address, $zone, $owner, $group, $config, $dns) {
 		// SQL
 		$sql = "SELECT * FROM api.create_system_quick(
 			{$this->db->escape($systemname)},
@@ -149,7 +149,8 @@ class Api_systems_create extends ImpulseModel {
 			{$this->db->escape($mac)},
 			{$this->db->escape($address)},
 			{$this->db->escape($zone)},
-			{$this->db->escape($config)}
+			{$this->db->escape($config)},
+			{$this->db->escape($dns)}
 		)";
 		$query = $this->db->query($sql);
 

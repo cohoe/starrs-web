@@ -287,7 +287,8 @@ class ComputerSystem extends ImpulseController {
 					$this->_post('zone'),
 					$this->_post('owner'),
 					$this->_post('group'),
-					$this->_post('config')
+					$this->_post('config'),
+					$this->_post('quickdns')
 				);
 				$this->_sendClient("/system/view/".rawurlencode($this->_post('system_name')));
 				return;
@@ -328,6 +329,7 @@ class ComputerSystem extends ImpulseController {
 			catch(Exception $e) { $this->_exit($e); return; }
 		}
 		$viewData['random'] = $this->api->get->site_configuration('ALLOW_RANDOM_MAC');
+		$viewData['dns'] = $this->api->get->site_configuration('QUICK_CREATE_SYSTEM_DNS');
 		$content = $this->loadview('system/quick',$viewData,true);
 		$content .= $this->forminfo;
 		$this->_render($content);

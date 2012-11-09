@@ -52,10 +52,19 @@
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label">Create DNS: </label>
+				<div class="controls">
+				<select name="quickdns">
+					<option <?=($dns=='yes'?"selected":"")?>>Yes</option>
+					<option <?=($dns=='no'?"selected":"")?>>No</option>
+				</select>
+				</div>
+			</div>
 			<div class="control-group">	
 				<label class="control-label">Zone: </label>
 				<div class="controls">
-					<select name="zone">
+					<select name="zone" <?=($dns=='no'?"readonly":"")?>>
 						<?php
 						foreach($zones as $z) {
 							print "<option>".htmlentities($z->get_zone())."</option>";

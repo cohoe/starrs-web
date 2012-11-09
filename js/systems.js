@@ -101,3 +101,11 @@ $('#random-mac').click(function() {
 	});
 	return false;
 });
+
+$('[name=quickdns]').change(function() {
+	if($('[name=quickdns]').val() == 'Yes') {
+		$('[name=zone]').attr('readonly',null);
+	} else {
+		$('[name=zone]').attr('readonly','yes');
+	}
+});
