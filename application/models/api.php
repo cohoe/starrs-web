@@ -143,7 +143,7 @@ class Api extends ImpulseModel {
 			if($searchArray['hostname'] == 'null') {
 				$searchString .= "AND hostname IS NULL ";
 			} else {
-				$searchString .= "AND hostname ~* {$this->db->escape($searchArray['hostname'])} ";
+				$searchString .= "AND (hostname ~* {$this->db->escape($searchArray['hostname'])} OR cname_alias ~* {$this->db->escape($searchArray['hostname'])} OR srv_alias ~* {$this->db->escape($searchArray['hostname'])}) ";
 			}
 		}
 		if($searchArray['zone']) {

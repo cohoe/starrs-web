@@ -122,6 +122,31 @@ class Api_management_get extends ImpulseModel {
 		return $resultSet;
 	}
 
+	public function userGroups($user=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_user_groups({$this->db->escape($user)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		$resultSet = array();
+		foreach($query->result_array() as $group) {
+			$resultSet[] = new Group(
+				$group['group'],
+				$group['privilege'],
+				$group['comment'],
+				$group['renew_interval'],
+				$group['date_created'],
+				$group['date_modified'],
+				$group['last_modifier']
+			);
+		}
+
+		return $resultSet;
+	}
+
 	public function group($group=null) {
 		// SQL
 		$sql = "SELECT * FROM api.get_groups() WHERE \"group\" = {$this->db->escape($group)}";
