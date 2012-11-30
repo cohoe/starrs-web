@@ -43,7 +43,7 @@ class Api_ip_get extends ImpulseModel {
 	}
 
 	public function rangesByGroup($group) {
-		$sql = "SELECT * FROM api.get_group_ranges({$this->db->escape($group)})";
+		$sql = "SELECT * FROM api.get_group_ranges({$this->db->escape($group)}) ORDER BY name";
 		$query = $this->db->query($sql);
 
 		$this->_check_error($query);
@@ -70,7 +70,7 @@ class Api_ip_get extends ImpulseModel {
 	}
 
 	public function rangesByUser($user) {
-		$sql = "SELECT DISTINCT * FROM api.get_user_ranges({$this->db->escape($user)})";
+		$sql = "SELECT DISTINCT * FROM api.get_user_ranges({$this->db->escape($user)}) ORDER BY name";
 		$query = $this->db->query($sql);
 
 		$this->_check_error($query);
