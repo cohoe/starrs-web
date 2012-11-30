@@ -40,10 +40,12 @@
 					<li class="dropdown <?=($header=='Systems')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Systems <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+					   <?php if($u->get_view_mode() == "Advanced") {?>
 							<li <?=($sub=='Datacenters')?'class="active"':null;?>><a href="/datacenters/">Datacenters</a></li>
 							<li <?=($sub=='Availability Zones')?'class="active"':null;?>><a href="/availabilityzones/view">Availability Zones</a></li>
 							<li <?=($sub=='Platforms')?'class="active"':null;?>><a href="/platforms/view/">Platforms</a></li>
 							<li class="divider"></li>
+						<?}?>
 							<li <?=($sub=='Systems')?'class="active"':null;?>><a href="/systems/view/">My Systems (<?=$viewUser?>)</a></li>
 							<li <?=($sub=='Renew')?'class="active"':null;?>><a href="/addresses/viewrenew/">Renewal</a></li>
 							<li <?=($sub=='Quick Create')?'class="active"':null;?>><a href="/system/quickcreate/">Quick Create</a></li>
