@@ -9,6 +9,13 @@
 			<a class="brand" href="/">STARRS</a>
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
+					<!--
+					<li>
+						<div class="btn-group">
+							<div id="simpleui" class="btn btn-mini">Simple</div>
+							<div id="advancedui" class="btn btn-mini">Advanced</div>
+						</div>
+					</li>-->
 					<li><a href="#" onclick="setViewUser('<?=htmlentities($userName);?>')"><?=htmlentities($displayName)." (".htmlentities($userLevel).")"?></a></li>
 					<?php if(isset($users)) {?>
 					<li><form class="navbar-form">
@@ -25,6 +32,7 @@
 						</select>
 					</form></li>
 					<?}?>
+					<li><div id="uitoggle" class="btn btn-mini">Simple</div></li>
 				</ul>
 			</div>
 			<div class="nav-collapse">
@@ -41,6 +49,8 @@
 							<li <?=($sub=='Quick Create')?'class="active"':null;?>><a href="/system/quickcreate/">Quick Create</a></li>
 						</ul>
 					</li>
+					<?php
+					   if($u->get_view_mode() == "Advanced") {?>
 					<li class="dropdown <?=($header=='DNS')?'active':null;?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">DNS <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -81,6 +91,7 @@
 							<li <?=($sub=='Switchports')?'class="active"':null;?>><a href="/network/switchports/">Switchports</a></li>
 						</ul>
 					</li>
+					<?}?>
 					<li <?=($header=='Search')?'class="active"':null;?>><a href="/search">Search</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->

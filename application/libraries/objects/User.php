@@ -39,6 +39,7 @@ class User {
 		$this->userLevel = $userLevel;
 		$this->viewUser = $viewUser;
 		$this->CI =& get_instance();
+		$this->viewMode = $this->CI->impulselib->getViewMode();
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -48,6 +49,7 @@ class User {
 	public function get_display_name()	{ return $this->displayName; }
 	public function get_user_level()	{ return $this->userLevel; }
 	public function get_view_user()    { return $this->viewUser; }
+	public function get_view_mode()    { return $this->viewMode; }
 
 	////////////////////////////////////////////////////////////////////////
 	// PUBLIC FUNCTIONS

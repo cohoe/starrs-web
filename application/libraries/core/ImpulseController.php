@@ -81,6 +81,7 @@ class ImpulseController extends CI_Controller {
 		}
 	
 		// Basic information about the user should be displayed
+		$userData['u'] = $this->user;
 		$userData['userName'] = $this->user->get_user_name();
 		$userData['displayName'] = $this->user->get_display_name();
 		$userData['userLevel'] = $this->user->get_user_level();

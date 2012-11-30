@@ -69,6 +69,22 @@ $(document).ready(function() {
 	setViewUserSelect();
 
 	$("#datatable").tablesorter(); 
+
+	if(getCookie('impulse_uimode') == "Advanced") {
+		// Viewing as Advanced, want a button to Simple
+		$('#uitoggle').html("Simple");
+		$('#uitoggle').addClass("btn-success");
+		$('#uitoggle').attr("title","Currently viewing in Advanced. Click to switch to Simple.");
+	} else if (getCookie('impulse_uimode') == "Simple") {
+		// Viewing as Simple, want a button to Advanced
+		$('#uitoggle').html("Advanced");
+		$('#uitoggle').addClass("btn-danger");
+		$('#uitoggle').attr("title","Currently viewing in Simple. Click to switch to Advanced.");
+	} else {
+		// No cookie set
+		setCookie("impulse_uimode","Simple",1500);
+		refresh();
+	}
 });
 
 $('#create-form').submit(function() {
@@ -183,3 +199,57 @@ $('th').each(function() {
 $('dt').tooltip({placement:'right'});
 $('th').tooltip({placement:'top'});
 $('.control-label').tooltip({placement:'right'});
+
+$('#uitoggle').click(function() {
+	var viewMode = $(this).html();
+	console.debug(viewMode);
+
+	if(viewMode == "Simple") {
+		// Go to simple mode
+		setCookie("impulse_uimode","Simple",1500);
+		refresh();
+	} else {
+		// Go to advanced mode
+		setCookie("impulse_uimode","Advanced",1500);
+		refresh();
+	}
+});
+
+$('#simpleui').click(function() {
+	$(this).addClass("btn-primary");
+	$('#advancedui').removeClass("btn-primary");
+	setCookie("impulse_uimode","simple",1500);
+	refresh();
+});
+
+$('#advancedui').click(function() {
+	$(this).addClass("btn-primary");
+	$('#simpleui').removeClass("btn-primary");
+	setCookie("impulse_uimode","advanced",1500);
+	refresh();
+});
+
+function setCookie(c_name,value,exdays)
+{
+	console.debug("Setting Cookie");
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+	document.cookie=c_name + "=" + c_value;
+}
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+{
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+
+}

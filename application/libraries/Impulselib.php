@@ -411,6 +411,10 @@ class Impulselib {
 		}
 		print $mac;
 	}
+
+	public function getViewMode() {
+		return $this->CI->input->cookie('impulse_uimode',TRUE);
+	}
 }
 /* End of file Impulselib.php */
 /* Location: ./application/libraries/Impulselib.php */

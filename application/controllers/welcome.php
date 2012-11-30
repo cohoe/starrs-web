@@ -4,7 +4,11 @@ require_once(APPPATH . "libraries/core/ImpulseController.php");
 class Welcome extends ImpulseController {
 	public function index()
 	{
-		$content = $this->load->view('welcome_message',null,true);
+		if($this->impulselib->getViewMode() == "Advanced") {
+			$content = $this->load->view('welcome_message',null,true);
+		} else {
+			$content = $this->load->view('welcome_message_simple',array('helpContact'=>$this->api->get->site_configuration('HELP_CONTACT')),true);
+		}
 		#$sidebar = $this->load->view('core/sidebar',null,true);
 		$this->sidebar = "";
 		$this->_render($content);
