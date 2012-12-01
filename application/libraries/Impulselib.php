@@ -86,6 +86,11 @@ class Impulselib {
 		$this->tooltips['system']['Config'] = "The method that you receive your IP address. DHCP(v6) addresses will be handed out by the DHCP server. Static addresses must be configured by the user. Autoconf addresses are treated like static addresses in STARRS, but are not configured on the system by a user.";
 		$this->tooltips['system']['Zone'] = "The DNS domain name.";
 
+		$this->tooltips['addresses']['System Name'] = "The names of the systems that you own.";
+		$this->tooltips['addresses']['Addresses'] = "The IP addresses of the systems that you have registered.";
+		$this->tooltips['addresses']['Renew Date'] = "The date that the address will expire.";
+		$this->tooltips['addresses']['Renew'] = "Click the Renew button to extend your registration.";
+
 		# Subnet
 		$this->tooltips['ip']['Name'] = "A logical/human readable name assigned to an IP subnet";
 		$this->tooltips['ip']['DNS Zone'] = "A DNS domain associated with the subnet.";
@@ -120,7 +125,7 @@ class Impulselib {
 		# Group
 		$this->tooltips['group']['Global Privilege'] = "The privilege level in global scope that this group should receive. This allows you to specify a global ADMIN group.";
 		$this->tooltips['group']['Renew Interval'] = "The default time between address renewals applied to all members of the group.";
-		$this->tooltips['group']['Comment'] = "A note about the DHCP class.";
+		$this->tooltips['group']['Comment'] = "A note about the group.";
 		$this->tooltips['group']['Date Created'] = "The date that the group was created.";
 		$this->tooltips['group']['Date Modified'] = "The date that the group was last modified.";
 		$this->tooltips['group']['Last Modifier'] = "The last person to modify the group.";
@@ -132,9 +137,13 @@ class Impulselib {
 		$this->tooltips['network']['Date Created'] = "The date that the resource was created.";
 		$this->tooltips['network']['Date Modified'] = "The date that the resource was last modified.";
 		$this->tooltips['network']['Last Modifier'] = "The last person to modify the resource.";
-		$this->tooltips['network']['Name'] = "A human-readable name given to a VLAN.";
+		$this->tooltips['network']['Name'] = "A human-readable name given to resource.";
 		$this->tooltips['network']['Datacenter'] = "The datacenter in which this VLAN resides.";
 		$this->tooltips['network']['Comment'] = "A note about the resource.";
+
+		$this->tooltips['network']['Admin State'] = "The administrative state of an interface (shutdown vs no shutdown).";
+		$this->tooltips['network']['Operational State'] = "The current status (up or down) of an interface.";
+
 
 		# DNS
 		$this->tooltips['dns']['Keyname'] = "The name of the DDNS key.";
@@ -150,20 +159,50 @@ class Impulselib {
 		$this->tooltips['dns']['Key'] = "The name of the DDNS key. This should match the configuration of your DNS server.";
 		$this->tooltips['dns']['Encryption'] = "The type of encryption that the key is stored in. Usually hmac-md5.";
 
-
+		$this->tooltips['dns']['Hostname'] = "The hostname portion of the record.";
+		$this->tooltips['dns']['Zone'] = "The zone that this record is contained in.";
+		$this->tooltips['dns']['TTL'] = "The Time-To-Live value of the record.";
+		$this->tooltips['dns']['Type'] = "The type of record. Different types have different uses and features.";
+		$this->tooltips['dns']['Actions'] = "The actions you can perform on the resource.";
+		$this->tooltips['dns']['Alias'] = "The hostname of a pointing record (CNAME and SRV).";
+		$this->tooltips['dns']['Priority'] = "The priority field of a SRV record.";
+		$this->tooltips['dns']['Weight'] = "The weight field of a SRV record.";
+		$this->tooltips['dns']['Port'] = "The port field of a SRV record.";
 
 		# DNS
 		
 		# DHCP
 		$this->tooltips['dhcp']['Option'] = "The option identifier for the DHCP configuration file (ex: 'option subnet-mask')";
+		$this->tooltips['dhcp']['Actions'] = "The actions you can perform on the resource.";
 		$this->tooltips['dhcp']['Value'] = "The value of the configured option (ex: '255.255.255.0')";
 		
 		# Management
 		$this->tooltips['configuration']['Option'] = "The name of the configuration directive. (ex: DEFAULT_SYSTEM_TYPE)";
 		$this->tooltips['configuration']['Value'] = "The value of the configuration directive. (ex: Server)";
+		$this->tooltips['configuration']['Actions'] = "The actions you can perform on the configuration entry.";
 		
+		$this->tooltips['group']['Name'] = "The name of the IP range that is associated to this group.";
+		$this->tooltips['group']['First IP'] = "The first IP address of the range.";
+		$this->tooltips['group']['Last IP'] = "The last IP address of the range.";
+		$this->tooltips['group']['Actions'] = "The actions you can perform on the resource.";
+		$this->tooltips['group']['Username'] = "The username of the member of the group.";
+		$this->tooltips['group']['Group Privilege'] = "The group-wide privilege level of the member. ADMIN's can modify all systems within the group and control group membership.";
+
+		$this->tooltips['users']['Group'] = "The group that the user belongs to.";
+		$this->tooltips['users']['System'] = "The name of the system owned by the user.";
+		$this->tooltips['users']['Actions'] = "The actions you can perform on the users resource.";
 
 		# Network
+		$this->tooltips['network']['MAC Address'] = "The MAC address of the CAM entry.";
+		$this->tooltips['network']['Port Name'] = "The name of the switchport interface.";
+		$this->tooltips['network']['VLAN'] = "The number of the VLAN associated with the switchport.";
+		$this->tooltips['network']['System Name'] = "The name of the system that the switchport is on.";
+		$this->tooltips['network']['Interface Name'] = "The name of the switchport interface.";
+		$this->tooltips['network']['Description'] = "The full name of the switchport interface.";
+		$this->tooltips['network']['Alias'] = 'A comment given to the switchport interface (Cisco: interface f0/0; description XXX;)';
+		$this->tooltips['network']['Index'] = 'The backend index given to the interface.';
+		$this->tooltips['network']['State'] = 'The current status of the interface. Up is active, Down is unplugged, Disabled is shutdown.';
+
 
 		# Other
 	}
@@ -337,16 +376,43 @@ class Impulselib {
           			}
 				}
 				break;
-			case 'Cisco 6509-CSH':
-				$blades[1] = new Blade(2,2,1);
+			case 'Cisco 6509 CSH-North':
+				$blades[1] = new Blade(48,4,2);
 				$blades[2] = new Blade(48,4,2);
 				$blades[3] = new Blade(48,4,2);
 				$blades[4] = new Blade(48,4,2);
-				$blades[5] = new Blade(48,4,2);
+				$blades[5] = new Blade(9,9,1);
+				$blades[6] = new Blade(48,4,2);
+				$blades[7] = new Blade(48,4,2);
+				$blades[8] = new Blade(16,8,2);
+				$blades[9] = new Blade(8,8,1);
+
+				foreach($ifs as $if) {
+			          if(preg_match('/Gi|Fa/',$if->get_name())) {
+			               $bladeNum = preg_replace('/^(Gi|Fa)(\d)\/(.*?)$/','$2',$if->get_name());
+						if($blades[$bladeNum]->get_port_groups() == $blades[$bladeNum]->get_int_count()) {
+          			          $blades[$bladeNum]->add_if($if, 0);
+						}
+	          		     elseif($if->get_index() % 2 == 0) {
+     	               		$blades[$bladeNum]->add_if($if, 1);
+			               } else {
+          			          $blades[$bladeNum]->add_if($if, 0);
+		          	     }
+	          		} else {
+			               $otherIfs[] = $if;
+          			}
+				}
+				break;
+			case 'Cisco 6509 CSH-South':
+				$blades[1] = new Blade(2,2,1);
+				$blades[2] = new Blade(2,2,1);
+				$blades[3] = new Blade(48,4,2);
+				$blades[4] = new Blade(48,4,2);
+				$blades[5] = new Blade(9,9,1);
 				$blades[6] = new Blade(48,4,2);
 				$blades[7] = new Blade(48,4,2);
 				$blades[8] = new Blade(8,8,1);
-				$blades[9] = new Blade(16,8,2);
+				$blades[9] = new Blade(8,8,1);
 
 				foreach($ifs as $if) {
 			          if(preg_match('/Gi|Fa/',$if->get_name())) {
