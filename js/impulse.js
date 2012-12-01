@@ -195,6 +195,17 @@ $('th').each(function() {
 	});
 });
 
+$('label').each(function() {
+        var obj = $(this);
+
+	var name = obj.html();
+	name=name.replace(/:/,"");
+        $.get("/tooltip/view/"+getSchemaFromUrl()+"/"+name, function(data) {
+                obj.attr('title',data);
+                obj.tooltip('fixTitle');
+        });
+});
+
 
 $('dt').tooltip({placement:'right'});
 $('th').tooltip({placement:'top'});

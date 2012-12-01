@@ -73,6 +73,9 @@ class Impulselib {
 		$this->tooltips['system']['Last Modifier'] = "The last user to modify the resource or object.";
 		$this->tooltips['system']['Comment'] = "A note associated with the object or resource.";
 
+		$this->tooltips['system']['MAC Address'] = "The MAC address of the interface on the system.";
+		$this->tooltips['system']['Create DNS'] = "Should STARRS create a DNS record for this system or not?";
+
 		$this->tooltips['system']['Platform'] = "A generic hardware configuration applied to a system. Used to enable certain features or views.";
 		$this->tooltips['system']['Architecture'] = "The CPU architecture of a given hardware platform.";
 		$this->tooltips['system']['Disk'] = "The disk configuration of a hardware platform.";
@@ -205,6 +208,21 @@ class Impulselib {
 
 
 		# Other
+		$this->tooltips['search']['Datacenter'] = "The physical location in which a system lives.";
+		$this->tooltips['search']['Availability Zone'] = "The logical partition of a datacenter in which an address on the system resides.";
+		$this->tooltips['search']['System Name'] = "The name or partial string of the computer.";
+		$this->tooltips['search']['Asset'] = "A company-specific inventory tracking string.";
+		$this->tooltips['search']['Group'] = "The group that owns a system.";
+		$this->tooltips['search']['Platform'] = "A hardware template that a system is built from.";
+		$this->tooltips['search']['MAC Address'] = "The MAC addres of an interface on a network.";
+		$this->tooltips['search']['Subnet'] = "The IPv4 or IPv6 subnet that an IP address is contained within.";
+		$this->tooltips['search']['IP Address'] = "The IPv4 or IPv6 address assigned to an interface.";
+		$this->tooltips['search']['Config'] = "The method of IP address configuration.";
+		$this->tooltips['search']['Range'] = "The logical range of IP addresses that an address is contained within.";
+		$this->tooltips['search']['DNS Hostname'] = "A hostname portion of a DNS record assigned to an IP address. Searches A/AAAA/SRV/CNAME records.";
+		$this->tooltips['search']['DNS Zone'] = "The domain portion of a DNS record assigned to an IP address.";
+		$this->tooltips['search']['Owner'] = "The owning user of a system or DNS record.";
+		$this->tooltips['search']['Last Modifier'] = "The last user to modify the system or DNS record.";
 	}
 
 
