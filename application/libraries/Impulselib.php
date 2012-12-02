@@ -220,7 +220,7 @@ class Impulselib {
 		$this->tooltips['search']['Config'] = "The method of IP address configuration.";
 		$this->tooltips['search']['Range'] = "The logical range of IP addresses that an address is contained within.";
 		$this->tooltips['search']['DNS Hostname'] = "A hostname portion of a DNS record assigned to an IP address. Searches A/AAAA/SRV/CNAME records.";
-		$this->tooltips['search']['DNS Zone'] = "The domain portion of a DNS record assigned to an IP address.";
+		$this->tooltips['search']['DNS Zone'] = "The domain portion of a DNS record assigned to an IPv4 or IPv6 address.";
 		$this->tooltips['search']['Owner'] = "The owning user of a system or DNS record.";
 		$this->tooltips['search']['Last Modifier'] = "The last user to modify the system or DNS record.";
 	}
