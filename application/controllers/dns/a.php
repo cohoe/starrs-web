@@ -93,6 +93,7 @@ class A extends DnsController {
 
 		// Instantiate
 		$intAddrs = array();
+		$intAddrs[] = $this->api->systems->get->interfaceaddressByAddress($address);
 		try {
 			$aRec = $this->api->dns->get->address($zone, $address);
 			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
