@@ -1,5 +1,5 @@
 <div class="span7 well">
-	<h2><?=htmlentities($intAddr->get_address());?></h2>
+<h2><?=htmlentities($intAddr->get_address());?> <img id="addr_state" title="Host is <?=($state==false)?"NOT ":""?>pingable from the STARRS server." src="/img/<?=($state==true)?"up":"down";?>.png" /></h2>
 	<dl class="dl-horizontal">
 		<dt>Primary</dt>
 		<dd><?=($intAddr->get_isprimary()=='t')?"Yes":"No";?></dd>

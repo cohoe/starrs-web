@@ -178,6 +178,8 @@ function getSchemaFromUrl() {
 	return window.location.pathname.split('/')[1];
 }
 
+$('#addr_state').tooltip({placement:"right"});
+
 $('dt').each(function() {
 	var obj = $(this);
 

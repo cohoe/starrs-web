@@ -35,8 +35,12 @@ class Address extends ImpulseController {
 		$this->_addAction('DNS Records',"/dns/records/view/".rawurlencode($intAddr->get_address()),"primary");
 		$this->_addAction('Renew',"/address/renew/".rawurlencode($intAddr->get_address()));
 
+		// Data
+		$viewData['intAddr'] = $intAddr;
+		$viewData['state'] = $this->api->ip->ping($intAddr->get_address());
+
 		// Content
-		$content = $this->load->view('interfaceaddress/detail',array("intAddr"=>$intAddr),true);
+		$content = $this->load->view('interfaceaddress/detail',$viewData,true);
 
 		// Sidebar
 		try {

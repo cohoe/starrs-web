@@ -58,6 +58,19 @@ class Api_ip extends ImpulseModel {
 		// Return result
 		return $query->row()->ip_is_dynamic;
 	}
+
+	public function ping($address) {
+		$sql = "SELECT api.ping({$this->db->escape($address)})";
+		$query = $this->db->query($sql);
+
+		$this->_check_error($query);
+
+		if($query->row()->ping == 't') {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 /* End of file api_ip.php */
 /* Location: ./application/models/API/api_ip.php */
