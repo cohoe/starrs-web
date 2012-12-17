@@ -73,3 +73,37 @@
 .imp-simplebutton {
 	margin-bottom: 1.5em;
 }
+
+.imp-simplebuttontable {
+	width: 100%;
+}
+
+.imp-simplebuttontable td {
+	/**padding-left: 2em;
+	padding-right: 2em;**/
+}
+
+.imp-simplebuttontest {
+	min-height: 3em !important;
+	margin-bottom: 1em;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.imp-simplebutton h2 {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.imp-sbtncontainer {
+	display: table !important;
+	min-height: 8em !important;
+	width: 100%;
+	margin-bottom: 1em;
+}
+
+.imp-sbtn {
+	display: table-cell;
+	vertical-align: middle;
+	height: 8em;
+}

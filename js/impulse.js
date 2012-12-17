@@ -266,3 +266,7 @@ for (i=0;i<ARRcookies.length;i++)
   }
 
 }
+
+$('.imp-sbtn').click(function() {
+	window.location.href = $(this).attr('href');
+});
