@@ -151,6 +151,7 @@ class InterfaceController extends ImpulseController {
 			$viewData['int'] = $int;
 			try {
 				$viewData['systems'] = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+				$viewData['systems'][] = $this->api->systems->get->systemByName($int->get_system_name());
 			}
 			catch (ObjectNotFoundException $e) {}
 			catch (Exception $e) { $this->_exit($e); return; }

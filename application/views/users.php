@@ -24,7 +24,7 @@
 		<tr><th>System</th><th style="width: 162px">Actions</th></tr>
 		<?
 		foreach($systems as $sys) {
-			print "<tr><td>{$sys->get_system_name()}</td><td><a href=\"/system/remove/".rawurlencode($sys->get_system_name())."\"><button class=\"btn btn-mini btn-danger\">Remove</button></a></td></tr>";
+			print "<tr><td><a href=\"/system/view/".rawurlencode($sys->get_system_name())."\">{$sys->get_system_name()}<a/></td><td><a href=\"/system/remove/".rawurlencode($sys->get_system_name())."\"><button class=\"btn btn-mini btn-danger\">Remove</button></a></td></tr>";
 		}?>
 	</table>
 </div>
