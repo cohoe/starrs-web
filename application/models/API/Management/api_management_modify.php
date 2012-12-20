@@ -43,6 +43,12 @@ class Api_management_modify extends ImpulseModel {
 		// Check errors
         $this->_check_error($query);
 	}
+
+	public function user($olduser, $newuser) {
+		$sql = "SELECT api.change_username({$this->db->escape($olduser)},{$this->db->escape($newuser)})";
+		$query = $this->db->query($sql);
+		$this->_check_error($query);
+	}
 }
 /* End of file api_management_modify.php */
 /* Location: ./application/models/API/DNS/api_management_modify.php */

@@ -28,6 +28,7 @@ class Users extends ImpulseController {
                $content = $this->load->view('exceptions/exception',array("exception"=>$e),true);
           }   
 
+		$this->_addAction("Rename","/users/rename/".rawurlencode($user));
 		$this->_addAction("Remove","/users/remove/".rawurlencode($user),"danger");
 
 		$this->_addSidebarHeader("USERS");
@@ -90,6 +91,30 @@ class Users extends ImpulseController {
                $this->_error(new Exception("No confirmation"));
           }   
 
+	}
+
+	public function rename($user) {
+		   $user = rawurldecode($user);
+		   if($this->input->post()) {
+				try {
+					$this->api->modify->user($user, $this->_post('newusername'));
+					// This is SUPER hax. The Save button JS triggers a page refresh and thus doesnt
+					// send the client to the new users page. Putting a space before sendClient() 
+					// causes the no-error check to fail and the error message to be displayed.
+					// This message contains the sendClient() code and sends the client on its way.
+					print " ";
+					$this->_sendClient("/users/view/".rawurlencode($this->_post('newusername')));
+					return;
+				}
+				catch (Exception $e) {
+					   $this->_error($e);
+						return;
+				}
+		   } else {
+				 $content = $this->load->view('users/rename',array('user'=>$user),true);
+
+				 $this->_renderSimple($content);
+		   }
 	}
 
 }
