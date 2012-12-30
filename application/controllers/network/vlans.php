@@ -16,6 +16,7 @@ class Vlans extends ImpulseController {
 	}
 
 	public function view($datacenter=null) {
+		$datacenter = rawurldecode($datacenter);
 		if($datacenter) {
 			try {
 				$vlans = $this->api->network->get->vlans($datacenter);
