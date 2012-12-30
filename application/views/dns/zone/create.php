@@ -24,8 +24,8 @@
 				<label class="control-label">Forward: </label>
 				<div class="controls">
 					<select name="forward">
-						<option value=1>Yes</option>
-						<option value=0>No</option>
+						<option value='true'>Yes</option>
+						<option value='false'>No</option>
 					</select>
 				</div>
 			</div>
@@ -33,8 +33,8 @@
 				<label class="control-label">Shared: </label>
 				<div class="controls">
 					<select name="shared">
-						<option value=1>Yes</option>
-						<option value=0>No</option>
+						<option value='true'>Yes</option>
+						<option value='false'>No</option>
 					</select>
 				</div>
 			</div>
@@ -42,8 +42,8 @@
 				<label class="control-label">DDNS: </label>
 				<div class="controls">
 					<select name="ddns">
-						<option value=0>No</option>
-						<option value=1>Yes</option>
+						<option value='false'>No</option>
+						<option value='true'>Yes</option>
 					</select>
 				</div>
 			</div>
