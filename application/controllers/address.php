@@ -202,11 +202,15 @@ class Address extends ImpulseController {
 
 			try {
 				$viewData['configs'] = $this->api->dhcp->get->configtypes();
-				$viewData['ranges'] = $this->api->ip->get->ranges();
 				$viewData['classes'] = $this->api->dhcp->get->classes();
 				$viewData['user'] = $this->user;
 			}
 			catch (Exception $e) { $this->_exit($e); return; }
+            try {
+				$viewData['ranges'] = $this->api->ip->get->ranges();
+            }
+            catch (ObjectNotFoundException $e) { $viewData['ranges'] = array(); }
+            catch (Exception $e) { $this->_exit($e); }
 
 			// Content
 			$content = $this->load->view('interfaceaddress/modify',$viewData,true);
