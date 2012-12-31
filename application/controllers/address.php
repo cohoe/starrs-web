@@ -98,7 +98,8 @@ class Address extends ImpulseController {
 			try {
 				$viewData['ranges'] = $this->api->ip->get->ranges();
 			}
-			catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No IP ranges configured! Set up at least one IP range before attempting to create an address")); return; }
+			#catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No IP ranges configured! Set up at least one IP range before attempting to create an address")); return; }
+			catch(Exception $e) { $viewData['ranges'] = array(); }
 			catch(Exception $e) { $this->_exit($e); return; }
 			try {
 				$viewData['classes'] = $this->api->dhcp->get->classes();
