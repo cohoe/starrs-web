@@ -44,7 +44,7 @@ $('#action-addrange').click(function() {
 
 $('[name=datacenter]').change(function() {
 	var datacenter = $('[name=datacenter] option:selected').text();
-	$.get("/network/vlans/view/"+datacenter,function(data) {
+	$.get("/network/vlans/view/"+rawurlencode(datacenter),function(data) {
 		var vlans = data.split(":");
 		vlans.pop();
 		$('[name=vlan]').empty();
