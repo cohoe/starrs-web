@@ -66,7 +66,7 @@ class IpRange extends ImpulseObject {
 	////////////////////////////////////////////////////////////////////////
 	// GETTERS
 	
-	public function get_first_ip()	{ return $this->firstIp; }
+    public function get_first_ip()	{ return $this->firstIp; }
     public function get_last_ip()	{ return $this->lastIp; }
     public function get_use()	    { return $this->use; }
     public function get_name()	    { return $this->name; }
@@ -126,6 +126,11 @@ class IpRange extends ImpulseObject {
 
     ////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS
+	//
+
+	public function get_top_users() {
+		return $this->CI->api->ip->get->range_top_users($this->name);
+	}
     
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS

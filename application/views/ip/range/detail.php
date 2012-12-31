@@ -1,5 +1,5 @@
 <div class="row-fluid">
-	<div class="well span6">
+	<div class="well span5">
 		<h2><?=htmlentities($r->get_name());?></h2>
 		<dl class="dl-horizontal">
 			<dt>First IP</dt>
@@ -25,7 +25,15 @@
 			<dd><?=htmlentities($r->get_comment());?>&nbsp;</dd>
 		</dl>
 	</div>
-	<div class="well span6">
+	<div class="well span3">
+		<h2>Top Users</h2>
+		<ol>
+		<? foreach($r->get_top_users() as $user) {
+			print "<li><a href=\"/users/view/".rawurlencode($user['user'])."\">".$user['user']."</a> (".$user['count'].")</li>";
+		}?>
+		</ol>
+	</div>
+	<div class="well span4">
 		<h2>Utilization</h2>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript">
