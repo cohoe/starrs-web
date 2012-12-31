@@ -366,9 +366,7 @@ class Api_ip_get extends ImpulseModel {
 
 	public function range_top_users($range) {
 		$sql = "SELECT * FROM api.get_range_top_users({$this->db->escape($range)})";
-		
 		$query = $this->db->query($sql);
-
 		$this->_check_error($query);
 
 		return $query->result_array();
