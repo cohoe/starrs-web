@@ -143,8 +143,12 @@ class ImpulseController extends CI_Controller {
 			$scripts .= "<script src=\"$js\"></script>";
 		}
 
-		// Send the data to the browser
-		$finalOut = $this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content,'scripts'=>$scripts),true);
+		// Version
+		$version = read_file('version.txt');
+
+                // Send the data to the browser		
+		$finalOut = $this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content,'scripts'=>$scripts,'version'=>$version),true);
+
 		$this->output->set_output($finalOut);
 		return $finalOut;
 	}
