@@ -1,6 +1,6 @@
 <div class="row-fluid span7">
 	<div class="row-fluid">
-		<div class="well">
+		<div class="well span4">
 			<h2><?=htmlentities($g->get_group());?></h2>
 			<dl class="dl-horizontal">
 				<dt>Global Privilege</dt>
@@ -16,6 +16,26 @@
 				<dt>Comment</dt>
 				<dd><?=htmlentities($g->get_comment());?>&nbsp;</dd>
 			</dl>
+		</div>
+		<div class="well span8">
+			<h2>Provider Settings</h2>
+			<?if($gset) {?>
+			<dl class="dl-horizontal">
+				<dt>Privilege</dt>
+				<dd><?=htmlentities($gset->get_privilege());?></dd>
+				<dt>Provider</dt>
+				<dd><?=htmlentities($gset->get_provider());?></dd>
+				<dt>Hostname</dt>
+				<dd><?=htmlentities($gset->get_hostname());?></dd>
+				<dt>ID</dt>
+				<dd><?=htmlentities($gset->get_id());?></dd>
+				<dt>Username</dt>
+				<dd><?=htmlentities($gset->get_username());?></dd>
+				<dt>Password</dt>
+				<dd><?=htmlentities(preg_replace('[.]', '*', $gset->get_password()));?></dd>
+			</dl>
+				
+			<?}?>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -35,6 +55,9 @@
 	<div class="row-fluid">
 		<div class="well">
 			<h3>Members</h3>
+			<?if($gms instanceof Exception) {
+				print $gms->getMessage();
+			} else {?>
 			<table class="table table-bordered table-striped imp-dnstable">
 				<tr><th>Username</th><th>Group Privilege</th><th style="width: 162px;">Actions</th></tr>
 				<?
@@ -46,6 +69,7 @@
 				}
 				?>
 			</table>
+			<?}?>
 		</div>
 	</div>
 </div>

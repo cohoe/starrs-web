@@ -180,6 +180,15 @@ class Api extends ImpulseModel {
 		return $query;
 	}
 
+	public function reload_group_members($group) {
+		// SQL Query
+		$sql = "SELECT api.reload_group_members({$this->db->escape($group)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+	}
+
 	////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS
 

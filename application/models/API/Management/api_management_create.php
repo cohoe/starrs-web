@@ -77,6 +77,37 @@ class Api_management_create extends ImpulseModel {
 			$query->row()->last_modifier
 		);
 	}
+
+	public function group_settings($group, $privilege, $provider, $hostname, $id, $username, $password) {
+		// SQL
+		$sql = "SELECT * FROM api.create_group_settings(
+			{$this->db->escape($group)},
+			{$this->db->escape($provider)},
+			{$this->db->escape($id)},
+			{$this->db->escape($hostname)},
+			{$this->db->escape($username)},
+			{$this->db->escape($password)},
+			{$this->db->escape($privilege)}
+		)";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new Groupsettings(
+			$query->row()->group,
+			$query->row()->privilege,
+			$query->row()->provider,
+			$query->row()->hostname,
+			$query->row()->id,
+			$query->row()->username,
+			$query->row()->password,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
 }
 /* End of file api_management_create.php */
 /* Location: ./application/models/API/DNS/api_management_create.php */

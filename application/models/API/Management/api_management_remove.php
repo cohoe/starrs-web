@@ -31,6 +31,15 @@ class Api_management_remove extends ImpulseModel {
 		// Check errors
         $this->_check_error($query);
 	}
+
+	public function group_settings($group) {
+		// SQL Query
+		$sql = "SELECT api.remove_group_settings({$this->db->escape($group)})";
+		$query = $this->db->query($sql);
+		
+		// Check errors
+        $this->_check_error($query);
+	}
 }
 /* End of file api_management_remove.php */
 /* Location: ./application/models/API/DNS/api_management_remove.php */

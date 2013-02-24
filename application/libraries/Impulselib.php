@@ -132,6 +132,12 @@ class Impulselib {
 		$this->tooltips['group']['Date Created'] = "The date that the group was created.";
 		$this->tooltips['group']['Date Modified'] = "The date that the group was last modified.";
 		$this->tooltips['group']['Last Modifier'] = "The last person to modify the group.";
+		$this->tooltips['group']['Privilege'] = "The privilege level to assign to users";
+		$this->tooltips['group']['Provider'] = "Source for group member data. Can be \"Local\" for STARRS-internal only, \"ldap\" for an OpenLDAP server, and \"vcloud\" for VMware vCloud Organizations.";
+		$this->tooltips['group']['Hostname'] = "The hostname of the provider server. Can be either an FQDN or IP address.";
+		$this->tooltips['group']['ID'] = "The identifier of the group within the provider. Usually a CN for LDAP or an Org URL for vCloud.";
+		$this->tooltips['group']['Username'] = "User to connect to the provider as.";
+		$this->tooltips['group']['Password'] = "Password to connect to the provider with";
 
 		# Network  
 		$this->tooltips['network']['Address'] = "The IP address associated with the network device used for communication.";

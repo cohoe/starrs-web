@@ -27,10 +27,18 @@ class Groupcontroller extends ImpulseController {
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		try {
+			$gset = $this->api->get->group_settings($group);
+		}
+		catch(ObjectNotFoundException $e) { $gset = null; }
+		#catch(Exception $e) { $this->_exit($e); return; }
+		catch(Exception $e) { $gset = $e; }
+
+		try {
 			$gms = $this->api->get->groupMembers($g->get_group());
 		}
 		catch(ObjectNotFoundException $e) { $gms = array(); }
-		catch(Exception $e) { $this->_exit($e); return; }
+		#catch(Exception $e) { $this->_exit($e); return; }
+		catch(Exception $e) { $gms = $e; };
 
 		try {
 			$ranges = $this->api->ip->get->rangesByGroup($g->get_group());
@@ -54,6 +62,14 @@ class Groupcontroller extends ImpulseController {
 		// Actions
 		$this->_addAction("Add User","/groupmember/create/".rawurlencode($g->get_group()),"success");
 		$this->_addAction("Add Range","/grouprange/create/".rawurlencode($g->get_group()),"success");
+		if(!($gset instanceof GroupSettings)) {
+			$this->_addAction("Add Provider","/group_settings/create/".rawurlencode($g->get_group()));
+		}
+		if($gset != null) {
+			$this->_addAction("Modify Provider","/group_settings/modify/".rawurlencode($g->get_group()));
+			$this->_addAction("Remove Provider","/group_settings/remove/".rawurlencode($g->get_group()));
+			$this->_addAction("Reload Members","/group/reload/".rawurlencode($g->get_group()));
+		}
 		$this->_addAction("Modify","/group/modify/".rawurlencode($g->get_group()));
 		$this->_addAction("Remove","/group/remove/".rawurlencode($g->get_group()));
 
@@ -61,6 +77,7 @@ class Groupcontroller extends ImpulseController {
 		$viewData['g'] = $g;
 		$viewData['gms'] = $gms;
 		$viewData['ranges'] = $ranges;
+		$viewData['gset'] = $gset;
 
 		// Content
 		$content = $this->load->view('group/detail',$viewData,true);
@@ -157,6 +174,23 @@ class Groupcontroller extends ImpulseController {
 			$this->_error(new Exception("No confirmation"));
 			return;
 		}
+	}
+
+	public function reload($group) {
+		// Decode
+		$group = rawurldecode($group);
+
+		// Instantiate
+		try {
+			$g = $this->api->get->group($group);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		try {
+			$this->api->reload_group_members($g->get_group());
+			$this->_sendClient("/group/view/".rawurlencode($g->get_group()));
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
 	}
 }
 

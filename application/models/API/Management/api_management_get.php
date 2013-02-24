@@ -167,6 +167,29 @@ class Api_management_get extends ImpulseModel {
 		);
 	}
 
+	public function group_settings($group=null) {
+		// SQL
+		$sql = "SELECT * FROM api.get_group_settings({$this->db->escape($group)})";
+		$query = $this->db->query($sql);
+
+		// Check error
+		$this->_check_error($query);
+
+		// Return
+		return new GroupSettings(
+			$query->row()->group,
+			$query->row()->privilege,
+			$query->row()->provider,
+			$query->row()->hostname,
+			$query->row()->id,
+			$query->row()->username,
+			$query->row()->password,
+			$query->row()->date_created,
+			$query->row()->date_modified,
+			$query->row()->last_modifier
+		);
+	}
+
 	public function groupMembers($group) {
 		// SQL
 		$sql = "SELECT * FROM api.get_group_members({$this->db->escape($group)})";
