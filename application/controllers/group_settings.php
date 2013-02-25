@@ -95,6 +95,7 @@ class Group_settings extends ImpulseController {
 				return;
 			}
 
+			$this->api->reload_group_members($gset->get_group());
 			$this->_sendClient("/group/view/".rawurlencode($g->get_group()));
 			return;
 		}
