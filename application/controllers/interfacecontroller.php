@@ -47,7 +47,11 @@ class InterfaceController extends ImpulseController {
 		try {
 			$intAddrs = $this->api->systems->get->interfaceaddressesByMac($int->get_mac());
 			foreach($intAddrs as $intAddr) {
-				$this->_addSidebarItem($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()),"globe");
+				if($intAddr->get_dynamic() == 't') {
+					$this->_addSidebarItem("Dynamic","/address/view/".rawurlencode($intAddr->get_address()),"globe");
+				} else {
+					$this->_addSidebarItem($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()),"globe");
+				}
 				try {
 					$recs = array_merge($recs,$this->api->dns->get->recordsByAddress($intAddr->get_address()));
 				}

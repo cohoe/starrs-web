@@ -74,7 +74,7 @@ class InterfaceAddress extends ImpulseObject {
 		$this->family  = (strpos($address, ':') === false) ? 4 : 6;
 		
 		// Initialize variables
-        $this->dynamic = FALSE;
+        $this->dynamic = $this->CI->api->ip->is_dynamic($this->address);
 
         // Try to get the address record that resolves to this address
 	   $this->systemName = $this->CI->api->systems->get->systemByAddress($this->address)->get_system_name();

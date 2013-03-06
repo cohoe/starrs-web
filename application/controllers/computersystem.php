@@ -97,7 +97,11 @@ class ComputerSystem extends ImpulseController {
 		$this->_addSidebarHeader("ADDRESSES");
 		foreach($intAddrs as $intAddr) {
 			$int = $this->api->systems->get->interfaceByMac($intAddr->get_mac());
-			$this->_addSidebarItem($intAddr->get_address()." (".$int->get_name().")","/address/view/".rawurlencode($intAddr->get_address()),"globe");
+			if($intAddr->get_dynamic() == 't') {
+			$this->_addSidebarItem("Dynamic (".$int->get_name().")","/address/view/".rawurlencode($intAddr->get_address()),"globe");
+			} else {
+				$this->_addSidebarItem($intAddr->get_address()." (".$int->get_name().")","/address/view/".rawurlencode($intAddr->get_address()),"globe");
+			}
 			try {
 				$recs = array_merge($recs, $this->api->dns->get->recordsByAddress($intAddr->get_address()));
 			}

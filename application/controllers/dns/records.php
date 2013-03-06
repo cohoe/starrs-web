@@ -19,7 +19,11 @@ class Records extends DnsController {
 				try {
 					$intAddrs = $this->api->systems->get->interfaceaddressesBySystem($sys->get_system_name());
 					foreach($intAddrs as $intAddr) {
-						$this->_addSidebarItem($intAddr->get_address()." ({$sys->get_system_name()})","/dns/records/view/".rawurlencode($intAddr->get_address()),"globe");
+						if($intAddr->get_dynamic() == 'f') {
+							$this->_addSidebarItem($intAddr->get_address()." ({$sys->get_system_name()})","/dns/records/view/".rawurlencode($intAddr->get_address()),"globe");
+						} else {
+							$this->_addSidebarItem("Dynamic ({$sys->get_system_name()})","/dns/records/view/".rawurlencode($intAddr->get_address()),"globe");
+						}
 					}
 				}
 				catch (ObjectNotFoundException $e) {}
@@ -49,7 +53,11 @@ class Records extends DnsController {
 		$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_system_name()));
 		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 		$this->_addTrail("Addresses","/addresses/view/".rawurlencode($int->get_mac()));
-		$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
+		if($intAddr->get_dynamic() == 'f') {
+			$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
+		} else {
+			$this->_addTrail("Dynamic","/address/view/".rawurlencode($intAddr->get_address()));
+		}
 		$this->_addTrail("DNS Records","/dns/records/view/".rawurlencode($intAddr->get_address()));
 		
 		// Actions

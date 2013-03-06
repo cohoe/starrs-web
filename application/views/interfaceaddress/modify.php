@@ -1,6 +1,7 @@
 	<form method="POST" class="form-horizontal well span9" id="modify-form">
 		<fieldset>
 			<legend>Modify Address</legend>
+			<?if($intAddr->get_dynamic() == 'f') {?>
 			<div class="control-group">
 				<label class="control-label">Range: </label>
 				<div class="controls">
@@ -25,6 +26,9 @@
 				</div>
 			</div>
 			<hr />
+			<?} else {?>
+					<input type="hidden" name="address" value="<?=htmlentities($intAddr->get_address());?>" />
+			<?}?>
 			<div class="control-group">
 				<label class="control-label">Interface: </label>
 				<div class="controls">

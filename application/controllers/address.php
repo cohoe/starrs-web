@@ -27,7 +27,11 @@ class Address extends ImpulseController {
 		$this->_addTrail("Interfaces","/interfaces/view/{$int->get_system_name()}");
 		$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 		$this->_addTrail("Addresses","/addresses/view/".rawurlencode($int->get_mac()));
-		$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
+		if($intAddr->get_dynamic() == 't') {
+			$this->_addTrail("Dynamic","/address/view/".rawurlencode($intAddr->get_address()));
+		} else {
+			$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
+		}
 
 		// Actions
 		$this->_addAction('Modify',"/address/modify/".rawurlencode($intAddr->get_address()));
@@ -180,7 +184,11 @@ class Address extends ImpulseController {
 			$this->_addTrail("Interfaces","/interfaces/view/".rawurlencode($int->get_system_name()));
 			$this->_addTrail($int->get_mac(),"/interface/view/".rawurlencode($int->get_mac()));
 			$this->_addTrail("Addresses","/addresses/view/".rawurlencode($int->get_mac()));
-			$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
+			if($intAddr->get_dynamic() == 't') {
+				$this->_addTrail("Dynamic","/address/view/".rawurlencode($intAddr->get_address()));
+			} else {
+				$this->_addTrail($intAddr->get_address(),"/address/view/".rawurlencode($intAddr->get_address()));
+			}
 
 			// View Data
 			$viewData['intAddr'] = $intAddr;
