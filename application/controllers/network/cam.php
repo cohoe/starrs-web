@@ -35,8 +35,13 @@ class Cam extends ImpulseController {
 		// Instantiate
 		try {
 			$sys = $this->api->systems->get->systemByName($system);
+		}
+		catch(Exception $e) { $this->_exit($e); return; }
+
+		try {
 			$systems = $this->api->systems->get->systemsByFamily('Network',$this->user->getActiveUser());
 		}
+		catch(ObjectNotFoundException $e) { $systems = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		try {

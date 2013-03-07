@@ -23,9 +23,14 @@ class Subnetcontroller extends ImpulseController {
 		// Instantiate
 		try {
 			$snet = $this->api->ip->get->subnet($subnet);
-			$snets = $this->api->ip->get->subnets();
 			$stat = $this->api->ip->get->subnetStats($snet->get_subnet());
 		}
+		catch(Exception $e) { $this->_exit($e); return; }
+	
+		try {
+			$snets = $this->api->ip->get->subnets($this->user->getActiveUser());
+		}
+		catch(ObjectNotFoundException $e) { $snets = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
 		// Trail
