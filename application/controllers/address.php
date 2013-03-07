@@ -113,11 +113,14 @@ class Address extends ImpulseController {
 			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveuser());
 			foreach($systems as $sys) {
 				try {
-					$viewData['ints'] = array_merge($viewData['ints'],$this->api->systems->get->interfacesBySystem($sys->get_system_name()));
+					if($sys->get_system_name() != $int->get_system_name()) {
+						$viewData['ints'] = array_merge($viewData['ints'],$this->api->systems->get->interfacesBySystem($sys->get_system_name()));
+					}
 				}
 				catch(ObjectNotFoundException $e) {}
 				catch(Exception $e) { $this->_exit($e); return; }
 			}
+
 
 			// Content
 			$content = $this->load->view('interfaceaddress/create',$viewData,true);
