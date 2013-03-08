@@ -1,6 +1,8 @@
 <div class="span12">
 	<div class="hero-unit">
-		<h1>STARRS</h1>
+		<h1>
+		<img class="imp-logo" src="/img/logo.png" />
+		STARRS</h1>
 		<h2>System Technology Accounting and Resource Registration Solution</h2>
 	</div>
 	<div class="row-fluid">

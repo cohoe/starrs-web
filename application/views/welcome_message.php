@@ -6,8 +6,6 @@
 		<p>STARRS lets you manage and allocate network resources in very complex configurations. Manage your systems, interfaces, addresses, and DNS records easily without having to pester your local system administrators.
 		-->
 		<h1>
-		<!--<img src="http://www.alumnifidelity.com/photos/0001/5735/CSH_reg.JPG" style="height: 60px; margin-bottom: 6px;" ></img>-->
-		<!--<img src="http://studentfii.ro/wp-content/uploads/2011/03/800px-RSA_Security_logo.svg_.png" style="height: 60px; margin-bottom: 6px;" ></img>-->
 		<img class="imp-logo" src="/img/logo.png" />
 		STARRS</h1>
 		<h2>System Technology Accounting and Resource Registration Solution</h2>
