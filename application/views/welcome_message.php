@@ -1,12 +1,9 @@
 <div class="span12">
 	<div class="hero-unit">
-		<!--
-		<h1>STARRS</h1>
-		<h2>IP Management Program for Use in Local Server Environments</h2>
-		<p>STARRS lets you manage and allocate network resources in very complex configurations. Manage your systems, interfaces, addresses, and DNS records easily without having to pester your local system administrators.
-		-->
 		<h1>
-		<img class="imp-logo" src="/img/logo.png" />
+		<?if(file_exists("img/logo.png")) {?>
+			<img class="imp-logo" src="/img/logo.png" />
+		<?}?>
 		STARRS</h1>
 		<h2>System Technology Accounting and Resource Registration Solution</h2>
 		<p>STARRS (the successor to the IMPULSE project) lets you manage and allocate network resources in numberous complex configurations across your entire organization. Manage systems, interfaces, IP addresses, and DNS records easily without needing to constantly ask your local IT administrators. 
