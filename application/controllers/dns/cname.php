@@ -95,6 +95,7 @@ class Cname extends DnsController {
 			$cRec = $this->api->dns->get->cname($zone, $alias);
 			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+			$systems[] = $this->api->systems->get->systemByAddress($cRec->get_address());
 			foreach($systems as $sys) {
 				try {
 					$aRecs= array_merge($aRecs, $this->api->dns->get->addressesBySystem($sys->get_system_name()));

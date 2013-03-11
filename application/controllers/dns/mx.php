@@ -95,6 +95,7 @@ class Mx extends DnsController {
 			$mRec = $this->api->dns->get->mx($zone, $preference);
 			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+			$systems[] = $this->api->systems->get->systemByAddress($mRec->get_address());
 			foreach($systems as $sys) {
 				try {
 					$aRecs = array_merge($aRecs, $this->api->dns->get->addressesBySystem($sys->get_system_name()));

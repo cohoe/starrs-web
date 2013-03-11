@@ -97,6 +97,7 @@ class Txt extends DnsController {
 			$aRecs = $this->api->dns->get->addressesByAddress($tRec->get_address());
 			$zones = $this->api->dns->get->zonesByUser($this->user->getActiveUser());
 			$systems = $this->api->systems->get->systemsByOwner($this->user->getActiveUser());
+			$systems[] = $this->api->systems->get->systemByAddress($tRec->get_address());
 			foreach($systems as $sys) {
 				try {
 					$intAddrs = array_merge($intAddrs, $this->api->systems->get->interfaceaddressesBySystem($sys->get_system_name()));

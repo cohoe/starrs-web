@@ -12,7 +12,11 @@
 				<select name="zone">
 					<?php
 					foreach($zones as $zone) {
-						print "<option value=\"".htmlentities($zone->get_zone())."\">".htmlentities($zone->get_zone())."</option>";
+						if($cRec->get_zone() == $zone->get_zone()) {
+							print "<option selected value=\"".htmlentities($zone->get_zone())."\">".htmlentities($zone->get_zone())."</option>";
+						} else {
+							print "<option value=\"".htmlentities($zone->get_zone())."\">".htmlentities($zone->get_zone())."</option>";
+						}
 					}
 					?>
 				</select>
