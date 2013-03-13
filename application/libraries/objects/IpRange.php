@@ -129,7 +129,11 @@ class IpRange extends ImpulseObject {
 	//
 
 	public function get_top_users() {
-		return $this->CI->api->ip->get->range_top_users($this->name);
+		try {
+			return $this->CI->api->ip->get->range_top_users($this->name);
+		}
+		catch(ObjectNotFoundException $e) { return array(); }
+		catch(Exception $e) { print "ERROR: Cannot get_top_users()"; }
 	}
     
 	////////////////////////////////////////////////////////////////////////
