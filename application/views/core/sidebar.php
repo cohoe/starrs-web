@@ -3,7 +3,7 @@
 		<ul class="nav nav-list">
 			<?php
 			foreach($items as $item) {
-				echo "<li><a href=\"{$item['link']}\">{$item['text']}</a></li>";
+				echo "<li><a href=\"{$item['link']}\">".htmlentities($item['text'])."</a></li>";
 			}
 			?>
 		</ul>

@@ -198,19 +198,19 @@ class ImpulseController extends CI_Controller {
 			$pre = "<li>";
 		}
 		if($icon) {
-			$this->sidebarItems .= "$pre<a href=\"$link\"><i class=\"icon-$icon icon-black\"></i> $text</a></li>";
+			$this->sidebarItems .= "$pre<a href=\"$link\"><i class=\"icon-$icon icon-black\"></i> ".htmlentities($text)."</a></li>";
 		}
 		else {
-			$this->sidebarItems .= "$pre<a href=\"$link\">$text</a></li>";
+			$this->sidebarItems .= "$pre<a href=\"$link\">".htmlentities($text)."</a></li>";
 		}
 	}
 
 	protected function _addSidebarHeader($text,$link=null) {
 		if($link) {
-			$this->sidebarItems .= "<li class=\"nav-header\"><a href=\"$link\">$text</a></li>";
+			$this->sidebarItems .= "<li class=\"nav-header\"><a href=\"$link\">".htmlentities($text)."</a></li>";
 		}	
 		else {
-			$this->sidebarItems .= "<li class=\"nav-header\">$text</li>";
+			$this->sidebarItems .= "<li class=\"nav-header\">".htmlentities($text)."</li>";
 		}
 	}
 

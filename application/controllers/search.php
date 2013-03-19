@@ -93,7 +93,7 @@ class Search extends ImpulseController {
 					   $result['availability_zone'] = "<a href=\"/availabilityzone/view/".rawurlencode($datacenter)."/".rawurlencode($result['availability_zone'])."\">{$result['availability_zone']}</a>";
 				}
 				if(isset($fields['system_name'])) {
-					$result['system_name'] = "<a href=\"/system/view/".rawurlencode($result['system_name'])."\">".htmlentities(substr($result['system_name'],0,30))."</a>";
+					$result['system_name'] = "<a href=\"/system/view/".rawurlencode($result['system_name'])."\">".htmlentities($result['system_name'])."</a>";
 				}
 				if(isset($fields['group'])) {
 					$result['group'] = "<a href=\"/group/view/".rawurlencode($result['group'])."\">{$result['group']}</a>";
