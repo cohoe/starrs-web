@@ -198,6 +198,8 @@ $('th').each(function() {
 });
 
 $('label').each(function() {
+	if($(this).attr('class') == 'checkbox') { return; }
+		
         var obj = $(this);
 
 	var name = obj.html();

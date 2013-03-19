@@ -63,7 +63,7 @@ class Api extends ImpulseModel {
 		$this->_check_error($query);
 	}
 	
-	public function search($searchArray) {
+	public function search($searchArray, $fields) {
 		// Build query string
 		$searchString = "WHERE system_name IS NOT NULL ";
 		if($searchArray['datacenter']) {
@@ -178,9 +178,18 @@ class Api extends ImpulseModel {
 		}
 
 		$searchString .= " ORDER BY system_owner ASC";
+
+		// Build fields
+		$field_query = "";
+		foreach($fields as $f) {
+			if($f != "") {
+				$field_query .= "\"$f\", ";
+			}
+		}
+		$field_query = preg_replace("/, $/","",$field_query);
 		
 		// SQL Query
-		$sql = "SELECT * FROM api.get_search_data() {$searchString}";
+		$sql = "SELECT DISTINCT $field_query FROM api.get_search_data() {$searchString}";
 		$query = $this->db->query($sql);
 		
 		// Check error

@@ -160,3 +160,71 @@
 			</div>
 		</fieldset>
 	</form>
+	<form method="POST" class="form-horizontal well span3" id="field-form">
+		<fieldset>
+			<legend>Fields</legend>
+			Select the fields that you wish to have displayed from the search results.
+			<div class="control-group">
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="datacenter" checked> Datacenter 
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="availability_zone" > Availablity Zone 
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="system_name" checked> System Name
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="location" > Location 
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="asset" > Asset 
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="group" > Group 
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="platform" > Platform 
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="mac" checked> MAC 
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="address" checked> Address
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="system_owner" checked> System Owner
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="system_last_modifier" > System Last Modifier
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="range" checked> Range
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="hostname" > Hostname
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="cname_alias" > CNAME
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="srv_alias" > SRV
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="zone" > DNS Zone
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="dns_owner" > DNS Owner
+        			</label>
+        			<label class="checkbox">
+            			<input name="fields" type="checkbox" value="dns_last_modifier" > DNS Last Modifier
+        			</label>
+				<br />
+					<ul class="unstyled inline">
+					<li><a id="f-all" href="#">Select all</a></li>
+					<li><a id="f-none" href="#">Select none</a></li>
+					<li><a id="f-def" href="#">Select default</a></li>
+					</ul>
+    			</div>
+		</fieldset>
+	</form>
