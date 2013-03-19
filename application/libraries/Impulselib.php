@@ -88,6 +88,7 @@ class Impulselib {
 		$this->tooltips['system']['Address'] = "The IP address that has been provisioned to you. This can be either IPv4 or IPv6.";
 		$this->tooltips['system']['Config'] = "The method that you receive your IP address. DHCP(v6) addresses will be handed out by the DHCP server. Static addresses must be configured by the user. Autoconf addresses are treated like static addresses in STARRS, but are not configured on the system by a user.";
 		$this->tooltips['system']['Zone'] = "The DNS domain name.";
+		$this->tooltips['system']['Location'] = "The physical location within the datacenter that your machine resides.";
 
 		$this->tooltips['addresses']['System Name'] = "The names of the systems that you own.";
 		$this->tooltips['addresses']['Addresses'] = "The IP addresses of the systems that you have registered.";

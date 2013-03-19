@@ -32,6 +32,7 @@ class Api_systems_get extends ImpulseModel {
 				$system['asset'],
 				$system['group'],
 				$system['datacenter'],
+				$system['location'],
 				$system['date_created'],
 				$system['date_modified'],
 				$system['last_modifier']				
@@ -69,6 +70,7 @@ class Api_systems_get extends ImpulseModel {
 				$system['asset'],
 				$system['group'],
 				$system['datacenter'],
+				$system['location'],
 				$system['date_created'],
 				$system['date_modified'],
 				$system['last_modifier']				
@@ -106,6 +108,7 @@ class Api_systems_get extends ImpulseModel {
 				$system['asset'],
 				$system['group'],
 				$system['datacenter'],
+				$system['location'],
 				$system['date_created'],
 				$system['date_modified'],
 				$system['last_modifier']				
@@ -139,6 +142,7 @@ class Api_systems_get extends ImpulseModel {
 				$system['asset'],
 				$system['group'],
 				$system['datacenter'],
+				$system['location'],
 				$system['date_created'],
 				$system['date_modified'],
 				$system['last_modifier']				
@@ -169,6 +173,7 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->asset,
 			$query->row()->group,
 			$query->row()->datacenter,
+			$query->row()->location,
 			$query->row()->syscdate,
 			$query->row()->sysmdate,
 			$query->row()->syslm
@@ -390,6 +395,7 @@ class Api_systems_get extends ImpulseModel {
 			$query->row()->asset,
 			$query->row()->group,
 			$query->row()->datacenter,
+			$query->row()->location,
 			$query->row()->date_created,
 			$query->row()->date_modified,
 			$query->row()->last_modifier

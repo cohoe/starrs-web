@@ -39,6 +39,12 @@
 					<input type="text" name="comment" />
 				</div>
 			</div>
+			<div class="control-group warning">	
+				<label class="control-label">Location: </label>
+				<div class="controls">
+					<input type="text" name="location" />
+				</div>
+			</div>
 			<div class="control-group warning">
 				<label class="control-label">Asset: </label>
 				<div class="controls">

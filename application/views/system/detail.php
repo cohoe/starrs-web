@@ -26,6 +26,8 @@
 				<dd><?=htmlentities($sys->get_last_modifier());?></dd>
 				<dt>Comment</dt>
 				<dd><?=htmlentities($sys->get_comment());?>&nbsp;</dd>
+				<dt>Location</dt>
+				<dd><?=htmlentities($sys->get_location());?>&nbsp;</dd>
 			</dl>
 		</div>
 		<div class="span5 well">

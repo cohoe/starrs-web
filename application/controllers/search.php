@@ -15,12 +15,12 @@ class Search extends ImpulseController {
 				$query = $this->api->search($this->input->post());
 			}
 			catch(Exception $e) { $this->_exit($e); return; }
-			$results[] = array("Datacenter","Availability Zone","System Name","Asset","Group","Platform","MAC","Address","Config","System Owner","System Last Modifier","Range","Hostname","CNAME","SRV","Zone","DNS Owner","DNS Last Modifier");
+			$results[] = array("Datacenter","Availability Zone","System Name","Location","Asset","Group","Platform","MAC","Address","Config","System Owner","System Last Modifier","Range","Hostname","CNAME","SRV","Zone","DNS Owner","DNS Last Modifier");
 			foreach($query->result_array() as $result) {
 				$datacenter = $result['datacenter'];
 				$result['datacenter'] = "<a href=\"/datacenter/view/".rawurlencode($result['datacenter'])."\">{$result['datacenter']}</a>";
 				$result['availability_zone'] = "<a href=\"/availabilityzone/view/".rawurlencode($datacenter)."/".rawurlencode($result['availability_zone'])."\">{$result['availability_zone']}</a>";
-				$result['system_name'] = "<a href=\"/system/view/".rawurlencode($result['system_name'])."\">{$result['system_name']}</a>";
+				$result['system_name'] = "<a href=\"/system/view/".rawurlencode($result['system_name'])."\">".htmlentities(substr($result['system_name'],0,30))."</a>";
 				$result['group'] = "<a href=\"/group/view/".rawurlencode($result['group'])."\">{$result['group']}</a>";
 				$result['mac'] = "<a href=\"/interface/view/".rawurlencode($result['mac'])."\">{$result['mac']}</a>";
 				$result['hostname'] = "<a href=\"/dns/records/view/".rawurlencode($result['address'])."\">{$result['hostname']}</a>";

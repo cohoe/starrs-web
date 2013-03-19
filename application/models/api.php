@@ -73,6 +73,15 @@ class Api extends ImpulseModel {
 				$searchString .= "AND datacenter ~* {$this->db->escape($searchArray['datacenter'])} ";
 			}
 		}
+		if($searchArray['location']) {
+			if($searchArray['location'] == 'null') {
+				$searchString .= "AND location IS NULL ";
+			} elseif($searchArray['location'] == 'not null') {
+		    		$searchString .= "AND location IS NOT NULL ";
+			} else {
+				$searchString .= "AND location ~* {$this->db->escape($searchArray['location'])} ";
+			}
+		}
 		if($searchArray['systemName']) {
 			if($searchArray['systemName'] == 'null') {
 				$searchString .= "AND system_name IS NULL ";

@@ -146,7 +146,8 @@ class ComputerSystem extends ImpulseController {
 					$this->_post('group'),
 					$this->_post('platform'),
 					$this->_post('asset'),
-					$this->_post('datacenter')
+					$this->_post('datacenter'),
+					$this->_post('location')
 				);
 				$this->_sendClient("/system/view/{$sys->get_system_name()}");
 			}
@@ -229,6 +230,10 @@ class ComputerSystem extends ImpulseController {
 	          }
 	          if($sys->get_asset() != $this->_post('asset')) {
 	               try { $sys->set_asset($this->_post('asset')); }
+	               catch (Exception $e) { $err[] = $e; }
+	          }
+	          if($sys->get_location() != $this->_post('location')) {
+	               try { $sys->set_location($this->_post('location')); }
 	               catch (Exception $e) { $err[] = $e; }
 	          }
 	
