@@ -28,9 +28,8 @@
 			<h2>Report a Problem</h2>
 			<p>STARRS is by no means perfect. If you find a problem, file a bug on the appropriate Github project:
 			<ul>
-				<li><a href="https://www.github.com/cohoe/impulse-web">Web Interface</a></li>
-				<li><a href="https://www.github.com/cohoe/impulse">DB/API</a></li>
-				<li><a href="https://www.github.com/ryansb/ish">Shell</a></li>
+				<li><a href="https://www.github.com/cohoe/starrs-web">Web Interface</a></li>
+				<li><a href="https://www.github.com/cohoe/starrs">DB/API</a></li>
 			</ul>
 		</div>
 	</div><!--/row-->
