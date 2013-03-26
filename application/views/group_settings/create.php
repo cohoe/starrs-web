@@ -48,7 +48,7 @@
 			<div class="control-group">
 				<label class="control-label">Password: </label>
 				<div class="controls">
-					<input type="text" name="password" />
+					<input type="password" name="password" />
 				</div>
 			</div>
 			<div class="control-group">	
