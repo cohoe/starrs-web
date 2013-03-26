@@ -65,7 +65,7 @@
 					$det = "<a href=\"/groupmember/view/".rawurlencode($gm->get_group())."/".rawurlencode($gm->get_user())."\"><button class=\"btn btn-mini btn-info\">Detail</button></a>";
 					$mod= "<a href=\"/groupmember/modify/".rawurlencode($gm->get_group())."/".rawurlencode($gm->get_user())."\"><button class=\"btn btn-mini btn-warning\">Modify</button></a>";
 					$rem = "<a href=\"/groupmember/remove/".rawurlencode($gm->get_group())."/".rawurlencode($gm->get_user())."\"><button class=\"btn btn-mini btn-danger\">Remove</button></a>";
-					print "<tr><td>".htmlentities($gm->get_user())."</td><td>".htmlentities($gm->get_privilege())."</td><td>$det $mod $rem</tr>";
+					print "<tr><td><a href=\"/users/view/".rawurlencode($gm->get_user())."\">".htmlentities($gm->get_user())."</a></td><td>".htmlentities($gm->get_privilege())."</td><td>$det $mod $rem</tr>";
 				}
 				?>
 			</table>
