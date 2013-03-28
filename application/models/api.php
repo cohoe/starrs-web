@@ -166,7 +166,7 @@ class Api extends ImpulseModel {
 			if($searchArray['owner'] == 'null') {
 				$searchString .= "AND system_owner IS NULL ";
 			} else {
-				$searchString .= "AND system_owner ~* {$this->db->escape($searchArray['owner'])} AND dns_owner = {$this->db->escape($searchArray['owner'])} ";
+				$searchString .= "AND system_owner ~* {$this->db->escape($searchArray['owner'])} OR dns_owner = {$this->db->escape($searchArray['owner'])} ";
 			}
 		}
 		if($searchArray['lastmodifier']) {
