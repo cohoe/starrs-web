@@ -31,7 +31,7 @@ class Groupcontroller extends ImpulseController {
 		}
 		catch(ObjectNotFoundException $e) { $gset = null; }
 		#catch(Exception $e) { $this->_exit($e); return; }
-		catch(Exception $e) { $gset = $e; }
+		catch(Exception $e) { $gset = null; }
 
 		try {
 			$gms = $this->api->get->groupMembers($g->get_group());
