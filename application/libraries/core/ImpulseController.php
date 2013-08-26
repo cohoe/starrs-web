@@ -146,8 +146,18 @@ class ImpulseController extends CI_Controller {
 		// Version
 		$version = read_file('version.txt');
 
+        $maint = $this->api->get->site_configuration('MAINTAINER');
+        if(!$maint) {
+            $maint = "Grant Cohoe";
+        }
+
+        $maint_url = $this->api->get->site_configuration('MAINTAINER_URL');
+        if(!$maint_url) {
+            $maint_url = "mailto:grant@grantcohoe.com?subject=STARRS@{$this->api->get->site_configuration('WEB_URL')}";
+        }
+
                 // Send the data to the browser		
-		$finalOut = $this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content,'scripts'=>$scripts,'version'=>$version),true);
+		$finalOut = $this->load->view('core/main',array('title'=>$title,'navbar'=>$navbar,'breadcrumb'=>$breadcrumb,'sidebar'=>$sidebar,'content'=>$content,'scripts'=>$scripts,'version'=>$version,'maint_url'=>$maint_url,'maint'=>$maint),true);
 
 		$this->output->set_output($finalOut);
 		return $finalOut;

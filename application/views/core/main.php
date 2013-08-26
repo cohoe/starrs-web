@@ -44,7 +44,13 @@
 			</div>
 			<hr>
 			<div class="footer">
-				<p>STARRS &copy; 2013 <a href="http://www.grantcohoe.com">Grant Cohoe</a><br>Version: <?=($version)?"<a href=\"https://github.com/cohoe/starrs-web/commit/$version\">$version</a>":"?"?></a></p>
+                <p>
+                Maintainer: <a href="<?=$maint_url?>"><?=$maint?></a>
+                <br>
+                Version: <?=($version)?"<a href=\"https://github.com/cohoe/starrs-web/commit/$version\">$version</a>":"?"?></a>
+                <br>
+				STARRS &copy; 2013 <a href="http://grantcohoe.com">Grant Cohoe</a>
+                </p>
 			</div>
 		</div>
 
