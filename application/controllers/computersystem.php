@@ -37,26 +37,26 @@ class ComputerSystem extends ImpulseController {
 		$this->_addTrail("$systemName","/system/view/".rawurlencode($systemName));
 
 		// Actions
-		if($sys->get_type() == 'Virtual Machine') {
-			try {
-				$hs = $this->api->libvirt->get->hosts($this->user->getActiveUser());
-				foreach($hs as $h) {
-					try {
-						$doms = $this->api->libvirt->get->domainsByHost($h->get_system_Name());
-						foreach($doms as $dom) {
-							if($dom->get_system_name() == $sys->get_system_name()) {
-								$this->_addAction("Manage","/libvirt/domain/view/".rawurlencode($dom->get_host_name())."/".rawurlencode($sys->get_system_name()),"primary");
-								break;
-							}
-						}
-					}
-					catch(ObjectNotFoundException $e) {}
-					catch(Exception $e) { $this->_error($e); return; }
-				}
-			}
-			catch(ObjectNotFoundException $e) {}
-			catch(Exception $e) { $this->_error($e); return; }
-		}
+#		if($sys->get_type() == 'Virtual Machine') {
+#			try {
+#				$hs = $this->api->libvirt->get->hosts($this->user->getActiveUser());
+#				foreach($hs as $h) {
+#					try {
+#						$doms = $this->api->libvirt->get->domainsByHost($h->get_system_Name());
+#						foreach($doms as $dom) {
+#							if($dom->get_system_name() == $sys->get_system_name()) {
+#								$this->_addAction("Manage","/libvirt/domain/view/".rawurlencode($dom->get_host_name())."/".rawurlencode($sys->get_system_name()),"primary");
+#								break;
+#							}
+#						}
+#					}
+#					catch(ObjectNotFoundException $e) {}
+#					catch(Exception $e) { $this->_error($e); return; }
+#				}
+#			}
+#			catch(ObjectNotFoundException $e) {}
+#			catch(Exception $e) { $this->_error($e); return; }
+#		}
 		$this->_addAction('Add Interface',"/interface/create/".rawurlencode($systemName),"success");
 		if($sys->get_family() == 'Network') {
 			$this->_addAction("CAM Table","/network/cam/view/".rawurlencode($systemName));
