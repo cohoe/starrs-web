@@ -195,11 +195,14 @@ class Api_ip_get extends ImpulseModel {
 	
 	public function range($name) {
         // SQL Query
+        // Because PHP is stupid, that's why.
+        $name = html_entity_decode($name);
 		$sql = "SELECT * FROM api.get_ip_ranges() WHERE name = {$this->db->escape($name)}";
 		$query = $this->db->query($sql);
 
         // Check error
         $this->_check_error($query);
+
 
 		if($query->num_rows() > 1) {
 			throw new AmbiguousTargetException("Multiple results returned by API. Contact your system administrator");

@@ -22,9 +22,11 @@ class Range extends ImpulseController {
 		// Instantiate
 		try {
 			$r = $this->api->ip->get->range($range);
+        print "lolz";
 			$stat = $this->api->ip->get->rangeStatsByName($r->get_name());
 		}
 		catch(Exception $e) { $this->_exit($e); return; }
+
 
 		// Trail
 		$this->_addTrail("Subnets","/ip/subnets/");
