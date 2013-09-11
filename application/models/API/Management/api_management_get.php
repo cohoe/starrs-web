@@ -149,6 +149,7 @@ class Api_management_get extends ImpulseModel {
 
 	public function group($group=null) {
 		// SQL
+        $group = html_entity_decode($group);
 		$sql = "SELECT * FROM api.get_groups() WHERE \"group\" = {$this->db->escape($group)}";
 		$query = $this->db->query($sql);
 

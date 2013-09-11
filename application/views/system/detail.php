@@ -13,7 +13,7 @@
 				<dt>Operating System</dt>
 				<dd><?=htmlentities($sys->get_os_name());?></dd>
 				<dt>Owner</dt>
-				<dd><?=htmlentities($sys->get_owner());?></dd>
+				<dd><a href="/users/view/<?=rawurlencode($sys->get_owner());?>"><?=htmlentities($sys->get_owner());?></a></dd>
 				<dt>Group</dt>
 				<dd><a href="/group/view/<?=rawurlencode($sys->get_group());?>"><?=htmlentities($sys->get_group());?></a>&nbsp</dd>
 				<dt>Asset</dt>
