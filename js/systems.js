@@ -48,6 +48,24 @@ $('.renew').click(function() {
 	return false;
 });
 
+$('.renewremove').unbind('click');
+$('.renewremove').click(function() {
+	$(this).addClass("disabled");
+    url = $(this).attr('href');
+	$('#modal-confirm-btn').attr('href',url);
+	$('#modal-confirm').modal('show');
+    $('#modal-confirm-btn').unbind('click');
+    $('#modal-confirm-btn').click(function() {
+        $('#modal-confirm').modal('hide');
+        console.log($(this).attr('href'));
+        $.post($(this).attr('href'),{confirm: "confirm"}, function(data) {
+            document.location.reload(true);
+        });
+        return false;
+    });
+	return false;
+});
+
 $('#action-renew').click(function() {
 	$(this).addClass("disabled");
 	$.get($(this).attr('href'),function(data) {
