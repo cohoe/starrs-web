@@ -34,7 +34,7 @@ class Platformcontroller extends ImpulseController {
 		$this->_addTrail($p->get_platform_name(),"/platform/view/".rawurlencode($p->get_platform_name()));
 
 		// Actions
-		$this->_addAction("Define","/platform/define/".rawurlencode($p->get_platform_name()));
+		#$this->_addAction("Define","/platform/define/".rawurlencode($p->get_platform_name()));
 		$this->_addAction("Modify","/platform/modify/".rawurlencode($p->get_platform_name()));
 		$this->_addAction("Remove","/platform/remove/".rawurlencode($p->get_platform_name()));
 

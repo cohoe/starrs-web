@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -95,6 +95,61 @@
 					</li>
 					<?}?>
 					<li <?=($header=='Search')?'class="active"':null;?>><a href="/search">Search</a></li>
+					<li class="dropdown <?=($header=='Help')?'active':null;?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+                            <li class="dropdown-submenu">
+                                <a href="#">Systems</a>
+                                <ul class="dropdown-menu">
+                                    <li <?=($sub=='Datacenters')?'class="active"':null;?>><a href="/help/systems/datacenters">Datacenters</a></li>
+                                    <li <?=($sub=='Availability Zones')?'class="active"':null;?>><a href="/help/systems/availabilityzones">Availability Zones</a></li>
+                                    <li <?=($sub=='Platforms')?'class="active"':null;?>><a href="/help/systems/platforms">Platforms</a></li>
+                                    <li <?=($sub=='Systems')?'class="active"':null;?>><a href="/help/systems/systems">Systems</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="#">DNS</a>
+                                <ul class="dropdown-menu">
+                                    <li <?=($sub=='Records')?'class="active"':null;?>><a href="/help/dns/records">Records</a></li>
+                                    <li <?=($sub=='Zones')?'class="active"':null;?>><a href="/help/dns/zones">Zones</a></li>
+                                    <li <?=($sub=='Keys')?'class="active"':null;?>><a href="/help/dns/keys">Keys</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="#">IP</a>
+                                <ul class="dropdown-menu">
+                                    <li <?=($sub=='Subnets')?'class="active"':null;?>><a href="/help/ip/subnets">Subnets</a></li>
+                                    <li <?=($sub=='Ranges')?'class="active"':null;?>><a href="/help/ip/ranges">Ranges</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="#">DHCP</a>
+                                <ul class="dropdown-menu">
+                                    <li <?=($sub=='Classes')?'class="active"':null;?>><a href="/help/dhcp/classes">Classes</a></li>
+                                    <li <?=($sub=='Global Options')?'class="active"':null;?>><a href="/help/dhcp/globaloptions">Global Options</a></li>
+                                    <li <?=($sub=='ISC-DHCPD')?'class="active"':null;?>><a href="/help/dhcp/isc-dhcpd">ISC-DHCPD</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="#">Management</a>
+                                <ul class="dropdown-menu">
+                                    <li <?=($sub=='Configuration')?'class="active"':null;?>><a href="/help/management/configuration">Configuration</a></li>
+                                    <li <?=($sub=='Groups')?'class="active"':null;?>><a href="/help/management/groups">Groups</a></li>
+                                    <li <?=($sub=='Users')?'class="active"':null;?>><a href="/help/management/users">Users</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a href="#">Network</a>
+                                <ul class="dropdown-menu">
+                                    <li <?=($sub=='SNMP')?'class="active"':null;?>><a href="/help/network/snmp">SNMP</a></li>
+                                    <li <?=($sub=='CAM Tables')?'class="active"':null;?>><a href="/help/network/camtables">CAM Tables</a></li>
+                                    <li <?=($sub=='VLANs')?'class="active"':null;?>><a href="/help/network/vlans">VLANs</a></li>
+                                    <li <?=($sub=='Switchports')?'class="active"':null;?>><a href="/help/network/switchports">Switchports</a></li>
+                                </ul>
+                            </li>
+                            <li <?=($sub=='Search')?'class="active"':null;?>><a href="/help/search/">Search</a></li>
+						</ul>
+					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

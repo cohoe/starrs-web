@@ -20,12 +20,4 @@
 	</dl>
 </div>
 </div>
-<div class="row-fluid">
-<div class="well">
-<h2>Definition</h2>
-<pre>
-<?=(isset($pl))?htmlentities($pl->get_definition()):null;?>
-</pre>
-</div>
-</div>
 </div>
