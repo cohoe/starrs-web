@@ -3,3 +3,4 @@ application/config/impulse.php
 img/logo.png
 git/*
 git
+version.txt
