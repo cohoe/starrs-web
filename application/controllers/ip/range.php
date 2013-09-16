@@ -61,9 +61,16 @@ class Range extends ImpulseController {
 		catch(ObjectNotFoundException $e) { $opts = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 
+        // Groups
+        try {
+            $gs = $this->api->ip->get->range_groups($r->get_name());
+        }
+        catch(ObjectNotFoundException $e) { $gs = array(); }
+        catch(Exception $e) { $this->_exit($e); return; }
+
 		// Content
 		$content = "<div class=span7>";
-		$content .= $this->load->view('ip/range/detail',array('r'=>$r,'stat'=>$stat),true);
+		$content .= $this->load->view('ip/range/detail',array('r'=>$r,'stat'=>$stat, 'gs'=>$gs),true);
 		$content .= $this->_renderOptionView($opts);
 		$content .= "</div>";
 

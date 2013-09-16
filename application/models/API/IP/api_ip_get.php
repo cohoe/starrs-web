@@ -374,6 +374,26 @@ class Api_ip_get extends ImpulseModel {
 
 		return $query->result_array();
 	}
+
+    public function range_groups($range) {
+        $sql = "SELECT * FROM api.get_range_groups({$this->db->escape($range)})";
+        $query = $this->db->query($sql);
+        $this->_check_error($query);
+        $resultSet = array();
+        foreach($query->result_array() as $group) {
+            $resultSet[] = new Group(
+                $group['group'],
+                $group['privilege'],
+                $group['comment'],
+                $group['renew_interval'],
+                $group['date_created'],
+                $group['date_modified'],
+                $group['last_modifier']
+            );
+        }
+
+        return $resultSet;
+    }
 }
 /* End of file api_ip_get.php */
 /* Location: ./application/models/API/IP/api_ip_get.php */

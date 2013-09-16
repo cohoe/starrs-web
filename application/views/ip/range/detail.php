@@ -58,3 +58,13 @@
 		<div id="chart_div" style="width: 100%"></div>
 	</div>
 </div>
+<div class="row-fluid">
+	<div class="well">
+		<h2>Groups</h2>
+        <ul>
+        <? foreach ($gs as $g) {
+            print "<li><a href=\"/group/view/".rawurlencode($g->get_group())."\">".htmlentities($g->get_group())."</a></li>";
+        }?>
+        </ul>
+    </div>
+</div>
