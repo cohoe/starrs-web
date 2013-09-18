@@ -45,19 +45,16 @@ class Vlancontroller extends ImpulseController {
 			}
 		}
 
-		$this->_addSidebarHeader("SUBNETS");
 		try {
 			$snets = $this->api->ip->get->subnetsByVlan($v->get_datacenter(), $v->get_vlan());
-			foreach($snets as $snet) {
-				$this->_addSidebarItem($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()),"tags");
-			}
 		}
-		catch(ObjectNotFoundException $e) {}
+		catch(ObjectNotFoundException $e) { $snets = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
 		
 
 		// Viewdata
 		$viewData['v'] = $v;
+        $viewData['snets'] = $snets;
 
 		// Content
 		$content = $this->load->view('vlan/detail',$viewData,true);
