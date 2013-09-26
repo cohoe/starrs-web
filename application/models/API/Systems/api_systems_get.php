@@ -155,6 +155,7 @@ class Api_systems_get extends ImpulseModel {
 
 	public function systemByName($name=null) {
 		//SQL Query
+        $name = html_entity_decode($name);
 		$sql = "SELECT *,sysdata.date_created as syscdate,sysdata.date_modified as sysmdate,sysdata.last_modifier as syslm FROM api.get_systems(null) AS sysdata JOIN api.get_system_types() as typedata ON sysdata.type = typedata.type WHERE system_name = {$this->db->escape($name)};";
 		$query = $this->db->query($sql);
 
