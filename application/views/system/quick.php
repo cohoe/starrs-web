@@ -43,7 +43,10 @@
 			<div class="control-group">	
 				<label class="control-label">Config: </label>
 				<div class="controls">
-					<select name="config">
+                    <?if($random) {?>
+                    <input type="hidden" name="config" value="static" />
+                    <?}?>
+					<select name="config" <?=($random)?"disabled":""?>>
 						<?php
 						foreach($configs as $c) {
 							print "<option>".htmlentities($c->get_config())."</option>";
@@ -53,9 +56,12 @@
 				</div>
 			</div>
 			<div class="control-group">
+                <?if($random) {?>
+                <input type="hidden" name="quickdns" value="<?=$dns;?>" />
+                <?}?>
 				<label class="control-label">Create DNS: </label>
 				<div class="controls">
-				<select name="quickdns">
+				<select name="quickdns" <?=($random)?"disabled":""?>>
 					<option <?=($dns=='yes'?"selected":"")?>>Yes</option>
 					<option <?=($dns=='no'?"selected":"")?>>No</option>
 				</select>
