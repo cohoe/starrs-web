@@ -30,9 +30,10 @@ class Subnets extends ImpulseController {
 		$this->_addAction("Create","/ip/subnet/create");
 
 		// Content
-		$this->_addSidebarHeader("SUBNETS");
+		$this->_addSidebarHeader("SUBNETS (# IPs Free)");
 		foreach($snets as $snet) {
-			$this->_addSidebarItem($snet->get_subnet(),"/ip/subnet/view/".rawurlencode($snet->get_subnet()),"tags");
+            $stat = $this->api->ip->get->subnetStats($snet->get_subnet());
+			$this->_addSidebarItem($snet->get_subnet()." (".$stat->free.")","/ip/subnet/view/".rawurlencode($snet->get_subnet()),"tags");
 		}
 
 		$content = $this->load->view('ip/subnet/information',null,true);

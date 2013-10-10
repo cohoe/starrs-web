@@ -68,12 +68,13 @@ class Subnetcontroller extends ImpulseController {
 		$content .= "</div>";
 
 		// Sidebar
-		$this->_addSidebarHeader("SUBNETS");
+		$this->_addSidebarHeader("SUBNETS (# IPs FREE)");
 		foreach($snets as $sn) {
+            $stat = $this->api->ip->get->subnetStats($sn->get_subnet());
 			if($sn->get_subnet() == $snet->get_subnet()) {
-				$this->_addSidebarItem($sn->get_subnet(),"/ip/subnet/view/".rawurlencode($sn->get_subnet()),"tags",1);
+				$this->_addSidebarItem($sn->get_subnet()." (".$stat->free.")","/ip/subnet/view/".rawurlencode($sn->get_subnet()),"tags",1);
 			} else {
-				$this->_addSidebarItem($sn->get_subnet(),"/ip/subnet/view/".rawurlencode($sn->get_subnet()),"tags");
+				$this->_addSidebarItem($sn->get_subnet()." (".$stat->free.")","/ip/subnet/view/".rawurlencode($sn->get_subnet()),"tags");
 			}
 		}
 
