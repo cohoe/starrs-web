@@ -28,7 +28,7 @@
                               <option selected></option>
                               <?php
                               foreach($ranges as $range) {
-                                   print "<option value=\"".htmlentities($range->get_name())."\">".htmlentities($range->get_name())." (".htmlentities($range->get_zone()).")</option>";
+                                   print "<option value=\"".htmlentities($range->get_name())."\">".htmlentities($range->get_name())." (".htmlentities($range->get_datacenter())."::".htmlentities($range->get_zone()).")</option>";
                               }
                               ?>
                          </select>

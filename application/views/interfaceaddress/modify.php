@@ -9,10 +9,10 @@
 						<?php
 						foreach($ranges as $range) {
 							if($range->get_name() == $intAddr->get_range()) {
-								print "<option value=\"".htmlentities($range->get_name())."\" selected>".htmlentities($range->get_name())."</option>";
+								print "<option value=\"".htmlentities($range->get_name())."\" selected>".htmlentities($range->get_name())." (".htmlentities($range->get_datacenter())."::".htmlentities($range->get_zone()).")</option>";
 							}
 							else {
-								print "<option value=\"".htmlentities($range->get_name())."\">".htmlentities($range->get_name())."</option>";
+								print "<option value=\"".htmlentities($range->get_name())."\">".htmlentities($range->get_name())." (".htmlentities($range->get_datacenter())."::".htmlentities($range->get_zone()).")</option>";
 							}
 						}
 						?>
