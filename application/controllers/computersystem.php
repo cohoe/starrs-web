@@ -172,6 +172,7 @@ class ComputerSystem extends ImpulseController {
 			}
 			if($this->user->isadmin()) {
 				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
+                $viewData['default_owner'] = $this->user->getActiveUser();
 			} else {
 				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_USER_GROUP'))->get_group();
 			}
@@ -312,6 +313,7 @@ class ComputerSystem extends ImpulseController {
 		$this->_setSubHeader("Quick Create");
 		$this->_addTrail("Systems","/systems/view");
 		$viewData['user'] = $this->user;
+        $viewData['default_owner'] = $this->user->getActiveUser();
 		try {
 			$viewData['ranges'] = $this->api->ip->get->rangesByUser($this->user->getActiveUser());
 		}
@@ -335,6 +337,7 @@ class ComputerSystem extends ImpulseController {
 		if($this->user->isadmin()) {
 			try {
 				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
+                $viewData['default_owner'] = $this->user->getActiveUser();
 			}
 			catch(ObjectNotFoundException $e) { $viewData['default_group'] = null; }
 			catch(Exception $e) { $this->_exit($e); return; }
