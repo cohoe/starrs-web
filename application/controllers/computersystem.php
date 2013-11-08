@@ -167,6 +167,8 @@ class ComputerSystem extends ImpulseController {
 			$viewData['platforms'] = $this->api->systems->get->platforms();
 			if(($this->user->getActiveUser() == $this->user->get_user_name()) && $this->user->isAdmin()) {
 				$viewData['groups'] = $this->api->get->groups();
+            } else if ($this->user->getActiveUser() == 'All' && $this->user->isAdmin()) {
+                $viewData['groups'] = $this->api->get->groups();
 			} else {
 				$viewData['groups'] = $this->api->get->userGroups($this->user->getActiveUser());
 			}
@@ -328,6 +330,8 @@ class ComputerSystem extends ImpulseController {
 		try {
 			if(($this->user->getActiveUser() == $this->user->get_user_name()) && $this->user->isAdmin()) {
 				$viewData['groups'] = $this->api->get->groups();
+            } else if ($this->user->getActiveUser() == 'all' && $this->user->isAdmin()) {
+                $viewData['groups'] = $this->api->get->groups();
 			} else {
 				$viewData['groups'] = $this->api->get->userGroups($this->user->getActiveUser());
 			}
@@ -337,7 +341,11 @@ class ComputerSystem extends ImpulseController {
 		if($this->user->isadmin()) {
 			try {
 				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
-                $viewData['default_owner'] = $this->user->getActiveUser();
+                if ($this->user->getActiveUser() == 'all') {
+                    $viewData['default_owner'] = $this->user->get_user_name();
+                } else {
+                    $viewData['default_owner'] = $this->user->getActiveUser();
+                }
 			}
 			catch(ObjectNotFoundException $e) { $viewData['default_group'] = null; }
 			catch(Exception $e) { $this->_exit($e); return; }
