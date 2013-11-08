@@ -101,6 +101,7 @@ class InterfaceController extends ImpulseController {
 			}
 			catch (ObjectNotFoundException $e) {}
 			catch (Exception $e) { $this->_exit($e); return; }
+            $viewData['random'] = $this->api->get->site_configuration('ALLOW_RANDOM_MAC');
 
 			// Content
 			$content = $this->load->view('interface/create',$viewData,true);
