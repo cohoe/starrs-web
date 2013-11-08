@@ -165,13 +165,16 @@ class ComputerSystem extends ImpulseController {
 			$viewData['operatingSystems'] = $this->api->systems->get->operatingSystems();
 			$viewData['user'] = $this->user;
 			$viewData['platforms'] = $this->api->systems->get->platforms();
-			if(($this->user->getActiveUser() == $this->user->get_user_name()) && $this->user->isAdmin()) {
-				$viewData['groups'] = $this->api->get->groups();
-            } else if ($this->user->getActiveUser() == 'All' && $this->user->isAdmin()) {
-                $viewData['groups'] = $this->api->get->groups();
-			} else {
-				$viewData['groups'] = $this->api->get->userGroups($this->user->getActiveUser());
-			}
+            try {
+                if(($this->user->getActiveUser() == $this->user->get_user_name()) && $this->user->isAdmin()) {
+                    $viewData['groups'] = $this->api->get->groups();
+                } else if ($this->user->getActiveUser() == 'all' && $this->user->isAdmin()) {
+                    $viewData['groups'] = $this->api->get->groups();
+                } else {
+                    $viewData['groups'] = $this->api->get->userGroups($this->user->getActiveUser());
+                }
+            }
+            catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No groups found! Configure at least one group before attempting to create a system")); return; }
 			if($this->user->isadmin()) {
 				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
                 $viewData['default_owner'] = $this->user->getActiveUser();
