@@ -320,7 +320,11 @@ class ComputerSystem extends ImpulseController {
 		$viewData['user'] = $this->user;
         $viewData['default_owner'] = $this->user->getActiveUser();
 		try {
-			$viewData['ranges'] = $this->api->ip->get->rangesByUser($this->user->getActiveUser());
+            if ($this->user->getActiveUser() == "all" && $this->user->isAdmin()) {
+                $viewData['ranges'] = $this->api->ip->get->ranges();
+            } else {
+    			$viewData['ranges'] = $this->api->ip->get->rangesByUser($this->user->getActiveUser());
+            }
 		}
 		catch(ObjectNotFoundException $e) { $viewData['ranges'] = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }
