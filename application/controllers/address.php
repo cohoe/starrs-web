@@ -43,6 +43,13 @@ class Address extends ImpulseController {
 		$viewData['intAddr'] = $intAddr;
 		$viewData['state'] = $this->api->ip->ping($intAddr->get_address());
 
+        // Range
+        try {
+            $viewData['range'] = $this->api->ip->get->address_range($intAddr->get_address());
+        }
+        catch (ObjectNotFoundException $e) { }
+        catch (Exception $e) { $this->_exit($e); return; }
+
 		// Content
 		$content = $this->load->view('interfaceaddress/detail',$viewData,true);
 

@@ -5,6 +5,8 @@
 <h2>Dynamic</h2>
 <?}?>
 	<dl class="dl-horizontal">
+        <dt>IP Range</dt>
+        <dd><?=($range)?"<a href=\"/ip/range/view/".rawurlencode($range)."\">$range</a>":"None";?></dd>
 		<dt>Primary</dt>
 		<dd><?=($intAddr->get_isprimary()=='t')?"Yes":"No";?></dd>
 		<dt>MAC</dt>
