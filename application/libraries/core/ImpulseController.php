@@ -315,6 +315,10 @@ class ImpulseController extends CI_Controller {
 	}
 
 	protected function _postToNull($var) {
+        // Frakin 0s
+        if($_POST[$var] == '0') {
+            return "0";
+        }
 		if(!$this->input->post($var)) {
 			return null;
 		}
