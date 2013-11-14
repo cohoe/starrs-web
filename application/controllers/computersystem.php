@@ -174,7 +174,14 @@ class ComputerSystem extends ImpulseController {
                     $viewData['groups'] = $this->api->get->userGroups($this->user->getActiveUser());
                 }
             }
-            catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No groups found! Configure at least one group before attempting to create a system")); return; }
+            catch(ObjectNotFoundException $e) { 
+                if(($this->user->getActiveUser() != $this->user->get_user_name()) && $this->user->isAdmin()) {
+                    $viewData['groups'] = $this->api->get->groups();
+                } else {
+                    $this->_exit(new Exception("No groups found! You must be a member of at least one group before attempting to create a system. Contact your local system administrator.")); 
+                    return; 
+                }
+            }
 			if($this->user->isadmin()) {
 				$viewData['default_group'] = $this->api->get->group($this->api->get->site_configuration('DEFAULT_LOCAL_ADMIN_GROUP'))->get_group();
                 $viewData['default_owner'] = $this->user->getActiveUser();
@@ -343,7 +350,14 @@ class ComputerSystem extends ImpulseController {
 				$viewData['groups'] = $this->api->get->userGroups($this->user->getActiveUser());
 			}
 		}
-		catch(ObjectNotFoundException $e) { $this->_exit(new Exception("No groups found! Configure at least one group before attempting to create a system")); return; }
+        catch(ObjectNotFoundException $e) { 
+            if(($this->user->getActiveUser() != $this->user->get_user_name()) && $this->user->isAdmin()) {
+                $viewData['groups'] = $this->api->get->groups();
+            } else {
+                $this->_exit(new Exception("No groups found! You must be a member of at least one group before attempting to create a system. Contact your local system administrator.")); 
+                return; 
+            }
+        }
 		catch(Exception $e) { $this->_exit($e); return; }
 		if($this->user->isadmin()) {
 			try {
