@@ -29,7 +29,7 @@ class Availabilityzonecontroller extends ImpulseController {
 		// Sidebar
 		$this->_addSidebarHeader("IP RANGES");
 		try {
-			$rs = $this->api->ip->get->rangesByZone($az->get_zone());
+			$rs = $this->api->ip->get->rangesByZone($az->get_datacenter(), $az->get_zone());
 		}
 		catch(ObjectNotFoundException $e) { $rs = array(); }
 		catch(Exception $e) { $this->_exit($e); return; }

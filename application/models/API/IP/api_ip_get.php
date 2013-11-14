@@ -162,9 +162,9 @@ class Api_ip_get extends ImpulseModel {
 	   return $resultSet;
 	}
 
-	public function rangesByZone($zone=null) {
+	public function rangesByZone($datacenter=null, $zone=null) {
 		// SQL
-		$sql = "SELECT * FROM api.get_ip_ranges() WHERE zone = {$this->db->escape($zone)} ORDER BY first_ip";
+		$sql = "SELECT * FROM api.get_ip_ranges() WHERE datacenter = {$this->db->escape($datacenter)} AND zone = {$this->db->escape($zone)} ORDER BY first_ip";
 		$query = $this->db->query($sql);
 
         // Check error
