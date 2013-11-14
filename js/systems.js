@@ -120,6 +120,11 @@ $('#random-mac').click(function() {
 	return false;
 });
 
+$('#me-button').click(function() {
+    $('[name=owner]').val($('[name=username]').val());
+    return false;
+});
+
 $('[name=quickdns]').change(function() {
 	if($('[name=quickdns]').val() == 'Yes') {
 		$('[name=zone]').attr('readonly',null);
