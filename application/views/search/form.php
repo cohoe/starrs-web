@@ -190,9 +190,6 @@
             			<input name="fields" type="checkbox" value="mac" checked> MAC 
         			</label>
         			<label class="checkbox">
-            			<input name="fields" type="checkbox" value="address" checked> Address
-        			</label>
-        			<label class="checkbox">
             			<input name="fields" type="checkbox" value="system_owner" checked> System Owner
         			</label>
         			<label class="checkbox">

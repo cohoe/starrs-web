@@ -14,6 +14,8 @@ class Search extends ImpulseController {
 		if($this->input->post()) {
 			$fieldlist = str_replace("&","",$_POST['fields']);
 			$fields = explode("fields=", $fieldlist);
+            // Address field is required
+            $fields['address'] = 'address';
 			try {
 				$query = $this->api->search($this->input->post(), $fields);
 			}
@@ -82,6 +84,7 @@ class Search extends ImpulseController {
 						break;
 				}
 			}
+
 			// Add fields to the top of the table
 			$results[] = array($fs);
 			foreach($query->result_array() as $result) {
